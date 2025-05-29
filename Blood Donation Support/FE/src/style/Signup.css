@@ -1,0 +1,143 @@
+.signupUnique-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fc5c7d, #6a82fb);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .signupUnique-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+    filter: brightness(0.3) blur(5px);
+    z-index: 0;
+  }
+  
+  .signupUnique-form {
+    position: relative;
+    background: rgba(255 255 255 / 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgb(106 130 251 / 0.45);
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 480px;
+    color: #fff;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    animation: fadeInUp 1s ease forwards;
+  }
+  
+  .signupUnique-title {
+    font-weight: 900;
+    font-size: 2.8rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 32px;
+    text-align: center;
+    text-shadow: 0 4px 8px rgb(106 130 251 / 0.7);
+  }
+  
+  .signupUnique-label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #d0d6ffcc;
+    letter-spacing: 0.04em;
+  }
+  
+  .signupUnique-input {
+    padding: 16px 20px;
+    border-radius: 16px;
+    border: none;
+    background: rgba(255 255 255 / 0.15);
+    color: #eef0f7;
+    font-size: 1.15rem;
+    margin-bottom: 28px;
+    box-shadow: inset 0 0 10px rgb(255 255 255 / 0.25);
+    transition:
+      background-color 0.4s ease,
+      box-shadow 0.4s ease,
+      color 0.3s ease;
+    outline-offset: 2px;
+  }
+  
+  .signupUnique-input::placeholder {
+    color: #dde1ffcc;
+    font-style: italic;
+  }
+  
+  .signupUnique-input:focus {
+    background: rgba(255 255 255 / 0.35);
+    box-shadow:
+      inset 0 0 20px #6a82fbcc,
+      0 0 10px #6a82fbcc;
+    color: #fff;
+    outline: none;
+  }
+  
+  .signupUnique-submit {
+    margin-top: 12px;
+    padding: 18px 0;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 1.25rem;
+    background: linear-gradient(45deg, #fc5c7d, #6a82fb);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgb(252 92 125 / 0.75);
+    transition:
+      background 0.4s ease,
+      box-shadow 0.4s ease,
+      transform 0.2s ease;
+  }
+  
+  .signupUnique-submit:hover {
+    background: linear-gradient(45deg, #f74768, #5a6ae6);
+    box-shadow: 0 12px 40px rgb(90 106 230 / 0.85);
+    transform: scale(1.05);
+  }
+  
+  .signupUnique-submit:active {
+    transform: scale(0.95);
+    box-shadow: 0 6px 18px rgb(252 92 125 / 0.9);
+  }
+  
+  /* Animation fadeInUp */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive */
+  @media (max-width: 480px) {
+    .signupUnique-form {
+      padding: 36px 28px;
+    }
+  
+    .signupUnique-title {
+      font-size: 2rem;
+    }
+  
+    .signupUnique-input {
+      font-size: 1rem;
+    }
+  
+    .signupUnique-submit {
+      font-size: 1.1rem;
+    }
+  }
+  
