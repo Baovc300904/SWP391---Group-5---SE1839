@@ -1,0 +1,90 @@
+/* Khung tổng thể */
+.signupUnique-form {
+  max-width: 400px;
+  padding: 20px 40px;
+  background: #fff;
+  height: auto;
+  margin: auto;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+  transition: 0.3s;
+  position: relative;
+  z-index: 500;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Tiêu đề */
+.signupUnique-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Input field */
+.signupUnique-form input {
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.signupUnique-form input:focus {
+  border-color: #3f51b5;
+}
+
+/* Submit button */
+.signupUnique-submit {
+  background-color: #3f51b5;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.signupUnique-submit:hover {
+  background-color: #303f9f;
+}
+
+/* Divider: "hoặc" */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 10px;
+}
+
+.divider span {
+  flex: 1;
+  height: 1px;
+  background: #ccc;
+}
+
+.divider p {
+  margin: 0 10px;
+  color: #999;
+  font-size: 14px;
+}
+
+/* Link chuyển trang */
+.signupUnique-form p {
+  text-align: center;
+  font-size: 14px;
+}
+
+.signupUnique-form a {
+  color: #3f51b5;
+  text-decoration: none;
+}
+
+.signupUnique-form a:hover {
+  text-decoration: underline;
+}

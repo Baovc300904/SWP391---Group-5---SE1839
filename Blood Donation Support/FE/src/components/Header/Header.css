@@ -1,0 +1,74 @@
+
+  /* Header-nav */
+  .header-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 16px;
+    height: 100px;
+  }
+  
+  /* ======= LOGO + TITLE ======= */
+  .logo-title-container {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-left: 50px;
+    padding: 0;
+  }
+  
+  .logo img {
+    height: 70px;
+    width: 70px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+  
+  .title {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .title img {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+  }
+  
+  /* ======= LOGIN ======= */
+  .login-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 16px;
+    margin-left: auto;
+  }
+  
+  .login-button a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    color: white;
+    background-color: #d9534f;
+    user-select: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-button a:hover {
+    background-color: #4cae4c;
+  }
+  
+  .icon-user {
+    font-size: 18px;
+  }
+  
