@@ -79,6 +79,11 @@ export default function Login() {
             Chưa có tài khoản? <Link to="/signup">Đăng ký ngay</Link>
           </p>
         </div>
+        <div className="backHome-button">
+          <Link to="/" className="backHome-link">
+            <button className="backHome-btn">Quay về trang chủ</button>
+          </Link>
+        </div>
       </div>
     </div>
   );

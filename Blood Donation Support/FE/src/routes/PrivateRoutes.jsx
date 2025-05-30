@@ -1,12 +1,13 @@
 import React from 'react';
-import { Route, Routes } from 'react-router';    
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
-export default function PrivateRoutes({ userRole, allowedRoles, children }){
-    
-    if (!allowedRoles.includes(userRole)) {
+export default function PrivateRoutes({ userRole, allowedRoles, children }) {
+  const location = useLocation();
+
+  if (!allowedRoles.includes(userRole)) {
     alert('Bạn không có quyền truy cập trang này!');
-    return <Navigate to="/login" replace />;
-    }
-    return children;
-}   
+    return <Navigate to="/login" replace state={{ from: location }} />;
+  }
+
+  return children;
+}
