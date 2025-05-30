@@ -1,17 +1,17 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';    
-import Home from '../pages/Home';
-import Contact from '../pages/Contact';
-import About from '../pages/About';
-import DashBoard from '../pages/DashBoard';
-import DashBoardHome from '../pages/DashBoardHome';
-import DashBoardSettings from '../pages/DashBoardSettings';
+import Home from '../components/Home/Home.jsx';
+import Contact from '../components/Contacts/Contact';
+import About from '../components/Abouts/About';
+import DashBoard from '../Staffs/DashBoard';
+import DashBoardHome from '../Staffs/DashBoardHome';
+import DashBoardSettings from '../Staffs/DashBoardSettings';
 import NotFound from '../pages/NotFound';
-import Login from '../pages/Login';
-import Signup from '../pages/Signup';
-import Services from '../pages/Services';
-import News from '../pages/News';
-import QA from '../pages/QA';
+import Login from '../components/Logins/Login.jsx';
+import Signup from '../components/Registers/Signup';
+import Services from '../components/Service/Services';
+import News from '../components/News/News';
+import QA from '../components/QA/QA';
 
 export default function AppRoutes() {
   return (

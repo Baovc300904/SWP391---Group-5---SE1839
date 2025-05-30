@@ -2,18 +2,20 @@ import React, { useState, useRef, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer} from 'recharts';
 import { DateRange } from 'react-date-range';
 import Slider from 'react-slick';
-import '../style/Home.css';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css';
 import { FaCalendarAlt } from 'react-icons/fa';
+import './Home.css';
 
-import slide1 from '../assets/demologo.png';
-import slide2 from '../assets/demologo.png';
-import slide3 from '../assets/demologo.png';
-import post1 from '../assets/demologo.png';
-import post2 from '../assets/demologo.png';
+import slide1 from "../../assets/demologo.png";
+import slide2 from "../../assets/demologo.png";
+import slide3 from "../../assets/demologo.png";
+import post1 from "../../assets/demologo.png";
+import post2 from "../../assets/demologo.png";
+import AppLayout from '../../Layouts/AppLayout';
+import Footer from '../Footers/Footer';
 
 function PostNotification({ newPosts, onClose }) {
   if (newPosts.length === 0) return null;
@@ -176,6 +178,9 @@ export default function Home() {
   ];
 
   return (
+    <>
+    <AppLayout />
+
     <div className="home-wrapper">
 
       {message && (
@@ -371,5 +376,7 @@ export default function Home() {
         <button className="btn-primary">Get Started</button>
       </section>
     </div>
+        <Footer />
+    </>
   );
 }

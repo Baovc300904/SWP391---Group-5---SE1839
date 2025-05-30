@@ -1,8 +1,13 @@
 import React from 'react';
-import '../style/Services.css'; // nhớ tạo CSS nếu muốn style đẹp hơn
+import './Services.css'; // nhớ tạo CSS nếu muốn style đẹp hơn
+
+import AppLayout from '../../Layouts/AppLayout';
+import Footer from '../Footers/Footer';
 
 export default function Services() {
   return (
+    <>
+    <AppLayout />
     <div className="services-container">
       <h1>Our Blood Donation Support Services</h1>
       <p className="intro">
@@ -39,5 +44,7 @@ export default function Services() {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }

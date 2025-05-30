@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/Footer.css';
+import './Footer.css';
 
 // Import icon từ react-icons
 import { FaFacebookF, FaInstagram, FaGithub, FaTwitter } from 'react-icons/fa';
@@ -32,7 +32,7 @@ export default function Footer() {
           <p>Address: 123 Medical Street, District 1, Ho Chi Minh City</p>
 
           {/* Thêm phần social icons */}
-          <div className="social-icons">
+          <div className="footer-social-icons">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
               <FaFacebookF />
             </a>

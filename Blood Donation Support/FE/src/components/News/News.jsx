@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import '../style/News.css';
+import './News.css';
+
+import AppLayout from '../../Layouts/AppLayout';
+import Footer from '../Footers/Footer';
 
 export default function News() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,6 +38,8 @@ export default function News() {
     };
 
     return (
+        <>
+        <AppLayout />
         <div className="news-container">
             <h1 className="news-title">Tin Tức</h1>
             <button onClick={handleLoginToggle} className="btn-toggle-login">
@@ -57,5 +62,8 @@ export default function News() {
                 ))}
             </div>
         </div>
+        <Footer />
+        </>
+        
     );
 }
