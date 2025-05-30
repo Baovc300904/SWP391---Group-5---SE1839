@@ -46,7 +46,7 @@ export default function Login() {
     <div className="login-banner-container">
       {/* Banner bên trái */}
       <div className="login-banner-left">
-        <img src="/login-banner.avif" alt="Login Banner" className="login-banner-image" />
+        <img src="/Banner-log.jpg" alt="Login Banner" className="login-banner-image" />
         <div className="login-banner-text">
           <h1>Welcome Back!</h1>
           <p>Đăng nhập để tiếp tục trải nghiệm hệ thống</p>

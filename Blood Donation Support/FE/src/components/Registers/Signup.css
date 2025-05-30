@@ -59,7 +59,10 @@
 .divider {
   display: flex;
   align-items: center;
-  margin: 20px 0 10px;
+  gap: 10px;
+  margin: 20px auto;      /* Thêm auto để căn giữa theo chiều ngang */
+  width: 100%;
+  max-width: 400px;
 }
 
 .divider span {

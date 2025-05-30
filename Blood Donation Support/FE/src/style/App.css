@@ -4,7 +4,6 @@ body, html {
   height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   scroll-behavior: smooth;
-  background: linear-gradient(135deg, #bf48b9, #0ad8c0);
   overflow-x: hidden;
   position: relative;
 }

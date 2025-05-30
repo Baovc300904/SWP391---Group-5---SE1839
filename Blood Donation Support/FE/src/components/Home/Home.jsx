@@ -1,382 +1,348 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer} from 'recharts';
-import { DateRange } from 'react-date-range';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css"; 
+import React, { useEffect, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import Button from "@/components/ui/button";
+import Input from "@/components/ui/input";
+import { Bell, PlusCircle } from "lucide-react";
+import { motion } from "framer-motion";
+import { format } from "date-fns";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import 'react-date-range/dist/styles.css'; 
-import 'react-date-range/dist/theme/default.css';
-import { FaCalendarAlt } from 'react-icons/fa';
-import './Home.css';
+import "./Home.css";
+import AppLayout from "../../Layouts/AppLayout";
+import Footer from "../Footers/Footer";
+{/* Import DateRangePicker */}
+import MyDateRangePicker from "./HomeSearchs/MyDateRangePicker";
 
-import slide1 from "../../assets/demologo.png";
-import slide2 from "../../assets/demologo.png";
-import slide3 from "../../assets/demologo.png";
-import post1 from "../../assets/demologo.png";
-import post2 from "../../assets/demologo.png";
-import AppLayout from '../../Layouts/AppLayout';
-import Footer from '../Footers/Footer';
+/* Import image cho slider */
+import slideshow1 from "../../assets/images/slideshows/slideshow1.png";
 
-function PostNotification({ newPosts, onClose }) {
-  if (newPosts.length === 0) return null;
+const Home = () => {
+  // State quản lý khoảng ngày được chọn (startDate, endDate)
+  const [dateRange, setDateRange] = useState(null);
 
-  return (
-    <div className="post-notification">
-      <h4>Có {newPosts.length} bài viết mới!</h4>
-      <ul>
-        {newPosts.map((post, idx) => (
-          <li key={idx}>{post.title}</li>
-        ))}
-      </ul>
-      <button onClick={onClose}>Đóng</button>
-    </div>
-  );
-}
+  // Dữ liệu bài viết gốc
+  const [posts, setPosts] = useState([]);
 
-function PostCard({ post }) {
-  return (
-    <div className="post-card">
-      {post.image && <img src={post.image} alt={post.title} />}
-      <div className="post-content">
-        <h3>{post.title}</h3>
-        {post.summary && <p>{post.summary}</p>}
-      </div>
-    </div>
-  );
-}
+  // Bài viết sau khi lọc theo tìm kiếm
+  const [filteredPosts, setFilteredPosts] = useState([]);
 
-export default function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: "Hành trình hiến máu cứu người",
-      summary: "Những hình ảnh đẹp tại Ngày hội Hiến máu tình nguyện \"Giọt hồng - Giọt yêu thương\" năm 2025",
-      image: post1,
-    },
-    {
-      id: 2,
-      title: "Lợi ích của việc hiến máu định kỳ",
-      summary: "Những hình ảnh đẹp trong Ngày Toàn dân hiến máu tình nguyện 7/4",
-      image: post2,
-    },
-    {
-      id: 3,
-      title: "Sự an toàn trong quá trình hiến máu",
-      summary: "Mọi thắc mắc về quy trình, an toàn và các bước để bạn yên tâm hiến máu.",
-      image: slide1,
-    },
-    {
-      id: 4,
-      title: "Sự trỗi dậy của khủng long Bình Dương",
-      summary: "Mọi thắc mắc về quy trình, an toàn và các bước để bạn yên tâm hiến máu.",
-      image: slide3,
-    },
-  ]);
-  
-  const [dateRange, setDateRange] = useState([
-    {
-      startDate: null,
-      endDate: null,
-      key: 'selection'
-    }
-  ]);
+  // Hiện thông báo
+  const [showNotification, setShowNotification] = useState(false);
 
-  const [calendarOpen, setCalendarOpen] = useState(false);
-  const calendarRef = useRef(null);
+  // Giá trị nhập địa điểm tìm kiếm
+  const [searchLocation, setSearchLocation] = useState("");
 
-  const [newPostIds, setNewPostIds] = useState([]);
-  const [message, setMessage] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
-  // Đóng popup calendar khi click ngoài
+  const [results, setResults] = useState([]);
+
+
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
-        setCalendarOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    const mockPosts = [
+      {
+        id: 1,
+        title: "Hành trình hiến máu đầy cảm xúc",
+        image: "/images/post1.jpg",
+        content:
+          "Cảm ơn các bạn đã tham gia ngày hội hiến máu tại TP. HCM, góp phần cứu sống nhiều bệnh nhân.",
+        date: "2025-05-01",
+        location: "TP. HCM",
+      },
+      {
+        id: 2,
+        title: "Kỷ niệm 100 đơn vị máu đầu tiên",
+        image: "/images/post2.jpg",
+        content:
+          "Chúng tôi đã tiếp nhận hơn 100 đơn vị máu trong chiến dịch vừa qua, rất cảm động và đáng tự hào.",
+        date: "2025-05-15",
+        location: "Hà Nội",
+      },
+    ];
+    setPosts(mockPosts);
+    setFilteredPosts(mockPosts);
+    setShowNotification(true);
   }, []);
 
-  const handleAddPost = () => {
-    if (!isLoggedIn) {
-      alert("⚠️ Bạn cần đăng nhập để tạo bài viết.");
-      return;
+  // Hàm xử lý khi bấm nút Tìm kiếm
+  const handleSearch = () => {
+    let results = posts;
+  
+    if (dateRange && dateRange.startDate && dateRange.endDate) {
+      const fromDate = new Date(dateRange.startDate);
+      const toDate = new Date(dateRange.endDate);
+      results = results.filter((post) => {
+        const postDate = new Date(post.date);
+        return postDate >= fromDate && postDate <= toDate;
+      });
     }
-
-  const newId = posts.length + 1;
-  const newPost = {
-      id: newId,
-      title: `Bài viết mới số ${newId}`,
-      summary: "Nội dung tóm tắt cho bài viết mới",
-    };
-    setPosts([...posts, newPost]);
-    setNewPostIds([...newPostIds, newId]);
-
-    setMessage("✅ Bài viết đã được tạo thành công!");
-    setTimeout(() => setMessage(""), 3000);
+  
+    if (searchLocation.trim() !== "") {
+      const keyword = searchLocation.toLowerCase();
+      results = results.filter(
+        (post) =>
+          post.title.toLowerCase().includes(keyword) ||
+          post.content.toLowerCase().includes(keyword) ||
+          (post.location && post.location.toLowerCase().includes(keyword))
+      );
+    }
+  
+    setFilteredPosts(results);
+    setResults(results); // ⚠️ BẠN ĐÃ THIẾU DÒNG NÀY
+    setSubmitted(true);  // ⚠️ Cập nhật để hiển thị thông báo kết quả
+  
+    alert(
+      `Tìm lịch đặt từ ${
+        dateRange?.startDate
+          ? format(new Date(dateRange.startDate), "dd/MM/yyyy")
+          : "..."
+      } đến ${
+        dateRange?.endDate
+          ? format(new Date(dateRange.endDate), "dd/MM/yyyy")
+          : "..."
+      }\nTìm được ${results.length} bài viết phù hợp.`
+    );
   };
 
-  // const handleLoginToggle = () => {
-  //   setIsLoggedIn(!isLoggedIn);
-  //   setMessage(isLoggedIn ? "🚪 Đã đăng xuất!" : "🔓 Đăng nhập thành công!");
-  //   setTimeout(() => setMessage(""), 3000);
-  // };
-
-  const newPosts = posts.filter(post => newPostIds.includes(post.id));
-  const handleCloseNotification = () => setNewPostIds([]);
-
-  useEffect(() => {
-    if (newPostIds.length > 0) {
-      const timer = setTimeout(() => {
-        setNewPostIds([]);
-      }, 5000); // Tự ẩn sau 5s
-      return () => clearTimeout(timer);
-    }
-  }, [newPostIds]);
-  
-  const settings = {
+  const sliderSettings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000,
-    pauseOnHover: true,
-    arrows: true,
+    autoplaySpeed: 3000,
+    arrows: false,
   };
-
-  // Format ngày cho hiển thị input
-  const formatDate = (date) => {
-    if (!date) return "";
-    return date.toLocaleDateString("vi-VN");
-  };
-
-  const handleSearchBooking = () => {
-    if (!dateRange[0].startDate || !dateRange[0].endDate) {
-      alert("⚠️ Vui lòng chọn đầy đủ từ ngày - đến ngày.");
-      return;
-    }
-
-    alert(`🔍 Bạn đã tìm kiếm lịch đặt từ ${formatDate(dateRange[0].startDate)} đến ${formatDate(dateRange[0].endDate)}!`);
-  };
-
-  const handleSelect = (ranges) => {
-    setDateRange([ranges.selection]);
-    setCalendarOpen(false);
-  };
-
-  const bloodDonationStats = [
-    { month: 'Jan', donations: 120 },
-    { month: 'Feb', donations: 98 },
-    { month: 'Mar', donations: 150 },
-    { month: 'Apr', donations: 170 },
-    { month: 'May', donations: 200 },
-    { month: 'Jun', donations: 180 },
-  ];
 
   return (
     <>
-    <AppLayout />
-
-    <div className="home-wrapper">
-
-      {message && (
-        <div style={{
-          backgroundColor: "#e0f3ff",
-          color: "#004085",
-          padding: "10px",
-          margin: "10px",
-          border: "1px solid #b8daff",
-          borderRadius: "5px",
-          textAlign: "center"
-        }}>
-          {message}
-        </div>
-      )}
-
-      {/* <div style={{ textAlign: 'right', padding: '10px 20px' }}>
-        <button onClick={handleLoginToggle} className="btn-primary">
-          {isLoggedIn ? "Đăng xuất" : "Đăng nhập"}
-        </button>
-      </div> */}
-
-      <PostNotification newPosts={newPosts} onClose={handleCloseNotification} />
-
-      <div className="hero">
-        <div className="content">
-          <h1>
-            Welcome to the <br />
-            <span>Blood Donation Support System</span>
-          </h1>
-          <p>Give Blood. Save Lives. Connect with Those in Need.</p>
-        </div>
-
-      <div className="search-bar">
-        <div className="search-overlay">
-
-        <div className="date-range-wrapper" ref={calendarRef}>
-          <div className="date-range-title">
-            <FaCalendarAlt className="calendar-icon-title"/>
-            <h6>Bạn cần đặt lịch vào thời gian nào?</h6>
-          </div>
-          <div className="input-wrapper">
-            <input
-              type="text"
-              readOnly
-              value={
-                dateRange[0].startDate && dateRange[0].endDate
-                  ? `${formatDate(dateRange[0].startDate)} - ${formatDate(dateRange[0].endDate)}`
-                  : ""
-              }
-              placeholder="Từ Ngày - Đến Ngày"
-              onClick={() => setCalendarOpen(!calendarOpen)}
-              style={{ cursor: 'pointer', padding: '8px', width: '700px', marginBottom: '10px', position: 'relative' }}
-            />
-              <FaCalendarAlt className="calendar-icon"/>
-            {calendarOpen && (
-              <>
-                <div className="calendar-overlay" onClick={() => setCalendarOpen(false)}></div>
-                <div className="calendar-popup">
-                  <DateRange
-                    editableDateInputs={true}
-                    onChange={handleSelect}
-                    moveRangeOnFirstSelection={false}
-                    ranges={dateRange}
-                    maxDate={new Date()}
-                  />
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-        {/* Thêm tìm kiếm giờ vào (nếu cần thiết)*/}
-        {/* <div className="time-picker-wrapper">
-          <label htmlFor="searchTime">Chọn giờ:</label>
-          <input
-            type="time"
-            id="searchTime"
-            value={searchTime}
-            onChange={e => setSearchTime(e.target.value)}
-          />
-        </div> */}
-        </div>
-        <button className="search-button" onClick={handleSearchBooking}>
-          Tìm kiếm
-        </button>
-        </div>
-      </div>
-
-      <div className="slider-section">
-        <Slider {...settings}>
-          <div><img src={slide1} alt="Blood Donation Slide 1" /></div>
-          <div><img src={slide2} alt="Blood Donation Slide 2" /></div>
-          <div><img src={slide3} alt="Blood Donation Slide 3" /></div>
-        </Slider>
-      </div>
-      
-      <section className="container posts-section">
-        <h2>Blood donation activities</h2>
-
-        {isLoggedIn && (
-          <button className="btn-primary" onClick={handleAddPost}>
-            ➕ Tạo bài viết mới
-          </button>
+      <AppLayout />
+      <div className="container">
+        {/* Notification */}
+        {showNotification && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="notification"
+          >
+            <Bell />
+            Có bài viết mới từ cộng đồng hiến máu!
+          </motion.div>
         )}
 
-        <div className="post-card-container">
-          {posts.map(post => (
-            <PostCard key={post.id} post={post} />
-          ))}
+        {/* Hero section */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="hero-section"
+        >
+          <h1 className="hero-title">
+            Chào mừng đến với Hệ thống Hỗ trợ Hiến Máu
+          </h1>
+          <p className="hero-subtitle">
+            Cùng nhau lan tỏa yêu thương, sẻ chia sự sống.
+          </p>
+          <p className="hero-description">
+            Website Hỗ trợ Hiến Máu là nền tảng kết nối giữa những tấm lòng nhân ái với các trung tâm y tế trên toàn quốc. 
+            Chúng tôi cung cấp thông tin minh bạch, cập nhật về các sự kiện hiến máu, giúp bạn dễ dàng đăng ký, tìm kiếm lịch hiến máu phù hợp, 
+            cũng như chia sẻ câu chuyện đầy cảm xúc từ cộng đồng. Cùng nhau, chúng ta lan tỏa sự sống và nhân văn đến từng nhịp tim.
+          </p>
+        </motion.div>
+
+        {/* Slider */}
+        <div className="slider-wrapper">
+          <Slider {...sliderSettings}>
+            <img src={slideshow1} alt="banner1" className="slider-image" />
+            <img src="/images/banner2.jpg" alt="banner2" className="slider-image" />
+          </Slider>
         </div>
-      </section>
-      
-      <section className="container chart-section">
-        <h2>Thống kê số lượt hiến máu theo tháng</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={bloodDonationStats} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="donations" fill="#ff4d4f" />
-          </BarChart>
-        </ResponsiveContainer>
-      </section>
 
-      <section className="container about">
-        <h2>About Our Mission</h2>
-        <p>
-          We are on a mission to ensure that every patient in need of blood has timely access to safe and screened blood supplies. 
-          Through our platform, donors, volunteers, and medical centers come together to make a life-saving impact.
-        </p>
-      </section>
+        {/* Info boxes */}
+        <div className="info-boxes">
+          <Card className="card mission">
+            <CardContent>
+              <h3 className="card-title">Sứ mệnh của chúng tôi</h3>
+              <p>
+                Hỗ trợ kết nối người hiến máu với các trung tâm y tế, lan tỏa
+                giá trị nhân văn.
+              </p>
+            </CardContent>
+          </Card>
 
-      <section className="container features">
-        <h2>Key Features</h2>
-        <ul>
-          <li><strong>Key Feature 1:</strong> content</li>
-          <li><strong>Key Feature 2:</strong> content</li>
-          <li><strong>Key Feature 3:</strong> content</li>
-          <li><strong>Key Feature 4:</strong> content</li>
-        </ul>
-      </section>
-      
-      {/*Lựa chọn 1*/}
-      {/* <section className="container stats">
-        <h2>Impact in Numbers</h2>
-        <div className="stat-grid">
-          <div className="stat-card"><h3>number</h3><p>content</p></div>
-          <div className="stat-card"><h3>number</h3><p>content</p></div>
-          <div className="stat-card"><h3>number</h3><p>content</p></div>
-          <div className="stat-card"><h3>number</h3><p>content</p></div>
+          <Card className="card benefit">
+            <CardContent>
+              <h3 className="card-title">Lợi ích khi tham gia</h3>
+              <p>
+                Nhận thông báo nhanh, theo dõi lịch hiến máu, và góp phần cứu
+                sống nhiều người.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="card activities">
+            <CardContent>
+              <h3 className="card-title">Các hoạt động nổi bật</h3>
+              <p>
+                Ngày hội hiến máu, chia sẻ câu chuyện, và các chương trình
+                khuyến khích cộng đồng.
+              </p>
+            </CardContent>
+          </Card>
         </div>
-      </section> */}
-      
-      <section className="container stats">
-        <h2>Impact in Numbers</h2>
-        <table className="stats-table">
-          <thead>
-            <tr>
-              <th>Chỉ số</th>
-              <th>Giá trị</th>
-              <th>Mô tả</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Số lượng người hiến máu</td>
-              <td>1,200</td>
-              <td>Hiến máu trong 2025</td>
-            </tr>
-            <tr>
-              <td>Đơn vị máu thu được</td>
-              <td>950</td>
-              <td>Đã phân phối cho các bệnh viện</td>
-            </tr>
-            <tr>
-              <td>Chiến dịch tổ chức</td>
-              <td>15</td>
-              <td>Trong năm nay</td>
-            </tr>
-            <tr>
-              <td>Tình nguyện viên tham gia</td>
-              <td>200+</td>
-              <td>Góp sức điều phối và tuyên truyền</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
 
-      <section className="container cta">
-        <h2>Call to Action</h2>
-        <p>Join us to make a difference!</p>
-        <button className="btn-primary">Get Started</button>
-      </section>
-    </div>
-        <Footer />
+        {/* Video Section */}
+        <section className="video-section">
+          <h2 className="section-title">Video truyền cảm hứng</h2>
+          <div className="video-wrapper">
+            <iframe
+              width="100%"
+              height="400"
+              src="https://www.youtube.com/embed/bxjZ511ChKY"
+              title="Video kêu gọi hiến máu"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </section>
+
+        {/* Search section */}
+        <div className="p-6">
+          <Card className="search-card">
+            <CardContent>
+              <h2 className="text-xl font-semibold mb-4">Tìm kiếm lịch đặt</h2>
+              <div className="flex flex-col gap-4">
+                <MyDateRangePicker onChange={(range) => setDateRange(range)} />
+
+                <Input
+                  placeholder="Nhập tên địa điểm hoặc từ khóa..."
+                  value={searchLocation}
+                  onChange={(e) => setSearchLocation(e.target.value)}
+                  className="search-input"
+                />
+
+                <Button onClick={handleSearch} className="search-button">
+                  Tìm kiếm
+                </Button>
+
+                {/* THÔNG BÁO */}
+                {submitted && (
+                  <div
+                    className={`mt-2 p-3 rounded text-sm ${
+                      results.length > 0
+                        ? "bg-green-100 text-green-700"
+                        : "bg-red-100 text-red-700"
+                    }`}
+                  >
+                    {results.length > 0
+                      ? `🔍 Đã tìm thấy ${results.length} lịch đặt phù hợp.`
+                      : "❌ Không tìm thấy lịch đặt nào phù hợp."}
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+          {/* KẾT QUẢ HIỂN THỊ */}
+          <div className="results-section">
+            {results.map((item) => (
+              <Card key={item.id} className="result-card">
+                <CardContent>
+                  <h3 className="result-title">{item.title}</h3>
+                  <p className="result-location">Địa điểm: {item.location}</p>
+                  <p className="result-date">
+                    Ngày: {format(new Date(item.date), "dd/MM/yyyy")}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* FAQ Section */}
+        <section className="faq-section">
+          <h2 className="section-title">Câu hỏi thường gặp</h2>
+          <div className="faq-item">
+            <h4 className="faq-question">Ai có thể tham gia hiến máu?</h4>
+            <p className="faq-answer">
+              Bất kỳ ai từ 18 đến 60 tuổi, có sức khỏe tốt và không mắc các bệnh truyền nhiễm đều có thể tham gia hiến máu.
+            </p>
+          </div>
+          <div className="faq-item">
+            <h4 className="faq-question">Tôi có được nhận giấy chứng nhận không?</h4>
+            <p className="faq-answer">
+              Có. Sau khi hiến máu, bạn sẽ được cấp giấy chứng nhận hiến máu tình nguyện.
+            </p>
+          </div>
+        </section>
+
+        {/* Quick Stats Section */}
+        <div className="quick-stats">
+          <Card className="stat-card">
+            <CardContent>
+              <h3 className="stat-value">1,254+</h3>
+              <p className="stat-label">Người tham gia</p>
+            </CardContent>
+          </Card>
+          <Card className="stat-card">
+            <CardContent>
+              <h3 className="stat-value">3,785</h3>
+              <p className="stat-label">Đơn vị máu tiếp nhận</p>
+            </CardContent>
+          </Card>
+          <Card className="stat-card">
+            <CardContent>
+              <h3 className="stat-value">52</h3>
+              <p className="stat-label">Trung tâm y tế liên kết</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Blood Donor Stories */}
+        <section className="donor-stories">
+          <h2 className="section-title">Câu chuyện người hiến máu</h2>
+          <Slider {...sliderSettings}>
+            <div className="story-slide">
+              <p>"Tôi từng cần máu để cứu sống người thân. Giờ đây tôi muốn đền đáp lại."</p>
+              <strong>- Nguyễn Văn Minh</strong>
+            </div>
+            <div className="story-slide">
+              <p>"Mỗi lần hiến máu là một lần tôi cảm thấy mình sống có ý nghĩa hơn."</p>
+              <strong>- Trần Thị Hồng</strong>
+            </div>
+          </Slider>
+        </section>
+
+        {/* Community posts */}
+        <section>
+          <div className="posts-header">
+            <h2 className="section-title">Bài viết cộng đồng</h2>
+            <Button variant="outline" className="add-post-button">
+              <PlusCircle size={18} /> Thêm bài viết
+            </Button>
+          </div>
+
+          <div className="posts-grid">
+            {(filteredPosts.length > 0 ? filteredPosts : posts).map((post) => (
+              <Card key={post.id} className="post-card">
+                <img src={post.image} alt={post.title} className="post-image" />
+                <CardContent className="post-content">
+                  <h3 className="post-title">{post.title}</h3>
+                  <p className="post-text">{post.content}</p>
+                  <p className="post-date">
+                    Ngày đăng: {format(new Date(post.date), "dd/MM/yyyy")}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <Footer />
     </>
   );
-}
+};
+
+export default Home;

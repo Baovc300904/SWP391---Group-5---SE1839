@@ -59,7 +59,7 @@ export default function Signup() {
     <div className="login-banner-container">
       {/* Banner trái */}
       <div className="login-banner-left">
-        <img src="/signup-banner.avif" alt="Signup Banner" className="login-banner-image" />
+        <img src="/Banner-signup.jpg" alt="Signup Banner" className="login-banner-image" />
         <div className="login-banner-text">
           <h1>Tạo tài khoản</h1>
           <p>Bắt đầu hành trình cùng hệ thống!</p>
