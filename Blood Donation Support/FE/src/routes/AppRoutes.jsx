@@ -4,9 +4,6 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../components/Home/Home.jsx';
 import Contact from '../components/Contacts/Contact';
 import About from '../components/Abouts/About';
-import DashBoard from '../Staffs/DashBoard';
-import DashBoardHome from '../Staffs/DashBoardHome';
-import DashBoardSettings from '../Staffs/DashBoardSettings';
 import NotFound from '../pages/NotFound';
 import Login from '../components/Logins/Login.jsx';
 import Signup from '../components/Registers/Signup';
@@ -14,9 +11,9 @@ import Services from '../components/Service/Services';
 import News from '../components/News/News';
 import QA from '../components/QA/QA';
 
-import PrivateRoutes from './PrivateRoutes.jsx';
+import PrivateRoutes from './PrivateRoutes.jsx'; 
 import AdminDashboard from "../Admins/adminDashboard.jsx"; // Nếu bạn có file này
-// import DashboardStaff from '../pages/DashboardStaff/DashboardStaff.jsx'; // Nếu bạn có file này
+import DashboardStaff from "../Staffs/dashboardStaff.jsx"; // Nếu bạn có file này
 
 export default function AppRoutes() {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -44,14 +41,14 @@ export default function AppRoutes() {
         }
       />
 
-      {/* <Route
+      <Route
         path="/dashboardStaff"
         element={
           <PrivateRoutes userRole={userRole} allowedRoles={['staff']}>
             <DashboardStaff />
           </PrivateRoutes>
         }
-      /> */}
+      />
 
       <Route
         path="/home"
@@ -61,12 +58,6 @@ export default function AppRoutes() {
           </PrivateRoutes>
         }
       />
-
-      {/* Nested Dashboard routes (Nếu bạn dùng) */}
-      <Route path="/dashboard" element={<DashBoard />}>
-        <Route index element={<DashBoardHome />} />
-        <Route path="settings" element={<DashBoardSettings />} />
-      </Route>
 
       {/* 404 Not Found */}
       <Route path="*" element={<NotFound />} />
