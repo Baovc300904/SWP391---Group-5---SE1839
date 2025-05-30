@@ -2,20 +2,21 @@ package com.blooddonatesupport.fap.config;
 
 import com.blooddonatesupport.fap.security.CustomOAuth2UserService;
 import com.blooddonatesupport.fap.security.JwtAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import jakarta.servlet.http.HttpServletResponse;
-
 @Configuration
+@EnableMethodSecurity  // Cho phép dùng @PreAuthorize
 public class SecurityConfig {
 
     @Autowired
@@ -29,9 +30,14 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**", "/oauth2/**").permitAll()
-                        .anyRequest().authenticated())
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/staff/**").hasAnyRole("ADMIN", "STAFF")
+                        .requestMatchers("/api/user/**").hasAnyRole("ADMIN", "STAFF", "USER")
+                        .anyRequest().authenticated()
+                )
                 .oauth2Login(oauth2 -> oauth2
-                        .userInfoEndpoint(info -> info.userService(customOAuth2UserService)))
+                        .userInfoEndpoint(info -> info.userService(customOAuth2UserService))
+                )
                 .logout(logout -> logout
                         .logoutUrl("/auth/logout")
                         .logoutSuccessHandler((request, response, authentication) -> {
