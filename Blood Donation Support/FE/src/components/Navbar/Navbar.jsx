@@ -28,7 +28,6 @@ export default function Navbar() {
         <li><NavLink to="/new" className="nav-link">NEWS</NavLink></li>
         <li><NavLink to="/services" className="nav-link">SERVICES</NavLink></li>
         <li><NavLink to="/about" className="nav-link">ABOUT</NavLink></li>
-        <li><NavLink to="/contact" className="nav-link">CONTACT</NavLink></li>
       </ul>
     </nav>
   );

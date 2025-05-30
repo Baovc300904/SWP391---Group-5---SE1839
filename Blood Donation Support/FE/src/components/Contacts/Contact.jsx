@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './Contact.css';
-
 import AppLayout from '../../Layouts/AppLayout';
 import Footer from '../Footers/Footer';
 
@@ -9,20 +8,58 @@ export default function Contact() {
     fullname: '',
     email: '',
     phone: '',
+    subject: '',
     message: '',
   });
 
+  const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
-  function handleChange(e) {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
-  function handleSubmit(e) {
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formData.fullname.trim()) newErrors.fullname = "Full name is required.";
+    if (!formData.email.trim()) newErrors.email = "Email is required.";
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Invalid email format.";
+
+    if (!formData.phone.trim()) newErrors.phone = "Phone number is required.";
+    else if (!/^[0-9]{9,15}$/.test(formData.phone)) newErrors.phone = "Phone must be 9-15 digits.";
+
+    if (!formData.subject.trim()) newErrors.subject = "Please select a subject.";
+    if (!formData.message.trim()) newErrors.message = "Message cannot be empty.";
+
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // You can replace this with actual API call
-    setSubmitted(true);
-  }
+    const validationErrors = validate();
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+    } else {
+      setErrors({});
+      // Replace with API call here
+      setSubmitted(true);
+    }
+  };
+
+  const handleNewMessage = () => {
+    setFormData({
+      fullname: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: '',
+    });
+    setErrors({});
+    setSubmitted(false);
+  };
 
   return (
     <>
@@ -31,8 +68,8 @@ export default function Contact() {
         <div className="contact-content">
           <h2 className="contact-title">Blood Donation Support</h2>
           <p className="contact-description">
-            Share love, save lives in need.<br />
-            Please leave your contact information so we can reach out to you!
+            Share love, save lives.<br />
+            Leave your contact and message. We’ll reach out to you!
           </p>
 
           {!submitted ? (
@@ -45,8 +82,8 @@ export default function Contact() {
                 placeholder="Enter your full name"
                 value={formData.fullname}
                 onChange={handleChange}
-                required
               />
+              {errors.fullname && <span className="error">{errors.fullname}</span>}
 
               <label htmlFor="email">Email</label>
               <input
@@ -56,8 +93,8 @@ export default function Contact() {
                 placeholder="email@example.com"
                 value={formData.email}
                 onChange={handleChange}
-                required
               />
+              {errors.email && <span className="error">{errors.email}</span>}
 
               <label htmlFor="phone">Phone Number</label>
               <input
@@ -67,30 +104,42 @@ export default function Contact() {
                 placeholder="Enter your phone number"
                 value={formData.phone}
                 onChange={handleChange}
-                required
-                pattern="[0-9]{9,15}"
-                title="Phone number should contain 9 to 15 digits only"
               />
+              {errors.phone && <span className="error">{errors.phone}</span>}
+
+              <label htmlFor="subject">Subject</label>
+              <select
+                id="subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+              >
+                <option value="">-- Select a subject --</option>
+                <option value="donation">I want to donate blood</option>
+                <option value="request">I need blood</option>
+                <option value="volunteer">I want to volunteer</option>
+                <option value="feedback">Feedback / Other</option>
+              </select>
+              {errors.subject && <span className="error">{errors.subject}</span>}
 
               <label htmlFor="message">Message</label>
               <textarea
                 id="message"
                 name="message"
-                placeholder="What would you like to share?"
                 rows="4"
+                placeholder="What would you like to share?"
                 value={formData.message}
                 onChange={handleChange}
-                required
               />
+              {errors.message && <span className="error">{errors.message}</span>}
 
-              <button type="submit" className="contact-btn">
-                Submit
-              </button>
+              <button type="submit" className="contact-btn">Submit</button>
             </form>
           ) : (
             <div className="contact-thank-you">
               <h3>Thank you for reaching out!</h3>
               <p>We will contact you as soon as possible.</p>
+              <button onClick={handleNewMessage} className="contact-btn">Send another message</button>
             </div>
           )}
         </div>
