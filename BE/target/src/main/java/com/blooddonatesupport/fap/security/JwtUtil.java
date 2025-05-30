@@ -1,5 +1,6 @@
-package com.blooddonatesupport.fap;
+package com.blooddonatesupport.fap.security;
 
+import com.blooddonatesupport.fap.entity.User;
 import io.jsonwebtoken.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;

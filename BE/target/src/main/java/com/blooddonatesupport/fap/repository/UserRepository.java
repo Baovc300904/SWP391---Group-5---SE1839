@@ -1,5 +1,6 @@
-package com.blooddonatesupport.fap;
+package com.blooddonatesupport.fap.repository;
 
+import com.blooddonatesupport.fap.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,5 +1,7 @@
-package com.blooddonatesupport.fap;
+package com.blooddonatesupport.fap.security;
 
+import com.blooddonatesupport.fap.entity.User;
+import com.blooddonatesupport.fap.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;

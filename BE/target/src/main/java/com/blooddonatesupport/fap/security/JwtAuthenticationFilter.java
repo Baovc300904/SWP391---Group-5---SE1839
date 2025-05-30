@@ -1,5 +1,6 @@
-package com.blooddonatesupport.fap;
+package com.blooddonatesupport.fap.security;
 
+import com.blooddonatesupport.fap.repository.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +18,22 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+    @Autowired
+    private TokenRepository tokenRepository;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        String token = extractJwtFromRequest(request);
+        if (token != null && jwtUtil.validateToken(token)) {
+            if (!tokenRepository.existsById(token)) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token không còn hợp lệ");
+                return;
+            }
+            // ... xác thực người dùng như bình thường
+        }
+        filterChain.doFilter(request, response);
+    }
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -41,6 +58,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         token = authHeader.substring(7);
         email = jwtUtil.extractUsername(token);
+
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             var userDetails = userDetailsService.loadUserByUsername(email);

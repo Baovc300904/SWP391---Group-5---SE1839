@@ -1,4 +1,4 @@
-package com.blooddonatesupport.fap;
+package com.blooddonatesupport.fap.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer maNguoiDung;
+    private Long maNguoiDung;
 
     @Column(nullable = false, length = 100)
     private String hoVaTen;

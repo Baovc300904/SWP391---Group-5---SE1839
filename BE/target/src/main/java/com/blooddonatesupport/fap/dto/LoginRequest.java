@@ -1,4 +1,4 @@
-package com.blooddonatesupport.fap;
+package com.blooddonatesupport.fap.dto;
 
 import lombok.Data;
 

@@ -1,5 +1,7 @@
-package com.blooddonatesupport.fap;
+package com.blooddonatesupport.fap.security;
 
+import com.blooddonatesupport.fap.entity.User;
+import com.blooddonatesupport.fap.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
