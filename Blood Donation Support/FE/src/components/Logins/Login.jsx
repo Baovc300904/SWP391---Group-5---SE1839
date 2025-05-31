@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import PandaLoginForm from '../PandaLoginForm/PandaLoginForm.jsx';
 import sampleUsers from '../../data/login.json';
@@ -8,14 +8,26 @@ import './Login.css';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [popupMessage, setPopupMessage] = useState(''); // Thêm popup
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // Nếu có lỗi từ PrivateRoutes truyền sang
+    if (location.state && location.state.error) {
+      setPopupMessage(location.state.error);
+      // Xóa state trong history sau khi lấy xong
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = sampleUsers.find(u => u.email === email && u.password === password);
 
     if (user) {
-      alert('Đăng nhập thành công!');
+      setErrorMessage('');
       localStorage.setItem('user', JSON.stringify(user));
 
       switch (user.role) {
@@ -29,7 +41,7 @@ export default function Login() {
           navigate('/home');
       }
     } else {
-      alert('Sai email hoặc mật khẩu!');
+      setErrorMessage('Sai email hoặc mật khẩu!');
     }
   };
 
@@ -44,7 +56,14 @@ export default function Login() {
 
   return (
     <div className="login-banner-container">
-      {/* Banner bên trái */}
+      {/* Popup lỗi nếu có */}
+      {popupMessage && (
+        <div className="popup">
+          <p>{popupMessage}</p>
+          <button onClick={() => setPopupMessage('')}>Đóng</button>
+        </div>
+      )}
+
       <div className="login-banner-left">
         <img src="/Banner-log.jpg" alt="Login Banner" className="login-banner-image" />
         <div className="login-banner-text">
@@ -53,7 +72,6 @@ export default function Login() {
         </div>
       </div>
 
-      {/* Form login + Google Login bên phải */}
       <div className="login-banner-right">
         <PandaLoginForm
           email={email}
@@ -61,6 +79,7 @@ export default function Login() {
           onEmailChange={e => setEmail(e.target.value)}
           onPasswordChange={e => setPassword(e.target.value)}
           onSubmit={handleSubmit}
+          errorMessage={errorMessage}
         />
 
         <div style={{ textAlign: 'center', marginTop: '15px', width: '100%' }}>
@@ -79,6 +98,7 @@ export default function Login() {
             Chưa có tài khoản? <Link to="/signup">Đăng ký ngay</Link>
           </p>
         </div>
+
         <div className="backHome-button">
           <Link to="/" className="backHome-link">
             <button className="backHome-btn">Quay về trang chủ</button>

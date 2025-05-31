@@ -1,40 +1,70 @@
-import React from 'react';
+import React, { useContext } from 'react'; // phải import useContext ở đây
 import { NavLink, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../routes/AuthContext'; // sửa đường dẫn nếu cần
 import './StaffNavbar.css';
 
 export default function StaffNavbar() {
+  const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
+    logout();
     navigate('/login');
   };
 
-  const linkClass = ({ isActive }) => (isActive ? 'active' : '');
-
   return (
-    <div className="staff-navbar">
-      <h2 className="navbar-title">STAFF DASHBOARD</h2>
-      <nav className="navbar-links">
-        <NavLink to="/dashboard-staff" className={linkClass}>
-          Trang chủ
-        </NavLink>
-        <NavLink to="/donor-registrations" className={linkClass}>
-          Đăng ký hiến máu
-        </NavLink>
-        <NavLink to="/events" className={linkClass}>
-          Lịch tổ chức
-        </NavLink>
-        <NavLink to="/statistics" className={linkClass}>
-          Thống kê
-        </NavLink>
-        <NavLink to="/profile" className={linkClass}>
-          Thông tin cá nhân
-        </NavLink>
-        <button className="logout-btn" onClick={handleLogout}>
-          Đăng xuất
-        </button>
-      </nav>
-    </div>
+    <nav className="staff-navbar">
+      <div className="logo">
+        <img src="/logo2.png" alt="Logo" />
+        <div className="staff-title">Staff Panel</div>
+      </div>
+      <ul className="staff-nav-list">
+        <li>
+          <NavLink
+            to="/dashboardStaff"
+            className={({ isActive }) => (isActive ? 'link active-link' : 'link')}
+          >
+            Dashboard
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/staff/orders"
+            className={({ isActive }) => (isActive ? 'link active-link' : 'link')}
+          >
+            Quản lý đơn hàng
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/staff/customers"
+            className={({ isActive }) => (isActive ? 'link active-link' : 'link')}
+          >
+            Quản lý khách hàng
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/staff/products"
+            className={({ isActive }) => (isActive ? 'link active-link' : 'link')}
+          >
+            Quản lý sản phẩm
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/staff/reports"
+            className={({ isActive }) => (isActive ? 'link active-link' : 'link')}
+          >
+            Báo cáo thống kê
+          </NavLink>
+        </li>
+        <li>
+          <button onClick={handleLogout} className="staff-logout-button">
+            Đăng xuất
+          </button>
+        </li>
+      </ul>
+    </nav>
   );
 }

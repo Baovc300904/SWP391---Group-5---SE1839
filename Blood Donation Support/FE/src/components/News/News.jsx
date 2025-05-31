@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './News.css';
 
-import AppLayout from '../../Layouts/AppLayout';
+import AppLayout from '../../layouts/AppLayout';
 import Footer from '../Footers/Footer';
 
 export default function News() {

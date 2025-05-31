@@ -1,14 +1,12 @@
 import React from 'react';
-import './style/App.css';
-
-import AppRoutes from './routes/AppRoutes.jsx';
-
+import AppRoutes from './routes/AppRoutes';
+import { AuthProvider } from './routes/AuthContext';
 
 function App() {
   return (
-    <>
-      <AppRoutes/>
-    </>
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
   );
 }
 

@@ -4,6 +4,30 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
+.popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffe9e9;
+  color: #c00;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  z-index: 9999;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+.popup button {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: #c00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .login-banner-left {
   flex: 6;
   position: relative;
@@ -84,3 +108,39 @@
 .login-banner-right a:hover {
   text-decoration: underline;
 }
+
+.backHome-button {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.backHome-link {
+  text-decoration: none;
+}
+
+.backHome-btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ef4444, #dc2626); /* đỏ gradient */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+.backHome-btn:hover {
+  background: linear-gradient(135deg, #f87171, #b91c1c);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(185, 28, 28, 0.5);
+}
+
+.backHome-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 12px rgba(153, 27, 27, 0.5);
+}
+

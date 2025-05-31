@@ -13,7 +13,7 @@
   }
   
   /* Navbar container */
-  .navbar {
+  .admin-navbar {
     position: fixed;
     top: 0; left: 0;
     width: 240px;
@@ -91,7 +91,7 @@
   }
   
   /* Logout button */
-  .logout-button {
+  .admin-logout-button {
     background: linear-gradient(135deg, #ef4444, #b91c1c);
     border: none;
     color: white;
@@ -109,7 +109,7 @@
   }
   
   /* Logout hover */
-  .logout-button:hover {
+  .admin-logout-button:hover {
     background: linear-gradient(135deg, #b91c1c, #7f1d1d);
     box-shadow: 0 6px 15px rgba(185, 28, 28, 0.8);
   }

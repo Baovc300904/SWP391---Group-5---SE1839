@@ -9,13 +9,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Home.css";
-import AppLayout from "../../Layouts/AppLayout";
+import AppLayout from "../../layouts/AppLayout";
 import Footer from "../Footers/Footer";
 {/* Import DateRangePicker */}
 import MyDateRangePicker from "./HomeSearchs/MyDateRangePicker";
 
 /* Import image cho slider */
 import slideshow1 from "../../assets/images/slideshows/slideshow1.png";
+import introPost from "../../assets/images/posts/introPost.jpg"; // Giới thiệu website
 
 const Home = () => {
   // State quản lý khoảng ngày được chọn (startDate, endDate)
@@ -37,6 +38,8 @@ const Home = () => {
 
   const [results, setResults] = useState([]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 6; // hoặc số lượng bạn muốn hiển thị mỗi trang
 
   useEffect(() => {
     const mockPosts = [
@@ -58,10 +61,192 @@ const Home = () => {
         date: "2025-05-15",
         location: "Hà Nội",
       },
+      {
+        id: 3,
+        title: "Ngày hội hiến máu tại Đà Nẵng",
+        image: "/images/post3.jpg",
+        content:
+          "Sự kiện thu hút hàng ngàn người dân thành phố Đà Nẵng tham gia hiến máu cứu người.",
+        date: "2025-05-20",
+        location: "Đà Nẵng",
+      },
+      {
+        id: 4,
+        title: "Chiến dịch hiến máu mùa hè 2025",
+        image: "/images/post4.jpg",
+        content:
+          "Chiến dịch lan tỏa tinh thần hiến máu tình nguyện trong mùa hè nóng bỏng.",
+        date: "2025-06-01",
+        location: "TP. HCM",
+      },
+      {
+        id: 5,
+        title: "Hiến máu cứu sống bệnh nhi ở Huế",
+        image: "/images/post5.jpg",
+        content:
+          "Người hiến máu tại Huế góp phần cứu sống nhiều trẻ em mắc bệnh hiểm nghèo.",
+        date: "2025-06-05",
+        location: "Huế",
+      },
+      {
+        id: 6,
+        title: "Lan tỏa yêu thương với ngày hội hiến máu Quảng Ninh",
+        image: "/images/post6.jpg",
+        content:
+          "Hàng trăm người dân Quảng Ninh tham gia ngày hội hiến máu vì cộng đồng.",
+        date: "2025-06-10",
+        location: "Quảng Ninh",
+      },
+      {
+        id: 7,
+        title: "Cảm xúc ngày hiến máu tại Cần Thơ",
+        image: "/images/post7.jpg",
+        content:
+          "Ngày hội hiến máu tại Cần Thơ đã thu hút rất nhiều bạn trẻ tham gia.",
+        date: "2025-06-15",
+        location: "Cần Thơ",
+      },
+      {
+        id: 8,
+        title: "Hành trình đỏ xuyên Việt",
+        image: "/images/post8.jpg",
+        content:
+          "Chuyến hành trình đỏ xuyên Việt kết nối những tấm lòng nhân ái trên toàn quốc.",
+        date: "2025-06-20",
+        location: "Hà Nội",
+      },
+      {
+        id: 9,
+        title: "Hiến máu cứu người tại Bình Dương",
+        image: "/images/post9.jpg",
+        content:
+          "Bình Dương tổ chức thành công ngày hội hiến máu cứu người đầu năm 2025.",
+        date: "2025-06-25",
+        location: "Bình Dương",
+      },
+      {
+        id: 10,
+        title: "Tiếp nhận hơn 200 đơn vị máu tại Tây Ninh",
+        image: "/images/post10.jpg",
+        content:
+          "Chương trình hiến máu tại Tây Ninh vượt chỉ tiêu với hơn 200 đơn vị máu tiếp nhận.",
+        date: "2025-07-01",
+        location: "Tây Ninh",
+      },
+      {
+        id: 11,
+        title: "Ngày hội hiến máu trường Đại học Bách Khoa",
+        image: "/images/post11.jpg",
+        content:
+          "Sinh viên Bách Khoa tham gia nhiệt tình ngày hội hiến máu với tinh thần xung kích.",
+        date: "2025-07-05",
+        location: "Hà Nội",
+      },
+      {
+        id: 12,
+        title: "Hiến máu cứu người tại Long An",
+        image: "/images/post12.jpg",
+        content:
+          "Ngày hội hiến máu tại Long An thu hút đông đảo người dân và cán bộ tham gia.",
+        date: "2025-07-10",
+        location: "Long An",
+      },
+      {
+        id: 13,
+        title: "Câu chuyện cảm động của người hiến máu",
+        image: "/images/post13.jpg",
+        content:
+          "Người hiến máu chia sẻ cảm xúc và ý nghĩa của hành trình cứu người bằng máu.",
+        date: "2025-07-15",
+        location: "TP. HCM",
+      },
+      {
+        id: 14,
+        title: "Hành trình lan tỏa sự sống tại Nghệ An",
+        image: "/images/post14.jpg",
+        content:
+          "Nghệ An tổ chức chương trình hiến máu tình nguyện với sự tham gia của nhiều đoàn viên.",
+        date: "2025-07-20",
+        location: "Nghệ An",
+      },
+      {
+        id: 15,
+        title: "Ngày hội hiến máu vì cộng đồng tại Hải Phòng",
+        image: "/images/post15.jpg",
+        content:
+          "Hải Phòng phát động chiến dịch hiến máu tình nguyện đầu mùa hè thành công rực rỡ.",
+        date: "2025-07-25",
+        location: "Hải Phòng",
+      },
+      {
+        id: 16,
+        title: "Lan tỏa tinh thần hiến máu ở Thanh Hóa",
+        image: "/images/post16.jpg",
+        content:
+          "Thanh Hóa tổ chức ngày hội hiến máu với sự tham gia của đông đảo các tầng lớp nhân dân.",
+        date: "2025-07-30",
+        location: "Thanh Hóa",
+      },
+      {
+        id: 17,
+        title: "Hiến máu cứu người tại Vinh",
+        image: "/images/post17.jpg",
+        content:
+          "Sự kiện hiến máu tình nguyện tại Vinh góp phần cứu sống nhiều bệnh nhân cần máu gấp.",
+        date: "2025-08-01",
+        location: "Vinh",
+      },
+      {
+        id: 18,
+        title: "Ngày hội hiến máu tình nguyện tại Quảng Nam",
+        image: "/images/post18.jpg",
+        content:
+          "Quảng Nam tổ chức thành công ngày hội hiến máu với hàng trăm người tham gia.",
+        date: "2025-08-05",
+        location: "Quảng Nam",
+      },
+      {
+        id: 19,
+        title: "Hiến máu cứu người tại Bình Thuận",
+        image: "/images/post19.jpg",
+        content:
+          "Bình Thuận phát động chiến dịch hiến máu tình nguyện thu hút sự quan tâm lớn từ cộng đồng.",
+        date: "2025-08-10",
+        location: "Bình Thuận",
+      },
+      {
+        id: 20,
+        title: "Chiến dịch hiến máu mùa thu tại Đồng Nai",
+        image: "/images/post20.jpg",
+        content:
+          "Đồng Nai tổ chức chiến dịch hiến máu tình nguyện với mục tiêu lớn trong mùa thu năm nay.",
+        date: "2025-08-15",
+        location: "Đồng Nai",
+      },
+      {
+        id: 21,
+        title: "Ngày hội hiến máu tại Gia Lai",
+        image: "/images/post21.jpg",
+        content:
+          "Gia Lai phát động chương trình hiến máu tình nguyện, nhận được nhiều sự hưởng ứng từ người dân.",
+        date: "2025-08-20",
+        location: "Gia Lai",
+      },
+      {
+        id: 22,
+        title: "Hiến máu cứu người tại Phú Yên",
+        image: "/images/post22.jpg",
+        content:
+          "Phú Yên tổ chức ngày hội hiến máu tình nguyện thu hút đông đảo các bạn trẻ tham gia.",
+        date: "2025-08-25",
+        location: "Phú Yên",
+      },
     ];
+    
     setPosts(mockPosts);
     setFilteredPosts(mockPosts);
     setShowNotification(true);
+    setCurrentPage(1); // Reset current page khi dữ liệu posts được cập nhật
   }, []);
 
   // Hàm xử lý khi bấm nút Tìm kiếm
@@ -103,6 +288,13 @@ const Home = () => {
       }\nTìm được ${results.length} bài viết phù hợp.`
     );
   };
+  {/* Pagination logic */}
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = (filteredPosts.length > 0 ? filteredPosts : posts).slice(indexOfFirstPost, indexOfLastPost);
+
+  const totalPages = Math.ceil((filteredPosts.length > 0 ? filteredPosts : posts).length / postsPerPage);
+
 
   const sliderSettings = {
     dots: true,
@@ -150,6 +342,29 @@ const Home = () => {
             cũng như chia sẻ câu chuyện đầy cảm xúc từ cộng đồng. Cùng nhau, chúng ta lan tỏa sự sống và nhân văn đến từng nhịp tim.
           </p>
         </motion.div>
+
+        <div className="intro-container my-5">
+          <div className="row align-items-center bg-white shadow rounded p-4">
+            {/* Text Section */}
+            <div className="col-md-6 mb-4 mb-md-0">
+              <h2 className="intro-title mb-3">Chào mừng đến với Website của chúng tôi</h2>
+              <p className="intro-description">
+                Đây là nền tảng giúp bạn khám phá, tìm kiếm và kết nối với những thông tin mới nhất về các sự kiện, địa điểm
+                và cộng đồng. Giao diện thân thiện, dễ sử dụng và luôn cập nhật dữ liệu một cách nhanh chóng và chính xác.
+                Hãy cùng trải nghiệm và khám phá ngay hôm nay!
+              </p>
+            </div>
+
+            {/* Image Section */}
+            <div className="col-md-6 text-center">
+              <img
+                src={introPost}
+                alt="Giới thiệu website"
+                className="img-fluid rounded shadow"
+              />
+            </div>
+          </div>
+        </div>
 
         {/* Slider */}
         <div className="slider-wrapper">
@@ -261,53 +476,53 @@ const Home = () => {
         </div>
 
         {/* FAQ Section */}
-        <section className="faq-section">
-          <h2 className="section-title">Câu hỏi thường gặp</h2>
-          <div className="faq-item">
-            <h4 className="faq-question">Ai có thể tham gia hiến máu?</h4>
-            <p className="faq-answer">
+        <section className="home-faq-section">
+          <h2 className="home-section-title">Câu hỏi thường gặp</h2>
+          <div className="home-faq-item">
+            <h4 className="home-faq-question">Ai có thể tham gia hiến máu?</h4>
+            <p className="home-faq-answer">
               Bất kỳ ai từ 18 đến 60 tuổi, có sức khỏe tốt và không mắc các bệnh truyền nhiễm đều có thể tham gia hiến máu.
             </p>
           </div>
-          <div className="faq-item">
-            <h4 className="faq-question">Tôi có được nhận giấy chứng nhận không?</h4>
-            <p className="faq-answer">
+          <div className="home-faq-item">
+            <h4 className="home-faq-question">Tôi có được nhận giấy chứng nhận không?</h4>
+            <p className="home-faq-answer">
               Có. Sau khi hiến máu, bạn sẽ được cấp giấy chứng nhận hiến máu tình nguyện.
             </p>
           </div>
         </section>
 
         {/* Quick Stats Section */}
-        <div className="quick-stats">
-          <Card className="stat-card">
+        <div className="home-quick-stats">
+          <Card className="home-stat-card">
             <CardContent>
-              <h3 className="stat-value">1,254+</h3>
-              <p className="stat-label">Người tham gia</p>
+              <h3 className="home-stat-value">1,254+</h3>
+              <p className="home-stat-label">Người tham gia</p>
             </CardContent>
           </Card>
-          <Card className="stat-card">
+          <Card className="home-stat-card">
             <CardContent>
-              <h3 className="stat-value">3,785</h3>
-              <p className="stat-label">Đơn vị máu tiếp nhận</p>
+              <h3 className="home-stat-value">3,785</h3>
+              <p className="home-stat-label">Đơn vị máu tiếp nhận</p>
             </CardContent>
           </Card>
-          <Card className="stat-card">
+          <Card className="home-stat-card">
             <CardContent>
-              <h3 className="stat-value">52</h3>
-              <p className="stat-label">Trung tâm y tế liên kết</p>
+              <h3 className="home-stat-value">52</h3>
+              <p className="home-stat-label">Trung tâm y tế liên kết</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Blood Donor Stories */}
-        <section className="donor-stories">
-          <h2 className="section-title">Câu chuyện người hiến máu</h2>
+        <section className="home-donor-stories">
+          <h2 className="home-section-title">Câu chuyện người hiến máu</h2>
           <Slider {...sliderSettings}>
-            <div className="story-slide">
+            <div className="home-story-slide">
               <p>"Tôi từng cần máu để cứu sống người thân. Giờ đây tôi muốn đền đáp lại."</p>
               <strong>- Nguyễn Văn Minh</strong>
             </div>
-            <div className="story-slide">
+            <div className="home-story-slide">
               <p>"Mỗi lần hiến máu là một lần tôi cảm thấy mình sống có ý nghĩa hơn."</p>
               <strong>- Trần Thị Hồng</strong>
             </div>
@@ -323,19 +538,48 @@ const Home = () => {
             </Button>
           </div>
 
-          <div className="posts-grid">
-            {(filteredPosts.length > 0 ? filteredPosts : posts).map((post) => (
-              <Card key={post.id} className="post-card">
-                <img src={post.image} alt={post.title} className="post-image" />
-                <CardContent className="post-content">
-                  <h3 className="post-title">{post.title}</h3>
-                  <p className="post-text">{post.content}</p>
+          <div className="community-posts-grid">
+            {currentPosts.map((item) => (
+              <Card key={item.id} className="community-post-card">
+                <CardContent>
+                  <img src={item.image} alt={item.title} className="post-thumbnail" />
+                  <h3 className="post-title">{item.title}</h3>
                   <p className="post-date">
-                    Ngày đăng: {format(new Date(post.date), "dd/MM/yyyy")}
+                    Ngày: {format(new Date(item.date), "dd/MM/yyyy")}
                   </p>
+                  <p className="post-location">Địa điểm: {item.location}</p>
+                  <p className="post-content">{item.content}</p>
                 </CardContent>
               </Card>
             ))}
+          </div>
+          <div className="pagination-controls">
+            <Button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="pagination-button"
+            >
+              Trang trước
+            </Button>
+
+            {Array.from({ length: totalPages }, (_, i) => (
+              <Button
+                key={i + 1}
+                onClick={() => setCurrentPage(i + 1)}
+                variant={currentPage === i + 1 ? "default" : "outline"}
+                className="pagination-button"
+              >
+                {i + 1}
+              </Button>
+            ))}
+
+            <Button
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className="pagination-button"
+            >
+              Trang sau
+            </Button>
           </div>
         </section>
       </div>
