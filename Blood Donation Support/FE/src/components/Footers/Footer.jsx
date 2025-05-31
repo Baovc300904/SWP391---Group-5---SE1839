@@ -42,7 +42,7 @@ export default function Footer() {
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
               <FaTwitter />
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <a href="https://github.com/AnhKhoaa157" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
               <FaGithub />
             </a>
           </div>

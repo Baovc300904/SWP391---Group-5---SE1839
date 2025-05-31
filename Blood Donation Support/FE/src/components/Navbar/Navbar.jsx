@@ -18,16 +18,18 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav
-      className="navbar"
-      style={{ transform: `translateY(${offset}px)` }}
-    >
+    <nav className="main-navbar">
       <ul>
-        <li><NavLink to="/" end className="nav-link">HOMEPAGE</NavLink></li>
+        <li><NavLink to="/" end className="nav-link">TRANG CHỦ</NavLink></li>
         <li><NavLink to="/qa" className="nav-link">Q&A</NavLink></li>
-        <li><NavLink to="/new" className="nav-link">NEWS</NavLink></li>
-        <li><NavLink to="/services" className="nav-link">SERVICES</NavLink></li>
-        <li><NavLink to="/about" className="nav-link">ABOUT</NavLink></li>
+        <li><NavLink to="/new" className="nav-link">TIN TỨC</NavLink></li>
+        <li><NavLink to="/services" className="nav-link">DỊCH VỤ</NavLink>
+          <ul className="submenu">
+            <li><NavLink to="/services/donate" className="nav-link">Hiến máu</NavLink></li>
+            <li><NavLink to="/services/receive" className="nav-link">Nhận máu</NavLink></li>
+          </ul>
+        </li>
+        <li><NavLink to="/about" className="nav-link">VỀ CHÚNG TÔI</NavLink></li>
       </ul>
     </nav>
   );

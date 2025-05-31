@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Contact.css';
-import AppLayout from '../../Layouts/AppLayout';
+import AppLayout from '../../layouts/AppLayout';
 import Footer from '../Footers/Footer';
 
 export default function Contact() {

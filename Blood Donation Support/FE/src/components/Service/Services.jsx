@@ -1,7 +1,7 @@
 import React from 'react';
 import './Services.css'; // nhớ tạo CSS nếu muốn style đẹp hơn
 
-import AppLayout from '../../Layouts/AppLayout';
+import AppLayout from '../../layouts/AppLayout';
 import Footer from '../Footers/Footer';
 
 export default function Services() {

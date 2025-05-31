@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './About.css';
 
 
-import AppLayout from '../../Layouts/AppLayout';
+import AppLayout from '../../layouts/AppLayout';
 import Footer from '../Footers/Footer';
 
 export default function About() {

@@ -1,49 +1,70 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import './AdminNavbar.css'; // Đảm bảo bạn đã tạo file CSS này để định dạng navbar
+import { AuthContext } from '../routes/AuthContext';
+import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner.jsx';
+ // import component loading spinner
+import './AdminNavbar.css';
 
 export default function AdminNavbar() {
+  const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  // state loading
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleLogout = () => {
-    localStorage.removeItem('user');  // Xóa thông tin user khi đăng xuất
-    navigate('/login');                // Chuyển về trang đăng nhập
+    console.log('Logging out user...');
+    setIsLoading(true);
+
+    // Giả lập async logout nếu cần (ví dụ gọi API logout)
+    setTimeout(() => {
+      logout();
+      console.log('Người dùng đã đăng xuất, chuyển hướng đến trang đăng nhập');
+      setIsLoading(false);
+      navigate('/login');
+    }, 1000); // giả lập 1 giây delay, nếu logout sync thì có thể bỏ setTimeout
   };
 
   return (
-    <nav className="navbar">
-      <div className="logo">Admin Panel</div>
-      <ul className="nav-list">
-        <li>
-          <NavLink
-            to="/adminDashboard"
-            className={({ isActive }) => isActive ? 'link active-link' : 'link'}
-          >
-            Dashboard
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/adminPosts"
-            className={({ isActive }) => isActive ? 'link active-link' : 'link'}
-          >
-            Quản lý bài viết
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/adminUsers"
-            className={({ isActive }) => isActive ? 'link active-link' : 'link'}
-          >
-            Quản lý người dùng
-          </NavLink>
-        </li>
-        <li>
-          <button onClick={handleLogout} className="logout-button">
-            Đăng xuất
-          </button>
-        </li>
-      </ul>
-    </nav>
+    <>
+      {isLoading && <LoadingSpinner />}
+      <nav className="admin-navbar">
+        <div className="logo">
+          <img src="/logo2.png" alt="Logo" />
+          <div className="admin-title">Admin Panel</div>
+        </div>
+        <ul className="nav-list">
+          <li>
+            <NavLink
+              to="/adminDashboard"
+              className={({ isActive }) => (isActive ? 'link active-link' : 'link')}
+            >
+              Dashboard
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/adminManagePost"
+              className={({ isActive }) => (isActive ? 'link active-link' : 'link')}
+            >
+              Quản lý bài viết
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/adminUsers"
+              className={({ isActive }) => (isActive ? 'link active-link' : 'link')}
+            >
+              Quản lý người dùng
+            </NavLink>
+          </li>
+          <li>
+            <button onClick={handleLogout} className="admin-logout-button" disabled={isLoading}>
+              Đăng xuất
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </>
   );
 }

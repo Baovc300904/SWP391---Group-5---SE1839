@@ -1,22 +1,21 @@
-.navbar {
+.main-navbar {
   position: relative;
   width: 100%;
   background-color: #7A0300;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  justify-content: center;
   padding: 8px 0;
-  z-index: 999;
-
-  /* Thêm transition cho top để mượt khi thay đổi */
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
   transition: top 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.navbar.scrolled {
+.main-navbar.scrolled {
   background-color: #4a0100;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.navbar ul {
+.main-navbar ul {
   display: flex;
   gap: 48px;
   list-style: none;
@@ -25,28 +24,97 @@
   justify-content: center;
 }
 
-.navbar ul li .nav-link {
+.main-navbar li {
+  position: relative; /* để submenu định vị tuyệt đối dựa trên cha */
+}
+
+.main-navbar ul li .nav-link {
   color: #ffffff;
   font-weight: 600;
   font-size: 16px;
   text-decoration: none;
-  padding: 0 14px;
+  padding: 8px 16px; /* tăng padding để dễ bấm */
   position: relative;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: inline-block;
 }
 
-.navbar ul li .nav-link:hover {
+.main-navbar ul li .nav-link:hover,
+.main-navbar ul li .nav-link:focus {
   background-color: #d9534f;
   color: white;
+  outline: none;
 }
 
-.navbar ul li .nav-link.active::after {
+.main-navbar ul li .nav-link.active::after {
   content: "";
   position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
+  bottom: -6px;
+  left: 10%;
+  width: 80%;
   height: 3px;
   background-color: #ffffff;
   border-radius: 2px;
+}
+
+/* Mũi tên ▼ cho menu Services */
+.main-navbar li > .nav-link[href="/services"]::after {
+  content: " ▼";
+  font-size: 0.6em;
+  margin-left: 6px;
+  color: white;
+}
+
+/* Submenu dropdown dọc */
+.main-navbar .submenu {
+  display: none; /* ẩn mặc định */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #7A0300;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  min-width: 180px;
+  padding: 8px 0;
+  margin: 0;
+  list-style: none;
+  border-radius: 6px;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Hiện submenu khi hover cha */
+.main-navbar li:hover > .submenu,
+.main-navbar li:focus-within > .submenu {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Các item submenu */
+.main-navbar .submenu li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.main-navbar .submenu li:last-child {
+  border-bottom: none;
+}
+
+.main-navbar .submenu li .nav-link {
+  display: block;
+  padding: 10px 20px;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background-color 0.25s ease;
+  border-radius: 4px;
+}
+
+.main-navbar .submenu li .nav-link:hover,
+.main-navbar .submenu li .nav-link:focus {
+  background-color: #d9534f;
+  outline: none;
 }

@@ -50,6 +50,7 @@
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
+  margin-left: 95px;
 }
 
 .footer-social-icons a {
@@ -61,7 +62,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  font-size: 18px;
+  font-size: 25px;
   transition: background-color 0.3s ease, color 0.3s ease;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }

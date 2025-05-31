@@ -6,6 +6,7 @@ export default function PandaLoginForm({
   password,
   onEmailChange,
   onPasswordChange,
+  errorMessage,
   onSubmit,
 }) {
   useEffect(() => {
@@ -87,7 +88,11 @@ export default function PandaLoginForm({
           />
           <label className="form-label">Password</label>
         </div>
-
+        {errorMessage && (
+        <div className="error-message" style={{ color: 'red', marginTop: '5px' }}>
+          {errorMessage}
+        </div>
+        )}
         <button type="submit" className="btn">Login</button>
       </form>
     </div>
