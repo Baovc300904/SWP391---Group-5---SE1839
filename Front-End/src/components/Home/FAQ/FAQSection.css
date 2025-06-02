@@ -1,0 +1,98 @@
+.home-faq-section {
+    background-color: #b91c1c;
+    max-width: 1600px;
+    padding: 40px 20px;
+  }
+  
+  .home-faq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-items: stretch;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Thẻ tiêu đề to ở cột 1 */
+  .home-faq-title-card {
+    grid-row: span 2;
+    background-color: #ffe600;
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1d3557;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Thẻ FAQ nhỏ */
+  .home-faq-card {
+    background-color: #fff;
+    color: #333;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  
+  .home-faq-icon {
+    font-size: 24px;
+    color: #b91c1c;
+    flex-shrink: 0;
+  }
+  
+  .home-faq-card p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  
+  
+  .home-quick-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 3rem 0;
+    justify-content: center;
+  }
+  
+  .home-stat-card {
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+    background-color: #f9fafb;
+    border-radius: 12px;
+  }
+  
+  .home-stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #dc2626;
+  }
+  
+  .home-stat-label {
+    font-size: 1rem;
+    color: #6b7280;
+  }
+  
+  .home-donor-stories {
+    margin: 3rem 0;
+    text-align: center;
+  }
+  
+  .home-story-slide {
+    padding: 1.5rem;
+    background-color: #fff7ed;
+    border-radius: 12px;
+    margin: 0 auto;
+    max-width: 600px;
+    font-style: italic;
+    color: #374151;
+  }

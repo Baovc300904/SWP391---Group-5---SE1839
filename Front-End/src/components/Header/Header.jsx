@@ -20,10 +20,15 @@ export default function Header() {
       </div>
 
       {/* Login Button */}
-      <div className="login-container">
+      <div className="auth-container">
         <div className="login-button">
           <Link to="/Login">
             <i className="fa fa-user icon-user"></i> Đăng Nhập
+          </Link>
+        </div>
+        <div className="signup-button">
+          <Link to="/signup">
+            <i className="fa fa-user icon-user"></i> Đăng ký
           </Link>
         </div>
       </div>

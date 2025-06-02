@@ -1,0 +1,24 @@
+.video-section {
+    margin: 3rem 0;
+  }
+  
+  .video-wrapper {
+    width: 80%;
+    max-width: 900px;         /* Giới hạn chiều rộng tối đa */
+    margin: 0 auto;           /* Căn giữa ngang */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    background-color: #000;   /* nền đen để video nổi bật */
+  }
+  
+  .video-wrapper video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    object-fit: cover;        /* video phủ kín vùng chứa mà giữ tỉ lệ */
+  }
