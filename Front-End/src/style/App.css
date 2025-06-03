@@ -1,3 +1,19 @@
+/* Mặc định Light Theme */
+:root {
+  --btn-bg: #ffffff;
+  --btn-hover-bg: #f0f0f0;
+  --icon-color: #333;
+  --text-color: #333;
+}
+
+/* Khi dark mode được kích hoạt */
+.dark-theme {
+  --btn-bg: #333;
+  --btn-hover-bg: #444;
+  --icon-color: #fff;
+  --text-color: #fff;
+}
+
 body, html {
   margin: 0;
   padding: 0;
@@ -6,6 +22,12 @@ body, html {
   scroll-behavior: smooth;
   overflow-x: hidden;
   position: relative;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
 }
 
 /* Tạo lớp bóng mờ, ánh sáng lan tỏa */
@@ -39,3 +61,20 @@ body::after {
   z-index: -1;
   opacity: 0.3;
 }
+
+
+
+p {
+  transition: color 0.3s ease;
+}
+
+/* Chỉ đổi màu chữ các thẻ <p> khi theme là dark */
+.dark-theme p {
+  color: #ffffff;
+}
+
+/* Còn nếu là light theme thì có thể không cần vì mặc định đã là đen */
+.light-theme p {
+  color: #000000;
+}
+

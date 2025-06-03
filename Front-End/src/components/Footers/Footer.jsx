@@ -83,7 +83,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; 2025 Hệ thống Hỗ trợ Hiến máu. Hãy chia sẻ để cứu sống.</p>
+        <p>&copy; 2025 Hệ thống Hỗ trợ Hiến Máu. Hãy chia sẻ để cứu sống.</p>
       </div>
     </footer>
   );
