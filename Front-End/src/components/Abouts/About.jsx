@@ -15,29 +15,29 @@ export default function About() {
       <div className="about-section">
         <div className="about-wrapper">
           <div className="about-content">
-            <h1><FaHeartbeat className="heartbeat-icon" /> About Us</h1>
+            <h1><FaHeartbeat className="heartbeat-icon" /> Về Chúng Tôi</h1>
 
             <p className="about-quote">
-              "Every drop counts. Your donation can give someone another chance at life."
+              "Mỗi giọt máu đều quý giá. Sự hiến tặng của bạn có thể mang lại cơ hội sống thứ hai cho ai đó."
             </p>
 
             <p>
-              We are a non-profit organization dedicated to encouraging and supporting voluntary blood donations to save lives across the country.
+              Chúng tôi là một tổ chức phi lợi nhuận cam kết khuyến khích và hỗ trợ việc hiến máu tình nguyện để cứu sống mọi người trên khắp cả nước.
             </p>
             <p>
-              Our mission is to ensure a stable, safe, and timely blood supply for hospitals and patients in need. We organize blood drives, raise awareness, and provide support for donors at every step of the way.
+              Sứ mệnh của chúng tôi là đảm bảo nguồn cung cấp máu ổn định, an toàn và kịp thời cho các bệnh viện và bệnh nhân cần máu. Chúng tôi tổ chức các chương trình hiến máu, nâng cao nhận thức và hỗ trợ người hiến máu ở mọi bước.
             </p>
             <p>
-              Join our community of heroes and help save lives — one drop at a time.
+              Hãy tham gia cộng đồng những người hùng của chúng tôi và giúp cứu sống mọi người — từng giọt máu một.
             </p>
 
             <div className="about-contact-section">
-              <button className="join-btn" onClick={() => alert('Thank you for your interest!')}>
-                Become a Donor
+              <button className="join-btn" onClick={() => alert('Cảm ơn bạn đã quan tâm!')}>
+                Trở Thành Người Hiến Máu
               </button>
 
               <Link to="/contact" className="contact-link">
-              Contact us
+              Liên hệ với chúng tôi
               </Link>
             </div>
           </div>
@@ -45,7 +45,7 @@ export default function About() {
           <div className="about-image-container">
             <img
               src="https://cdn-icons-png.flaticon.com/512/2965/2965567.png"
-              alt="Blood Donation"
+              alt="Hiến Máu"
               className="about-image"
             />
           </div>

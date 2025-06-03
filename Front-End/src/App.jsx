@@ -1,11 +1,14 @@
 import React from 'react';
 import AppRoutes from './routes/AppRoutes';
 import { AuthProvider } from './routes/AuthContext';
+import { ThemeProvider } from "./contexts/ThemeContext"; // Đảm bảo bạn đã tạo file này
 
 function App() {
   return (
     <AuthProvider>
-      <AppRoutes />
+      <ThemeProvider>
+        <AppRoutes />
+      </ThemeProvider>
     </AuthProvider>
   );
 }

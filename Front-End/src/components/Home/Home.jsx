@@ -16,7 +16,8 @@ import HomePost from "./HomePost/PostSection";
 
 const Home = () => {
   const [showNotification, setShowNotification] = useState(false);
-  const [searchResults, setSearchResults] = useState(null);
+  const [, setSearchResults] = useState(null);
+  const [theme, setTheme] = useState("light");
 
   const handleSearchResults = (results) => {
     setSearchResults(results);
@@ -56,10 +57,10 @@ const Home = () => {
         )}
 
         {/* Các section chính */}
+        <SearchSection onSearchResults={handleSearchResults} />
         <HeroSection />
         <IntroSection />
         <SlideSection sliderSettings={sliderSettings} />
-        <SearchSection onSearchResults={handleSearchResults} />
         <VideoSection />
         <FAQSection />
         <HomePost />

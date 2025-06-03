@@ -19,50 +19,101 @@ export default function FAQSection() {
           <div className="home-faq-grid">
             {/* Cột 1: Thẻ tiêu đề to */}
             <div className="home-faq-title-card">
-              <h2>❓ Câu hỏi thường gặp</h2>
+              <h2> Tiêu chuẩn tham gia hiến máu❓ </h2>
             </div>
 
             {/* Các thẻ nhỏ: Cột 2 và 3 */}
             <div className="home-faq-card">
-              <div className="home-faq-icon">
-                <i className="fas fa-user-check"></i>
+              <div className="home-faq-icon icon-red">
+                <i className="fas fa-user-check"></i> 
               </div>
-              <p>Ai có thể tham gia hiến máu?</p>
+              <span className="home-faq-description">
+                Người từ 18 đến 60 tuổi, cân nặng ≥ 45kg, không mắc bệnh truyền nhiễm.
+              </span>
             </div>
 
-            <div className="home-faq-card">
-              <div className="home-faq-icon">
+                        {/* Thẻ chiếm 2 hàng bên phải */}
+            <div className="home-faq-card home-faq-double">
+              <div className="home-faq-icon icon-purple">
+                <i className="fas fa-info-circle"></i>
+              </div>
+              <span className="home-faq-description">
+                Nếu bạn có bất kỳ triệu chứng nào như sốt, ho, hoặc đang dùng thuốc điều trị, bạn nên hoãn hiến máu đến khi khỏe hẳn.
+              </span>
+            </div>
+
+            {/* <div className="home-faq-card">
+              <div className="home-faq-icon icon-green">
                 <i className="fas fa-certificate"></i>
               </div>
-              <p>Tôi có được nhận giấy chứng nhận không?</p>
-            </div>
+              <span className="home-faq-description">
+                Có. Sau khi hiến máu bạn sẽ nhận giấy chứng nhận từ Hội chữ thập đỏ.
+              </span>
+            </div> */}
 
             <div className="home-faq-card">
-              <div className="home-faq-icon">
+              <div className="home-faq-icon icon-blue">
                 <i className="fas fa-tint"></i>
               </div>
-              <p>Bao lâu thì có thể hiến máu lần tiếp theo?</p>
+              <span className="home-faq-description">
+                Nam: mỗi 3 tháng/lần. Nữ: mỗi 4 tháng/lần.
+              </span>
             </div>
 
             <div className="home-faq-card">
-              <div className="home-faq-icon">
+              <div className="home-faq-icon icon-orange">
                 <i className="fas fa-bed"></i>
               </div>
-              <p>Sau khi hiến máu có cần nghỉ ngơi không?</p>
+              <span className="home-faq-description">
+                Nên nghỉ tại chỗ 10–15 phút, uống nước và ăn nhẹ để hồi phục.
+              </span>
             </div>
 
             <div className="home-faq-card">
-              <div className="home-faq-icon">
+              <div className="home-faq-icon icon-purple">
                 <i className="fas fa-hospital-user"></i>
               </div>
-              <p>Có cần khám sức khỏe trước không?</p>
+              <span className="home-faq-description">
+                Có. Bạn sẽ được kiểm tra mạch, huyết áp, cân nặng và sức khỏe tổng quát.
+              </span>
             </div>
 
             <div className="home-faq-card">
-              <div className="home-faq-icon">
+              <div className="home-faq-icon icon-yellow">
                 <i className="fas fa-apple-alt"></i>
               </div>
-              <p>Có nên ăn uống trước khi hiến máu?</p>
+              <span className="home-faq-description">
+                Có. Nên ăn nhẹ, tránh đồ dầu mỡ và không để bụng đói khi hiến máu.
+              </span>
+            </div>
+
+            <div className="home-faq-card">
+              <div className="home-faq-icon icon-red">
+                <i className="fas fa-heartbeat"></i>
+              </div>
+              <span className="home-faq-description">
+                Hiến máu giúp kích thích cơ thể sản sinh máu mới và kiểm tra sức khỏe miễn phí.
+              </span>
+            </div>
+
+            {/* Thẻ 7 */}
+            <div className="home-faq-card">
+              <div className="home-faq-icon icon-blue">
+                <i className="fas fa-user-shield"></i>
+              </div>
+              <span className="home-faq-description">
+                Bạn cần từ 18 đến 60 tuổi, cân nặng tối thiểu 45kg và đủ điều kiện sức khỏe.
+              </span>
+            </div>
+
+            {/* Thẻ 8 */}
+            <div className="home-faq-card">
+              <div className="home-faq-icon icon-orange">
+                <i className="fas fa-calendar-check"></i>
+              </div>
+              <span className="home-faq-description">
+                Bạn có thể đặt lịch hiến máu trước để tiết kiệm thời gian và tránh chờ đợi.
+              </span>
             </div>
           </div>
         </section>

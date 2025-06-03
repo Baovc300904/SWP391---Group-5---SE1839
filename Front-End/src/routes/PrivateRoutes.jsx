@@ -6,13 +6,17 @@ export default function PrivateRoutes({ allowedRoles, children }) {
   const { user } = useContext(AuthContext);
   const location = useLocation();
 
-  if (!user) {
-    console.log('Bạn không có quyền đăng nhập, redirect về trang login');
-    return <Navigate to="/login" replace state={{ from: location }} />;
-  }
+  // if (!user) {
+  //   return (
+  //     <Navigate
+  //       to="/login"
+  //       replace
+  //       state={{ from: location, error: 'Bạn cần đăng nhập để truy cập trang này!' }}
+  //     />
+  //   );
+  // }
 
   if (!allowedRoles.includes(user.role)) {
-    // Đăng nhập rồi nhưng không có quyền => redirect và truyền lỗi về login
     return (
       <Navigate
         to="/login"

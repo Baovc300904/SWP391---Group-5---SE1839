@@ -1,35 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import PandaLoginForm from '../PandaLoginForm/PandaLoginForm.jsx';
 import sampleUsers from '../../data/login.json';
 import './Login.css';
 
+import { AuthContext } from '../../routes/AuthContext.jsx'; // import đúng đường dẫn của bạn
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [popupMessage, setPopupMessage] = useState(''); // Thêm popup
+  const [popupMessage, setPopupMessage] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Lấy login từ AuthContext
+  const { login } = useContext(AuthContext);
+
   useEffect(() => {
-    // Nếu có lỗi từ PrivateRoutes truyền sang
     if (location.state && location.state.error) {
       setPopupMessage(location.state.error);
-      // Xóa state trong history sau khi lấy xong
       window.history.replaceState({}, document.title);
     }
   }, [location]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const user = sampleUsers.find(u => u.email === email && u.password === password);
 
     if (user) {
       setErrorMessage('');
-      localStorage.setItem('user', JSON.stringify(user));
+      // Gọi hàm login trong AuthContext để cập nhật user và localStorage đồng bộ
+      login(user);
 
+      // Điều hướng theo role
       switch (user.role) {
         case 'admin':
           navigate('/adminDashboard');
@@ -48,6 +54,7 @@ export default function Login() {
   const responseGoogleSuccess = (credentialResponse) => {
     console.log('Google login thành công:', credentialResponse);
     alert('Google login thành công!');
+    // TODO: Xử lý login qua Google, gọi login() khi có dữ liệu user thực
   };
 
   const responseGoogleFailure = () => {
@@ -56,7 +63,6 @@ export default function Login() {
 
   return (
     <div className="login-banner-container">
-      {/* Popup lỗi nếu có */}
       {popupMessage && (
         <div className="popup">
           <p>{popupMessage}</p>

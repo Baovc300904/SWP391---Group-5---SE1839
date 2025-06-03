@@ -23,15 +23,15 @@ export default function Contact() {
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.fullname.trim()) newErrors.fullname = "Full name is required.";
-    if (!formData.email.trim()) newErrors.email = "Email is required.";
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Invalid email format.";
+    if (!formData.fullname.trim()) newErrors.fullname = "Họ và tên là bắt buộc.";
+    if (!formData.email.trim()) newErrors.email = "Email là bắt buộc.";
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Định dạng email không hợp lệ.";
 
-    if (!formData.phone.trim()) newErrors.phone = "Phone number is required.";
-    else if (!/^[0-9]{9,15}$/.test(formData.phone)) newErrors.phone = "Phone must be 9-15 digits.";
+    if (!formData.phone.trim()) newErrors.phone = "Số điện thoại là bắt buộc.";
+    else if (!/^[0-9]{9,15}$/.test(formData.phone)) newErrors.phone = "Số điện thoại phải từ 9-15 chữ số.";
 
-    if (!formData.subject.trim()) newErrors.subject = "Please select a subject.";
-    if (!formData.message.trim()) newErrors.message = "Message cannot be empty.";
+    if (!formData.subject.trim()) newErrors.subject = "Vui lòng chọn một chủ đề.";
+    if (!formData.message.trim()) newErrors.message = "Tin nhắn không được để trống.";
 
     return newErrors;
   };
@@ -44,7 +44,7 @@ export default function Contact() {
       setErrors(validationErrors);
     } else {
       setErrors({});
-      // Replace with API call here
+      // Thay thế bằng API call tại đây
       setSubmitted(true);
     }
   };
@@ -66,20 +66,20 @@ export default function Contact() {
       <AppLayout />
       <div className="contact-container">
         <div className="contact-content">
-          <h2 className="contact-title">Blood Donation Support</h2>
+          <h2 className="contact-title">Hỗ Trợ Hiến Máu</h2>
           <p className="contact-description">
-            Share love, save lives.<br />
-            Leave your contact and message. We’ll reach out to you!
+            Lan tỏa yêu thương, cứu sống mạng người.<br />
+            Hãy để lại thông tin liên lạc và tin nhắn. Chúng tôi sẽ liên hệ với bạn!
           </p>
 
           {!submitted ? (
             <form className="contact-form" onSubmit={handleSubmit} noValidate>
-              <label htmlFor="fullname">Full Name</label>
+              <label htmlFor="fullname">Họ và Tên</label>
               <input
                 id="fullname"
                 name="fullname"
                 type="text"
-                placeholder="Enter your full name"
+                placeholder="Nhập họ và tên của bạn"
                 value={formData.fullname}
                 onChange={handleChange}
               />
@@ -90,56 +90,56 @@ export default function Contact() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="email@example.com"
+                placeholder="email@vidu.com"
                 value={formData.email}
                 onChange={handleChange}
               />
               {errors.email && <span className="error">{errors.email}</span>}
 
-              <label htmlFor="phone">Phone Number</label>
+              <label htmlFor="phone">Số Điện Thoại</label>
               <input
                 id="phone"
                 name="phone"
                 type="tel"
-                placeholder="Enter your phone number"
+                placeholder="Nhập số điện thoại của bạn"
                 value={formData.phone}
                 onChange={handleChange}
               />
               {errors.phone && <span className="error">{errors.phone}</span>}
 
-              <label htmlFor="subject">Subject</label>
+              <label htmlFor="subject">Chủ Đề</label>
               <select
                 id="subject"
                 name="subject"
                 value={formData.subject}
                 onChange={handleChange}
               >
-                <option value="">-- Select a subject --</option>
-                <option value="donation">I want to donate blood</option>
-                <option value="request">I need blood</option>
-                <option value="volunteer">I want to volunteer</option>
-                <option value="feedback">Feedback / Other</option>
+                <option value="">-- Chọn một chủ đề --</option>
+                <option value="donation">Tôi muốn hiến máu</option>
+                <option value="request">Tôi cần máu</option>
+                <option value="volunteer">Tôi muốn làm tình nguyện viên</option>
+                <option value="feedback">Phản hồi / Khác</option>
               </select>
               {errors.subject && <span className="error">{errors.subject}</span>}
 
-              <label htmlFor="message">Message</label>
+              <label htmlFor="message">Tin Nhắn</label>
               <textarea
                 id="message"
                 name="message"
                 rows="4"
-                placeholder="What would you like to share?"
+                placeholder="Bạn muốn chia sẻ điều gì?"
                 value={formData.message}
                 onChange={handleChange}
               />
               {errors.message && <span className="error">{errors.message}</span>}
 
-              <button type="submit" className="contact-btn">Submit</button>
+              <button type="submit" className="contact-btn">Gửi</button>
             </form>
           ) : (
             <div className="contact-thank-you">
-              <h3>Thank you for reaching out!</h3>
-              <p>We will contact you as soon as possible.</p>
-              <button onClick={handleNewMessage} className="contact-btn">Send another message</button>
+              <h3>Cảm ơn bạn đã liên hệ!</h3>
+              <p>Chúng tôi sẽ liên lạc với bạn sớm nhất có thể.</p>
+              <button onClick={handleNewMessage} className="contact-btn">Gửi tin nhắn khác</button>
             </div>
           )}
         </div>
