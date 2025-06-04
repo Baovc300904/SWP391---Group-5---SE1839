@@ -17,6 +17,11 @@
     justify-content: center;
   }
   
+  .search-container input:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.25);
+  }
+  
   /* Card trắng có bóng nhẹ */
   .search-card {
     background-color: #ffffff;
