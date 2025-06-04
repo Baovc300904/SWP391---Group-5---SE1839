@@ -24,12 +24,12 @@ public class BloodRequestService {
         User user = getCurrentUser();
 
         BloodRequest request = new BloodRequest();
-        request.setNguoiNhan(dto.getNguoiNhan());
-        request.setNhomMauCan(dto.getNhomMauCan());
-        request.setSoLuong(dto.getSoLuong());
-        request.setLyDo(dto.getLyDo());
-        request.setNgayTao(LocalDateTime.now());
-        request.setNguoiGui(user);
+        request.setRecipient(dto.getRecipientName());
+        request.setRequestedBloodGroup(dto.getRequiredBloodGroup());
+        request.setQuantity(dto.getAmount());
+        request.setReason(dto.getReason());
+        request.setCreatedAt(LocalDateTime.now());
+        request.setSender(user);
 
         requestRepository.save(request);
     }

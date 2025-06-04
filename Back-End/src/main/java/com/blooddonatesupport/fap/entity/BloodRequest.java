@@ -15,17 +15,17 @@ public class BloodRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nguoiNhan;
+    private String recipient;
 
-    private String nhomMauCan;
+    private String requestedBloodGroup;
 
-    private Integer soLuong;
+    private Integer quantity;
 
-    private String lyDo;
+    private String reason;
 
-    private LocalDateTime ngayTao;
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User nguoiGui;
+    private User sender;
 }

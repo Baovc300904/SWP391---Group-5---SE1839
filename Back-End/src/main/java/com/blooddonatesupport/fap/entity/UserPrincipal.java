@@ -17,12 +17,12 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + user.getVaiTro()));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
     }
 
     @Override
     public String getPassword() {
-        return user.getMatKhauHash();
+        return user.getPassword();
     }
 
     @Override

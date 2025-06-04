@@ -7,15 +7,16 @@ import java.time.LocalDate;
 
 @Data
 public class UserProfileDTO {
-    private String hoVaTen;
-    private String soDienThoai;
-    private LocalDate ngaySinh;
-    private String gioiTinh;
-    private String diaChi;
-    private Integer maNhomMau;
-    private String yeuToRh;
-    private String tienSuBenh;
-    private BigDecimal canNang;
-    private BigDecimal chieuCao;
-    private String tinhTrangSucKhoeHienTai;
+    private String fullName;
+    private String phoneNumber;
+    private LocalDate dateOfBirth;
+    private String gender;
+    private String address;
+    private Integer bloodType;
+    private String rhFactor;
+    private String medicalHistory;
+    private BigDecimal weight;
+    private BigDecimal height;
+    private String currentHealthStatus;
 }
+

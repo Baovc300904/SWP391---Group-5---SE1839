@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import lombok.*;
 
 @Entity
-@Table(name = "NguoiDung")
+@Table(name = "User")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,56 +15,56 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long maNguoiDung;
+    private Long userId;
 
     @Column(nullable = false, length = 100)
-    private String hoVaTen;
+    private String fullName;
 
     @Column(nullable = false, unique = true, length = 50)
-    private String tenDangNhap;
+    private String username;
 
     @Column(nullable = false, length = 255)
-    private String matKhauHash;
+    private String password;
 
     @Column(nullable = false, unique = true, length = 100)
     private String email;
 
     @Column(length = 20)
-    private String soDienThoai;
+    private String phoneNumber;
 
-    private LocalDate ngaySinh;
+    private LocalDate dateOfBirth;
 
     @Column(length = 10)
-    private String gioiTinh;
+    private String gender;
 
     @Column(length = 255)
-    private String diaChi;
+    private String address;
 
-    private Integer maNhomMau;
+    private Integer bloodType;
 
     @Column(length = 5)
-    private String yeuToRh;
+    private String rhFactor;
 
     @Lob
-    private String tienSuBenh;
+    private String medicalHistory;
 
     @Column(precision = 5, scale = 2)
-    private BigDecimal canNang;
+    private BigDecimal weight;
 
     @Column(precision = 5, scale = 2)
-    private BigDecimal chieuCao;
+    private BigDecimal height;
 
     @Column(length = 50)
-    private String tinhTrangSucKhoeHienTai;
+    private String currentHealthStatus;
 
     @Column(nullable = false, length = 50)
-    private String vaiTro;
+    private String role;
 
     @Column(columnDefinition = "DATETIME DEFAULT GETDATE()")
-    private LocalDateTime ngayDangKy;
+    private LocalDateTime registrationDate;
 
     @Column(length = 50)
-    private String trangThaiTaiKhoan = "Hoạt Động";
+    private String accountStatus = "Active";
 
     @Column(length = 20)
     private String provider;

@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class UpdateInventoryRequest {
-    private String nhomMau;
-    private int thayDoi; // Có thể âm (-) khi nhận máu, dương (+) khi hiến
+    private String bloodGroup;
+    private int changeAmount; // Can be negative when receiving blood, positive when donating
 }

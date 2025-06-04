@@ -21,11 +21,11 @@ public class InventoryService {
         Inventory inventory = inventoryRepository.findByNhomMau(nhomMau)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy nhóm máu: " + nhomMau));
 
-        int newQuantity = inventory.getSoLuong() + thayDoi;
+        int newQuantity = inventory.getQuantity() + thayDoi;
         if (newQuantity < 0) {
             throw new IllegalArgumentException("Không đủ số lượng máu để trừ");
         }
-        inventory.setSoLuong(newQuantity);
+        inventory.setQuantity(newQuantity);
         return inventoryRepository.save(inventory);
     }
 }

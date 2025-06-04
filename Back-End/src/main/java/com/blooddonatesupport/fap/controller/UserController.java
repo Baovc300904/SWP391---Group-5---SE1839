@@ -21,17 +21,17 @@ public class UserController {
     private final UserRepository userRepository;
     private UserProfileDTO convertToDTO(User user) {
         UserProfileDTO dto = new UserProfileDTO();
-        dto.setHoVaTen(user.getHoVaTen());
-        dto.setSoDienThoai(user.getSoDienThoai());
-        dto.setNgaySinh(user.getNgaySinh());
-        dto.setGioiTinh(user.getGioiTinh());
-        dto.setDiaChi(user.getDiaChi());
-        dto.setMaNhomMau(user.getMaNhomMau());
-        dto.setYeuToRh(user.getYeuToRh());
-        dto.setTienSuBenh(user.getTienSuBenh());
-        dto.setCanNang(user.getCanNang());
-        dto.setChieuCao(user.getChieuCao());
-        dto.setTinhTrangSucKhoeHienTai(user.getTinhTrangSucKhoeHienTai());
+        dto.setFullName(user.getFullName());
+        dto.setPhoneNumber(user.getPhoneNumber());
+        dto.setDateOfBirth(user.getDateOfBirth());
+        dto.setGender(user.getGender());
+        dto.setAddress(user.getAddress());
+        dto.setBloodType(user.getBloodType());
+        dto.setRhFactor(user.getRhFactor());
+        dto.setMedicalHistory(user.getMedicalHistory());
+        dto.setWeight(user.getWeight());
+        dto.setHeight(user.getHeight());
+        dto.setCurrentHealthStatus(user.getCurrentHealthStatus());
         return dto;
     }
     // Lấy hồ sơ người dùng hiện tại
@@ -47,8 +47,8 @@ public class UserController {
     public ResponseEntity<?> updateProfile(@AuthenticationPrincipal UserDetails userDetails,
                                            @RequestBody UserProfileDTO updateRequest) {
         User user = userRepository.findByTenDangNhap(userDetails.getUsername()).orElseThrow();
-        user.setHoVaTen(updateRequest.getHoVaTen());
-        user.setDiaChi(updateRequest.getDiaChi());
+        user.setFullName(updateRequest.getFullName());
+        user.setAddress(updateRequest.getAddress());
         // ... cập nhật các trường còn lại
         userRepository.save(user);
         return ResponseEntity.ok("Cập nhật thành công");

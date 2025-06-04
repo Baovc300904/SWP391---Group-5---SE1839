@@ -23,7 +23,7 @@ public class InventoryController {
 
     @PutMapping("/update")
     public ResponseEntity<Inventory> update(@RequestBody UpdateInventoryRequest request) {
-        Inventory updated = inventoryService.updateQuantity(request.getNhomMau(), request.getThayDoi());
+        Inventory updated = inventoryService.updateQuantity(request.getBloodGroup(), request.getChangeAmount());
         return ResponseEntity.ok(updated);
     }
 }

@@ -17,11 +17,11 @@ public class BloodDonationEventService {
 
     public BloodDonationEvent createEvent(EventRequestDTO dto) {
         BloodDonationEvent event = new BloodDonationEvent();
-        event.setTenSuKien(dto.getTenSuKien());
-        event.setNgayToChuc(dto.getNgayToChuc());
-        event.setDiaDiem(dto.getDiaDiem());
-        event.setMoTa(dto.getMoTa());
-        event.setSoLuongNguoiDuKien(dto.getSoLuongNguoiDuKien());
+        event.setEventName(dto.getEventName());
+        event.setEventDate(dto.getEventDate());
+        event.setLocation(dto.getLocation());
+        event.setDescription(dto.getDescription());
+        event.setExpectedParticipants(dto.getExpectedParticipants());
         return eventRepo.save(event);
     }
 
@@ -31,11 +31,11 @@ public class BloodDonationEventService {
 
     public Optional<BloodDonationEvent> updateEvent(Long id, EventRequestDTO dto) {
         return eventRepo.findById(id).map(event -> {
-            event.setTenSuKien(dto.getTenSuKien());
-            event.setNgayToChuc(dto.getNgayToChuc());
-            event.setDiaDiem(dto.getDiaDiem());
-            event.setMoTa(dto.getMoTa());
-            event.setSoLuongNguoiDuKien(dto.getSoLuongNguoiDuKien());
+            event.setEventName(dto.getEventName());
+            event.setEventDate(dto.getEventDate());
+            event.setLocation(dto.getLocation());
+            event.setDescription(dto.getDescription());
+            event.setExpectedParticipants(dto.getExpectedParticipants());
             return eventRepo.save(event);
         });
     }
