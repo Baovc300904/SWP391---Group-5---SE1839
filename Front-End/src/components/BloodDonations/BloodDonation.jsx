@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { format } from "date-fns";
 import AppLayout from "../../layouts/AppLayout";
-import Footer from "../Footers/Footer";
+import Footer from "../common/Footers/Footer";
 
 export default function BloodDonation() {
   const location = useLocation();
