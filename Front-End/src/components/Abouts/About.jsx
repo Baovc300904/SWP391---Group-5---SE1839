@@ -5,7 +5,7 @@ import './About.css';
 
 
 import AppLayout from '../../layouts/AppLayout';
-import Footer from '../Footers/Footer';
+import Footer from "../common/Footers/Footer";
 
 export default function About() {
   return (

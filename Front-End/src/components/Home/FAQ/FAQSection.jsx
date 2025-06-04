@@ -1,6 +1,6 @@
 import React from 'react'
 import './FAQSection.css'; // Import your CSS file for styling
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/common/card";
 import Slider from 'react-slick';
 import '../../../../node_modules/slick-carousel/slick/slick.css';
 import '../../../../node_modules/slick-carousel/slick/slick-theme.css';

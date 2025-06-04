@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './News.css';
 
 import AppLayout from '../../layouts/AppLayout';
-import Footer from '../Footers/Footer';
+import Footer from "../common/Footers/Footer";
 
 export default function News() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);

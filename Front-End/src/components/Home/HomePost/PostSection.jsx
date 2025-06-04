@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Card, CardContent } from "@/components/ui/card";
-import Button from "@/components/ui/Button";
+import { Card, CardContent } from "@/components/common/card";
+import Button from "@/components/common/Button";
 import { format } from "date-fns";
 import posts from "../../../data/posts"; // Giả sử bạn có dữ liệu bài viết trong file này
 import './PostSection.css'; // Import CSS file for styling

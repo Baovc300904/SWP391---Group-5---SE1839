@@ -1,6 +1,6 @@
 import React from 'react'
 import Slider from 'react-slick';
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/common/card";
 import slideshow1 from '../../../assets/images/slideshows/slideshow1.png'; // Adjust the path as necessary
 import './SlideSection.css'; // Import your CSS file for styling
 export default function SlideSection({ sliderSettings }) {

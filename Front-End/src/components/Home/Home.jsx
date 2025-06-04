@@ -4,7 +4,7 @@ import { Bell } from "lucide-react";
 import { ArrowUp } from "lucide-react";
 import "./Home.css";
 import AppLayout from "../../layouts/AppLayout";
-import Footer from "../Footers/Footer";
+import Footer from "../common/Footers/Footer";
 
 // Import các phần của Trang chủ
 import HeroSection from "./Hero/HeroSection";
