@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Bell } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import "./Home.css";
 import AppLayout from "../../layouts/AppLayout";
 import Footer from "../Footers/Footer";
@@ -24,6 +25,18 @@ const Home = () => {
     // Nếu muốn bạn có thể xử lý gì thêm ở đây, ví dụ cập nhật UI khác
     console.log("Kết quả tìm kiếm nhận được ở Home:", results);
   };
+
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 300); // Hiện nút nếu cuộn > 300px
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
 
   useEffect(() => {
     setShowNotification(true);
@@ -65,8 +78,15 @@ const Home = () => {
         <FAQSection />
         <HomePost />
       </div>
+      {showBackToTop && (
+        <button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+          <ArrowUp size={20} />
+        </button>
+      )}
       <Footer />
     </>
+
+    
   );
 };
 
