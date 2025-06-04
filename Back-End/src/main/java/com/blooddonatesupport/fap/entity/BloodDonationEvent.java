@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "SuKienHienMau")
+@Table(name = "BloodDonationEvent") // Hoặc giữ nguyên "SuKienHienMau" nếu DB chưa đổi
 public class BloodDonationEvent {
 
     @Id
@@ -16,15 +16,15 @@ public class BloodDonationEvent {
     private Long id;
 
     @Column(nullable = false)
-    private String tenSuKien;
+    private String eventName;
 
     @Column(nullable = false)
-    private LocalDate ngayToChuc;
+    private LocalDate eventDate;
 
     @Column(nullable = false)
-    private String diaDiem;
+    private String location;
 
-    private String moTa;
+    private String description;
 
-    private Integer soLuongNguoiDuKien;
+    private Integer expectedParticipants;
 }

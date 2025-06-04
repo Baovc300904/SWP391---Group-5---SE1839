@@ -41,11 +41,11 @@ public class AuthController {
         }
 
         User user = new User();
-        user.setHoVaTen(req.getHoVaTen());
-        user.setTenDangNhap(req.getTenDangNhap());
-        user.setMatKhauHash(passwordEncoder.encode(req.getMatKhau()));
+        user.setFullName(req.getFullName());
+        user.setUsername(req.getUsername());
+        user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setEmail(req.getEmail());
-        user.setVaiTro("USER");
+        user.setRole("USER");
         user.setProvider("local");
         userRepository.save(user);
 
@@ -55,11 +55,11 @@ public class AuthController {
     // LOGIN
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest req) {
-        return userRepository.findByTenDangNhap(req.getTenDangNhap())
-                .filter(user -> passwordEncoder.matches(req.getMatKhau(), user.getMatKhauHash()))
+        return userRepository.findByTenDangNhap(req.getUsername())
+                .filter(user -> passwordEncoder.matches(req.getPassword(), user.getPassword()))
                 .<ResponseEntity<?>>map(user -> {
                     String token = jwtUtil.generateToken(user);
-                    tokenRepository.save(new ValidToken(token, user.getMaNguoiDung()));
+                    tokenRepository.save(new ValidToken(token, user.getUserId()));
                     return ResponseEntity.ok(Map.of("token", token));
                 })
                 .orElse(ResponseEntity.status(401).body(Map.of("message", "Sai thông tin đăng nhập")));
@@ -82,15 +82,15 @@ public class AuthController {
                                             @AuthenticationPrincipal UserDetails userDetails) {
         User user = userRepository.findByTenDangNhap(userDetails.getUsername()).orElseThrow();
 
-        if (!passwordEncoder.matches(req.getOldPassword(), user.getMatKhauHash())) {
+        if (!passwordEncoder.matches(req.getOldPassword(), user.getPassword())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Sai mật khẩu cũ");
         }
 
-        user.setMatKhauHash(passwordEncoder.encode(req.getNewPassword()));
+        user.setPassword(passwordEncoder.encode(req.getNewPassword()));
         userRepository.save(user);
 
         // Xoá tất cả token cũ của user
-        tokenRepository.deleteAllByUserId(user.getMaNguoiDung());
+        tokenRepository.deleteAllByUserId(user.getUserId());
 
         return ResponseEntity.ok("Mật khẩu đã được đổi. Vui lòng đăng nhập lại.");
     }

@@ -34,11 +34,11 @@ public class UserService {
         }
 
         User user = new User();
-        user.setHoVaTen(req.getHoVaTen());
-        user.setTenDangNhap(req.getTenDangNhap());
-        user.setMatKhauHash(passwordEncoder.encode(req.getMatKhau()));
+        user.setFullName(req.getFullName());
+        user.setUsername(req.getUsername());
+        user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setEmail(req.getEmail());
-        user.setVaiTro("USER");
+        user.setRole("USER");
         user.setProvider("local");
 
         return Optional.of(userRepository.save(user));
@@ -46,27 +46,27 @@ public class UserService {
 
     public Optional<String> login(String username, String password) {
         return userRepository.findByTenDangNhap(username)
-                .filter(user -> passwordEncoder.matches(password, user.getMatKhauHash()))
+                .filter(user -> passwordEncoder.matches(password, user.getPassword()))
                 .map(user -> {
                     String token = jwtUtil.generateToken(user);
-                    tokenRepository.save(new ValidToken(token, user.getMaNguoiDung()));
+                    tokenRepository.save(new ValidToken(token, user.getUserId()));
                     return token;
                 });
     }
 
     public boolean changePassword(User user, ChangePasswordRequest req) {
-        if (!passwordEncoder.matches(req.getOldPassword(), user.getMatKhauHash())) {
+        if (!passwordEncoder.matches(req.getOldPassword(), user.getPassword())) {
             return false;
         }
 
-        user.setMatKhauHash(passwordEncoder.encode(req.getNewPassword()));
+        user.setPassword(passwordEncoder.encode(req.getNewPassword()));
         userRepository.save(user);
 
-        tokenRepository.deleteAllByUserId(user.getMaNguoiDung());
+        tokenRepository.deleteAllByUserId(user.getUserId());
         return true;
     }
 
     public void logout(String token, User user) {
-        tokenRepository.deleteByTokenAndUserId(token, user.getMaNguoiDung());
+        tokenRepository.deleteByTokenAndUserId(token, user.getUserId());
     }
 }

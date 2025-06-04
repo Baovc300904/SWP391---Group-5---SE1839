@@ -16,14 +16,14 @@ public class DonationService {
 
     public DonationRegistration registerDonation(DonationRegistrationRequest request, User user) {
         DonationRegistration donation = new DonationRegistration();
-        donation.setNgayHien(request.getNgayHien());
-        donation.setDiaDiem(request.getDiaDiem());
-        donation.setNhomMau(request.getNhomMau());
-        donation.setNguoiDung(user);
+        donation.setDonationDate(request.getDonationDate());
+        donation.setLocation(request.getLocation());
+        donation.setBloodGroup(request.getBloodGroup());
+        donation.setUser(user);
         return donationRepo.save(donation);
     }
 
     public List<DonationRegistration> getMyDonations(User user) {
-        return donationRepo.findByNguoiDung_MaNguoiDung(user.getMaNguoiDung());
+        return donationRepo.findByNguoiDung_MaNguoiDung(user.getUserId());
     }
 }

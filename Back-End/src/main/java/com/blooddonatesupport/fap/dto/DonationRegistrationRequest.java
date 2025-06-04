@@ -7,7 +7,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DonationRegistrationRequest {
-    private LocalDate ngayHien;
-    private String diaDiem;
-    private String nhomMau;
+    private LocalDate donationDate;
+    private String location;
+    private String bloodGroup;
 }
+

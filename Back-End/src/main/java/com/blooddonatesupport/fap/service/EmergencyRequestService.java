@@ -18,10 +18,10 @@ public class EmergencyRequestService {
 
     public void createEmergency(EmergencyRequestDTO dto, User nguoiTao) {
         EmergencyRequest request = new EmergencyRequest();
-        request.setNhomMau(dto.getNhomMau());
-        request.setDiaDiem(dto.getDiaDiem());
-        request.setMoTa(dto.getMoTa());
-        request.setNguoiTao(nguoiTao);
+        request.setBloodGroup(dto.getBloodGroup());
+        request.setLocation(dto.getLocation());
+        request.setDescription(dto.getDescription());
+        request.setCreator(nguoiTao);
         repository.save(request);
     }
 

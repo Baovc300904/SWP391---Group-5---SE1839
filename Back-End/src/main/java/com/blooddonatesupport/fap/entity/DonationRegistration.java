@@ -8,21 +8,22 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "LichHienMau")
+@Table(name = "DonationSchedule")
 public class DonationRegistration {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate ngayHien;
+    private LocalDate donationDate;
 
-    private String diaDiem;
+    private String location;
 
-    private String nhomMau;
+    private String bloodGroup;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "maNguoiDung")
-    private User nguoiDung;
+    @JoinColumn(name = "user_id")
+    private User user;
 }
+
 

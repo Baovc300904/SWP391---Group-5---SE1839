@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmergencyRequestDTO {
-    private String nhomMau;
-    private String diaDiem;
-    private String moTa;
+    private String bloodGroup;
+    private String location;
+    private String description;
 }

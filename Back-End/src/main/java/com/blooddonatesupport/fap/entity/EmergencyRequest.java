@@ -14,17 +14,17 @@ public class EmergencyRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nhomMau;
+    private String bloodGroup;
 
-    private String diaDiem;
+    private String location;
 
-    private String moTa;
+    private String description;
 
-    private LocalDateTime thoiGianTao = LocalDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    private boolean daXuLy = false;
+    private boolean processed = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "nguoiTao_id")
-    private User nguoiTao;
+    @JoinColumn(name = "creator_id")
+    private User creator;
 }

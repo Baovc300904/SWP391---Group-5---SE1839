@@ -27,10 +27,10 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         userRepository.findByEmail(email).orElseGet(() -> {
             User newUser = new User();
             newUser.setEmail(email);
-            newUser.setHoVaTen(name);
-            newUser.setVaiTro("USER");
+            newUser.setFullName(name);
+            newUser.setRole("USER");
             newUser.setProvider(provider);
-            newUser.setNgayDangKy(LocalDateTime.now());
+            newUser.setRegistrationDate(LocalDateTime.now());
             return userRepository.save(newUser);
         });
 
