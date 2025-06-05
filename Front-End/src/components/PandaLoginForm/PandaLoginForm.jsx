@@ -63,7 +63,7 @@ export default function PandaLoginForm({
       <form className="panda-login-form" onSubmit={onSubmit}>
         <div className="hand"></div>
         <div className="hand rgt"></div>
-        <h1>Panda Login</h1>
+        <h1>Đăng Nhập</h1>
 
         <div className="form-group">
           <input
@@ -86,7 +86,7 @@ export default function PandaLoginForm({
             required
             className="form-control"
           />
-          <label className="form-label">Password</label>
+          <label className="form-label">Mật Khẩu</label>
         </div>
         {errorMessage && (
         <div className="error-message" style={{ color: 'red', marginTop: '5px' }}>

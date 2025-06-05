@@ -5,7 +5,7 @@ import PandaLoginForm from '../PandaLoginForm/PandaLoginForm.jsx';
 import sampleUsers from '../../data/login.json';
 import './Login.css';
 
-import { AuthContext } from '../../routes/AuthContext.jsx'; // import đúng đường dẫn của bạn
+import { AuthContext } from '../../contexts/AuthContext.jsx'; // import đúng đường dẫn của bạn
 
 export default function Login() {
   const [email, setEmail] = useState('');

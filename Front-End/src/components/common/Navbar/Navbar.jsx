@@ -32,7 +32,7 @@ export default function Navbar() {
           <li><NavLink to="/qa" className="nav-link">Q&A</NavLink></li>
           <li><NavLink to="/new" className="nav-link">TIN TỨC</NavLink></li>
           <li className="has-submenu">
-            <NavLink to="/services" className="nav-link">DỊCH VỤ</NavLink>
+            <NavLink to="/services" className="nav-link">DỊCH VỤ <span className="arrow">&#x25BC;</span></NavLink>
             <ul className="submenu">
               <li><NavLink to="/services/blood-donation" className="nav-link">Hiến máu</NavLink></li>
               <li><NavLink to="/services/receive" className="nav-link">Nhận máu</NavLink></li>
