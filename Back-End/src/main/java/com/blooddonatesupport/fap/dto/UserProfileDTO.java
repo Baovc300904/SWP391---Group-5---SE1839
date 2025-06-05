@@ -12,7 +12,7 @@ public class UserProfileDTO {
     private LocalDate dateOfBirth;
     private String gender;
     private String address;
-    private Integer bloodType;
+    private String bloodType;
     private String rhFactor;
     private String medicalHistory;
     private BigDecimal weight;

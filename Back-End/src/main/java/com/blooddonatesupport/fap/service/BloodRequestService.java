@@ -6,8 +6,6 @@ import com.blooddonatesupport.fap.entity.User;
 import com.blooddonatesupport.fap.repository.BloodRequestRepository;
 import com.blooddonatesupport.fap.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,9 +18,7 @@ public class BloodRequestService {
     private final BloodRequestRepository requestRepository;
     private final UserRepository userRepository;
 
-    public void createRequest(BloodRequestDTO dto) {
-        User user = getCurrentUser();
-
+    public BloodRequest createRequest(BloodRequestDTO dto, User user) {
         BloodRequest request = new BloodRequest();
         request.setRecipient(dto.getRecipientName());
         request.setRequestedBloodGroup(dto.getRequiredBloodGroup());
@@ -31,18 +27,10 @@ public class BloodRequestService {
         request.setCreatedAt(LocalDateTime.now());
         request.setSender(user);
 
-        requestRepository.save(request);
+        return requestRepository.save(request);
     }
 
-    public List<BloodRequest> getMyRequests() {
-        User user = getCurrentUser();
-        return requestRepository.findByNguoiGui(user);
-    }
-
-    private User getCurrentUser() {
-        String username = ((UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal()).getUsername();
-        return userRepository.findByTenDangNhap(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public List<BloodRequest> getMyRequests(User user) {
+        return requestRepository.findBySender(user);
     }
 }

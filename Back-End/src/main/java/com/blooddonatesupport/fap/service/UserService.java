@@ -45,7 +45,7 @@ public class UserService {
     }
 
     public Optional<String> login(String username, String password) {
-        return userRepository.findByTenDangNhap(username)
+        return userRepository.findByUsername(username)
                 .filter(user -> passwordEncoder.matches(password, user.getPassword()))
                 .map(user -> {
                     String token = jwtUtil.generateToken(user);
