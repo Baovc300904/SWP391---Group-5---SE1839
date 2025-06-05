@@ -4,6 +4,7 @@ import com.blooddonatesupport.fap.entity.*;
 import com.blooddonatesupport.fap.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequestMapping("/api/blog")
 @RequiredArgsConstructor
 public class BlogPostController {
+
     private final BlogPostRepository blogPostRepo;
     private final BlogCommentRepository commentRepo;
     private final WebNotificationRepository notificationRepo;
@@ -48,6 +50,8 @@ public class BlogPostController {
         commentRepo.save(comment);
         return ResponseEntity.ok("Đã bình luận");
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{postId}/approve")
     public ResponseEntity<?> approvePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetails userDetails) {
         BlogPost post = blogPostRepo.findById(postId).orElseThrow();
@@ -82,6 +86,6 @@ public class BlogPostController {
 
     @GetMapping("/report/{month}")
     public List<ActivityReport> getReportsByMonth(@PathVariable String month) {
-        return reportRepo.findAll(); // bạn có thể lọc theo tháng nếu cần
+        return reportRepo.findAll();
     }
 }
