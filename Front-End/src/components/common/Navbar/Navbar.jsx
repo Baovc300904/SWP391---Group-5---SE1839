@@ -7,13 +7,20 @@ import './Navbar.css';
 export default function Navbar() {
   const [offset, setOffset] = useState(0);
   const { theme, toggleTheme } = useTheme();
+  const [submenuOpen, setSubmenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      console.log('scrollY:', scrollY); // Debug để kiểm tra giá trị scrollY
-      const newOffset = -scrollY; // Trôi lên bằng tốc độ cuộn
-      setOffset(newOffset);
+      const navbar = document.querySelector('.main-navbar');
+      if (navbar) {
+        if (scrollY > 20) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      }
+      setOffset(-scrollY);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -23,7 +30,11 @@ export default function Navbar() {
   useEffect(() => {
     document.body.className = theme + "-theme";
   }, [theme]);
-  
+
+  const toggleSubmenu = () => {
+    setSubmenuOpen(!submenuOpen);
+  };
+
   return (
     <>
       <nav className="main-navbar">
@@ -31,8 +42,15 @@ export default function Navbar() {
           <li><NavLink to="/" end className="nav-link">TRANG CHỦ</NavLink></li>
           <li><NavLink to="/qa" className="nav-link">Q&A</NavLink></li>
           <li><NavLink to="/new" className="nav-link">TIN TỨC</NavLink></li>
-          <li className="has-submenu">
-            <NavLink to="/services" className="nav-link">DỊCH VỤ <span className="arrow">&#x25BC;</span></NavLink>
+          <li className={`has-submenu ${submenuOpen ? 'open' : ''}`}>
+            <div
+              onClick={toggleSubmenu}
+              className="nav-link submenu-toggle"
+              aria-haspopup="true"
+              aria-expanded={submenuOpen ? "true" : "false"}
+            >
+              DỊCH VỤ <span className={`arrow ${submenuOpen ? 'rotated' : ''}`}>&#x25BC;</span>
+            </div>
             <ul className="submenu">
               <li><NavLink to="/services/blood-donation" className="nav-link">Hiến máu</NavLink></li>
               <li><NavLink to="/services/receive" className="nav-link">Nhận máu</NavLink></li>
@@ -42,10 +60,10 @@ export default function Navbar() {
         </ul>
       </nav>
       <div className="theme-toggle">
-          <p className="theme-text">Theme</p>
-          <button onClick={toggleTheme} className="btn-toggle-theme">
-            {theme === "light" ? <FaMoon /> : <FaSun />}
-          </button>
+        <p className="theme-text">Theme</p>
+        <button onClick={toggleTheme} className="btn-toggle-theme">
+          {theme === "light" ? <FaMoon /> : <FaSun />}
+        </button>
       </div>
     </>
   );
