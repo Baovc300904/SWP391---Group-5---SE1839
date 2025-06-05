@@ -1,5 +1,6 @@
 package com.blooddonatesupport.fap.repository;
 
+import com.blooddonatesupport.fap.entity.AccountStatus;
 import com.blooddonatesupport.fap.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,11 +22,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmailOrUsername(@Param("credential") String credential);
 
     // Additional useful methods
-    Optional<User> findByEmailAndAccountStatus(String email, String accountStatus);
-    Optional<User> findByUsernameAndAccountStatus(String username, String accountStatus);
+    Optional<User> findByEmailAndAccountStatus(String email, AccountStatus accountStatus);
+    Optional<User> findByUsernameAndAccountStatus(String username, AccountStatus accountStatus);
 
     List<User> findByRole(String role);
-    List<User> findByAccountStatus(String accountStatus);
+    List<User> findByAccountStatus(AccountStatus accountStatus);
 
     boolean existsByEmail(String email);
     boolean existsByUsername(String username);

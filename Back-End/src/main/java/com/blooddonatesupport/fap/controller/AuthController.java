@@ -4,11 +4,14 @@ import com.blooddonatesupport.fap.dto.ChangePasswordRequest;
 import com.blooddonatesupport.fap.dto.ErrorResponse;
 import com.blooddonatesupport.fap.dto.LoginRequest;
 import com.blooddonatesupport.fap.dto.RegisterRequest;
+import com.blooddonatesupport.fap.entity.AccountStatus;
 import com.blooddonatesupport.fap.entity.User;
 import com.blooddonatesupport.fap.entity.ValidToken;
 import com.blooddonatesupport.fap.repository.UserRepository;
 import com.blooddonatesupport.fap.repository.TokenRepository;
 import com.blooddonatesupport.fap.security.JwtUtil;
+import com.blooddonatesupport.fap.service.EmailService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +20,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/auth")
@@ -29,6 +34,7 @@ public class AuthController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+    private final EmailService emailService;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest req) {
@@ -44,9 +50,28 @@ public class AuthController {
         user.setEmail(req.getEmail());
         user.setRole("USER");
         user.setProvider("local");
+        user.setAccountStatus(AccountStatus.ChoKichHoat);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new ErrorResponse(200, "Đăng ký thành công"));
+        // ✅ Tạo token xác nhận
+        String token = UUID.randomUUID().toString();
+
+        ValidToken validToken = new ValidToken();
+        validToken.setToken(token);
+        validToken.setUser(user);
+        validToken.setExpiryDate(LocalDateTime.now().plusHours(24));
+
+        tokenRepository.save(validToken);
+
+        // ✅ Gửi email xác nhận
+        String link = "http://localhost:8080/auth/verify?token=" + token;
+        emailService.sendEmail(
+                user.getEmail(),
+                "Xác nhận tài khoản",
+                "Vui lòng nhấn vào liên kết sau để xác nhận tài khoản của bạn: " + link
+        );
+
+        return ResponseEntity.ok(new ErrorResponse(200, "Đăng ký thành công. Vui lòng kiểm tra email để xác nhận tài khoản."));
     }
 
     @PostMapping("/login")
@@ -54,12 +79,34 @@ public class AuthController {
         return userRepository.findByUsername(req.getUsername())
                 .filter(user -> passwordEncoder.matches(req.getPassword(), user.getPassword()))
                 .<ResponseEntity<?>>map(user -> {
+                    if (!AccountStatus.HoatDong.equals(user.getAccountStatus())) {
+                        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                                .body(new ErrorResponse(403, "Tài khoản chưa được kích hoạt."));
+                    }
+
                     String token = jwtUtil.generateToken(user);
-                    tokenRepository.save(new ValidToken(token, user.getUserId()));
+                    tokenRepository.save(new ValidToken(token, LocalDateTime.now().plusHours(24), user)); // nếu muốn, có thể dùng constructor này
                     return ResponseEntity.ok(Map.of("token", token));
                 })
                 .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                         .body(new ErrorResponse(401, "Sai thông tin đăng nhập")));
+    }
+
+    @GetMapping("/verify")
+    public ResponseEntity<String> verifyUser(@RequestParam("token") String token) {
+        Optional<ValidToken> validToken = tokenRepository.findByToken(token);
+        if (validToken.isEmpty() || validToken.get().getExpiryDate().isBefore(LocalDateTime.now())) {
+            return ResponseEntity.badRequest().body("Token không hợp lệ hoặc đã hết hạn.");
+        }
+
+        User user = validToken.get().getUser();
+        user.setAccountStatus(AccountStatus.HoatDong);
+        userRepository.save(user);
+
+        // Có thể xóa token sau khi xác minh
+        tokenRepository.deleteById(token);
+
+        return ResponseEntity.ok("Tài khoản đã được kích hoạt thành công.");
     }
 
     @PostMapping("/logout")

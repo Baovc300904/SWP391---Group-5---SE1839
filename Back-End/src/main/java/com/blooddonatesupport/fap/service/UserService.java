@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -49,7 +50,14 @@ public class UserService {
                 .filter(user -> passwordEncoder.matches(password, user.getPassword()))
                 .map(user -> {
                     String token = jwtUtil.generateToken(user);
-                    tokenRepository.save(new ValidToken(token, user.getUserId()));
+
+                    ValidToken validToken = new ValidToken();
+                    validToken.setToken(token);
+                    validToken.setUser(user);
+                    validToken.setExpiryDate(LocalDateTime.now().plusHours(24));
+
+                    tokenRepository.save(validToken);
+
                     return token;
                 });
     }
@@ -65,6 +73,7 @@ public class UserService {
         tokenRepository.deleteAllByUserId(user.getUserId());
         return true;
     }
+
 
     public void logout(String token, User user) {
         tokenRepository.deleteByTokenAndUserId(token, user.getUserId());

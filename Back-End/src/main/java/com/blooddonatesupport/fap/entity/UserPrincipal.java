@@ -35,21 +35,22 @@ public class UserPrincipal implements UserDetails {
     public boolean isAccountNonExpired() {
         return true;
     }
-
     @Override
     public boolean isAccountNonLocked() {
-        return !"BANNED".equalsIgnoreCase(user.getAccountStatus());
+        return !AccountStatus.Khoa.equals(user.getAccountStatus());
     }
+
+    @Override
+    public boolean isEnabled() {
+        return AccountStatus.HoatDong.equals(user.getAccountStatus());
+    }
+
 
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return "ACTIVE".equalsIgnoreCase(user.getAccountStatus());
-    }
 
     public User getUser() {
         return user;

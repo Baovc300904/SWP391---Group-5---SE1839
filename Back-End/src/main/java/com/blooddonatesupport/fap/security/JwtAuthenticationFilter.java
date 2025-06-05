@@ -1,5 +1,7 @@
 package com.blooddonatesupport.fap.security;
 
+import com.blooddonatesupport.fap.entity.AccountStatus;
+import com.blooddonatesupport.fap.entity.User;
 import com.blooddonatesupport.fap.entity.UserPrincipal;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -27,6 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
         String authHeader = request.getHeader("Authorization");
         String jwt = null;
         String username = null;
@@ -38,9 +41,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            User user = ((UserPrincipal) userDetails).getUser();
+
+            // ✅ Kiểm tra trạng thái tài khoản
+            if (!AccountStatus.HoatDong.equals(user.getAccountStatus())) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Tài khoản chưa được kích hoạt hoặc đã bị khóa.");
+                return;
+            }
+
             if (jwtUtil.validateToken(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        ((UserPrincipal) userDetails).getUser(), // Lưu User entity
+                        user, // Gán thực thể User vào SecurityContext
                         null,
                         userDetails.getAuthorities()
                 );
@@ -48,6 +60,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
+
         filterChain.doFilter(request, response);
     }
 }
