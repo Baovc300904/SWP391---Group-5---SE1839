@@ -9,37 +9,37 @@ export default function Services() {
     <>
     <AppLayout />
     <div className="services-container">
-      <h1>Our Blood Donation Support Services</h1>
+      <h1>Dịch vụ Hỗ trợ Hiến máu Tình nguyện của chúng tôi</h1>
       <p className="intro">
-        We provide a variety of services to support voluntary blood donation and community health.
+        Chúng tôi cung cấp nhiều dịch vụ nhằm hỗ trợ hiến máu tình nguyện và sức khỏe cộng đồng.
       </p>
 
       <div className="service-list">
         <div className="service-card">
-          <h3>🩸 Blood Donation Events</h3>
+          <h3>🩸 Các sự kiện hiến máu</h3>
           <p>
-            We organize regular blood donation campaigns across the country in collaboration with hospitals and local authorities.
+            Chúng tôi tổ chức các chiến dịch hiến máu định kỳ trên toàn quốc phối hợp với bệnh viện và chính quyền địa phương.
           </p>
         </div>
 
         <div className="service-card">
-          <h3>📞 Donor Support Hotline</h3>
+          <h3>📞 Đường dây hỗ trợ người hiến máu</h3>
           <p>
-            Our 24/7 hotline is available to answer any questions and provide guidance for first-time or returning donors.
+            Đường dây nóng 24/7 của chúng tôi luôn sẵn sàng giải đáp thắc mắc và hướng dẫn cho người hiến máu mới hoặc đã từng hiến.
           </p>
         </div>
 
         <div className="service-card">
-          <h3>🎓 Education & Awareness</h3>
+          <h3>🎓 Giáo dục & Tuyên truyền</h3>
           <p>
-            We conduct workshops and seminars to raise awareness about the importance of blood donation in saving lives.
+            Chúng tôi tổ chức các buổi hội thảo và lớp tập huấn nhằm nâng cao nhận thức về tầm quan trọng của việc hiến máu cứu người.
           </p>
         </div>
 
         <div className="service-card">
-          <h3>💳 Donor Recognition</h3>
+          <h3>💳 Vinh danh người hiến máu</h3>
           <p>
-            Donors receive digital certificates and small gifts as appreciation for their contribution to the community.
+            Người hiến máu sẽ nhận được giấy chứng nhận điện tử và những phần quà nhỏ nhằm ghi nhận đóng góp cho cộng đồng.
           </p>
         </div>
       </div>

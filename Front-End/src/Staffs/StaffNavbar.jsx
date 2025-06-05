@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'; // thêm useState
 import { NavLink, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../routes/AuthContext';
+import { AuthContext } from '../contexts/AuthContext';
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner.jsx'; // import loading spinner
 import './StaffNavbar.css';
 

@@ -4,7 +4,7 @@
   background-color: #7A0300;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 8px 0;
-  z-index: 9999;
+  z-index: 1000;
   display: flex;
   justify-content: center;
   transition: top 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
@@ -117,6 +117,11 @@
 .main-navbar .submenu li .nav-link:focus {
   background-color: #d9534f;
   outline: none;
+}
+
+.arrow {
+  margin-left: 5px;
+  font-size: 0.8em;
 }
 
 .theme-toggle {
