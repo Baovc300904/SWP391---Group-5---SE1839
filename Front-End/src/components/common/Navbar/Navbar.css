@@ -25,7 +25,7 @@
 }
 
 .main-navbar li {
-  position: relative; /* để submenu định vị tuyệt đối dựa trên cha */
+  position: relative;
 }
 
 .main-navbar ul li .nav-link {
@@ -33,11 +33,12 @@
   font-weight: 600;
   font-size: 16px;
   text-decoration: none;
-  padding: 8px 16px; /* tăng padding để dễ bấm */
+  padding: 8px 16px;
   position: relative;
   border-radius: 4px;
   transition: background-color 0.3s ease, color 0.3s ease;
   display: inline-block;
+  cursor: pointer;
 }
 
 .main-navbar ul li .nav-link:hover,
@@ -58,17 +59,9 @@
   border-radius: 2px;
 }
 
-/* Mũi tên ▼ cho menu Services */
-.main-navbar li > .nav-link[href="/services"]::after {
-  content: " ▼";
-  font-size: 0.6em;
-  margin-left: 6px;
-  color: white;
-}
-
-/* Submenu dropdown dọc */
+/* Submenu */
 .main-navbar .submenu {
-  display: none; /* ẩn mặc định */
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;
@@ -80,20 +73,17 @@
   list-style: none;
   border-radius: 6px;
   z-index: 1000;
-  transition: opacity 0.3s ease;
   opacity: 0;
   pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
-/* Hiện submenu khi hover cha */
-.main-navbar li:hover > .submenu,
-.main-navbar li:focus-within > .submenu {
+.has-submenu.open .submenu {
   display: block;
   opacity: 1;
   pointer-events: auto;
 }
 
-/* Các item submenu */
 .main-navbar .submenu li {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -122,8 +112,14 @@
 .arrow {
   margin-left: 5px;
   font-size: 0.8em;
+  transition: transform 0.3s ease;
 }
 
+.arrow.rotated {
+  transform: rotate(180deg);
+}
+
+/* Theme toggle */
 .theme-toggle {
   display: flex;
   align-items: center;
@@ -155,15 +151,12 @@
   color: var(--icon-color, #333);
 }
 
-.theme-toggle p.theme-text {
-  color: var(--text-color); /* Hoặc đặt màu riêng nếu muốn giữ màu cứng */
-}
-
 .btn-toggle-theme:hover {
   transform: scale(1.1);
   background-color: var(--btn-hover-bg, #eaeaea);
 }
 
+/* Light & dark theme support */
 .light-theme {
   background-color: white;
   color: black;
@@ -174,7 +167,7 @@
   color: #eeeeee;
 }
 
-.dark-theme .navbar {
+.dark-theme .main-navbar {
   background-color: #1f1f1f;
   color: white;
 }
