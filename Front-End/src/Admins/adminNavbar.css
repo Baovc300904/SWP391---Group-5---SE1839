@@ -1,0 +1,152 @@
+/* AdminNavbar.css */
+
+/* Reset và font */
+* {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+  }
+  
+  body, html {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+  }
+  
+  /* Navbar container */
+  .admin-navbar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 240px;
+    height: 100vh;
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    box-shadow: 4px 0 15px rgba(15, 23, 42, 0.6);
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    z-index: 1000;
+    user-select: none;
+  }
+  
+  /* Logo */
+  .logo {
+    font-size: 1.9rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #f8fafc;
+    margin-bottom: 50px;
+    text-align: center;
+    text-shadow: 0 0 8px #3b82f6;
+    cursor: default;
+  }
+  
+  /* Nav list */
+  .nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    flex-grow: 1;
+  }
+  
+  /* Nav items */
+  .nav-list li {
+    width: 100%;
+  }
+  
+  /* Nav links */
+  .link {
+    display: block;
+    color: #cbd5e1;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 14px 22px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition:
+      background-color 0.3s cubic-bezier(0.4,0,0.2,1),
+      color 0.3s cubic-bezier(0.4,0,0.2,1),
+      box-shadow 0.3s ease;
+    box-shadow: inset 0 0 0 0 transparent;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Hover effect */
+  .link:hover {
+    background: #3b82f6;
+    color: #f1f5f9;
+    box-shadow: inset 0 0 15px #60a5fa;
+  }
+  
+  /* Active link styling */
+  .active-link {
+    background: #2563eb;
+    color: #eff6ff;
+    font-weight: 700;
+    box-shadow:
+      0 0 12px #2563eb,
+      inset 0 0 12px #3b82f6;
+    pointer-events: none;
+  }
+  
+  /* Logout button */
+  .admin-logout-button {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 14px 22px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition:
+      background-color 0.3s ease,
+      box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.6);
+    user-select: none;
+    margin-top: auto;
+  }
+  
+  /* Logout hover */
+  .admin-logout-button:hover {
+    background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+    box-shadow: 0 6px 15px rgba(185, 28, 28, 0.8);
+  }
+  
+  /* Responsive: hide navbar on small screens, or make it horizontal */
+  @media (max-width: 768px) {
+    .navbar {
+      position: relative;
+      width: 100%;
+      height: 60px;
+      flex-direction: row;
+      padding: 0 20px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3);
+    }
+  
+    .logo {
+      font-size: 1.4rem;
+      margin-bottom: 0;
+      flex-grow: 1;
+      text-align: left;
+    }
+  
+    .nav-list {
+      flex-direction: row;
+      gap: 15px;
+      align-items: center;
+      flex-grow: 0;
+    }
+  
+    .link, .logout-button {
+      padding: 10px 14px;
+      font-size: 1rem;
+      border-radius: 8px;
+    }
+  
+    .logout-button {
+      margin-top: 0;
+    }
+  }
+  

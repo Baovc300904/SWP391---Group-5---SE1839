@@ -1,0 +1,15 @@
+.intro-container {
+    padding: 40px 0;
+  }
+  
+  .intro-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #212529;
+  }
+  
+  .intro-description {
+    font-size: 1.1rem;
+    color: #495057;
+    line-height: 1.6;
+  }
