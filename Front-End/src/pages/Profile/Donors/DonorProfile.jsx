@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Profile.css';
+import './DonorProfile.css';
+import blogsData from '../../../data/blogs'; // Đường dẫn tương ứng vị trí của blogs.js
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -13,17 +14,15 @@ export default function Profile() {
       setUser(JSON.parse(storedUser));
     }
 
-    setBlogs([
-      { id: 1, title: 'Lợi ích của hiến máu', date: '2025-06-01' },
-      { id: 2, title: 'Những điều cần biết trước khi hiến máu', date: '2025-05-20' },
-    ]);
+    // Lấy blog từ file js
+    setBlogs(blogsData);
   }, []);
 
   if (!user)
     return <div className="profile-loading">Đang tải thông tin người dùng...</div>;
 
   return (
-    <div class="neon-profile-body">
+    <div className="neon-profile-body">
       <div className="profile-container">
         <div className="profile-left">
           <img
@@ -36,14 +35,14 @@ export default function Profile() {
           <p><strong>Vai trò:</strong> {user.role}</p>
 
           <button
-            onClick={() => navigate('/profile/edit-profile')}
-            className="btn btn-edit pulse"
+            onClick={() => navigate('/donor/edit-profile')}
+            className="profile-btn btn-edit pulse"
           >
             ✏️ Chỉnh sửa
           </button>
           <button
             onClick={() => navigate('/')}
-            className="btn btn-home"
+            className="profile-btn btn-home"
           >
             🏠 Trang chủ
           </button>

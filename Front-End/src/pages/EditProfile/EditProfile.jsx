@@ -20,9 +20,15 @@ export default function EditProfile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser.role !== 'admin') {
+      user.role = storedUser.role; // không cho user khác admin chỉnh role
+    }
     localStorage.setItem('user', JSON.stringify(user));
     navigate('/profile');
   };
+
+  const editableRoles = ['admin'];
 
   return (
     <div className="edit-profile-wrapper">
@@ -67,6 +73,19 @@ export default function EditProfile() {
             onChange={handleChange}
             placeholder="https://link-to-image.jpg"
           />
+        </div>
+
+        <div className="form-group">
+          <label>Vai trò:</label>
+          {editableRoles.includes(user.role) ? (
+            <select name="role" value={user.role} onChange={handleChange} required>
+              <option value="admin">Admin</option>
+              <option value="staff">Nhân viên</option>
+              <option value="member">Người dùng</option>
+            </select>
+          ) : (
+            <input type="text" value={user.role} disabled />
+          )}
         </div>
 
         <div className="edit-profile-buttons">
