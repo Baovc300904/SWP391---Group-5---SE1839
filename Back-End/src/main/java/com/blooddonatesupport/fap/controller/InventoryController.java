@@ -31,8 +31,11 @@ public class InventoryController {
             Inventory updated = inventoryService.updateQuantity(request.getBloodGroup(), request.getChangeAmount());
             return ResponseEntity.ok(updated);
         } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(400)
+                    .body(new ErrorResponse(400, e.getMessage()));
+        } catch (RuntimeException e) {
             return ResponseEntity.status(404)
-                    .body(new ErrorResponse(404, "Không tìm thấy nhóm máu: " + request.getBloodGroup()));
+                    .body(new ErrorResponse(404, e.getMessage()));
         }
     }
 }

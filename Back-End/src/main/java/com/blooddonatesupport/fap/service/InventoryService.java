@@ -5,6 +5,7 @@ import com.blooddonatesupport.fap.repository.InventoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -17,16 +18,20 @@ public class InventoryService {
         return inventoryRepository.findAll();
     }
 
-    public Inventory updateQuantity(String nhomMau, int thayDoi) {
-        Inventory inventory = inventoryRepository.findByNhomMau(nhomMau)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy nhóm máu: " + nhomMau));
+    public Inventory updateQuantity(Integer bloodGroupId, int delta) {
+        Inventory inventory = inventoryRepository.findByBloodGroupId(bloodGroupId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy nhóm máu ID: " + bloodGroupId));
 
-        int newQuantity = inventory.getQuantity() + thayDoi;
-        if (newQuantity < 0) {
+        BigDecimal newQuantity = inventory.getQuantity().add(BigDecimal.valueOf(delta));
+        if (newQuantity.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Không đủ số lượng máu để trừ");
         }
         inventory.setQuantity(newQuantity);
+
+        inventory.setQuantity(newQuantity);
         return inventoryRepository.save(inventory);
     }
+
 }
+
 

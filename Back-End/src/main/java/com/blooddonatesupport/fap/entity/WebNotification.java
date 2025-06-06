@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "ThongBaoTrangWeb")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,21 +17,29 @@ import java.time.LocalDateTime;
 public class WebNotification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MaThongBao")
     private Long id;
 
+    @Column(name = "TieuDe")
     private String title;
 
+    @Column(name = "NoiDung")
     @Lob
     private String content;
 
-    private String type; // He Thong, Cap Nhat, Bai Viet Moi, etc.
+    @Column(name = "LoaiThongBao")
+    private String type;
 
-    private boolean isRead = false;
+    @Column(name = "DaDoc")
+    private boolean isRead;
 
+    @Column(name = "DuongDanChiTiet")
     private String redirectUrl;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(name = "NgayTao")
+    private LocalDateTime createdAt;
 
     @ManyToOne
+    @JoinColumn(name = "MaNguoiDung")
     private User user;
 }

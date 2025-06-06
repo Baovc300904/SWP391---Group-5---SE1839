@@ -3,21 +3,36 @@ package com.blooddonatesupport.fap.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 @Entity
-@Table(name = "BloodInventory")
+@Table(name = "KhoDonViMau")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Inventory {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MaDonViMau")
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 10)
-    private String bloodGroup;  // Example: A+, O-, B+
+    @Column(name = "MaNhomMau")
+    private Integer bloodGroupId;
 
-    @Column(nullable = false)
-    private Integer quantity; // Unit: ml or blood units
+    @Column(name = "ThanhPhanMau")
+    private String bloodComponent;
+
+    @Column(name = "SoLuong")
+    private BigDecimal quantity;
+
+    @Column(name = "NgayLayMau")
+    private LocalDate collectedDate;
+
+    @Column(name = "NgayHetHan")
+    private LocalDate expiredDate;
+
+    @Column(name = "TrangThai")
+    private String status;
 }
 

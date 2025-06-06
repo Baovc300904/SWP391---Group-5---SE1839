@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "BinhLuanBlog")
 public class BlogComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +25,11 @@ public class BlogComment {
     private User commenter;
 
     @Lob
+    @Column(name = "NoiDungBinhLuan")
     private String content;
 
+    @Column(name = "NgayBinhLuan")
     private LocalDateTime commentedAt = LocalDateTime.now();
 
-    private Integer rating; // from 1 to 5
+    private Integer rating;
 }

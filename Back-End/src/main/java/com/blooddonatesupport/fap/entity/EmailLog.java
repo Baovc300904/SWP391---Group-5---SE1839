@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "NhatKyGuiEmail")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,28 +17,39 @@ import java.time.LocalDateTime;
 public class EmailLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MaNhatKyEmail")
     private Long id;
 
+    @Column(name = "LoaiEmail")
     private String type;
 
+    @Column(name = "TieuDeEmail")
     private String subject;
 
+    @Column(name = "NoiDungEmail")
     @Lob
     private String body;
 
+    @Column(name = "DiaChiNguoiNhan")
     private String recipientEmail;
 
-    private String status; // Thanh Cong, That Bai, Dang Cho
+    @Column(name = "TrangThaiGui")
+    private String status;
 
+    @Column(name = "ThongDiepLoi")
     @Lob
     private String errorMessage;
 
-    private LocalDateTime sentAt = LocalDateTime.now();
+    @Column(name = "NgayGioGui")
+    private LocalDateTime sentAt;
 
-    private String referenceType; // YeuCauHienMau, HoatDongHienMau, etc.
+    @Column(name = "LoaiThamChieuLienQuan")
+    private String referenceType;
 
+    @Column(name = "MaThamChieuLienQuan")
     private Long referenceId;
 
     @ManyToOne
+    @JoinColumn(name = "MaNguoiDung")
     private User user;
 }

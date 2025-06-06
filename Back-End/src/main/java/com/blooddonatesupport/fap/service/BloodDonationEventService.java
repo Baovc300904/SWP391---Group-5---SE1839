@@ -18,10 +18,13 @@ public class BloodDonationEventService {
     public BloodDonationEvent createEvent(EventRequestDTO dto) {
         BloodDonationEvent event = new BloodDonationEvent();
         event.setEventName(dto.getEventName());
-        event.setEventDate(dto.getEventDate());
+        event.setStartDate(dto.getStartDate());
+        event.setEndDate(dto.getEndDate());
         event.setLocation(dto.getLocation());
         event.setDescription(dto.getDescription());
-        event.setExpectedParticipants(dto.getExpectedParticipants());
+        event.setMaxParticipants(dto.getMaxParticipants());
+        event.setStatus(dto.getStatus());
+        // event.setCreator(user); nếu bạn dùng @AuthenticationPrincipal User user
         return eventRepo.save(event);
     }
 
@@ -32,10 +35,12 @@ public class BloodDonationEventService {
     public Optional<BloodDonationEvent> updateEvent(Long id, EventRequestDTO dto) {
         return eventRepo.findById(id).map(event -> {
             event.setEventName(dto.getEventName());
-            event.setEventDate(dto.getEventDate());
+            event.setStartDate(dto.getStartDate()); // ✅ sửa đúng field
+            event.setEndDate(dto.getEndDate());     // ✅ nếu DTO có
             event.setLocation(dto.getLocation());
             event.setDescription(dto.getDescription());
-            event.setExpectedParticipants(dto.getExpectedParticipants());
+            event.setMaxParticipants(dto.getMaxParticipants()); // ✅ sửa đúng field
+            event.setStatus(dto.getStatus()); // nếu có
             return eventRepo.save(event);
         });
     }

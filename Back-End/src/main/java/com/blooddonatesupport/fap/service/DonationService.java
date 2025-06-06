@@ -24,6 +24,6 @@ public class DonationService {
     }
 
     public List<DonationRegistration> getMyDonations(User user) {
-        return donationRepo.findByNguoiDung_MaNguoiDung(user.getUserId());
+        return donationRepo.findByUser(user);
     }
 }

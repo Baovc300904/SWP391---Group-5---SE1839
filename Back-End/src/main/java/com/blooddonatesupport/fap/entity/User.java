@@ -8,7 +8,7 @@ import java.util.List;
 import lombok.*;
 
 @Entity
-@Table(name = "User")
+@Table(name = "NguoiDung")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,62 +16,67 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MaNguoiDung")
     private Long userId;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "HoVaTen", nullable = false, length = 100)
     private String fullName;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(name = "TenDangNhap", nullable = false, unique = true, length = 50)
     private String username;
 
-    @Column(nullable = false, length = 255)
+    @Column(name = "MatKhauHash", nullable = false, length = 255)
     private String password;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(name = "Email", nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(length = 20)
+    @Column(name = "SoDienThoai", length = 20)
     private String phoneNumber;
 
+    @Column(name = "NgaySinh")
     private LocalDate dateOfBirth;
 
-    @Column(length = 10)
+    @Column(name = "GioiTinh", length = 10)
     private String gender;
 
-    @Column(length = 255)
+    @Column(name = "DiaChi", length = 255)
     private String address;
 
-    @Column(length = 5)
+    @Column(name = "MaNhomMau") // FK tới bảng LoaiNhomMau
     private String bloodType;
 
-    @Column(length = 5)
+    @Column(name = "YeuToRh", length = 5)
     private String rhFactor;
 
+    @Column(name = "TienSuBenh")
     @Lob
     private String medicalHistory;
 
-    @Column(precision = 5, scale = 2)
+    @Column(name = "CanNang", precision = 5, scale = 2)
     private BigDecimal weight;
 
-    @Column(precision = 5, scale = 2)
+    @Column(name = "ChieuCao", precision = 5, scale = 2)
     private BigDecimal height;
 
-    @Column(length = 50)
+    @Column(name = "TinhTrangSucKhoeHienTai", length = 50)
     private String currentHealthStatus;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "VaiTro", nullable = false, length = 50)
     private String role = "USER";
 
-    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "NgayDangKy", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime registrationDate = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 50)
+    @Column(name = "TrangThaiTaiKhoan", length = 50)
     private AccountStatus accountStatus = AccountStatus.HoatDong;
 
-    @Column(length = 20)
+    // Cột này không có trong DB, bạn có thể bỏ nếu không dùng
+    @Transient
     private String provider = "local";
 
+    // Các quan hệ ánh xạ khác giữ nguyên
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BloodRequest> bloodRequests;
 
@@ -83,17 +88,9 @@ public class User {
 
     @PrePersist
     protected void onCreate() {
-        if (registrationDate == null) {
-            registrationDate = LocalDateTime.now();
-        }
-        if (accountStatus == null) {
-            accountStatus = AccountStatus.HoatDong;
-        }
-        if (role == null) {
-            role = "USER";
-        }
-        if (provider == null) {
-            provider = "local";
-        }
+        if (registrationDate == null) registrationDate = LocalDateTime.now();
+        if (accountStatus == null) accountStatus = AccountStatus.HoatDong;
+        if (role == null) role = "USER";
     }
 }
+
