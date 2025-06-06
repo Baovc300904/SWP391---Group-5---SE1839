@@ -31,3 +31,72 @@
     font-weight: 600;
     margin-bottom: 0.5rem;
   }
+
+  /* Light theme mặc định */
+.slider-wrapper {
+  background-color: #fff;
+}
+
+.slider-image {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.info-boxes {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background-color: #f9f9f9;
+  color: #222;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex: 1;
+}
+
+.card-title {
+  color: #111;
+  margin-bottom: 0.5rem;
+}
+
+/* Dark theme */
+.dark-theme .slider-wrapper {
+  background-color: #1e1e1e;
+}
+
+.dark-theme .slider-image {
+  box-shadow: 0 4px 6px rgba(255,255,255,0.1);
+}
+
+.dark-theme .info-boxes {
+  /* giữ nguyên hoặc có thể điều chỉnh margin nếu cần */
+}
+
+.dark-theme .card {
+  background-color: #2c2c2c;
+  color: #ddd;
+  box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+}
+
+.dark-theme .card-title {
+  color: #000000;
+}
+
+.card {
+  background-color: white;
+  color: black;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Khi vào dark mode, đổi màu nền và chữ */
+.dark .card {
+  background-color: #1f2937; /* xám đen */
+  color: white;
+  box-shadow: 0 4px 6px rgba(255,255,255,0.1);
+}

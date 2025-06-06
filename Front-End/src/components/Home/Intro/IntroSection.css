@@ -13,3 +13,31 @@
     color: #495057;
     line-height: 1.6;
   }
+
+  /* Light theme mặc định */
+.intro-container {
+  background-color: #fff;
+  color: #222;
+}
+
+.intro-title {
+  color: #222;
+}
+
+.intro-description {
+  color: #444;
+}
+
+/* Dark theme */
+.dark-theme .intro-container {
+  background-color: #121212; /* nền tối */
+  color: #eee;
+}
+
+.dark-theme .intro-title {
+  color: #eee;
+}
+
+.dark-theme .intro-description {
+  color: #ccc;
+}
