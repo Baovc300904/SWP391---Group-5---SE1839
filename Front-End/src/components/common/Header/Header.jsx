@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaUser, FaHandsHelping, FaQuestionCircle, FaCog, FaSignOutAlt, FaMoon, FaSun  } from 'react-icons/fa';
 import adminAvatar from "../../../assets/images/avatars/admins.jpg";
 import './Header.css';
 
 export default function Header() {
   const [user, setUser] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
+  const [theme, setTheme] = useState('light'); // light hoặc dark
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -14,15 +17,34 @@ export default function Header() {
     }
   }, []);
 
+  // Khi theme thay đổi, gán class tương ứng cho body
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.classList.add('dark-theme');
+      document.body.classList.remove('light');
+    } else {
+      document.body.classList.remove('dark-theme');
+      document.body.classList.add('light');
+    }
+  }, [theme]);
+
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
     navigate('/login');
   };
 
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  // Hàm toggle theme
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  };
+
   return (
     <div className="header-nav">
-      {/* Logo + Title Section */}
       <div className="logo-title-container">
         <div className="logo">
           <Link to="/">
@@ -34,23 +56,43 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Login / Signup or User Profile */}
       <div className="auth-container">
         {user ? (
-          <div className="user-profile">
+          <div className="user-profile" onClick={toggleDropdown}>
             <img
               src={user.avatar || adminAvatar}
               alt="User Avatar"
               className="avatar"
-              onClick={() => navigate('/profile')}
-              style={{ cursor: 'pointer' }}
             />
-            <div className="user-info">
-              <span className="username">{user.name || user.email}</span>
-              <button className="logout-button" onClick={handleLogout}>
-                Đăng xuất
+            <span className="username">{user.name || user.email}</span>
+
+            <div className={`dropdown ${showDropdown ? 'open' : 'closed'}`}>
+              <button onClick={() => navigate('/profile')}>
+                <FaUser style={{ marginRight: 8 }} /> Hồ sơ cá nhân
+              </button>
+              <button onClick={() => navigate('/profile/donation-request')}>
+                <FaHandsHelping style={{ marginRight: 8 }} /> Yêu cầu hiến máu
+              </button>
+              <button onClick={() => navigate('/help')}>
+                <FaQuestionCircle style={{ marginRight: 8 }} /> Trợ giúp
+              </button>
+              <button onClick={() => navigate('/settings')}>
+                <FaCog style={{ marginRight: 8 }} /> Cài đặt
+              </button>
+              <button onClick={toggleTheme}>
+                {theme === 'dark' ? (
+                  <FaMoon style={{ marginRight: 8 }} />
+                ) : (
+                  <FaSun  style={{ marginRight: 8 }} />
+                )}
+                Đổi Theme
+              </button>
+              <div className="divide"></div>
+              <button onClick={handleLogout}>
+                <FaSignOutAlt style={{ marginRight: 8 }} /> Đăng xuất
               </button>
             </div>
+
           </div>
         ) : (
           <>
