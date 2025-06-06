@@ -18,7 +18,6 @@ import HomePost from "./HomePost/PostSection";
 const Home = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [, setSearchResults] = useState(null);
-  const [theme, setTheme] = useState("light");
 
   const handleSearchResults = (results) => {
     setSearchResults(results);
@@ -80,7 +79,7 @@ const Home = () => {
       </div>
       {showBackToTop && (
         <button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          <ArrowUp size={20} />
+          <ArrowUp size={25} />
         </button>
       )}
       <Footer />

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
-import PandaLoginForm from '../PandaLoginForm/PandaLoginForm.jsx';
-import sampleUsers from '../../data/login.json';
+import PandaLoginForm from '../../components/PandaLoginForm/PandaLoginForm.jsx';
+// import sampleUsers from '../../data/login.json';
 import './Login.css';
 
 import { AuthContext } from '../../contexts/AuthContext.jsx'; // import đúng đường dẫn của bạn
@@ -25,29 +26,35 @@ export default function Login() {
     }
   }, [location]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const user = sampleUsers.find(u => u.email === email && u.password === password);
-
-    if (user) {
-      setErrorMessage('');
-      // Gọi hàm login trong AuthContext để cập nhật user và localStorage đồng bộ
-      login(user);
-
-      // Điều hướng theo role
-      switch (user.role) {
-        case 'admin':
-          navigate('/adminDashboard');
-          break;
-        case 'staff':
-          navigate('/dashboardStaff');
-          break;
-        default:
-          navigate('/home');
+  
+    try {
+      const res = await axios.get('https://6837f5ae2c55e01d184b5a85.mockapi.io/api/v1/users');
+      const users = res.data;
+  
+      const user = users.find(u => u.email === email && u.password === password);
+  
+      if (user) {
+        setErrorMessage('');
+        login(user);
+  
+        switch (user.role) {
+          case 'admin':
+            navigate('/adminDashboard');
+            break;
+          case 'staff':
+            navigate('/dashboardStaff');
+            break;
+          default:
+            navigate('/home');
+        }
+      } else {
+        setErrorMessage('Sai email hoặc mật khẩu!');
       }
-    } else {
-      setErrorMessage('Sai email hoặc mật khẩu!');
+    } catch (error) {
+      console.error('Lỗi khi gọi API:', error);
+      setErrorMessage('Đã xảy ra lỗi kết nối. Vui lòng thử lại sau.');
     }
   };
 

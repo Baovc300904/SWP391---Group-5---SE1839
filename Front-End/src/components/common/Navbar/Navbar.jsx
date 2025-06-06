@@ -59,12 +59,13 @@ export default function Navbar() {
           <li><NavLink to="/about" className="nav-link">VỀ CHÚNG TÔI</NavLink></li>
         </ul>
       </nav>
-      <div className="theme-toggle">
+      {/* Theme tối sử dụng khi đã xog toàn bộ các chức năng trên */}
+      {/* <div className="theme-toggle">
         <p className="theme-text">Theme</p>
         <button onClick={toggleTheme} className="btn-toggle-theme">
           {theme === "light" ? <FaMoon /> : <FaSun />}
         </button>
-      </div>
+      </div> */}
     </>
   );
 }

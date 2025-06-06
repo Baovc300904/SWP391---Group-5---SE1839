@@ -167,3 +167,70 @@
   font-style: italic;
   color: #374151;
 }
+
+/* Mặc định (light theme) */
+
+
+.home-faq-card {
+  background-color: #f8f8f8;
+  color: #222;
+  border: 1px solid #ddd;
+}
+
+.home-faq-description {
+  color: #444;
+}
+
+.home-faq-title-card h2,
+.home-section-title {
+  color: #222;
+}
+
+/* Dark theme */
+.dark-theme .home-faq-section {
+  background-color: #1e1e1e;
+  color: #ddd;
+}
+
+.dark-theme .home-faq-card {
+  background-color: #2c2c2c;
+  color: #eee;
+  border: 1px solid #444;
+}
+
+.dark-theme .home-faq-description {
+  color: #ccc;
+}
+
+.dark-theme .home-faq-title-card h2,
+.dark-theme .home-section-title {
+  color: #000000;
+}
+
+/* Quick stats cards */
+.home-quick-stats .home-stat-card {
+  background-color: #f0f0f0;
+  color: #222;
+}
+
+.dark-theme .home-quick-stats .home-stat-card {
+  background-color: #333;
+  color: #eee;
+}
+
+/* Slider text */
+.home-story-slide p {
+  color: #222;
+}
+
+.dark-theme .home-story-slide p {
+  color: #000000;
+}
+
+.home-story-slide strong {
+  color: #555;
+}
+
+.dark-theme .home-story-slide strong {
+  color: #da0000;
+}
