@@ -42,4 +42,9 @@ public class WebNotification {
     @ManyToOne
     @JoinColumn(name = "MaNguoiDung")
     private User user;
+    public enum NotificationType {
+        He_Thong, Kho_Mau_Thap, Yeu_Cau_Cap_Cuu,
+        Nhac_Nho_Hien_Mau, Xac_Nhan_Lich_Hen,
+        Bai_Viet_Moi, Cap_Nhat, Trang_Chu
+    }
 }
