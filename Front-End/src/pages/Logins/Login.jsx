@@ -3,10 +3,8 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
 import PandaLoginForm from '../../components/PandaLoginForm/PandaLoginForm.jsx';
-// import sampleUsers from '../../data/login.json';
 import './Login.css';
-
-import { AuthContext } from '../../contexts/AuthContext.jsx'; // import đúng đường dẫn của bạn
+import { AuthContext } from '../../contexts/AuthContext.jsx';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -16,7 +14,6 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Lấy login từ AuthContext
   const { login } = useContext(AuthContext);
 
   useEffect(() => {
@@ -26,21 +23,78 @@ export default function Login() {
     }
   }, [location]);
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:8080/api/auth/login', {
+        email,
+        password,
+      });
+
+      const data = response.data;
+      console.log('✅ Login response:', data);
+
+      const success =
+        data.success === true || data.message?.toLowerCase().includes('thành công');
+
+      if (success) {
+        setErrorMessage('');
+        console.log('🔐 Gọi login():', data.user);
+        login(data); // Lưu user vào context/auth
+
+        // Điều hướng theo vai trò
+        const role = data.role;
+        switch (role) {
+          case 'Quan_Tri_Vien':
+            console.log('🚀 Điều hướng tới: /adminDashboard');
+            navigate('/adminDashboard');
+            break;
+          case 'staff':
+            console.log('🚀 Điều hướng tới: /dashboardStaff');
+            navigate('/dashboardStaff');
+            break;
+          default:
+            console.log('🚀 Điều hướng tới: /home');
+            navigate('/home');
+        }
+      } else {
+        setErrorMessage(data.message || 'Email hoặc mật khẩu không đúng');
+        console.warn('❌ Lỗi đăng nhập:', data.message);
+      }
+    } catch (error) {
+      if (error.response) {
+        console.error('❌ Server response error:', error.response.data);
+        setErrorMessage(error.response.data.message || 'Lỗi đăng nhập từ server');
+      } else if (error.request) {
+        console.error('❌ No server response:', error.request);
+        setErrorMessage('Không nhận được phản hồi từ server');
+      } else {
+        console.error('❌ Unexpected error:', error.message);
+        setErrorMessage('Lỗi kết nối tới server, vui lòng thử lại.');
+      }
+    }
+  };
+
+  const responseGoogleSuccess = async (credentialResponse) => {
+    console.log('✅ Google login thành công:', credentialResponse);
+  
+    const token = credentialResponse.credential;  // Lấy token từ Google login
   
     try {
-      const res = await axios.get('https://6837f5ae2c55e01d184b5a85.mockapi.io/api/v1/users');
-      const users = res.data;
+      const response = await axios.post('http://localhost:8080/api/auth/google-login', { token });
   
-      const user = users.find(u => u.email === email && u.password === password);
+      const data = response.data;
+      console.log('✅ Đăng nhập Google thành công:', data);
   
-      if (user) {
-        setErrorMessage('');
-        login(user);
+      if (data.success) {
+        // Lưu thông tin người dùng vào AuthContext
+        login(data.user);  // Giả sử bạn có hàm login trong AuthContext
   
-        switch (user.role) {
-          case 'admin':
+        // Điều hướng người dùng dựa trên vai trò
+        const role = data.user.role;
+        switch (role) {
+          case 'Quan_Tri_Vien':
             navigate('/adminDashboard');
             break;
           case 'staff':
@@ -50,23 +104,20 @@ export default function Login() {
             navigate('/home');
         }
       } else {
-        setErrorMessage('Sai email hoặc mật khẩu!');
+        alert('Đăng nhập Google thất bại!');
       }
     } catch (error) {
-      console.error('Lỗi khi gọi API:', error);
-      setErrorMessage('Đã xảy ra lỗi kết nối. Vui lòng thử lại sau.');
+      console.error('❌ Lỗi khi xử lý đăng nhập Google:', error);
+      alert('Đăng nhập Google thất bại!');
     }
   };
+  
 
-  const responseGoogleSuccess = (credentialResponse) => {
-    console.log('Google login thành công:', credentialResponse);
-    alert('Google login thành công!');
-    // TODO: Xử lý login qua Google, gọi login() khi có dữ liệu user thực
+  const responseGoogleFailure = (error) => {
+    console.error('❌ Google login thất bại:', error);
+    alert('Đăng nhập Google thất bại!');
   };
-
-  const responseGoogleFailure = () => {
-    alert('Google login thất bại!');
-  };
+  
 
   return (
     <div className="login-banner-container">
@@ -91,7 +142,7 @@ export default function Login() {
           password={password}
           onEmailChange={e => setEmail(e.target.value)}
           onPasswordChange={e => setPassword(e.target.value)}
-          onSubmit={handleSubmit}
+          onSubmit={handleLogin}
           errorMessage={errorMessage}
         />
 

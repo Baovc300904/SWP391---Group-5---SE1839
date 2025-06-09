@@ -11,6 +11,10 @@ export default function Signup() {
     email: '',
     password: '',
     confirmPassword: '',
+    fullName: '',
+    phone: '',
+    birthDate: '',
+    gender: 'Khac',
   });
 
   const handleChange = (e) => {
@@ -27,21 +31,16 @@ export default function Signup() {
     }
 
     try {
-      const newUser = {
-        username: formData.username,
-        email: formData.email,
-        password: formData.password,
-        role: 'member',
-      };
+      const userPayload = { ...formData };
+      delete userPayload.confirmPassword;
 
-      const response = await axios.post('https://6837f5ae2c55e01d184b5a85.mockapi.io/api/v1/users', newUser);
+      const response = await axios.post('http://localhost:8080/api/auth/register', userPayload);
 
-      localStorage.setItem('user', JSON.stringify(response.data));
       alert('Đăng ký thành công!');
-      navigate('/home');
+      navigate('/login');
     } catch (error) {
       console.error('Signup error:', error);
-      alert('Đăng ký thất bại. Vui lòng thử lại!');
+      alert('Đăng ký thất bại: ' + error.response?.data || 'Lỗi không xác định');
     }
   };
 
@@ -57,7 +56,6 @@ export default function Signup() {
 
   return (
     <div className="login-banner-container">
-      {/* Banner trái */}
       <div className="login-banner-left">
         <img src="/Banner-signup.jpg" alt="Signup Banner" className="login-banner-image" />
         <div className="login-banner-text">
@@ -66,44 +64,24 @@ export default function Signup() {
         </div>
       </div>
 
-      {/* Form đăng ký bên phải */}
       <div className="login-banner-right">
         <form className="signupUnique-form" onSubmit={handleSubmit}>
           <h2 className="signupUnique-title">Đăng Ký</h2>
 
-          <input
-            type="text"
-            name="username"
-            placeholder="Tên người dùng"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Mật khẩu"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Nhập lại mật khẩu"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
+          <input name="username" placeholder="Tên người dùng" required value={formData.username} onChange={handleChange} />
+          <input name="email" placeholder="Email" type="email" required value={formData.email} onChange={handleChange} />
+          <input name="password" placeholder="Mật khẩu" type="password" required value={formData.password} onChange={handleChange} />
+          <input name="confirmPassword" placeholder="Nhập lại mật khẩu" type="password" required value={formData.confirmPassword} onChange={handleChange} />
 
+          <input name="fullName" placeholder="Họ và tên" value={formData.fullName} onChange={handleChange} />
+          <input name="phone" placeholder="Số điện thoại" value={formData.phone} onChange={handleChange} />
+          <input name="birthDate" type="date" value={formData.birthDate} onChange={handleChange} />
+
+          <select name="gender" value={formData.gender} onChange={handleChange}>
+            <option value="Nam">Nam</option>
+            <option value="Nu">Nữ</option>
+            <option value="Khac">Khác</option>
+          </select>
           <button type="submit" className="signupUnique-submit">Đăng Ký</button>
         </form>
 
@@ -114,10 +92,7 @@ export default function Signup() {
             <span></span>
           </div>
 
-          <GoogleLogin
-            onSuccess={responseGoogleSuccess}
-            onError={responseGoogleFailure}
-          />
+          <GoogleLogin onSuccess={responseGoogleSuccess} onError={responseGoogleFailure} />
 
           <p style={{ marginTop: '10px' }}>
             Đã có tài khoản? <Link to="/login">Đăng nhập</Link>
