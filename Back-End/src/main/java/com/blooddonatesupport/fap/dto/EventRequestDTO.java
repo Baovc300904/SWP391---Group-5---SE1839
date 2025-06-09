@@ -8,9 +8,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class EventRequestDTO {
     private String eventName;
-    private LocalDate eventDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String location;
     private String description;
-    private Integer expectedParticipants;
+    private Integer maxParticipants;
+    private String status;
 }
+
 

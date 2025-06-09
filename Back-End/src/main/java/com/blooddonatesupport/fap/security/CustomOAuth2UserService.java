@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
@@ -28,7 +29,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
             User newUser = new User();
             newUser.setEmail(email);
             newUser.setFullName(name);
-            newUser.setRole("USER");
+            newUser.setRole(User.Role.Thanh_Vien); // ✅ Sử dụng enum
+            newUser.setAccountStatus(User.AccountStatus.Hoat_Dong); // ✅ OAuth users are active by default
             newUser.setProvider(provider);
             newUser.setRegistrationDate(LocalDateTime.now());
             return userRepository.save(newUser);

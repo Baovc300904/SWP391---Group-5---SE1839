@@ -5,25 +5,36 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "YeuCauHienMau")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "DonationSchedule")
 public class DonationRegistration {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MaYeuCauHienMau")
     private Long id;
 
+    @Column(name = "NgayHienMauDuKien")
     private LocalDate donationDate;
 
-    private String location;
+    @Column(name = "LoaiHien")
+    private String donationType;
 
+    @Column(name = "NhomMau")
     private String bloodGroup;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @Column(name = "DiaDiem")
+    private String location;
+
+    @Column(name = "TrangThai")
+    private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "MaNguoiDung")
     private User user;
 }
+
 
 

@@ -43,8 +43,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             User user = ((UserPrincipal) userDetails).getUser();
 
-            // ✅ Kiểm tra trạng thái tài khoản
-            if (!AccountStatus.HoatDong.equals(user.getAccountStatus())) {
+            // ✅ Sử dụng enum đúng cách
+            if (!User.AccountStatus.Hoat_Dong.equals(user.getAccountStatus())) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().write("Tài khoản chưa được kích hoạt hoặc đã bị khóa.");
                 return;

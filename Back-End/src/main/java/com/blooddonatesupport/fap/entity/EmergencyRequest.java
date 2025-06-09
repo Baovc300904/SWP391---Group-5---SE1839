@@ -5,26 +5,41 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "YeuCauCanMau")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmergencyRequest {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MaYeuCauCanMau")
     private Long id;
 
-    private String bloodGroup;
+    @Column(name = "MaNhomMauCan")
+    private Integer bloodGroupId;
 
-    private String location;
+    @Column(name = "ThanhPhanMauCan")
+    private String bloodComponent;
 
+    @Column(name = "SoLuongDonVi")
+    private Integer quantity;
+
+    @Column(name = "LyDo")
     private String description;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(name = "LaKhanCap")
+    private boolean urgent;
 
-    private boolean processed = false;
+    @Column(name = "DiaChiNhanMau")
+    private String location;
+
+    @Column(name = "TrangThai")
+    private String status;
+
+    @Column(name = "NgayDangKy")
+    private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_id")
+    @JoinColumn(name = "MaNguoiDung")
     private User creator;
 }

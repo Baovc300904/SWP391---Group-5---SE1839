@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "BaoCaoHoatDong")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,21 +17,29 @@ import java.time.LocalDateTime;
 public class ActivityReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MaBaoCao")
     private Long id;
 
+    @Column(name = "TenBaoCao")
     private String title;
 
-    private String type; // Lich Su Hien Mau, Thong Ke Kho Mau, etc.
+    @Column(name = "LoaiBaoCao")
+    private String type;
 
+    @Column(name = "ThangNamBaoCao")
     private LocalDateTime reportMonth;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(name = "NgayTaoBaoCao")
+    private LocalDateTime createdAt;
 
+    @Column(name = "MoTaBaoCao")
     @Lob
     private String description;
 
+    @Column(name = "DuongDanFileBaoCao")
     private String reportFilePath;
 
     @ManyToOne
+    @JoinColumn(name = "MaNguoiTaoBaoCao")
     private User createdBy;
 }

@@ -5,26 +5,38 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "HoatDongHienMau")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "BloodDonationEvent") // Hoặc giữ nguyên "SuKienHienMau" nếu DB chưa đổi
 public class BloodDonationEvent {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MaHoatDong")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "TenHoatDong")
     private String eventName;
 
-    @Column(nullable = false)
-    private LocalDate eventDate;
+    @Column(name = "NgayBatDau")
+    private LocalDate startDate;
 
-    @Column(nullable = false)
+    @Column(name = "NgayKetThuc")
+    private LocalDate endDate;
+
+    @Column(name = "DiaDiem")
     private String location;
 
+    @Column(name = "MoTa")
     private String description;
 
-    private Integer expectedParticipants;
+    @Column(name = "SoLuongNguoiToiDa")
+    private Integer maxParticipants;
+
+    @Column(name = "TrangThaiHoatDong")
+    private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "MaNguoiTao")
+    private User creator;
 }

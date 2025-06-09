@@ -1,14 +1,17 @@
+
 package com.blooddonatesupport.fap.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.LocalDate;
-import java.util.List;
-import lombok.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "User")
+@Table(name = "NguoiDung")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,84 +19,184 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    @Column(name = "MaNguoiDung")
+    private Integer userId;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "HoVaTen", nullable = false, length = 100)
     private String fullName;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(name = "TenDangNhap", unique = true, nullable = false, length = 50)
     private String username;
 
-    @Column(nullable = false, length = 255)
+    @Column(name = "MatKhauHash", nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(name = "Email", unique = true, nullable = false, length = 100)
     private String email;
 
-    @Column(length = 20)
+    @Column(name = "SoDienThoai", length = 20)
     private String phoneNumber;
 
+    @Column(name = "NgaySinh")
     private LocalDate dateOfBirth;
 
-    @Column(length = 10)
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "GioiTinh")
+    private Gender gender;
 
-    @Column(length = 255)
+    @Column(name = "DiaChi")
     private String address;
 
-    @Column(length = 5)
-    private String bloodType;
-
-    @Column(length = 5)
-    private String rhFactor;
-
-    @Lob
-    private String medicalHistory;
-
-    @Column(precision = 5, scale = 2)
-    private BigDecimal weight;
-
-    @Column(precision = 5, scale = 2)
-    private BigDecimal height;
-
-    @Column(length = 50)
-    private String currentHealthStatus;
-
-    @Column(nullable = false, length = 50)
-    private String role = "USER";
-
-    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime registrationDate = LocalDateTime.now();
+    @Column(name = "MaNhomMau")
+    private Integer bloodGroupId;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 50)
-    private AccountStatus accountStatus = AccountStatus.HoatDong;
+    @Column(name = "YeuToRh")
+    private RhFactor rhFactor;
 
-    @Column(length = 20)
-    private String provider = "local";
+    @Column(name = "TienSuBenh", columnDefinition = "TEXT")
+    private String medicalHistory;
 
-    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<BloodRequest> bloodRequests;
+    @Column(name = "CanNang", precision = 5, scale = 2)
+    private BigDecimal weight;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<DonationRegistration> donations;
+    @Column(name = "ChieuCao", precision = 5, scale = 2)
+    private BigDecimal height;
 
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<EmergencyRequest> emergencyRequests;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TinhTrangSucKhoeHienTai")
+    private HealthStatus currentHealthStatus;
 
-    @PrePersist
-    protected void onCreate() {
-        if (registrationDate == null) {
-            registrationDate = LocalDateTime.now();
+    @Enumerated(EnumType.STRING)
+    @Column(name = "VaiTro", nullable = false)
+    private Role role;
+
+    @Column(name = "NgayDangKy")
+    private LocalDateTime registrationDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TrangThaiTaiKhoan")
+    private AccountStatus accountStatus;  // ← Đây là enum
+
+    // OAuth fields
+    private String provider;
+    private String providerId;
+
+    // ===============================
+    // = ENUMS DEFINITIONS
+    // ===============================
+
+    public enum Gender {
+        Nam("Nam"),
+        Nu("Nữ"),
+        Khac("Khác");
+
+        private final String displayName;
+
+        Gender(String displayName) {
+            this.displayName = displayName;
         }
-        if (accountStatus == null) {
-            accountStatus = AccountStatus.HoatDong;
+
+        public String getDisplayName() {
+            return displayName;
         }
-        if (role == null) {
-            role = "USER";
+    }
+
+    public enum RhFactor {
+        POSITIVE("+"),
+        NEGATIVE("-");
+
+        private final String value;
+
+        RhFactor(String value) {
+            this.value = value;
         }
-        if (provider == null) {
-            provider = "local";
+
+        public String getValue() {
+            return value;
         }
+    }
+
+    public enum HealthStatus {
+        Tot("Tốt"),
+        Trung_Binh("Trung Bình"),
+        Khong_Dat("Không Đạt");
+
+        private final String displayName;
+
+        HealthStatus(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
+    }
+
+    public enum Role {
+        Thanh_Vien("Thành Viên"),
+        Quan_Tri_Vien("Quản Trị Viên"),
+        Nhan_Vien("Nhân Viên"),
+        Quan_Ly("Quản Lý");
+
+        private final String displayName;
+
+        Role(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
+    }
+
+    // ← AccountStatus ENUM HERE
+    public enum AccountStatus {
+        Hoat_Dong("Hoạt Động"),
+        Khoa("Khóa"),
+        Cho_Kich_Hoat("Chờ Kích Hoạt");
+
+        private final String displayName;
+
+        AccountStatus(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
+
+        // Helper methods
+        public boolean isActive() {
+            return this == Hoat_Dong;
+        }
+
+        public boolean isPending() {
+            return this == Cho_Kich_Hoat;
+        }
+
+        public boolean isBlocked() {
+            return this == Khoa;
+        }
+    }
+
+    // ===============================
+    // = HELPER METHODS
+    // ===============================
+
+    public boolean isAccountActive() {
+        return this.accountStatus != null && this.accountStatus.isActive();
+    }
+
+    public boolean canLogin() {
+        return isAccountActive();
+    }
+
+    public String getFullBloodType() {
+        if (bloodGroupId != null && rhFactor != null) {
+            // Assuming blood group names like A, B, AB, O
+            return "BloodGroup" + bloodGroupId + rhFactor.getValue();
+        }
+        return "Unknown";
     }
 }
