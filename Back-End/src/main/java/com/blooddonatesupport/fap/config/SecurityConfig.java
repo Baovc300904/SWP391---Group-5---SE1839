@@ -1,7 +1,7 @@
 package com.blooddonatesupport.fap.config;
 
 import com.blooddonatesupport.fap.security.CustomOAuth2UserService;
-import com.blooddonatesupport.fap.service.CustomUserDetailsService; // Sửa import
+import com.blooddonatesupport.fap.service.CustomUserDetailsService;
 import com.blooddonatesupport.fap.security.JwtAuthenticationFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +44,22 @@ public class SecurityConfig {
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(info -> info.userService(customOAuth2UserService))
                         .successHandler((request, response, authentication) -> {
-                            response.sendRedirect("/api/user/profile");
+                            response.setContentType("application/json;charset=UTF-8");
+                            response.setStatus(HttpServletResponse.SC_OK);
+                            response.getWriter().write("{\"message\": \"Đăng nhập Google thành công\"}");
+                        })
+                        .failureHandler((request, response, exception) -> {
+                            response.setContentType("application/json;charset=UTF-8");
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.getWriter().write("{\"error\": \"" + exception.getMessage() + "\"}");
                         })
                 )
                 .logout(logout -> logout
                         .logoutUrl("/auth/logout")
                         .logoutSuccessHandler((request, response, authentication) -> {
                             response.setStatus(HttpServletResponse.SC_OK);
-                            response.getWriter().write("Đăng xuất thành công");
+                            response.setContentType("application/json;charset=UTF-8");
+                            response.getWriter().write("{\"message\": \"Đăng xuất thành công\"}");
                         })
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

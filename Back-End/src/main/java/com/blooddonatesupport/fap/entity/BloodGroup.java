@@ -27,5 +27,5 @@ public class BloodGroup {
     private String compatibleRecipients; // Có thể nhận từ ai
     
     @Column(name = "TuongThichHien") 
-    private String compatibleDonors; // Có thể hiến cho ai
+    private String compatibleDonors; //Có thể hiến cho ai
 }
