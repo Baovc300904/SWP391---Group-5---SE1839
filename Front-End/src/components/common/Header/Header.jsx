@@ -12,8 +12,20 @@ export default function Header() {
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    if (
+      storedUser &&
+      storedUser !== 'undefined' &&
+      storedUser !== 'null' &&
+      storedUser.trim() !== ''
+    ) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error('Failed to parse user from localStorage:', error);
+        setUser(null);
+      }
+    } else {
+      setUser(null);
     }
   }, []);
 
@@ -64,7 +76,7 @@ export default function Header() {
               alt="User Avatar"
               className="avatar"
             />
-            <span className="username">{user.name || user.email}</span>
+            <span className="username">{user.username || user.email}</span>
 
             <div className={`dropdown ${showDropdown ? 'open' : 'closed'}`}>
               <button onClick={() => navigate('/profile')}>

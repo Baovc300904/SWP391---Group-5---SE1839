@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'; // thêm useState
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
-import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner.jsx'; // import loading spinner
+import LoadingSpinner from '../components/common/LoadingSpinner/LoadingSpinner.jsx'; // import loading spinner
 import './StaffNavbar.css';
 
 export default function StaffNavbar() {

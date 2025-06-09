@@ -13,7 +13,7 @@ const samplePosts = [
 ];
 
 const sampleUsers = [
-  { id: 1, email: 'admin@example.com', role: 'admin' },
+  { id: 1, email: 'admin@example.com', role: 'Quan_Tri_Vien' },
   { id: 2, email: 'user1@example.com', role: 'user' },
   { id: 3, email: 'user2@example.com', role: 'user' },
 ];
@@ -46,8 +46,8 @@ export default function AdminDashboard() {
       return;
     }
 
-    if (loggedUser.role !== 'admin') {
-      alert('Quyen truy cap bi tu choi! Chi admin moi co quyen truy cap.');
+    if (loggedUser.role !== 'Quan_Tri_Vien') {
+      alert('Quyen truy cap bi tu choi! Chi Quan_Tri_Vien moi co quyen truy cap.');
       navigate('/login');
       return;
     }
@@ -92,7 +92,7 @@ export default function AdminDashboard() {
       <AdminNavbar />
       <div className="admin-dashboard">
         <h1 className="dashboard-title">Admin Dashboard</h1>
-        <p className="welcome-text">Chao mung admin: <strong>{user.email}</strong></p>
+        <p className="welcome-text">Chao mung Quan_Tri_Vien: <strong>{user.email}</strong></p>
 
         {/* Container flex chứa stats và chart nằm cạnh nhau */}
         <div className="dashboard-flex-container">
