@@ -1,54 +1,62 @@
 /* Khung tổng thể */
 .signupUnique-form {
-  max-width: 400px;
-  padding: 20px 40px;
-  background: #fff;
-  height: auto;
+  max-width: 450px;
+  padding: 30px 35px;
+  background: #ffffff;
   margin: auto;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
-  transition: 0.3s;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  transition: all 0.3s ease;
   position: relative;
-  z-index: 500;
-  border: 1px solid #eee;
-  border-radius: 10px;
+  border: 1px solid #f0f0f0;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 18px;
+  z-index: 10;
 }
 
 /* Tiêu đề */
 .signupUnique-title {
   text-align: center;
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: #333;
-  font-weight: bold;
+  font-size: 26px;
+  color: #2c3e50;
+  margin-bottom: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
-/* Input field */
-.signupUnique-form input {
+/* Input field + textarea + select dùng chung */
+.signupUnique-form input,
+.signupUnique-form textarea,
+.signupUnique-form select {
   padding: 12px 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 14px;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  font-size: 15px;
   outline: none;
-  transition: border-color 0.2s;
+  transition: all 0.2s ease-in-out;
+  background-color: #fdfdfd;
+  font-family: inherit;
+  resize: vertical;
 }
 
-.signupUnique-form input:focus {
+.signupUnique-form input:focus,
+.signupUnique-form textarea:focus,
+.signupUnique-form select:focus {
   border-color: #3f51b5;
+  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.15);
 }
 
 /* Submit button */
 .signupUnique-submit {
   background-color: #3f51b5;
   color: white;
-  padding: 12px;
+  padding: 13px;
   font-size: 16px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.25s ease-in-out;
 }
 
 .signupUnique-submit:hover {
@@ -59,21 +67,22 @@
 .divider {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  margin: 20px auto;      /* Thêm auto để căn giữa theo chiều ngang */
+  margin: 24px auto;
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
 }
 
 .divider span {
   flex: 1;
   height: 1px;
-  background: #ccc;
+  background: #ddd;
 }
 
 .divider p {
-  margin: 0 10px;
-  color: #999;
+  margin: 0;
+  color: #888;
   font-size: 14px;
 }
 
@@ -81,11 +90,13 @@
 .signupUnique-form p {
   text-align: center;
   font-size: 14px;
+  color: #555;
 }
 
 .signupUnique-form a {
   color: #3f51b5;
   text-decoration: none;
+  font-weight: 500;
 }
 
 .signupUnique-form a:hover {

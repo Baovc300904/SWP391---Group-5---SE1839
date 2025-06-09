@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate} from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Home from '../components/Home/Home.jsx';
 import Contact from '../components/Contacts/Contact.jsx';
@@ -45,25 +45,43 @@ export default function AppRoutes() {
         element={
           (() => {
             const storedUser = localStorage.getItem('user');
-            if (!storedUser) return <Navigate to="/login" replace />;
-            const user = JSON.parse(storedUser);
-            return <Navigate to={`/${user.role}/profile`} replace />;
+
+            // Kiểm tra storedUser hợp lệ
+            if (
+              !storedUser ||
+              storedUser === 'undefined' ||
+              storedUser === 'null' ||
+              storedUser.trim() === ''
+            ) {
+              return <Navigate to="/login" replace />;
+            }
+
+            try {
+              const user = JSON.parse(storedUser);
+              if (!user?.role) {
+                return <Navigate to="/login" replace />;
+              }
+              return <Navigate to={`/${user.role}/profile`} replace />;
+            } catch (error) {
+              console.error('Error parsing storedUser:', error);
+              return <Navigate to="/login" replace />;
+            }
           })()
         }
       />
       {/* Routes bảo vệ riêng theo role */}
       <Route
-        path="/admin/profile"
+        path="/quan-tri-vien/profile"
         element={
-          <PrivateRoutes allowedRoles={['admin']}>
+          <PrivateRoutes allowedRoles={['Quan_Tri_Vien']}>
             <AdminProfile />
           </PrivateRoutes>
         }
       />
       <Route
-        path="/admin/edit-profile"
+        path="/quan-tri-vien/edit-profile"
         element={
-          <PrivateRoutes allowedRoles={['admin']}>
+          <PrivateRoutes allowedRoles={['Quan_Tri_Vien']}>
             <EditProfile />
           </PrivateRoutes>
         }
@@ -71,15 +89,15 @@ export default function AppRoutes() {
       <Route
         path="/adminDashboard"
         element={
-          <PrivateRoutes allowedRoles={['admin']}>
+          <PrivateRoutes allowedRoles={['Quan_Tri_Vien']}>
             <AdminDashboard />
           </PrivateRoutes>
         }
       />
       <Route
-        path="/adminManagePost"
+        path="/quan-tri-vienManagePost"
         element={
-          <PrivateRoutes allowedRoles={['admin']}>
+          <PrivateRoutes allowedRoles={['Quan_Tri_Vien']}>
             <AdminManagePost />
           </PrivateRoutes>
         }
@@ -113,7 +131,7 @@ export default function AppRoutes() {
       <Route
         path="/member/profile"
         element={
-          <PrivateRoutes allowedRoles={['member']}>
+          <PrivateRoutes allowedRoles={['Thanh_Vien']}>
             <DonorProfile />
           </PrivateRoutes>
         }
@@ -121,7 +139,7 @@ export default function AppRoutes() {
       <Route
         path="/member/edit-profile"
         element={
-          <PrivateRoutes allowedRoles={['member']}>
+          <PrivateRoutes allowedRoles={['Thanh_Vien']}>
             <EditProfile />
           </PrivateRoutes>
         }
@@ -130,7 +148,7 @@ export default function AppRoutes() {
       <Route
         path="/home"
         element={
-          <PrivateRoutes allowedRoles={['admin', 'staff', 'member']}>
+          <PrivateRoutes allowedRoles={['Quan_Tri_Vien', 'staff', 'Thanh_Vien']}>
             <Home />
           </PrivateRoutes>
         }

@@ -6,17 +6,16 @@ export default function PrivateRoutes({ allowedRoles, children }) {
   const { user } = useContext(AuthContext);
   const location = useLocation();
 
-  // if (!user) {
-  //   return (
-  //     <Navigate
-  //       to="/login"
-  //       replace
-  //       state={{ from: location, error: 'Bạn cần đăng nhập để truy cập trang này!' }}
-  //     />
-  //   );
-  // }
+  if (!user) {
+    return <Navigate to="/login" replace state={{ from: location }} />;
+  }
 
-  if (!allowedRoles.includes(user.role)) {
+  const normalizeRole = (role) => role?.toLowerCase().replace(/[_\s]/g, '');
+
+  const userRole = normalizeRole(user.role);
+  const allowedRolesNormalized = allowedRoles.map(r => normalizeRole(r));
+
+  if (!allowedRolesNormalized.includes(userRole)) {
     return (
       <Navigate
         to="/login"

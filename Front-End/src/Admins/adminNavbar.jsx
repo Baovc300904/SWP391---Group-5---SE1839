@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
-import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner.jsx';
+import LoadingSpinner from '../components/common/LoadingSpinner/LoadingSpinner.jsx';
  // import component loading spinner
 import './AdminNavbar.css';
 
