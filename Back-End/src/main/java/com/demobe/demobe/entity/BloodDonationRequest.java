@@ -1,5 +1,6 @@
 package com.demobe.demobe.entity;
 
+import com.demobe.demobe.enums.UrgencyLevel;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;

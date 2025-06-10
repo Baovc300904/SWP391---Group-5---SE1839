@@ -12,7 +12,7 @@ import News from '../components/News/News.jsx';
 import NewsDetails from '../components/News/NewDetails.jsx';
 import QA from '../components/QA/QA.jsx';
 import BloodDonation from '../components/BloodDonations/BloodDonation.jsx';
-import BloodRequest from '../pages/BloodRequest/UserRequestList.jsx';
+import BloodRequest from '../pages/BloodRequest/UserRequestList/UserRequestList.jsx';
 
 import AdminDashboard from '../Admins/adminDashboard.jsx';
 import AdminManagePost from '../Admins/adminManagePost.jsx';
