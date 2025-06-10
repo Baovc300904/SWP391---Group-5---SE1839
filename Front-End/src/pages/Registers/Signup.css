@@ -1,104 +1,135 @@
-/* Khung tổng thể */
-.signupUnique-form {
-  max-width: 450px;
-  padding: 30px 35px;
-  background: #ffffff;
-  margin: auto;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-  transition: all 0.3s ease;
-  position: relative;
-  border: 1px solid #f0f0f0;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  z-index: 10;
-}
-
-/* Tiêu đề */
-.signupUnique-title {
-  text-align: center;
-  font-size: 26px;
-  color: #2c3e50;
-  margin-bottom: 12px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-/* Input field + textarea + select dùng chung */
-.signupUnique-form input,
-.signupUnique-form textarea,
-.signupUnique-form select {
-  padding: 12px 14px;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
-  font-size: 15px;
-  outline: none;
-  transition: all 0.2s ease-in-out;
-  background-color: #fdfdfd;
-  font-family: inherit;
-  resize: vertical;
-}
-
-.signupUnique-form input:focus,
-.signupUnique-form textarea:focus,
-.signupUnique-form select:focus {
-  border-color: #3f51b5;
-  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.15);
-}
-
-/* Submit button */
-.signupUnique-submit {
-  background-color: #3f51b5;
-  color: white;
-  padding: 13px;
-  font-size: 16px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.25s ease-in-out;
-}
-
-.signupUnique-submit:hover {
-  background-color: #303f9f;
-}
-
-/* Divider: "hoặc" */
-.divider {
+/* Container chính */
+.register-container {
+  max-width: 960px;
+  height: 100vh;              /* Chiếm toàn bộ chiều cao màn hình */
+  pointer-events: auto;
+  overscroll-behavior: none;   /* Ngăn cuộn chuột/touchpad */
+  scroll-behavior: none;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin: 24px auto;
-  width: 100%;
-  max-width: 450px;
+  padding: 20px;
 }
 
-.divider span {
-  flex: 1;
-  height: 1px;
-  background: #ddd;
+/* Ảnh banner bên trái */
+.img-fluid.object-fit-cover {
+  height: 100%;
+  object-fit: cover;
 }
 
-.divider p {
-  margin: 0;
-  color: #888;
-  font-size: 14px;
+/* Ảnh banner bên trái */
+.col-md-6.position-relative {
+  position: relative;
+  overflow: hidden;
 }
 
-/* Link chuyển trang */
-.signupUnique-form p {
-  text-align: center;
-  font-size: 14px;
-  color: #555;
+/* Text nổi trên banner */
+.register-banner {
+  position: absolute;
+  bottom: 450px;
+  left: 100px;
+  z-index: 5;
+  color: #000000;
+  max-width: 100%;
 }
 
-.signupUnique-form a {
-  color: #3f51b5;
-  text-decoration: none;
+.register-banner h1 {
+  font-size: 2.3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #ff0000; /* Trắng để nổi bật trên ảnh */
+}
+
+.register-banner p {
+  font-size: 1.1rem;
+  margin-bottom: 0;
+  color: #000000;
+}
+
+
+/* Form bên phải */
+form {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px 10px;
+}
+
+/* Tiêu đề form */
+form h2 {
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+/* Trường nhập */
+form input,
+form select {
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 15px;
+  transition: all 0.2s ease-in-out;
+}
+
+form input:focus,
+form select:focus {
+  border-color: #fd7e14;
+  box-shadow: 0 0 0 0.2rem rgba(253, 126, 20, 0.25);
+  outline: none;
+}
+
+/* Nút đăng ký */
+form .btn-primary {
+  background-color: #fd7e14;
+  border-color: #fd7e14;
   font-weight: 500;
 }
 
-.signupUnique-form a:hover {
+form .btn-primary:hover {
+  background-color: #e96c0d;
+  border-color: #e96c0d;
+}
+
+/* Phần "hoặc" chia cách */
+.d-flex.align-items-center hr {
+  border-color: #ccc;
+  opacity: 0.6;
+}
+
+.d-flex.align-items-center span {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+/* Liên kết chuyển đến đăng nhập */
+p a {
+  color: #fd7e14;
+  text-decoration: none;
+}
+
+p a:hover {
   text-decoration: underline;
+}
+
+/* Responsive điều chỉnh text và ảnh */
+@media (max-width: 768px) {
+  .register-banner {
+    position: static;
+    text-align: center;
+    color: #333;
+    background: #fff;
+    padding: 20px 10px;
+  }
+
+  .img-fluid.object-fit-cover {
+    height: 220px;
+  }
+
+  .row.shadow {
+    flex-direction: column;
+  }
+
+  .col-md-6.p-4 {
+    padding-top: 0 !important;
+  }
 }

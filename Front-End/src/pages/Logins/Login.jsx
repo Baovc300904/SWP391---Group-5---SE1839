@@ -117,7 +117,6 @@ export default function Login() {
     console.error('❌ Google login thất bại:', error);
     alert('Đăng nhập Google thất bại!');
   };
-  
 
   return (
     <div className="login-banner-container">
@@ -128,13 +127,18 @@ export default function Login() {
         </div>
       )}
 
-      <div className="login-banner-left">
-        <img src="/Banner-log.jpg" alt="Login Banner" className="login-banner-image" />
-        <div className="login-banner-text">
-          <h1>Welcome Back!</h1>
-          <p>Đăng nhập để tiếp tục trải nghiệm hệ thống</p>
-        </div>
+    <div className="login-banner-left">
+      <img src="/Banner-log.jpg" alt="Login Banner" className="login-banner-image" />
+      
+      {/* Lớp phủ mờ */}
+      <div className="banner-overlay"></div>
+
+      {/* Text trên ảnh */}
+      <div className="login-banner-text">
+        <h1>Welcome Back!</h1>
+        <p>Đăng nhập để tiếp tục trải nghiệm hệ thống</p>
       </div>
+    </div>
 
       <div className="login-banner-right">
         <PandaLoginForm
@@ -153,10 +157,13 @@ export default function Login() {
             <span></span>
           </div>
 
-          <GoogleLogin
-            onSuccess={responseGoogleSuccess}
-            onError={responseGoogleFailure}
-          />
+          <div>
+            <GoogleLogin
+              clientId="470822925716-q0pa55e4bopv6e2te3roubrk46ro721c.apps.googleusercontent.com"  // Đảm bảo sử dụng client ID hợp lệ
+              onSuccess={responseGoogleSuccess}
+              onError={responseGoogleFailure}
+            />
+          </div>
 
           <p style={{ marginTop: '10px' }}>
             Chưa có tài khoản? <Link to="/signup">Đăng ký ngay</Link>

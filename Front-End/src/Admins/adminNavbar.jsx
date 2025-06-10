@@ -44,6 +44,14 @@ export default function AdminNavbar() {
           </li>
           <li>
             <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? 'link active-link' : 'link')}
+            >
+              🏠 Trang chủ
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to="/adminManagePost"
               className={({ isActive }) => (isActive ? 'link active-link' : 'link')}
             >
