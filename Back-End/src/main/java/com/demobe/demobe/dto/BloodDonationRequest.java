@@ -7,7 +7,9 @@ import java.time.LocalDate;
 
 @Data
 public class BloodDonationRequest {
-    private String bloodType;
-    private BloodComponent component;
-    private LocalDate readyDate;
+    private Integer requesterId;
+    private LocalDate expectedDonationDate;
+    private String donationType;
+    private String status;
+    private String note;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getAllRequests } from '../../api/bloodDonationRequestApi';
-import AppLayout from '../../layouts/AppLayout';
-import Footer from '../../components/common/Footers/Footer';
+import { getAllRequests } from '../../../api/bloodDonationRequestApi';
+import AppLayout from '../../../layouts/AppLayout';
+import Footer from '../../../components/common/Footers/Footer';
 
 export default function UserRequestList() {
   const [requests, setRequests] = useState([]);
@@ -14,7 +14,7 @@ export default function UserRequestList() {
         const res = await getAllRequests();
         const all = res.data;
 
-        const filtered = all.filter(r => r.requester?.id === user?.id);
+        const filtered = all.filter(r => r.requesterId?.id === user?.id);
         setRequests(filtered);
       } catch (err) {
         console.error('Lỗi khi tải danh sách:', err);
