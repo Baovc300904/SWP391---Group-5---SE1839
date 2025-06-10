@@ -80,6 +80,6 @@ public class User {
     public enum Gender { Nam, Nu, Khac }
     public enum RhFactor { PLUS("+"), MINUS("-"); private final String symbol; RhFactor(String s) { this.symbol = s; } @Override public String toString() { return symbol; } }
     public enum HealthStatus { Tot, Trung_Binh, Khong_Dat }
-    public enum Role { Thanh_Vien, Quan_Tri_Vien, Nhan_Vien, Quan_Ly }
+    public enum Role { Thanh_Vien, Quan_Tri_Vien, Nhan_Vien}
     public enum AccountStatus { Hoat_Dong, Khoa, Cho_Kich_Hoat }
 }

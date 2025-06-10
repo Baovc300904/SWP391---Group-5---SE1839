@@ -20,11 +20,12 @@ public class BloodDonationRequestServiceImpl implements BloodDonationRequestServ
 
     @Override
     public BloodDonationRequest save(BloodDonationRequest request) {
-        if (request.getExpectedDonationDate() != null && request.getDonationType() != null) {
-            request.setExpectedRecoveryDate(
-                    calculateRecoveryDate(request.getExpectedDonationDate(), request.getDonationType())
-            );
+        if (request.getExpectedDonationDate() == null && request.getDonationType() == null) {
+            throw new IllegalArgumentException("Donation date and type cannot be null");
         }
+        request.setExpectedRecoveryDate(
+                calculateRecoveryDate(request.getExpectedDonationDate(), request.getDonationType())
+        );
         return repository.save(request);
     }
 
@@ -45,8 +46,6 @@ public class BloodDonationRequestServiceImpl implements BloodDonationRequestServ
                 .filter(r -> today.isEqual(r.getExpectedRecoveryDate()))
                 .toList();
     }
-
-
 
     @Override
     public Optional<BloodDonationRequest> findById(Integer id) {

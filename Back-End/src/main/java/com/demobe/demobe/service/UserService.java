@@ -36,22 +36,22 @@ public class UserService {
 
         return new LoginResponse("Đăng nhập thành công", user.getUsername(), user.getRole().name());
     }
+    //Sử dung func để tạo user Quan_Tri_Vien và Nhan_Vien
+    public User createUser(User user) {
+        // Mã hóa mật khẩu trước khi lưu
+        String hashedPassword = passwordEncoder.encode(user.getPasswordHash());
+        user.setPasswordHash(hashedPassword);
 
-//    public User createUser(User user) {
-//        // Mã hóa mật khẩu trước khi lưu
-//        String hashedPassword = passwordEncoder.encode(user.getPasswordHash());
-//        user.setPasswordHash(hashedPassword);
-//
-//        // Set mặc định (nếu chưa có)
-//        if (user.getRegistrationDate() == null) {
-//            user.setRegistrationDate(LocalDateTime.now());
-//        }
-//        if (user.getAccountStatus() == null) {
-//            user.setAccountStatus(User.AccountStatus.Hoat_Dong);
-//        }
-//
-//        return userRepository.save(user);
-//    }
+        // Set mặc định (nếu chưa có)
+        if (user.getRegistrationDate() == null) {
+            user.setRegistrationDate(LocalDateTime.now());
+        }
+        if (user.getAccountStatus() == null) {
+            user.setAccountStatus(User.AccountStatus.Hoat_Dong);
+        }
+
+        return userRepository.save(user);
+    }
 
     public User registerUser(RegisterRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {

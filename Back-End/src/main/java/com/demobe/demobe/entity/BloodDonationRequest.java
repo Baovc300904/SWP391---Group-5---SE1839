@@ -1,5 +1,6 @@
 package com.demobe.demobe.entity;
 
+import com.demobe.demobe.enums.UrgencyLevel;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -56,6 +57,9 @@ public class BloodDonationRequest {
 
     @Column(name = "NgayDuyet")
     private LocalDateTime approvalDate;
+
+    public void setUrgencyLevel(UrgencyLevel urgencyLevel) {
+    }
 
     public enum DonationType {
         Toan_Phan, Hong_Cau, Tieu_Cau, Huyet_Tuong

@@ -17,9 +17,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    @PostMapping("/register")
-//    public ResponseEntity<?> register(@RequestBody User user) {
-//        User savedUser = userService.createUser(user);
-//        return ResponseEntity.ok(savedUser);
-//    }
+    //Sử dung api để tạo user Quan_Tri_Vien và Nhan_Vien
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody User user) {
+        User savedUser = userService.createUser(user);
+        return ResponseEntity.ok(savedUser);
+    }
 }
