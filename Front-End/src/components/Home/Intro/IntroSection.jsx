@@ -1,6 +1,7 @@
 import React from 'react'
 import introPost from "../../../assets/images/posts/introPost.jpg";
 import './IntroSection.css'; // Import your CSS file for styling
+import slideshow2 from '../../../assets/images/slideshows/slideshow2.png'; // Adjust the path as necessary
 export default function IntroSection() {
   return (
     <div className="intro-container my-5 gap-4">

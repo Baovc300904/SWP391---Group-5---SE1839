@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTheme } from "../../../contexts/ThemeContext";
-import { FaSun, FaMoon } from "react-icons/fa";
 import './Navbar.css';
 
 export default function Navbar() {
@@ -86,14 +85,6 @@ export default function Navbar() {
           <li><NavLink to="/about" className="nav-link">VỀ CHÚNG TÔI</NavLink></li>
         </ul>
       </nav>
-
-      {/* Toggle Theme (Chưa dùng đến) */}
-      <div className="theme-toggle">
-        <p className="theme-text">Theme</p>
-        <button onClick={toggleTheme} className="btn-toggle-theme">
-          {theme === "light" ? <FaMoon /> : <FaSun />}
-        </button>
-      </div>
     </>
   );
 }

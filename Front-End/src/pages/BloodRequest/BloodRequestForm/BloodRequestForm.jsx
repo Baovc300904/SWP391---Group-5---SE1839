@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createRequest } from '../../api/bloodDonationRequestApi';
+import { createRequest } from '../../../api/bloodDonationRequestApi';
+import './BloodRequestForm.css'; // Assuming you have a CSS file for styling
 
 export default function BloodRequestForm() {
   const navigate = useNavigate();
+
+  // Assuming the user is already authenticated and their data is available
+  const userId = 1; // Replace with actual user ID (from context or auth state)
 
   const [form, setForm] = useState({
     expectedDonationDate: '',
@@ -19,11 +23,16 @@ export default function BloodRequestForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Adding requesterId and constructing the requester object
       await createRequest({
+        requesterId: userId,
         expectedDonationDate: form.expectedDonationDate,
         donationType: form.donationType,
-        status: 'Dang_Cho', // Mặc định trạng thái khởi tạo
+        status: 'Dang_Cho', // Default status
         note: form.note,
+        requester: {
+          id: userId, // Assuming requester has an ID, use dynamic user ID
+        },
       });
 
       alert('✅ Gửi yêu cầu hiến máu thành công!');
@@ -35,7 +44,7 @@ export default function BloodRequestForm() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="request-form-container mt-5">
       <h2 className="mb-4">Đăng ký hiến máu</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
