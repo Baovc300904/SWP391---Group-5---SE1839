@@ -1,5 +1,6 @@
 package com.demobe.demobe.entity;
 
+import com.demobe.demobe.enums.UrgencyLevel;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -40,6 +41,11 @@ public class BloodDonationRequest {
     @Enumerated(EnumType.STRING)
     @Column(name = "TrangThai", nullable = false)
     private RequestStatus status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "MucDoKhanCap")
+    private UrgencyLevel urgencyLevel = UrgencyLevel.NORMAL;
+
 
     @Column(name = "NgayPhucHoiGanNhat")
     private LocalDate lastRecoveryDate;

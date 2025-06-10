@@ -2,6 +2,7 @@ package com.demobe.demobe.controller;
 
 
 import com.demobe.demobe.entity.BloodDonationRequest;
+import com.demobe.demobe.enums.UrgencyLevel;
 import com.demobe.demobe.service.BloodDonationRequestService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,4 +41,10 @@ public class BloodDonationRequestController {
         service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+    @PostMapping("/urgent")
+    public ResponseEntity<BloodDonationRequest> createUrgentRequest(@RequestBody BloodDonationRequest dto) {
+        dto.setUrgencyLevel(UrgencyLevel.URGENT);
+        return ResponseEntity.ok(service.save(dto));
+    }
+
 }
