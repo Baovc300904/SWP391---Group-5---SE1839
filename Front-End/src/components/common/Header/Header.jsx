@@ -82,6 +82,11 @@ export default function Header() {
               <button onClick={() => navigate('/profile')}>
                 <FaUser style={{ marginRight: 8 }} /> Hồ sơ cá nhân
               </button>
+              {(user?.role === 'Quan_Tri_Vien' || user?.role === 'staff') && (
+                <button onClick={() => navigate(user.role === 'Quan_Tri_Vien' ? '/adminDashboard' : '/dashboardStaff')}>
+                  <FaSignOutAlt style={{ marginRight: 8 }} /> Quay lại Dashboard
+                </button>
+              )}
               <button onClick={() => navigate('/profile/donation-request')}>
                 <FaHandsHelping style={{ marginRight: 8 }} /> Yêu cầu hiến máu
               </button>

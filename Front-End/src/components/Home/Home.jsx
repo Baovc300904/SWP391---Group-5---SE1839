@@ -67,7 +67,6 @@ const Home = () => {
             Có bài viết mới từ cộng đồng hiến máu!
           </motion.div>
         )}
-
         {/* Các section chính */}
         <SearchSection onSearchResults={handleSearchResults} />
         <HeroSection />
@@ -84,8 +83,6 @@ const Home = () => {
       )}
       <Footer />
     </>
-
-    
   );
 };
 

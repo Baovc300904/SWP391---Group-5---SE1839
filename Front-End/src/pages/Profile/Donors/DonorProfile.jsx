@@ -35,7 +35,7 @@ export default function Profile() {
           <p><strong>Vai trò:</strong> {user.role}</p>
 
           <button
-            onClick={() => navigate('/donor/edit-profile')}
+            onClick={() => navigate('/Thanh_Vien/edit-profile')}
             className="profile-btn btn-edit pulse"
           >
             ✏️ Chỉnh sửa

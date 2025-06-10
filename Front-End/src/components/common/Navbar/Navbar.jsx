@@ -7,7 +7,11 @@ import './Navbar.css';
 export default function Navbar() {
   const [offset, setOffset] = useState(0);
   const { theme, toggleTheme } = useTheme();
-  const [submenuOpen, setSubmenuOpen] = useState(false);
+
+  const [submenuOpen, setSubmenuOpen] = useState({
+    news: false,
+    services: false,
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,8 +35,11 @@ export default function Navbar() {
     document.body.className = theme + "-theme";
   }, [theme]);
 
-  const toggleSubmenu = () => {
-    setSubmenuOpen(!submenuOpen);
+  const toggleSubmenu = (menuKey) => {
+    setSubmenuOpen((prev) => ({
+      ...prev,
+      [menuKey]: !prev[menuKey],
+    }));
   };
 
   return (
@@ -41,31 +48,52 @@ export default function Navbar() {
         <ul>
           <li><NavLink to="/" end className="nav-link">TRANG CHỦ</NavLink></li>
           <li><NavLink to="/qa" className="nav-link">Q&A</NavLink></li>
-          <li><NavLink to="/new" className="nav-link">TIN TỨC</NavLink></li>
-          <li className={`has-submenu ${submenuOpen ? 'open' : ''}`}>
+
+          {/* TIN TỨC */}
+          <li className={`has-submenu ${submenuOpen.news ? 'open' : ''}`}>
             <div
-              onClick={toggleSubmenu}
+              onClick={() => toggleSubmenu('news')}
               className="nav-link submenu-toggle"
               aria-haspopup="true"
-              aria-expanded={submenuOpen ? "true" : "false"}
+              aria-expanded={submenuOpen.news ? "true" : "false"}
             >
-              DỊCH VỤ <span className={`arrow ${submenuOpen ? 'rotated' : ''}`}>&#x25BC;</span>
+              TIN TỨC <span className={`arrow ${submenuOpen.news ? 'rotated' : ''}`}>&#x25BC;</span>
             </div>
-            <ul className="submenu">
-              <li><NavLink to="/services/blood-donation" className="nav-link">Hiến máu</NavLink></li>
-              <li><NavLink to="/services/receive" className="nav-link">Nhận máu</NavLink></li>
+            <ul className='submenu'>
+              <li><NavLink to="/new" className="nav-link">📌 Tin nổi bật</NavLink></li>
+              <li><NavLink to="/new/blogs" className="nav-link">✍️ Câu chuyện</NavLink></li>
             </ul>
           </li>
+
+          {/* DỊCH VỤ */}
+          <li className={`has-submenu ${submenuOpen.services ? 'open' : ''}`}>
+            <div
+              onClick={() => toggleSubmenu('services')}
+              className="nav-link submenu-toggle"
+              aria-haspopup="true"
+              aria-expanded={submenuOpen.services ? "true" : "false"}
+            >
+              DỊCH VỤ <span className={`arrow ${submenuOpen.services ? 'rotated' : ''}`}>&#x25BC;</span>
+            </div>
+            <ul className="submenu">
+              <li><NavLink to="/services" className="nav-link">Các Dịch Vụ</NavLink></li>
+              <li><NavLink to="/services/blood-donation" className="nav-link">Hiến máu</NavLink></li>
+              <li><NavLink to="/services/receive" className="nav-link">Nhận máu</NavLink></li>
+              <li><NavLink to="/services/donation-request" className="nav-link">Yêu cầu hiến máu</NavLink></li>
+            </ul>
+          </li>
+
           <li><NavLink to="/about" className="nav-link">VỀ CHÚNG TÔI</NavLink></li>
         </ul>
       </nav>
-      {/* Theme tối sử dụng khi đã xog toàn bộ các chức năng trên */}
-      {/* <div className="theme-toggle">
+
+      {/* Toggle Theme (Chưa dùng đến) */}
+      <div className="theme-toggle">
         <p className="theme-text">Theme</p>
         <button onClick={toggleTheme} className="btn-toggle-theme">
           {theme === "light" ? <FaMoon /> : <FaSun />}
         </button>
-      </div> */}
+      </div>
     </>
   );
 }

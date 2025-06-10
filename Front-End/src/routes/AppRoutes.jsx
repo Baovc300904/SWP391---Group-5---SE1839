@@ -12,6 +12,7 @@ import News from '../components/News/News.jsx';
 import NewsDetails from '../components/News/NewDetails.jsx';
 import QA from '../components/QA/QA.jsx';
 import BloodDonation from '../components/BloodDonations/BloodDonation.jsx';
+import BloodRequest from '../pages/BloodRequest/UserRequestList.jsx';
 
 import AdminDashboard from '../Admins/adminDashboard.jsx';
 import AdminManagePost from '../Admins/adminManagePost.jsx';
@@ -22,6 +23,7 @@ import DonorProfile from '../pages/Profile/Donors/DonorProfile.jsx';
 import EditProfile from '../pages/EditProfile/EditProfile.jsx';
 
 import PrivateRoutes from './PrivateRoutes.jsx';
+import BlogPages from '../pages/Blogs/BlogPages.jsx';
 
 export default function AppRoutes() {
   return (
@@ -36,7 +38,11 @@ export default function AppRoutes() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/services" element={<Services />} />
       <Route path="/services/blood-donation" element={<BloodDonation />} />
+      <Route path="/services/blood-donation/:id" element={<BloodDonation />} />
+      <Route path="/services/donation-request" element={<BloodRequest />} />
+
       <Route path="/new" element={<News />} />
+      <Route path='/new/blogs' element={<BlogPages />} />
       <Route path="/new/:id" element={<NewsDetails />} />
       <Route path="/qa" element={<QA />} />
 
@@ -71,7 +77,7 @@ export default function AppRoutes() {
       />
       {/* Routes bảo vệ riêng theo role */}
       <Route
-        path="/quan-tri-vien/profile"
+        path="/Quan_Tri_Vien/profile"
         element={
           <PrivateRoutes allowedRoles={['Quan_Tri_Vien']}>
             <AdminProfile />
@@ -79,7 +85,7 @@ export default function AppRoutes() {
         }
       />
       <Route
-        path="/quan-tri-vien/edit-profile"
+        path="/Quan_Tri_Vien/edit-profile"
         element={
           <PrivateRoutes allowedRoles={['Quan_Tri_Vien']}>
             <EditProfile />
@@ -95,7 +101,7 @@ export default function AppRoutes() {
         }
       />
       <Route
-        path="/quan-tri-vienManagePost"
+        path="/Quan_Tri_Vien/ManagePost"
         element={
           <PrivateRoutes allowedRoles={['Quan_Tri_Vien']}>
             <AdminManagePost />
@@ -129,7 +135,7 @@ export default function AppRoutes() {
       />
 
       <Route
-        path="/member/profile"
+        path="/Thanh_Vien/profile"
         element={
           <PrivateRoutes allowedRoles={['Thanh_Vien']}>
             <DonorProfile />
@@ -137,7 +143,7 @@ export default function AppRoutes() {
         }
       />
       <Route
-        path="/member/edit-profile"
+        path="/nguoi-hien-mau/edit-profile"
         element={
           <PrivateRoutes allowedRoles={['Thanh_Vien']}>
             <EditProfile />

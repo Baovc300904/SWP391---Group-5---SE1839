@@ -43,7 +43,7 @@ export default function AdminProfile() {
         <p className="admin-info"><strong>Vai trò:</strong> {user.role || 'Admin'}</p>
 
         <button
-          onClick={() => navigate('/admin/edit-profile')}
+          onClick={() => navigate('/quan-tri-vien/edit-profile')}
           className="admin-btn admin-btn-edit"
         >
           ✏️ Chỉnh sửa hồ sơ
