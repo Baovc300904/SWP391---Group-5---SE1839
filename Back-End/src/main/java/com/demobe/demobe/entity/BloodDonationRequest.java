@@ -5,6 +5,8 @@ import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.demobe.demobe.enums.UrgencyLevel;
+
 @Entity
 @Table(name = "YeuCauHienMau")
 @Getter
@@ -56,6 +58,10 @@ public class BloodDonationRequest {
 
     @Column(name = "NgayDuyet")
     private LocalDateTime approvalDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "MucDoKhanCap")
+    private UrgencyLevel urgencyLevel = UrgencyLevel.NORMAL;
 
     public enum DonationType {
         Toan_Phan, Hong_Cau, Tieu_Cau, Huyet_Tuong
