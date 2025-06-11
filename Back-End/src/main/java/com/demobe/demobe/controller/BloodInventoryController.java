@@ -2,6 +2,7 @@ package com.demobe.demobe.controller;
 
 import com.demobe.demobe.service.BloodInventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,6 @@ public class BloodInventoryController {
     public ResponseEntity<Void> useBloodUnit(@RequestParam Integer id,
                                              @RequestParam Integer quantity,
                                              @RequestParam String requesterName) {
-        // Gọi service để cập nhật kho máu và lưu yêu cầu nhận máu
         bloodInventoryService.updateQuantityAndRecordReceiver(id, quantity, requesterName);
         return ResponseEntity.ok().build();  // Trả về phản hồi OK sau khi cập nhật
     }
