@@ -1,138 +1,105 @@
-.section-title {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: #1f2937;
-    text-align: center;
+.search-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Search Bar Wrapper */
+.search-bar-wrapper {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Label with Calendar Icon */
+.search-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Calendar Icon */
+.calendar-icon-title {
+  font-size: 18px;
+  color: #9ca3af;
+}
+
+/* Input container */
+.search-bar {
+  display: flex;
+  align-items: center;  /* Align items horizontally */
+  gap: 12px;  /* Add space between input and button */
+  width: 100%;
+}
+
+/* Input Styling */
+.search-input-wrapper {
+  position: relative;
+  flex-grow: 1;
+}
+
+.search-input {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 14px 12px 40px;  /* Padding to keep the icon inside */
+  font-size: 16px;
+  outline: none;
+  background-color: #fff;
+}
+
+/* Input placeholder text */
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+/* Button Styling */
+.search-button {
+  background-color: #dc2626;
+  border: none;
+  color: white;
+  padding: 12px 30px; /* Adjust padding to be smaller */
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #8d0303;
+}
+
+/* Calendar Icon in Input Field */
+.calendar-icon {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+/* Search Card for Detailed Search */
+.search-card {
+  width: 100%;
+  max-width: 900px;
+}
+
+/* Responsive for smaller devices */
+@media (max-width: 768px) {
+  .search-bar-wrapper {
+    padding: 0.8rem;
   }
-  
-  /* Container căn giữa, max-width 1000px */
-  .search-container {
-    padding: 1.5rem;
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .search-container input:focus {
-    outline: none;
-    box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.25);
-  }
-  
-  /* Card trắng có bóng nhẹ */
-  .search-card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    margin-bottom: 1.5rem;
-    width: 100%;
-  }
-  
-  /* Padding trong card */
-  .search-card-body {
-    padding: 1.5rem;
-  }
-  
-  /* Tiêu đề */
-  .search-title {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-  
-  /* Form input + button theo cột */
-  .search-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-    width: 100%;
-  }
-  
-  /* Input chuẩn bootstrap + tùy chỉnh */
-  .search-input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    outline: none;
-    transition: border-color 0.3s;
-  }
-  
-  .search-input:focus {
-    border-color: #b91c1c;
-    box-shadow: 0 0 5px rgba(185, 28, 28, 0.5);
-  }
-  
-  /* Button màu đỏ */
+
   .search-button {
-    padding: 10px;
-    background-color: #b91c1c;
-    color: white;
-    font-weight: 500;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .search-button:hover {
-    background-color: #c62828;
-  }
-  
-  /* Thông báo kết quả */
-  .search-alert {
-    padding: 10px;
-    border-radius: 6px;
-    font-size: 14px;
-    text-align: center;
-  }
-  
-  .alert-success {
-    background-color: #e0f7e9;
-    color: #2e7d32;
-  }
-  
-  .alert-error {
-    background-color: #fdecea;
-    color: #c62828;
-  }
-  
-  /* Kết quả hiển thị dạng lưới, responsive */
-  .search-results {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
     width: 100%;
   }
-  
-  /* Card cho từng kết quả */
-  .search-result-card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease-in-out;
-    cursor: pointer;
-  }
-  
-  .search-result-card:hover {
-    transform: translateY(-3px);
-  }
-  
-  /* Nội dung trong card kết quả */
-  .search-result-body {
-    padding: 1rem;
-  }
-  
-  .result-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-  
-  .result-info {
-    font-size: 15px;
-    color: #333;
-  }
+}

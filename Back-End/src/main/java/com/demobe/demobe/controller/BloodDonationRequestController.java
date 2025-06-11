@@ -61,9 +61,9 @@ public class BloodDonationRequestController {
         return ResponseEntity.noContent().build();
     }
 
-//    @PostMapping("/urgent")
-//    public ResponseEntity<BloodDonationRequest> createUrgentRequest(@RequestBody BloodDonationRequest dto) {
-//        dto.setUrgencyLevel(UrgencyLevel.URGENT);
-//        return ResponseEntity.ok(service.save(dto));
-//    }
+    @PostMapping("/urgent")
+    public ResponseEntity<BloodDonationRequest> createUrgentRequest(@RequestBody BloodDonationRequest dto) {
+        dto.setUrgencyLevel(UrgencyLevel.URGENT);
+        return ResponseEntity.ok(service.save(dto));
+    }
 }

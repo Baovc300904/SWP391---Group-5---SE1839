@@ -53,7 +53,7 @@ export default function Footer() {
           <div className="map-embed">
             <iframe
               title="Địa chỉ trung tâm hiến máu"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.201168317141!2d105.78583537601281!3d21.02463528791894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab4984052283%3A0x405da29983542b07!2zVmnhu4duIEh1eeG6v3QgaOG7jWMgLSBUcnV54buBbiBtw6F1IFRydW5nIMawxqFuZw!5e0!3m2!1svi!2sus!4v1748787306276!5m2!1svi!2sus"
+              src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d823.4980198602092!2d107.06519300955979!3d10.945324247479395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1za2h1IDYg4bqlcCBiw6B1IGPDoSwgeMOjIFRydW5nIEjDsmEsIGh1eeG7h24gVHLhuqNuZyBCb20sIMSQ4buTbmcgTmFpLCBWaeG7h3QgTmFtIA!5e0!3m2!1svi!2sus!4v1749570728416!5m2!1svi!2sus"
               width="100%"
               height="250"
               style={{ border: 0 }}
@@ -61,6 +61,17 @@ export default function Footer() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
+            {/*           
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d823.4980198602092!2d107.06519300955979!3d10.945324247479395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1za2h1IDYg4bqlcCBiw6B1IGPDoSwgeMOjIFRydW5nIEjDsmEsIGh1eeG7h24gVHLhuqNuZyBCb20sIMSQ4buTbmcgTmFpLCBWaeG7h3QgTmFtIA!5e0!3m2!1svi!2sus!4v1749570728416!5m2!1svi!2sus" 
+              width="600" 
+              height="450" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade"
+          >
+          </iframe> */}
           </div>
         </div>
 

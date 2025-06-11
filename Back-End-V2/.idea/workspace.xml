@@ -4,52 +4,135 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2383968a-0826-4237-95fe-de3eced09c72" name="Changes" comment="" />
+    <list default="true" id="3ab5f163-5bdb-4939-bc37-ee6012f1306f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/DemoBeApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/controller/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/controller/BloodDonationRequestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/dto/BloodDonationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/dto/LoginRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/dto/LoginResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/dto/RegisterRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/entity/BloodDonationEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/entity/BloodDonationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/entity/BloodType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/entity/EmployeeDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/enums/BloodComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/enums/RequestStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/impl/BloodDonationRequestServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/repository/BloodDonationRequestRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/security/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/service/BloodDonationRequestService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/service/NotificationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/java/com/demobe/demobe/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demoBE/src/test/java/com/demobe/demobe/DemoBeApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/DemoBeApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/controller/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/controller/BloodDonationRequestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/dto/BloodDonationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/dto/LoginRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/dto/LoginResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/dto/RegisterRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/entity/BloodDonationEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/entity/BloodDonationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/entity/BloodType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/entity/EmployeeDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/enums/BloodComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/enums/BloodType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/enums/RequestStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/impl/BloodDonationRequestServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/impl/NotificationServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/repository/BloodDonationRequestRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/scheduler/RecoveryReminderScheduler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/security/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/service/BloodDonationRequestService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/service/NotificationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demobe/demobe/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/demobe/demobe/DemoBeApplicationTests.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="SYNC" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "AnhKhoaa157"
-  }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Baovc300904/SWP391---Group-5---SE1839.git",
-    "accountId": "d348ce00-a09b-4b8a-8b01-6c0e7e9690bb"
-  }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
-  <component name="ProjectId" id="2yK11iktXvodbGQx7jUmFrtiwrm" />
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2yBDR5eAdfe2STNAOFrzp7MqAV9" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.DemoBeApplication.executor": "Run",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.DemoBeApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Admin/Desktop/SWP302/demoBE&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;kotlinNotebook&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.demobe.demobe.service" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="DemoBeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
@@ -70,12 +153,18 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2383968a-0826-4237-95fe-de3eced09c72" name="Changes" comment="" />
-      <created>1749568237963</created>
+      <changelist id="3ab5f163-5bdb-4939-bc37-ee6012f1306f" name="Changes" comment="" />
+      <created>1749299061509</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1749568237963</updated>
-      <workItem from="1749568239030" duration="161000" />
+      <updated>1749299061509</updated>
+      <workItem from="1749299062658" duration="3301000" />
+      <workItem from="1749357428168" duration="11613000" />
+      <workItem from="1749385035013" duration="354000" />
+      <workItem from="1749385407156" duration="1343000" />
+      <workItem from="1749485895343" duration="15000" />
+      <workItem from="1749485940062" duration="9455000" />
+      <workItem from="1749570180478" duration="2620000" />
     </task>
     <servers />
   </component>

@@ -1,31 +1,82 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
+import { FaExclamationCircle, FaSignInAlt, FaTimes } from "react-icons/fa"; // Added icons
+import SearchSection from "../Home/Search/SearchSection"; // Import SearchSection
 import AppLayout from "../../layouts/AppLayout";
 import Footer from "../common/Footers/Footer";
 
 export default function BloodDonation() {
   const location = useLocation();
+  const navigate = useNavigate();
   const results = location.state?.results || [];
   const dateRange = location.state?.dateRange;
 
-  const startDateValue = dateRange?.startDate?.toISOString
-    ? dateRange.startDate.toISOString()
-    : dateRange?.startDate;
+  const [searchDateRange, setSearchDateRange] = useState(dateRange);
 
-  const endDateValue = dateRange?.endDate?.toISOString
-    ? dateRange.endDate.toISOString()
-    : dateRange?.endDate;
+  useEffect(() => {
+    if (dateRange) {
+      setSearchDateRange(dateRange); // Update search date range when date range changes
+    }
+  }, [dateRange]);
+
+  const startDateValue = searchDateRange?.startDate?.toISOString
+    ? searchDateRange.startDate.toISOString()
+    : searchDateRange?.startDate;
+
+  const endDateValue = searchDateRange?.endDate?.toISOString
+    ? searchDateRange.endDate.toISOString()
+    : searchDateRange?.endDate;
+
+  const user = JSON.parse(localStorage.getItem('user')); // Check if the user is logged in
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   // Hàm xử lý khi người dùng nhấn nút Tham gia
   const handleJoin = (event) => {
-    // Tạm thời hiện thông báo, bạn có thể thay bằng logic gửi API hoặc lưu localStorage...
-    alert(`Bạn đã đăng ký tham gia sự kiện: "${event.title}" tại ${event.location} vào ngày ${format(new Date(event.date), "dd/MM/yyyy")}`);
+    if (!user) {
+      // Show the login modal if user is not logged in
+      setSelectedEvent(event);
+      setShowModal(true);
+    } else {
+      alert(`Bạn đã đăng ký tham gia sự kiện: "${event.title}" tại ${event.location} vào ngày ${format(new Date(event.date), "dd/MM/yyyy")}`);
+    }
+  };
+
+  // Handle the login modal actions
+  const handleLogin = () => {
+    navigate("/login"); // Redirect to login if user wants to login
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedEvent(null);
   };
 
   return (
     <>
       <AppLayout />
+      <div className="search-container container py-4 gap-3 d-flex flex-column align-items-center">
+        {/* Thanh tìm kiếm */}
+        <div className="search-bar-wrapper w-100" style={{ maxWidth: 900 }}>
+          <div className="search-bar d-flex align-items-center mb-4">
+            <div className="search-input-wrapper position-relative flex-grow-1">
+              <input
+                type="text"
+                className="search-input ps-5"
+                placeholder="Từ ngày - Đến ngày"
+                value={`${format(new Date(startDateValue), "dd/MM/yyyy")} - ${format(new Date(endDateValue), "dd/MM/yyyy")}`}
+                readOnly
+              />
+            </div>
+            <button onClick={() => navigate('/services/blood-donation')} className="search-button">
+              Tìm kiếm
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div className="container py-4" style={{ marginTop: "1rem" }}>
         <h2 className="mb-3">Kết quả lịch hiến máu</h2>
 
@@ -67,8 +118,39 @@ export default function BloodDonation() {
           <p className="text-danger mt-3">Không tìm thấy lịch đặt nào phù hợp.</p>
         )}
       </div>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="modal fade show" tabIndex="-1" aria-hidden="true" style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <FaExclamationCircle className="modal-icon" />
+                <h5 className="modal-title">Lưu ý</h5>
+                <button type="button" className="btn-close" onClick={handleCloseModal} aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+                <p>Vui lòng đăng nhập để tham gia sự kiện: <strong>{selectedEvent?.title}</strong> tại {selectedEvent?.location} vào ngày {format(new Date(selectedEvent?.date), "dd/MM/yyyy")}.</p>
+              </div>
+              <div className="modal-footer d-flex justify-content-between">
+                {/* Cancel Button with Icon */}
+                <button type="button" className="btn btn-light" onClick={handleCloseModal}>
+                  <FaTimes className="me-1" />
+                  Hủy
+                </button>
+
+                {/* Login Button with Icon */}
+                <button type="button" className="btn btn-danger" onClick={handleLogin}>
+                  <FaSignInAlt className="me-1" />
+                  Đăng nhập
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </>
   );
 }
-  
