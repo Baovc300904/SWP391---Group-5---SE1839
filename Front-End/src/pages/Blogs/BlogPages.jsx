@@ -1,46 +1,31 @@
-import React, { useState } from "react";
-import { FaSearch, FaFilter, FaThumbsUp, FaCommentDots, FaShareAlt  } from "react-icons/fa"; // Thêm icon tìm kiếm và bộ lọc
-import AppLayout from "../../layouts/AppLayout";
-import Footer from "../../components/common/Footers/Footer";
-
-const blogData = [
-  {
-    id: 1,
-    title: 'Hiến máu nhân đạo – Hành động nhỏ, ý nghĩa lớn',
-    category: 'Sức khỏe',
-    date: '10/06/2025',
-    image: 'https://via.placeholder.com/600x300',
-    content: 'Câu chuyện của những người tình nguyện hiến máu định kỳ...',
-    comments: 10,
-    likes: 15,
-  },
-  {
-    id: 2,
-    title: 'Nhật ký chuyến đi thiện nguyện Tây Bắc',
-    category: 'Cộng đồng',
-    date: '05/06/2025',
-    image: 'https://cdn.pixabay.com/photo/2020/06/22/20/25/blood-donation-5330817_960_720.jpg',
-    content: 'Hành trình đến với vùng cao đầy cảm xúc và tình người...',
-    comments: 5,
-    likes: 8,
-  },
-  {
-    id: 3,
-    title: 'Các bước chuẩn bị trước khi hiến máu',
-    category: 'Sức khỏe',
-    date: '01/06/2025',
-    image: 'https://via.placeholder.com/600x300',
-    content: 'Cần làm gì trước khi hiến máu để đảm bảo sức khỏe tốt nhất...',
-    comments: 2,
-    likes: 3,
-  },
-];
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { FaSearch, FaThumbsUp, FaCommentDots, FaShareAlt } from 'react-icons/fa'; // Thêm icon tìm kiếm và bộ lọc
+import AppLayout from '../../layouts/AppLayout';
+import Footer from '../../components/common/Footers/Footer';
 
 const categories = ['Tất cả', 'Sức khỏe', 'Cộng đồng'];
 
 export default function BlogPages() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Tất cả');
+  const [blogData, setBlogData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
+  const postsPerPage = 9; // Số bài mỗi trang
+
+  // Lấy dữ liệu từ MockAPI khi component mount
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await axios.get('https://68498d5345f4c0f5ee71f756.mockapi.io/api/blog/blogs');
+        setBlogData(response.data); // Lưu dữ liệu blog vào state
+      } catch (error) {
+        console.error('Lỗi khi tải dữ liệu blog:', error);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
 
   // Lọc theo tìm kiếm và thể loại
   const filteredBlogs = blogData.filter(
@@ -48,6 +33,14 @@ export default function BlogPages() {
       (selectedCategory === 'Tất cả' || blog.category === selectedCategory) &&
       blog.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Tính toán chỉ số bắt đầu và kết thúc cho mỗi trang
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = filteredBlogs.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Thay đổi trang khi người dùng nhấn nút chuyển trang
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
@@ -84,7 +77,7 @@ export default function BlogPages() {
 
         {/* Danh sách bài viết */}
         <div className="row">
-          {filteredBlogs.map(blog => (
+          {currentPosts.map(blog => (
             <div className="col-md-6 col-lg-4 mb-4" key={blog.id}>
               <div className="card blog-card h-100 shadow-sm">
                 <img src={blog.image} className="card-img-top" alt={blog.title} />
@@ -114,6 +107,33 @@ export default function BlogPages() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Pagination */}
+        <div className="pagination d-flex justify-content-center mt-4">
+          <button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="btn btn-outline-primary me-2"
+          >
+            Prev
+          </button>
+          {[...Array(Math.ceil(filteredBlogs.length / postsPerPage))].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => paginate(index + 1)}
+              className={`btn btn-outline-primary me-2 ${currentPage === index + 1 ? 'active' : ''}`}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === Math.ceil(filteredBlogs.length / postsPerPage)}
+            className="btn btn-outline-primary ms-2"
+          >
+            Next
+          </button>
         </div>
       </div>
 
