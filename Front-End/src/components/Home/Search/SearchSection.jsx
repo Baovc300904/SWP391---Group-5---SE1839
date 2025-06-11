@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BiCalendarEvent } from "react-icons/bi";
 import MyDateRangePicker from "../HomeSearchs/MyDateRangePicker";
 import events from "../../../data/events";
+import "./SearchSection.css"; // Import your CSS file for styling
 
 export default function SearchSection({ onSearchResults }) {
   const [dateRange, setDateRange] = useState(null);
@@ -39,61 +41,38 @@ export default function SearchSection({ onSearchResults }) {
   return (
     <div className="search-container container py-4 gap-3 d-flex flex-column align-items-center">
       {/* Thanh tìm kiếm đơn giản */}
-      <div className="search-bar d-flex align-items-center w-100" style={{ maxWidth: 600, margin: 'auto' }}>
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Tìm kiếm theo địa điểm, từ khóa..."
-          value={searchLocation}
-          onFocus={() => setShowSearchDetail(true)}
-          onChange={(e) => setSearchLocation(e.target.value)}
-        />
-        <button
-          onClick={handleSearch}
-          className="search-button"
-        >
-          Tìm kiếm
-        </button>
+      <div className="search-bar-wrapper w-100" style={{ maxWidth: 900 }}>
+        {/* Câu hỏi và icon lịch */}
+        <div className="search-label mb-2 text-muted d-flex align-items-center gap-2">
+          <BiCalendarEvent className="calendar-icon-title" />
+          <span>Bạn cần đặt lịch vào thời gian nào?</span>
+        </div>
 
-        <style jsx>{`
-          .search-bar {
-            gap: 12px;
-          }
-          .search-input {
-            flex-grow: 1;
-            padding: 10px 20px;
-            border-radius: 30px;
-            border: 1.5px solid #ddd;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-            outline: none;
-          }
-          .search-input:focus {
-            border-color: #dc3545; /* màu đỏ */
-            box-shadow: 0 0 8px rgba(220, 53, 69, 0.3);
-          }
-          .search-button {
-            background-color: #dc3545;
-            border: none;
-            color: white;
-            padding: 10px 24px;
-            font-weight: 600;
-            font-size: 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-          }
-          .search-button:hover {
-            background-color: #b02a37;
-          }
-        `}</style>
+        {/* Input Tìm kiếm */}
+        <div className="search-bar d-flex align-items-center mb-4">
+          <div className="search-input-wrapper position-relative flex-grow-1">
+            <BiCalendarEvent className="calendar-icon" />
+            <input
+              type="text"
+              className="search-input ps-5"
+              placeholder="Từ ngày - Đến ngày"
+              value={searchLocation}
+              onFocus={() => setShowSearchDetail(true)}
+              onChange={(e) => setSearchLocation(e.target.value)}
+            />
+          </div>
+
+          {/* Nút tìm kiếm */}
+          <button onClick={handleSearch} className="search-button">
+            Tìm kiếm
+          </button>
+        </div>
       </div>
 
       {/* Phần chi tiết bật khi focus vào input */}
       {showSearchDetail && (
-        <div className="card shadow-sm rounded-3 p-4 search-card">
+        <div className="card shadow-sm rounded-3 p-4 search-card mt-4">
           <h5 className="text-center fw-semibold mb-4">Tìm kiếm nâng cao</h5>
-
           <div className="d-flex flex-column gap-3">
             <MyDateRangePicker onChange={setDateRange} />
             <button

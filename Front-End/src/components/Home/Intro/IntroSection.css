@@ -1,37 +1,151 @@
 .intro-container {
-    padding: 40px 0;
-  }
-  
-  .intro-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #212529;
-  }
-  
-  .intro-description {
-    font-size: 1.1rem;
-    color: #495057;
-    line-height: 1.6;
-  }
+  max-width: 900px;
+  min-height: 400px;
+  margin: 40px auto;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  border-radius: 5%;
+  overflow: visible;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
 
-  /* Light theme mặc định */
-.intro-container {
-  background-color: #fff;
-  color: #222;
+/* LEFT */
+.intro-left {
+  flex: 1;
+  background: url('../../../assets/images/home-images/intro-home-section.png') no-repeat center center/cover;
+  padding: 25px;
+  display: flex;
+  border-radius: 5%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .intro-title {
-  color: #222;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #dc2626;
+  margin-bottom: 30px;
 }
 
 .intro-description {
-  color: #444;
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.6;
+  max-width: 90%;
 }
 
-/* Dark theme */
-.dark-theme .intro-container {
-  background-color: #121212; /* nền tối */
-  color: #eee;
+/* RIGHT */
+.intro-right-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.intro-right {
+  background-color: #dc2626;
+  padding: 40px 30px;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+
+/* Slide title */
+.fw-bold {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Slide content */
+.slide-content {
+  background-color: rgba(255, 255, 255, 0.12);
+  padding: 20px 24px;
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+}
+
+.slide-content ul {
+  padding-left: 20px;
+}
+
+.slide-content ul li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #fefefe;
+}
+
+.slide-content ul ul {
+  padding-left: 16px;
+}
+
+/* Remove background if needed */
+.slide-content .no-background {
+  background-color: transparent !important;
+  padding: 0 !important;
+}
+
+/* Arrows */
+.arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s ease;
+}
+
+.arrow-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.left-arrow {
+  left: -21px;
+}
+
+.right-arrow {
+  z-index: 100;
+  right: -21px;
+}
+
+/* Button style (if used elsewhere) */
+.btn.btn-light.btn-sm {
+  font-size: 0.9rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background-color: #fff;
+  color: #dc2626;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn.btn-light.btn-sm:hover {
+  background-color: #e6e6e6;
+  color: #a30000;
+}
+
+/* Dark theme hỗ trợ */
+.dark-theme .intro-left {
+  background-color: rgba(30, 30, 30, 0.8);
 }
 
 .dark-theme .intro-title {
@@ -40,4 +154,12 @@
 
 .dark-theme .intro-description {
   color: #ccc;
+}
+
+.dark-theme .intro-right {
+  background-color: #b91c1c;
+}
+
+.dark-theme .slide-content {
+  background-color: rgba(255, 255, 255, 0.05);
 }

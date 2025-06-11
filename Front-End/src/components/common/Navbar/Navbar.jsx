@@ -46,8 +46,6 @@ export default function Navbar() {
       <nav className="main-navbar">
         <ul>
           <li><NavLink to="/" end className="nav-link">TRANG CHỦ</NavLink></li>
-          <li><NavLink to="/qa" className="nav-link">Q&A</NavLink></li>
-
           {/* TIN TỨC */}
           <li className={`has-submenu ${submenuOpen.news ? 'open' : ''}`}>
             <div
@@ -76,7 +74,6 @@ export default function Navbar() {
             </div>
             <ul className="submenu">
               <li><NavLink to="/services" className="nav-link">Các Dịch Vụ</NavLink></li>
-              <li><NavLink to="/services/blood-donation" className="nav-link">Hiến máu</NavLink></li>
               <li><NavLink to="/services/receive" className="nav-link">Nhận máu</NavLink></li>
               <li><NavLink to="/services/donation-request" className="nav-link">Yêu cầu hiến máu</NavLink></li>
             </ul>

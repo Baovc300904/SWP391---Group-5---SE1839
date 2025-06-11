@@ -10,7 +10,6 @@ import Signup from '../pages/Registers/Signup.jsx';
 import Services from '../components/Service/Services.jsx';
 import News from '../components/News/News.jsx';
 import NewsDetails from '../components/News/NewDetails.jsx';
-import QA from '../components/QA/QA.jsx';
 import BloodDonation from '../components/BloodDonations/BloodDonation.jsx';
 import BloodRequest from '../pages/BloodRequest/UserRequestList/UserRequestList.jsx';
 import BloodRequestForm from '../pages/BloodRequest/BloodRequestForm/BloodRequestForm.jsx';
@@ -47,7 +46,6 @@ export default function AppRoutes() {
       <Route path="/new" element={<News />} />
       <Route path='/new/blogs' element={<BlogPages />} />
       <Route path="/new/:id" element={<NewsDetails />} />
-      <Route path="/qa" element={<QA />} />
 
       <Route
         path="/profile"

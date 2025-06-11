@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import './BlogPages.css';
-import { FaSearch } from 'react-icons/fa';
-import AppLayout from '../../layouts/AppLayout';
-import Footer from '../../components/common/Footers/Footer';
+import React, { useState } from "react";
+import { FaSearch, FaFilter, FaThumbsUp, FaCommentDots, FaShareAlt  } from "react-icons/fa"; // Thêm icon tìm kiếm và bộ lọc
+import AppLayout from "../../layouts/AppLayout";
+import Footer from "../../components/common/Footers/Footer";
 
 const blogData = [
   {
@@ -12,6 +11,8 @@ const blogData = [
     date: '10/06/2025',
     image: 'https://via.placeholder.com/600x300',
     content: 'Câu chuyện của những người tình nguyện hiến máu định kỳ...',
+    comments: 10,
+    likes: 15,
   },
   {
     id: 2,
@@ -20,6 +21,8 @@ const blogData = [
     date: '05/06/2025',
     image: 'https://cdn.pixabay.com/photo/2020/06/22/20/25/blood-donation-5330817_960_720.jpg',
     content: 'Hành trình đến với vùng cao đầy cảm xúc và tình người...',
+    comments: 5,
+    likes: 8,
   },
   {
     id: 3,
@@ -28,6 +31,8 @@ const blogData = [
     date: '01/06/2025',
     image: 'https://via.placeholder.com/600x300',
     content: 'Cần làm gì trước khi hiến máu để đảm bảo sức khỏe tốt nhất...',
+    comments: 2,
+    likes: 3,
   },
 ];
 
@@ -37,7 +42,7 @@ export default function BlogPages() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Tất cả');
 
-  // Lọc theo tìm kiếm & thể loại
+  // Lọc theo tìm kiếm và thể loại
   const filteredBlogs = blogData.filter(
     blog =>
       (selectedCategory === 'Tất cả' || blog.category === selectedCategory) &&
@@ -46,11 +51,11 @@ export default function BlogPages() {
 
   return (
     <>
-    <AppLayout/>
+      <AppLayout />
       <div className="blog-page container py-5">
         <h2 className="text-center fw-bold mb-4">📚 Bài Viết Blog</h2>
 
-        {/* Tìm kiếm + lọc thể loại */}
+        {/* Tìm kiếm và lọc thể loại */}
         <div className="search-filter d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mb-4">
           <div className="search-bar position-relative w-100 w-md-50">
             <input
@@ -63,6 +68,7 @@ export default function BlogPages() {
             <FaSearch className="search-icon" />
           </div>
 
+          {/* Thanh thể loại ở bên phải */}
           <div className="category-filter">
             {categories.map(cat => (
               <button
@@ -89,16 +95,21 @@ export default function BlogPages() {
                   <button className="btn btn-sm btn-outline-secondary mt-2">Xem chi tiết</button>
                 </div>
 
+                {/* Đoạn footer với comment và like */}
                 <div className="card-footer bg-white">
-                  <span className="text-primary small">Bài viết liên quan:</span>
-                  <ul className="related-list ps-3 mb-0">
-                    {blogData
-                      .filter(b => b.category === blog.category && b.id !== blog.id)
-                      .slice(0, 2)
-                      .map(rel => (
-                        <li key={rel.id} className="text-muted small">{rel.title}</li>
-                      ))}
-                  </ul>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <div className="d-flex align-items-center gap-2">
+                      <FaThumbsUp />
+                      <span className="text-muted">{blog.likes} Likes</span>
+                    </div>
+                    <div className="d-flex align-items-center gap-2">
+                      <FaCommentDots />
+                      <span className="text-muted">{blog.comments} Comments</span>
+                    </div>
+                    <div>
+                      <FaShareAlt className="text-muted" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
