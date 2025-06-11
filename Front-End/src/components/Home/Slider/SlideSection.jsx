@@ -2,11 +2,12 @@ import React from 'react'
 import Slider from 'react-slick';
 import { Card, CardContent } from "@/components/common/card";
 import slideshow1 from '../../../assets/images/slideshows/slideshow1.png'; // Adjust the path as necessary
+import slideshow2 from '../../../assets/images/slideshows/slideshow2.png'; // Adjust the path as necessary
 import './SlideSection.css'; // Import your CSS file for styling
 export default function SlideSection({ sliderSettings }) {
     const sliderImages = [
       { src: slideshow1, alt: "banner1" },
-      { src: "https://...", alt: "banner2" },
+      { src: slideshow2, alt: "banner2" },
     ];
   
     return (

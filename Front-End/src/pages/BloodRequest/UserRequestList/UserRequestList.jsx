@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate hook
 import { getAllRequests } from '../../../api/bloodDonationRequestApi';
 import AppLayout from '../../../layouts/AppLayout';
 import Footer from '../../../components/common/Footers/Footer';
@@ -7,6 +8,7 @@ export default function UserRequestList() {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const user = JSON.parse(localStorage.getItem('user'));
+  const navigate = useNavigate();  // Initialize useNavigate hook
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -26,11 +28,24 @@ export default function UserRequestList() {
     fetchRequests();
   }, [user?.id]);
 
+  const handleCreateRequest = () => {
+    navigate('/servicesdonation-request/request-form');  // Navigate to BloodRequestForm page
+  };
+
   return (
     <>
         <AppLayout/>
         <div className="container mt-5">
         <h2 className="mb-4">Danh sách yêu cầu hiến máu của bạn</h2>
+        
+        {/* Button to create new request */}
+        <button 
+          onClick={handleCreateRequest} 
+          className="btn btn-primary mb-4"
+        >
+          Tạo yêu cầu mới
+        </button>
+
         {loading ? (
             <p>Đang tải...</p>
         ) : requests.length === 0 ? (

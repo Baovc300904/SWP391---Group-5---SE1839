@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTheme } from "../../../contexts/ThemeContext";
-import { FaSun, FaMoon } from "react-icons/fa";
 import './Navbar.css';
 
 export default function Navbar() {
@@ -47,8 +46,6 @@ export default function Navbar() {
       <nav className="main-navbar">
         <ul>
           <li><NavLink to="/" end className="nav-link">TRANG CHỦ</NavLink></li>
-          <li><NavLink to="/qa" className="nav-link">Q&A</NavLink></li>
-
           {/* TIN TỨC */}
           <li className={`has-submenu ${submenuOpen.news ? 'open' : ''}`}>
             <div
@@ -77,7 +74,6 @@ export default function Navbar() {
             </div>
             <ul className="submenu">
               <li><NavLink to="/services" className="nav-link">Các Dịch Vụ</NavLink></li>
-              <li><NavLink to="/services/blood-donation" className="nav-link">Hiến máu</NavLink></li>
               <li><NavLink to="/services/receive" className="nav-link">Nhận máu</NavLink></li>
               <li><NavLink to="/services/donation-request" className="nav-link">Yêu cầu hiến máu</NavLink></li>
             </ul>
@@ -86,14 +82,6 @@ export default function Navbar() {
           <li><NavLink to="/about" className="nav-link">VỀ CHÚNG TÔI</NavLink></li>
         </ul>
       </nav>
-
-      {/* Toggle Theme (Chưa dùng đến) */}
-      <div className="theme-toggle">
-        <p className="theme-text">Theme</p>
-        <button onClick={toggleTheme} className="btn-toggle-theme">
-          {theme === "light" ? <FaMoon /> : <FaSun />}
-        </button>
-      </div>
     </>
   );
 }
