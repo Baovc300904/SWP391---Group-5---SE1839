@@ -1,123 +1,169 @@
-/* Blog page container */
+/* Tạo kiểu cho phần trang Blog */
 .blog-page {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 30px 20px;
 }
 
-/* Header styling */
-h2 {
-  font-size: 2rem;
+.card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Tiêu đề trang */
+.card-title {
+  font-size: 1.25rem;
   font-weight: 600;
-  color: #dc2626;
-  margin-bottom: 20px;
+  color: #333;
+  margin-bottom: 10px;
 }
 
-/* Search filter styles */
+/* Tạo kiểu cho thanh tìm kiếm và lọc thể loại */
 .search-filter {
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.search-bar {
+  width: 100%;
+  position: relative;
 }
 
 .search-bar input {
-  padding-left: 30px; /* Make room for icon */
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
 }
 
 .search-icon {
   position: absolute;
-  left: 10px;
   top: 50%;
+  right: 15px;
   transform: translateY(-50%);
-  color: #9ca3af;
+  color: #999;
 }
 
-/* Category buttons */
+/* Thể loại bên phải */
+.category-filter {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .category-filter button {
-  padding: 6px 15px;
-  border-radius: 20px;
+  padding: 8px 15px;
   font-size: 14px;
-  transition: background-color 0.3s;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
 }
 
 .category-filter button:hover {
-  background-color: #2563eb;
-  color: #fff;
+  background-color: #ddd;
 }
 
-.category-filter button.btn-primary {
-  background-color: #dc2626;
-  color: #fff;
+.category-filter .btn-outline-primary {
+  border: 1px solid #007bff;
+  color: #007bff;
 }
 
-/* Blog card */
-.blog-card {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+.category-filter .btn-primary {
+  background-color: #007bff;
+  color: white;
 }
 
+/* Danh sách bài viết */
 .card-body {
-  padding: 15px;
-}
-
-.card-title {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #333;
+  padding: 20px;
 }
 
 .card-text {
-  color: #666;
-  font-size: 14px;
+  color: #777;
+  margin-bottom: 15px;
 }
 
 .card-footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
   padding: 10px;
 }
 
 .card-footer .d-flex {
-  gap: 20px;
+  gap: 15px;
 }
 
-/* Button styling */
+.card-footer .text-muted {
+  color: #888;
+}
+
+.card-footer .text-primary {
+  color: #007bff;
+}
+
+/* Các nút điều hướng */
 .btn-outline-secondary {
-  border-color: #2563eb;
-  color: #2563eb;
-  transition: background-color 0.3s ease;
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s;
 }
 
 .btn-outline-secondary:hover {
-  background-color: #2563eb;
-  color: #fff;
+  background-color: #f8f9fa;
 }
 
-.card-footer .d-flex div {
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  border-radius: 25px;
+  padding: 8px 15px;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Phân trang */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 10px;
+}
+
+.pagination button {
+  padding: 8px 15px;
   font-size: 14px;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s ease;
 }
 
-/* Icon styles */
-.text-muted {
-  color: #9ca3af;
+.pagination button:hover {
+  background-color: #007bff;
+  color: white;
 }
 
-.card-footer .d-flex div .text-muted {
-  font-size: 13px;
+.pagination .active {
+  background-color: #007bff;
+  color: white;
 }
 
-.card-footer .d-flex div svg {
-  font-size: 18px;
-}
-
-/* Responsive design */
 @media (max-width: 768px) {
   .search-filter {
-    padding: 0.8rem;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  .card-body {
-    padding: 10px;
+
+  .category-filter {
+    width: 100%;
+    margin-top: 20px;
   }
 }
