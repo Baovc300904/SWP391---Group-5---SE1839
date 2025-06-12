@@ -21,12 +21,12 @@
   .hero-subtitle {
     font-size: 1.25rem;
     color: #b91c1c;
-    margin-bottom: 1rem;
+    margin-bottom: 1rem;  
   }
   
   .hero-description {
     font-size: 1rem;
-    color: #374151;
+    color: #808080;
     max-width: 800px;
     margin: 0 auto;
     line-height: 1.6;

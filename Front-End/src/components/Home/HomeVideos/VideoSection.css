@@ -16,9 +16,17 @@
   }
   
   .video-wrapper video {
-    width: 100%;
+    width: 80%;
     height: auto;
     display: block;
     border-radius: 12px;
     object-fit: cover;        /* video phủ kín vùng chứa mà giữ tỉ lệ */
+  }
+
+  .video-section-title {
+    color: #e11d48;
+    font-size: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1rem;
   }
