@@ -3,13 +3,19 @@ package com.demobe.demobe.service;
 import com.demobe.demobe.dto.LoginRequest;
 import com.demobe.demobe.dto.LoginResponse;
 import com.demobe.demobe.dto.RegisterRequest;
+import com.demobe.demobe.entity.DonationHistory;
+import com.demobe.demobe.entity.DonationStats;
 import com.demobe.demobe.entity.User;
+import com.demobe.demobe.repository.DonationHistoryRepository;
 import com.demobe.demobe.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,6 +26,8 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private DonationHistoryRepository donationHistoryRepository;
 
     public LoginResponse login(LoginRequest loginRequest) {
         Optional<User> userOpt = userRepository.findByEmail(loginRequest.getEmail());
@@ -35,6 +43,22 @@ public class UserService {
         }
 
         return new LoginResponse("Đăng nhập thành công", user.getUsername(), user.getRole().name());
+    }
+    public DonationStats getDonationStatistics(Integer userId) {
+        List<DonationHistory> histories = donationHistoryRepository.findRecentByUserId(userId);
+
+        int totalDonations = histories.size();
+        BigDecimal totalUnits = histories.stream()
+                .map(DonationHistory::getSoLuongDonVi)
+                .filter(java.util.Objects::nonNull)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        LocalDate lastDonationDate = histories.stream()
+                .map(DonationHistory::getNgayHienThucTe)
+                .max(LocalDate::compareTo)
+                .orElse(null);
+
+        return new DonationStats(totalDonations, totalUnits, lastDonationDate);
     }
 
 //    public User createUser(User user) {

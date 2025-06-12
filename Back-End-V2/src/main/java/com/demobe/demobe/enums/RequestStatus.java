@@ -1,3 +1,5 @@
+package com.demobe.demobe.enums;
+
 public enum RequestStatus {
     CHO_XU_LY,
     DA_CO_DON_VI_MAU,

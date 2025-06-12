@@ -1,6 +1,7 @@
 package com.demobe.demobe.impl;
 
 import com.demobe.demobe.entity.BloodDonationRequest;
+import com.demobe.demobe.enums.DonationType;
 import com.demobe.demobe.repository.BloodDonationRequestRepository;
 import com.demobe.demobe.service.BloodDonationRequestService;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class BloodDonationRequestServiceImpl implements BloodDonationRequestServ
         return repository.save(request);
     }
 
-    private LocalDate calculateRecoveryDate(LocalDate donationDate, BloodDonationRequest.DonationType type) {
+    private LocalDate calculateRecoveryDate(LocalDate donationDate, DonationType type) {
         return switch (type) {
             case Toan_Phan -> donationDate.plusWeeks(8);
             case Hong_Cau -> donationDate.plusWeeks(12);
