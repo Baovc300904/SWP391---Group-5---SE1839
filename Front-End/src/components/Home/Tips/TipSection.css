@@ -1,0 +1,110 @@
+/* Toàn bộ vùng chứa */
+.tip-section-container {
+    background-color: #b91c1c; /* đỏ đậm */
+    color: #fff;
+    padding: 40px 20px;
+  }
+  
+  /* Tiêu đề lớn */
+  .tip-title-card h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #facc15; /* vàng tươi */
+    margin-bottom: 30px;
+  }
+  
+  /* Card chung */
+  .tip-card {
+    background-color: #ffffff;
+    color: #1f2937;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    margin: 0 auto 16px auto;
+    max-width: 520px;   /* thu gọn */
+    width: 100%;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .tip-card ul {
+    list-style: none; /* Ẩn mặc định */
+    padding-left: 0;
+    margin: 0 0 12px 0;
+  }
+  
+  .tip-card ul li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 6px;
+    text-align: left;
+  }
+  
+  .tip-card ul li::before {
+    content: "-";
+    position: absolute;
+    left: 0;
+    color: #1f2937; /* Tùy chỉnh màu nếu cần */
+  }
+  
+  /* Header card có icon */
+  .tip-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .tip-icon {
+    font-size: 22px;
+    line-height: 1;
+  }
+  
+  /* Tiêu đề từng card */
+  .tip-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  /* Style riêng cho từng loại card */
+  .should-card .tip-icon {
+    color: #0891b2; /* cyan-600 */
+  }
+  
+  .avoid-card .tip-icon {
+    color: #dc2626; /* red-600 */
+  }
+  
+  .note-card .tip-icon {
+    color: #ea580c; /* orange-600 */
+  }
+  
+  .should-card .tip-title {
+    color: #0e7490;
+  }
+  
+  .avoid-card .tip-title {
+    color: #dc2626;
+  }
+  
+  .note-card .tip-title {
+    color: #ea580c;
+  }
+  
+  /* Info bác sĩ */
+  .doctor-info {
+    font-weight: bold;
+    text-align: right;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+  
+  .doctor-role {
+    font-size: 13px;
+    margin-left: 150px;
+    text-align: right;
+    color: #555;
+    margin-top: -4px;
+  }
+  

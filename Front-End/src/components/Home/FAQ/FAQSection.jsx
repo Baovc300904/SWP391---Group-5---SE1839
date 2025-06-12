@@ -42,15 +42,6 @@ export default function FAQSection() {
               </span>
             </div>
 
-            {/* <div className="home-faq-card">
-              <div className="home-faq-icon icon-green">
-                <i className="fas fa-certificate"></i>
-              </div>
-              <span className="home-faq-description">
-                Có. Sau khi hiến máu bạn sẽ nhận giấy chứng nhận từ Hội chữ thập đỏ.
-              </span>
-            </div> */}
-
             <div className="home-faq-card">
               <div className="home-faq-icon icon-blue">
                 <i className="fas fa-tint"></i>

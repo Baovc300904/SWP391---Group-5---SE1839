@@ -3,7 +3,7 @@ import React from 'react'
 export default function VideoSection() {
   return (
     <section className="video-section">
-    <h2 className="section-title">Video truyền cảm hứng</h2>
+    <h2 className="video-section-title">Video truyền cảm hứng</h2>
     <div className="video-wrapper">
       <iframe
         width="100%"
