@@ -1,4 +1,6 @@
 package com.demobe.demobe.entity;
+import com.demobe.demobe.enums.DonationType;
+
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -56,10 +58,6 @@ public class BloodDonationRequest {
 
     @Column(name = "NgayDuyet")
     private LocalDateTime approvalDate;
-
-    public enum DonationType {
-        Toan_Phan, Hong_Cau, Tieu_Cau, Huyet_Tuong
-    }
 
     public enum RequestStatus {
         Dang_Cho, Da_Xac_Nhan, Da_Hien, Huy, Tu_Choi

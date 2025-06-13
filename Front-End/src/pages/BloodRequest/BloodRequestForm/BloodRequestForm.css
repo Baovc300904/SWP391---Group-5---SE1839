@@ -1,193 +1,276 @@
 /* General form container */
 .request-form-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 30px;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 20px;
   background-color: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid #f1f1f1;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Header */
-.card-title {
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: #dc2626;  /* Red */
+.back-list-btn {
+  display: flex;
+  background-color: #a90704;
+  color: white;
+  padding: 5px 20px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.back-list-btn:hover{
+  background-color: #dc3545;
+  color: wheat;
+  transition: 0.8s ease-in-out;
+}
+
+/* Button Style for "Quay lại" */
+.back-form-btn {
+  background-color: #a90704;
+  color: #333;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100%;  /* Full width for mobile responsiveness */
+}
+
+.back-form-btn:hover {
+  background-color: #ddd;
+  color: #fff;
+}
+
+.back-form-btn:disabled {
+  background-color: #ccc;
+  color: #999;
+  cursor: not-allowed;
+}
+
+/* Button Style for "Tiếp theo" */
+.next-form-btn {
+  background-color: #a90704;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  width: 100%;  /* Full width for mobile responsiveness */
+}
+
+.next-form-btn:hover {
+  background-color: #45a049;
+}
+
+.next-form-btn:disabled {
+  background-color: #a5d6a7;
+  color: #999;
+  cursor: not-allowed;
+}
+
+/* Button Style for "Gửi yêu cầu" */
+.form-submit-btn {
+  background-color: #a90704;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  width: 100%;  /* Full width for mobile responsiveness */
+}
+
+.form-submit-btn:hover {
+  background-color: #218838;
+}
+
+.form-submit-btn:disabled {
+  background-color: #6c757d;
+  color: #999;
+  cursor: not-allowed;
+}
+
+/* Progress Bar */
+.progress-container {
+  margin-bottom: 20px;
+}
+
+.progress-icons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.step-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #fff;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #ddd;
+  font-size: 18px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.step-icon.active {
+  background-color: #a90704;
+  border-color: #a90704;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  position: relative;
+}
+
+.progress-step {
+  height: 100%;
+  background-color: #ff0400;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: width 0.3s ease-in-out;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #999;
+}
+
+.step-description {
+  font-size: 16px;
+  color: #333;
+  margin-top: 20px;
   text-align: center;
-  margin-bottom: 30px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
-/* Modal overlay */
+/* Form Layout */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.col-6 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Inputs, Labels, and Buttons */
+.input-container {
+  margin-bottom: 15px;
+}
+
+.input-container label {
+  font-size: 14px;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.input-container input,
+.input-container select,
+.input-container textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.input-container input:focus,
+.input-container select:focus,
+.input-container textarea:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+/* Navigation Buttons */
+.form-navigation button {
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+}
+
+.form-navigation .btn-primary {
+  background-color: #4caf50;
+  color: white;
+}
+
+.form-navigation .btn-secondary {
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+.form-navigation .btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.form-navigation button:hover {
+  opacity: 0.8;
+}
+
+/* Modal Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 1000;
 }
 
-/* Modal container */
 .modal-container {
-  background-color: #ffffff;
-  padding: 30px 40px;
-  border-radius: 12px;
-  text-align: center;
-  max-width: 400px;
-  width: 100%;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Modal title */
-.modal-title {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  font-weight: 600;
-  color: #333;
-}
-
-/* Modal buttons */
 .modal-buttons button {
-  padding: 12px 30px;
+  padding: 10px 20px;
+  margin: 10px;
   font-size: 16px;
-  margin: 10px 10px 10px 0;
-  border-radius: 25px;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-  border: none;
 }
 
 .modal-buttons .btn-danger {
-  background-color: #dc2626;  /* Red */
-  color: white;
+  background-color: #dc3545;
+  color: #fff;
 }
 
 .modal-buttons .btn-secondary {
-  background-color: #ecf0f1;
-  color: #7f8c8d;
+  background-color: #6c757d;
+  color: #fff;
 }
 
-.modal-buttons .btn-danger:hover {
-  background-color: #c0392b;
-}
-
-.modal-buttons .btn-secondary:hover {
-  background-color: #bdc3c7;
-}
-
-/* Back button */
-.request-back-button {
-  text-align: left;
-  margin-bottom: 20px;
-}
-
-.request-back-button .btn-warning {
-  padding: 10px 25px;
-  border-radius: 30px;
-  background-color: #f39c12;
-  color: white;
-  font-weight: 600;
-  font-size: 16px;
-}
-
-.request-back-button .btn-warning:hover {
-  background-color: #e67e22;
-}
-
-/* User info */
-.user-info .input-container {
-  margin-bottom: 20px;
-}
-
-.request-form-label {
-  font-weight: 500;
+/* Title and Back button */
+.card-title {
+  font-size: 28px;
+  font-weight: 700;
   color: #333;
-  margin-bottom: 0.5rem;
-  display: block;
-  text-align: left;
-  width: 100%;
-  padding-right: 15px;
-}
-
-/* Input fields */
-.form-control {
-  width: 100%;
-  padding: 14px 20px;
-  font-size: 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  background-color: #ffffff;
-  transition: border-color 0.3s ease;
-  box-sizing: border-box;
-}
-
-.form-control:focus {
-  border-color: #dc2626;  /* Red */
-  box-shadow: 0 0 5px rgba(220, 38, 38, 0.5);
-  outline: none;
-}
-
-.form-select {
-  width: 100%;
-  padding: 14px 20px;
-  font-size: 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  background-color: #ffffff;
-  transition: border-color 0.3s ease;
-}
-
-.form-select:focus {
-  border-color: #dc2626;  /* Red */
-}
-
-/* Textarea */
-textarea.form-control {
-  resize: vertical;
-  padding: 14px 20px;
-  font-size: 16px;
-  border-radius: 12px;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  transition: border-color 0.3s ease;
-}
-
-textarea.form-control:focus {
-  border-color: #dc2626;  /* Red */
-}
-
-/* Submit button */
-.btn-primary {
-  background-color: #dc2626;  /* Red */
-  border: none;
-  color: white;
-  padding: 14px 30px;
-  font-size: 16px;
-  font-weight: 600;
-  width: 100%;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn-primary:hover {
-  background-color: #b91c1c;  /* Darker red */
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .input-container {
-    align-items: flex-start;
-  }
-
-  .btn-primary {
-    width: 100%;
-  }
+  margin-bottom: 20px;
 }

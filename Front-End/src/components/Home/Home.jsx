@@ -10,6 +10,7 @@ import Footer from "../common/Footers/Footer";
 import HeroSection from "./Hero/HeroSection";
 import IntroSection from "./Intro/IntroSection";
 import SlideSection from "./Slider/SlideSection";
+import TipSection from "./Tips/TipSection";
 import VideoSection from "./HomeVideos/VideoSection";
 import SearchSection from "./Search/SearchSection";
 import FAQSection from "./FAQ/FAQSection";
@@ -41,17 +42,6 @@ const Home = () => {
     setShowNotification(true);
   }, []);
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    arrows: false,
-  };
-
   return (
     <>
       <AppLayout />
@@ -71,7 +61,8 @@ const Home = () => {
         <SearchSection onSearchResults={handleSearchResults} />
         <HeroSection />
         <IntroSection />
-        <SlideSection sliderSettings={sliderSettings} />
+        <SlideSection />
+        <TipSection />
         <VideoSection />
         <FAQSection />
         <HomePost />

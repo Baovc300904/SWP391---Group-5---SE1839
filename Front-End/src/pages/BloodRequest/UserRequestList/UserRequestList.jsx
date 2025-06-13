@@ -35,13 +35,24 @@ export default function UserRequestList() {
   return (
     <>
         <AppLayout/>
-        <div className="container mt-5">
+        <div className="container mt-5" style={{width: '100%', height: '100vh'}}>
         <h2 className="mb-4">Danh sách yêu cầu hiến máu của bạn</h2>
         
         {/* Button to create new request */}
         <button 
           onClick={handleCreateRequest} 
-          className="btn btn-primary mb-4"
+          className="request-blood-btn btn-primary mb-4" 
+          style={{ 
+            width: '400px', 
+            height: '50px', 
+            fontSize: '16px',
+            borderRadius: '5px', 
+            backgroundColor: '#7A0300', 
+            color: '#fff', 
+            textAlign: 'center', 
+            fontWeight: 'bold',
+            cursor: 'pointer',
+          }}
         >
           Tạo yêu cầu mới
         </button>

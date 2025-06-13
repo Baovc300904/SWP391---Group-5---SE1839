@@ -1,102 +1,50 @@
-.slider-wrapper {
-    margin: 2rem 0;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .slider-image {
-    height: 200px;       /* Hoặc giá trị bạn muốn, ví dụ: 150px */
-    object-fit: fill;   /* Đảm bảo ảnh không bị méo */
-    width: 100%;
-  }
-
-  .info-boxes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  .card {
-    flex: 1;
-    min-width: 280px;
-    background-color: #f9fafb;
-    border-radius: 12px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-  }
-  
-  .card-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-
-  /* Light theme mặc định */
-.slider-wrapper {
-  background-color: #fff;
+.important-notes {
+  max-width: 1000px;
+  margin: 0 auto; /* Căn giữa theo chiều ngang */
+  padding: 2rem;
+  border-radius: 10px;
 }
 
-.slider-image {
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+.section-title {
+  text-align: center;
+  color: #7A0300;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 2rem;
 }
 
-.info-boxes {
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.card {
-  background-color: #f9f9f9;
-  color: #222;
+.info-card {
+  background-color: #fff5f5; /* nền đỏ sữa dịu */
+  border: 1px solid #ef4444; /* đỏ trung tính */
+  margin-bottom: 1.5rem;
   border-radius: 10px;
   padding: 1rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  flex: 1;
 }
 
-.card-title {
-  color: #111;
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.info-title {
+  color: #dc2626  ;
+  font-size: 18px;
+  margin-bottom: 1rem;
+}
+
+ul {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+li {
   margin-bottom: 0.5rem;
 }
 
-/* Dark theme */
-.dark-theme .slider-wrapper {
-  background-color: #1e1e1e;
+.notes-section-title{
+  color: red;
 }
 
-.dark-theme .slider-image {
-  box-shadow: 0 4px 6px rgba(255,255,255,0.1);
-}
-
-.dark-theme .info-boxes {
-  /* giữ nguyên hoặc có thể điều chỉnh margin nếu cần */
-}
-
-.dark-theme .card {
-  background-color: #2c2c2c;
-  color: #ddd;
-  box-shadow: 0 2px 5px rgba(255,255,255,0.1);
-}
-
-.dark-theme .card-title {
-  color: #000000;
-}
-
-.card {
-  background-color: white;
-  color: black;
-  border-radius: 1rem;
-  padding: 1rem;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* Khi vào dark mode, đổi màu nền và chữ */
-.dark .card {
-  background-color: #1f2937; /* xám đen */
-  color: white;
-  box-shadow: 0 4px 6px rgba(255,255,255,0.1);
-}
