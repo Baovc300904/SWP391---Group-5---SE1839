@@ -148,11 +148,11 @@ export default function BloodRequestForm() {
             <div className="col-6">
               <div className="input-container">
                 <label htmlFor="userName" className="request-form-label">Họ và tên</label>
-                <input type="text" id="userName" className="form-control" value={userName} readOnly />
+                <input type="text" id="userName" className="form-control"/>
               </div>
               <div className="input-container">
                 <label htmlFor="userEmail" className="request-form-label">Email</label>
-                <input type="email" id="userEmail" className="form-control" value={userEmail} readOnly />
+                <input type="email" id="userEmail" className="form-control"/>
               </div>
               <div className="input-container">
                 <label htmlFor="expectedDonationDate" className="request-form-label">Ngày sinh</label>
