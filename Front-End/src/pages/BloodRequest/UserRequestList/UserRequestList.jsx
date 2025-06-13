@@ -35,7 +35,7 @@ export default function UserRequestList() {
   return (
     <>
         <AppLayout/>
-        <div className="container mt-5">
+        <div className="container mt-5" style={{width: '100%', height: '100vh'}}>
         <h2 className="mb-4">Danh sách yêu cầu hiến máu của bạn</h2>
         
         {/* Button to create new request */}
