@@ -41,7 +41,18 @@ export default function UserRequestList() {
         {/* Button to create new request */}
         <button 
           onClick={handleCreateRequest} 
-          className="btn btn-primary mb-4"
+          className="request-blood-btn btn-primary mb-4" 
+          style={{ 
+            width: '400px', 
+            height: '50px', 
+            fontSize: '16px',
+            borderRadius: '5px', 
+            backgroundColor: '#7A0300', 
+            color: '#fff', 
+            textAlign: 'center', 
+            fontWeight: 'bold',
+            cursor: 'pointer',
+          }}
         >
           Tạo yêu cầu mới
         </button>

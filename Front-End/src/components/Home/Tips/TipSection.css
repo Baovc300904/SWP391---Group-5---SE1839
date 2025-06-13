@@ -1,14 +1,19 @@
 /* Toàn bộ vùng chứa */
 .tip-section-container {
-    background-color: #b91c1c; /* đỏ đậm */
+    background-color: #7A0300; /* đỏ đậm */
     color: #fff;
     padding: 40px 20px;
   }
   
+  .tip-title-card{
+    width: 100%;
+  }
+
   /* Tiêu đề lớn */
   .tip-title-card h2 {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 700;
+    text-align: left;
     color: #facc15; /* vàng tươi */
     margin-bottom: 30px;
   }
@@ -21,7 +26,8 @@
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
     margin: 0 auto 16px auto;
-    max-width: 520px;   /* thu gọn */
+    max-width: 600px;   /* thu gọn */
+    min-height: 250px;
     width: 100%;
     font-size: 15px;
     line-height: 1.6;
@@ -60,6 +66,12 @@
     line-height: 1;
   }
   
+  .tip-icon img {
+    width: 50px; /* Kích thước icon */
+    height: 50px;
+    vertical-align: middle; /* Căn giữa với chữ */
+  }
+
   /* Tiêu đề từng card */
   .tip-title {
     font-size: 20px;

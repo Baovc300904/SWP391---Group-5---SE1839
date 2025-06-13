@@ -1,5 +1,8 @@
 import React from 'react';
 import './TipSection.css'; // Đảm bảo bạn đã có CSS tương ứng
+import shouldIcon from '../../../assets/images/icons/should-icon.png';
+import warningIcon from '../../../assets/images/icons/warning-icon.png';
+import nshouldIcon from '../../../assets/images/icons/nshould-icon.png';
 
 export default function TipSection() {
   return (
@@ -8,14 +11,16 @@ export default function TipSection() {
         {/* LEFT COLUMN: Title + "Nên" */}
         <div className="col-md-3 px-md-3">
           {/* Title */}
-          <div className="tip-title-card mb-4">
+          <div className="tip-title-card px-mb-4" style={{ textAlign: 'left' }}>
             <h2>Những lời khuyên trước và sau khi hiến máu</h2>
           </div>
 
           {/* Nên */}
           <div className="tip-card should-card">
             <div className="tip-card-header">
-              <span className="tip-icon">✅</span>
+              <span className="tip-icon">
+                <img src={shouldIcon} alt="Nên" className="icon" />
+              </span>
               <h3 className="tip-title">Nên:</h3>
             </div>
             <ul>
@@ -35,7 +40,9 @@ export default function TipSection() {
           {/* Không nên */}
           <div className="tip-card avoid-card mb-4">
             <div className="tip-card-header">
-              <span className="tip-icon">❌</span>
+              <span className="tip-icon">
+                <img src={nshouldIcon} alt="Nên" className="icon" />
+              </span>
               <h3 className="tip-title text-danger d-inline-block">Không nên:</h3>
             </div>
             <ul>
@@ -49,7 +56,9 @@ export default function TipSection() {
           {/* Lưu ý */}
           <div className="tip-card note-card">
             <div className="tip-card-header">
-              <span className="tip-icon">⚠️</span>
+              <span className="tip-icon">
+                <img src={warningIcon} alt="Lưu ý" className="icon" />
+              </span>
               <h3 className="tip-title text-warning d-inline-block">Lưu ý:</h3>
             </div>
             <ul>
