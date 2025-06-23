@@ -1,4 +1,4 @@
-# 🩸 Blood Donation Management System
+# 🩸 Hiến Máu Cộng Đồng Việt
 
 Hệ thống quản lý hoạt động hiến máu được xây dựng nhằm hỗ trợ tổ chức, quản lý và theo dõi các chiến dịch hiến máu tại các đơn vị y tế, trường học hoặc tổ chức từ thiện.
 
