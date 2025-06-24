@@ -17,6 +17,9 @@ public class CreateBloodDonationRequestDTO {
 
     private String ghiChu;
 
+    @NotNull
+    private int soLuong;
+
     @NotBlank()
     @Pattern(regexp = "toanphan|hongcau|tieucau|huyettuong")
     private String loaiHien;

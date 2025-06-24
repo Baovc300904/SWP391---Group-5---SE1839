@@ -1,13 +1,12 @@
 package org.fpt.blooddonate.services;
 
+import org.fpt.blooddonate.configs.AppConfig;
 import org.fpt.blooddonate.dtos.requests.ChangeStatusDonationRequestDTO;
+import org.fpt.blooddonate.dtos.requests.CompleteDonationRequestDTO;
 import org.fpt.blooddonate.dtos.requests.CreateBloodDonationRequestDTO;
 import org.fpt.blooddonate.dtos.requests.UpdateBloodDonationRequestDTO;
-import org.fpt.blooddonate.models.BloodDonationActivity;
-import org.fpt.blooddonate.models.BloodDonationRequest;
-import org.fpt.blooddonate.models.User;
-import org.fpt.blooddonate.repositories.BloodDonationActivityRespository;
-import org.fpt.blooddonate.repositories.BloodDonationRequestRepository;
+import org.fpt.blooddonate.models.*;
+import org.fpt.blooddonate.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,10 +29,23 @@ public class BloodDonationRequestService {
     @Autowired
     private BloodDonationActivityRespository bloodDonationActivityRespository;
 
+    @Autowired
+    private BloodUnitWareHouseRepository bloodUnitWareHouseRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BloodRepository bloodRepository;
 
     public Page<BloodDonationRequest> getAll(int page, String status, String keyword) {
         Pageable pageable = PageRequest.of(page - 1, 20);
         return repository.paginated(status, keyword, pageable);
+    }
+
+    public Page<BloodDonationRequest> getAllByUserId(int userId, int page, String status, String keyword) {
+        Pageable pageable = PageRequest.of(page - 1, 20);
+        return repository.paginatedByUserId(userId, status, keyword, pageable);
     }
 
     public Optional<BloodDonationRequest> getById(Integer id) {
@@ -59,6 +71,7 @@ public class BloodDonationRequestService {
         bloodDonationRequest.setNguoiHien(user);
         bloodDonationRequest.setGhiChu(payload.getGhiChu());
         bloodDonationRequest.setLoaiHien(payload.getLoaiHien());
+        bloodDonationRequest.setSoLuong(payload.getSoLuong());
         bloodDonationRequest.setNgayHienMauDuKien(LocalDate.parse(payload.getNgayHienMauDuKien()));
         bloodDonationRequest.setNgayPhucHoiGanNhat(LocalDate.parse(payload.getNgayPhucHoiGanNhat()));
 
@@ -69,20 +82,91 @@ public class BloodDonationRequestService {
         return repository.findById(id).map(bloodDonationRequest -> {
             bloodDonationRequest.setGhiChu(payload.getGhiChu());
             bloodDonationRequest.setLoaiHien(payload.getLoaiHien());
+            bloodDonationRequest.setSoLuong(payload.getSoLuong());
             bloodDonationRequest.setNgayHienMauDuKien(LocalDate.parse(payload.getNgayHienMauDuKien()));
             bloodDonationRequest.setNgayPhucHoiGanNhat(LocalDate.parse(payload.getNgayPhucHoiGanNhat()));
             return repository.save(bloodDonationRequest);
         });
     }
 
-    public Optional<BloodDonationRequest> changeStatus(Integer id, ChangeStatusDonationRequestDTO payload) throws IOException {
+    public Optional<BloodDonationRequest> cancel(Integer id) throws IOException {
         return repository.findById(id).map(bloodDonationRequest -> {
+            if (!bloodDonationRequest.getTrangThai().equals(AppConfig.BLOOD_DONATION_REQUEST_PENDING)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only cancel request when request is pending");
+            }
+
+            bloodDonationRequest.setTrangThai(AppConfig.BLOOD_DONATION_REQUEST_CANCEL);
+            bloodDonationRequest.setGhiChu("User cancel blood donation request");
+            return repository.save(bloodDonationRequest);
+        });
+    }
+
+    public Optional<BloodDonationRequest> approve(Integer id) throws IOException {
+        return repository.findById(id).map(bloodDonationRequest -> {
+            if (!bloodDonationRequest.getTrangThai().equals(AppConfig.BLOOD_DONATION_REQUEST_PENDING)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only approve request when request is pending");
+            }
+
             Integer userId = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = new User();
             user.setId(userId);
-            bloodDonationRequest.setTrangThai(payload.getTrangthai());
+            bloodDonationRequest.setTrangThai(AppConfig.BLOOD_DONATION_REQUEST_APPROVED);
+            bloodDonationRequest.setNguoiDuyet(user);
+            bloodDonationRequest.setGhiChu("Admin approved blood donation request");
+            return repository.save(bloodDonationRequest);
+        });
+    }
+
+    public Optional<BloodDonationRequest> reject(Integer id, ChangeStatusDonationRequestDTO payload) throws IOException {
+        return repository.findById(id).map(bloodDonationRequest -> {
+            if (!bloodDonationRequest.getTrangThai().equals(AppConfig.BLOOD_DONATION_REQUEST_PENDING)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only approve request when request is pending");
+            }
+
+            Integer userId = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = new User();
+            user.setId(userId);
+            bloodDonationRequest.setTrangThai(AppConfig.BLOOD_DONATION_REQUEST_REJECTED);
             bloodDonationRequest.setNguoiDuyet(user);
             bloodDonationRequest.setNgayDuyet(LocalDateTime.now());
+            if (payload.getGhiChu().isEmpty() || payload.getGhiChu() == "") {
+                bloodDonationRequest.setGhiChu("Admin rejected blood donation request");
+            } else {
+                bloodDonationRequest.setGhiChu(payload.getGhiChu());
+            }
+
+            return repository.save(bloodDonationRequest);
+        });
+    }
+
+    public Optional<BloodDonationRequest> complete(Integer id, CompleteDonationRequestDTO payload) throws IOException {
+        return repository.findById(id).map(bloodDonationRequest -> {
+            if (!bloodDonationRequest.getTrangThai().equals(AppConfig.BLOOD_DONATION_REQUEST_APPROVED)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only approve request when request is approved");
+            }
+
+            Integer userId = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = new User();
+            user.setId(userId);
+            bloodDonationRequest.setTrangThai(AppConfig.BLOOD_DONATION_REQUEST_COMPLETED);
+            bloodDonationRequest.setNguoiDuyet(user);
+            bloodDonationRequest.setNgayDuyet(LocalDateTime.now());
+            bloodDonationRequest.setGhiChu("Admin completed blood donation request");
+
+            User createdBy = userRepository.findById(bloodDonationRequest.getNguoiHien().getId())
+                  .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not found user"));
+
+            Blood blood = bloodRepository.findById(createdBy.getNhomMau().getId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not found blood"));
+
+            BloodUnitWareHouse bloodUnitWareHouse = new BloodUnitWareHouse();
+            bloodUnitWareHouse.setViTriLuuTru(payload.getViTriLuuTru());
+            bloodUnitWareHouse.setSoLuong(bloodDonationRequest.getSoLuong());
+            bloodUnitWareHouse.setThanhPhan(bloodDonationRequest.getLoaiHien());
+            bloodUnitWareHouse.setNguoiHien(createdBy);
+            bloodUnitWareHouse.setNhomMau(blood);
+            bloodUnitWareHouse.setNgayLayMau(LocalDateTime.now());
+            bloodUnitWareHouseRepository.save(bloodUnitWareHouse);
             return repository.save(bloodDonationRequest);
         });
     }

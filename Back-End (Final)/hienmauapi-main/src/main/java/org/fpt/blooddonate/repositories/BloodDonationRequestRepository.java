@@ -19,4 +19,17 @@ public interface BloodDonationRequestRepository extends JpaRepository<BloodDonat
             @Param("keyword") String keyword,
             Pageable pageable
     );
+
+    @Query("""
+    SELECT b FROM BloodDonationRequest b
+    WHERE (:keyword IS NULL OR LOWER(b.ghiChu) LIKE LOWER(CONCAT('%', :keyword, '%')))
+          AND (:status IS NULL OR b.trangThai = :status)
+              AND (:userId IS NULL OR b.nguoiHien.id = :userId)
+    """)
+    Page<BloodDonationRequest> paginatedByUserId(
+            Integer userId,
+            @Param("status") String status,
+            @Param("keyword") String keyword,
+            Pageable pageable
+    );
 }
