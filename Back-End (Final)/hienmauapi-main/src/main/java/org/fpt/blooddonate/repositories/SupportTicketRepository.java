@@ -1,0 +1,25 @@
+package org.fpt.blooddonate.repositories;
+
+import org.fpt.blooddonate.models.Blog;
+import org.fpt.blooddonate.models.SupportTicket;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Pageable;
+
+@Repository
+public interface SupportTicketRepository extends JpaRepository<SupportTicket, Integer> {
+    @Query("""
+    SELECT b FROM Blog b
+      WHERE (:keyword IS NULL OR LOWER(b.tieuDe) LIKE LOWER(CONCAT('%', :keyword, '%')))
+          AND (:status IS NULL OR b.trangThai = :status)
+    """)
+    Page<SupportTicket> paginated(
+            @Param("status") String status,
+            @Param("keyword") String keyword,
+            Pageable pageable
+    );
+
+}
