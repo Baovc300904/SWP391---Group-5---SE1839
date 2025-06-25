@@ -48,9 +48,9 @@ public class BloodDonationRequestController {
             .orElseGet(() -> ResponseEntity.status(404).body("Not found activity"));
     }
 
-    @PostMapping("/{id}/change-status")
-    public ResponseEntity<?> updateStatus(@PathVariable Integer id, @Valid @RequestBody ChangeStatusDonationRequestDTO payload) throws IOException {
-        return bloodDonationRequestService.changeStatus(id, payload)
+    @PostMapping("/{id}/cancel")
+    public ResponseEntity<?> updateStatus(@PathVariable Integer id) throws IOException {
+        return bloodDonationRequestService.cancel(id)
             .<ResponseEntity<?>>map(ResponseEntity::ok)
             .orElseGet(() -> ResponseEntity.status(404).body("Not found activity"));
     }
