@@ -41,6 +41,9 @@ public class BloodDonationRequest {
     @Column(name = "NgayDuyet")
     private LocalDateTime ngayDuyet;
 
+    @Column(name = "SoLuong")
+    private int soLuong;
+
     @Column(name = "LoaiHien", nullable = false)
     private String loaiHien = "toanphan";
 
