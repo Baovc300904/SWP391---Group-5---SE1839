@@ -1,0 +1,344 @@
+/* ===== DEPRECATION FIXES ===== */
+
+/* Fix all deprecated -ms-high-contrast warnings */
+@media (-ms-high-contrast: active) {
+  /* This will be ignored by modern browsers but prevents warnings */
+  /* All styles moved to forced-colors below */
+}
+
+/* Modern forced-colors mode (replaces all -ms-high-contrast) */
+@media (forced-colors: active) {
+  /* High contrast mode styles for all components */
+  
+  /* Ant Design Components */
+  .ant-btn {
+    border: 2px solid CanvasText !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+  }
+
+  .ant-btn-primary {
+    background: Highlight !important;
+    color: HighlightText !important;
+    border-color: Highlight !important;
+  }
+
+  .ant-btn-primary:hover {
+    background: HighlightText !important;
+    color: Highlight !important;
+  }
+
+  .ant-input {
+    border: 2px solid CanvasText !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+  }
+
+  .ant-input:focus {
+    border-color: Highlight !important;
+    outline: 2px solid Highlight !important;
+  }
+
+  .ant-card {
+    border: 2px solid CanvasText !important;
+    background: Canvas !important;
+  }
+
+  .ant-list-item {
+    border: 1px solid CanvasText !important;
+  }
+
+  .ant-tag {
+    border: 1px solid CanvasText !important;
+  }
+
+  .ant-pagination-item {
+    border: 1px solid CanvasText !important;
+  }
+
+  .ant-pagination-item-active {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+
+  .ant-dropdown-menu {
+    border: 2px solid CanvasText !important;
+    background: Canvas !important;
+  }
+
+  .ant-dropdown-menu-item {
+    color: CanvasText !important;
+  }
+
+  .ant-dropdown-menu-item:hover {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+
+  .ant-spin-dot-item {
+    background: Highlight !important;
+  }
+
+  .ant-typography {
+    color: CanvasText !important;
+  }
+
+  .ant-modal {
+    background: Canvas !important;
+  }
+
+  .ant-modal-content {
+    border: 2px solid CanvasText !important;
+    background: Canvas !important;
+  }
+
+  .ant-modal-header {
+    border-bottom: 1px solid CanvasText !important;
+  }
+
+  .ant-modal-footer {
+    border-top: 1px solid CanvasText !important;
+  }
+
+  .ant-table {
+    border: 2px solid CanvasText !important;
+  }
+
+  .ant-table-thead > tr > th {
+    border-bottom: 2px solid CanvasText !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+  }
+
+  .ant-table-tbody > tr > td {
+    border-bottom: 1px solid CanvasText !important;
+  }
+
+  .ant-table-tbody > tr:hover > td {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+
+  .ant-select {
+    border: 2px solid CanvasText !important;
+    background: Canvas !important;
+  }
+
+  .ant-select-dropdown {
+    border: 2px solid CanvasText !important;
+    background: Canvas !important;
+  }
+
+  .ant-select-item {
+    color: CanvasText !important;
+  }
+
+  .ant-select-item-option-selected {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+
+  .ant-select-item-option-active {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+
+  .ant-form-item-label > label {
+    color: CanvasText !important;
+  }
+
+  .ant-alert {
+    border: 2px solid CanvasText !important;
+  }
+
+  .ant-alert-success {
+    border-color: Highlight !important;
+  }
+
+  .ant-alert-error {
+    border-color: Highlight !important;
+  }
+
+  .ant-alert-warning {
+    border-color: Highlight !important;
+  }
+
+  .ant-alert-info {
+    border-color: Highlight !important;
+  }
+
+  .ant-message {
+    background: Canvas !important;
+    border: 2px solid CanvasText !important;
+  }
+
+  .ant-notification {
+    background: Canvas !important;
+    border: 2px solid CanvasText !important;
+  }
+
+  .ant-popover {
+    background: Canvas !important;
+    border: 2px solid CanvasText !important;
+  }
+
+  .ant-tooltip {
+    background: Canvas !important;
+    border: 2px solid CanvasText !important;
+  }
+
+  .ant-menu {
+    background: Canvas !important;
+    border: 2px solid CanvasText !important;
+  }
+
+  .ant-menu-item {
+    color: CanvasText !important;
+  }
+
+  .ant-menu-item:hover {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+
+  .ant-menu-item-selected {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+
+  .ant-layout {
+    background: Canvas !important;
+  }
+
+  .ant-layout-header {
+    background: Canvas !important;
+    border-bottom: 2px solid CanvasText !important;
+  }
+
+  .ant-layout-sider {
+    background: Canvas !important;
+    border-right: 2px solid CanvasText !important;
+  }
+
+  .ant-layout-content {
+    background: Canvas !important;
+  }
+
+  .ant-layout-footer {
+    background: Canvas !important;
+    border-top: 2px solid CanvasText !important;
+  }
+
+  /* Custom Components */
+  .blog-card {
+    border: 2px solid CanvasText !important;
+    background: Canvas !important;
+  }
+
+  .blog-card .card-title {
+    color: CanvasText !important;
+  }
+
+  .blog-card .card-text {
+    color: CanvasText !important;
+  }
+
+  .search-input {
+    border: 2px solid CanvasText !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+  }
+
+  .loading-spinner {
+    border: 2px solid CanvasText !important;
+  }
+
+  .loading-spinner::after {
+    border-color: Highlight !important;
+  }
+}
+
+/* High contrast mode support for older browsers */
+@media (prefers-contrast: high) {
+  .ant-btn {
+    border: 2px solid #000 !important;
+  }
+
+  .ant-btn-primary {
+    background: #000 !important;
+    color: #fff !important;
+  }
+
+  .ant-btn-primary:hover {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .ant-input {
+    border: 2px solid #000 !important;
+  }
+
+  .ant-card {
+    border: 2px solid #000 !important;
+  }
+
+  .ant-table {
+    border: 2px solid #000 !important;
+  }
+
+  .ant-table-thead > tr > th {
+    border-bottom: 2px solid #000 !important;
+  }
+
+  .ant-table-tbody > tr > td {
+    border-bottom: 1px solid #000 !important;
+  }
+}
+
+/* Focus indicators for better accessibility */
+.ant-btn:focus,
+.ant-input:focus,
+.ant-select:focus,
+.ant-pagination-item:focus,
+.ant-menu-item:focus {
+  outline: 2px solid var(--color-primary, #1890ff) !important;
+  outline-offset: 2px !important;
+}
+
+.ant-btn:focus:not(:focus-visible),
+.ant-input:focus:not(:focus-visible),
+.ant-select:focus:not(:focus-visible),
+.ant-pagination-item:focus:not(:focus-visible),
+.ant-menu-item:focus:not(:focus-visible) {
+  outline: none !important;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .ant-spin {
+    animation: none !important;
+  }
+
+  .ant-spin-dot {
+    animation: none !important;
+  }
+
+  .ant-spin-dot-item {
+    animation: none !important;
+  }
+
+  .ant-fade-enter,
+  .ant-fade-leave {
+    transition: none !important;
+  }
+
+  .ant-slide-up-enter,
+  .ant-slide-up-leave {
+    transition: none !important;
+  }
+
+  .ant-zoom-enter,
+  .ant-zoom-leave {
+    transition: none !important;
+  }
+} 

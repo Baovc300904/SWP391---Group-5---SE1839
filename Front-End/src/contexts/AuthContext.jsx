@@ -1,40 +1,44 @@
 import React, { createContext, useState, useEffect } from 'react';
 
-export const AuthContext = createContext(null);
+export const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
-    const storedUser = localStorage.getItem('user');
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
 
-  const login = (userData) => {
+  useEffect(() => {
+    try {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser && storedUser !== 'undefined') {
+        setUser(JSON.parse(storedUser));
+      } else {
+        setUser(null);
+      }
+    } catch (error) {
+      console.error('Lỗi khi parse dữ liệu người dùng từ localStorage:', error);
+      setUser(null);
+    }
+  }, []);
+
+  const login = (userData, token) => {
+    console.log('Login called with:', userData); // <-- log
+    setUser(userData);  
     localStorage.setItem('user', JSON.stringify(userData));
-    setUser(userData);
-    console.log('Đã đăng nhập user:', userData);
+    if (token) {
+      localStorage.setItem('token', token);
+    }
   };
 
   const logout = () => {
-    if (user) {
-      console.log('Trước khi đăng xuất người dùng:', user.name);
-    } else {
-      console.log('Không có người dùng đang đăng nhập');
-    }
     setUser(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
   };
-
-  useEffect(() => {
-    if (user) {
-      console.log('User hiện tại:', user);
-    } else {
-      console.log('Người dùng đã đăng xuất');
-    }
-  }, [user]);
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
+
+export default AuthProvider;

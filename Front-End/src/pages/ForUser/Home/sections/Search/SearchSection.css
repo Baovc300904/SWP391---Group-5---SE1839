@@ -1,0 +1,387 @@
+/* Modern Search Section Styles - Blood Donation Theme */
+.search-section {
+  background: transparent;
+  padding: 4rem 0 3rem 0;
+  margin: 0;
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-container {
+  width: 100%;
+  max-width: 2100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* Header Styles */
+.search-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.search-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: var(--gradient-blood);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+}
+
+.search-subtitle {
+  font-size: 1.2rem;
+  color: var(--color-text-light);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Search Bar Styles */
+.search-bar {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: var(--shadow-blood-lg);
+  border: 1px solid var(--color-border-accent);
+  padding: 3rem 2rem;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-container {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  width: 100%;
+}
+
+.search-field {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-primary);
+  font-size: 1.3rem;
+  z-index: 2;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1.2rem 1.2rem 1.2rem 3.2rem;
+  border: 2px solid var(--color-border);
+  border-radius: 15px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: var(--color-bg);
+  box-shadow: 0 0 0 4px var(--blood-red-100);
+  transform: translateY(-2px);
+}
+
+.search-input::placeholder {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.search-button {
+  background: var(--gradient-blood);
+  color: var(--color-text-inverse);
+  border: none;
+  padding: 1.2rem 2.5rem;
+  border-radius: 15px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+  box-shadow: var(--shadow-blood);
+  min-width: 160px;
+  justify-content: center;
+}
+
+.search-button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-blood-xl);
+  background: var(--gradient-blood-light);
+}
+
+.search-button:active {
+  transform: translateY(-1px);
+}
+
+/* Advanced Search Panel */
+.search-advanced-panel {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  box-shadow: var(--shadow-blood-xl);
+  border: 1px solid var(--color-border-accent);
+  overflow: hidden;
+  animation: slideDown 0.4s ease-out;
+  margin-top: 1rem;
+}
+
+.search-advanced-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: var(--gradient-blood);
+  color: var(--color-text-inverse);
+}
+
+.search-advanced-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.close-button {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: var(--color-text-inverse);
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+  width: 45px;
+  height: 45px;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.search-advanced-content {
+  padding: 2.5rem;
+}
+
+.date-picker-section {
+  margin-bottom: 2.5rem;
+}
+
+.date-picker-section label {
+  display: block;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+}
+
+.search-actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-end;
+}
+
+.search-button-primary {
+  background: var(--gradient-blood);
+  color: var(--color-text-inverse);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: var(--shadow-blood);
+}
+
+.search-button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-blood-xl);
+  background: var(--gradient-blood-light);
+}
+
+.search-button-secondary {
+  background: var(--color-bg-secondary);
+  color: var(--color-text);
+  border: 2px solid var(--color-border);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-button-secondary:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-border-accent);
+  transform: translateY(-2px);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .search-section {
+    padding: 3rem 0 2rem 0;
+    min-height: 350px;
+  }
+  
+  .search-container {
+    padding: 0 1.5rem;
+    gap: 2rem;
+  }
+  
+  .search-title {
+    font-size: 2.2rem;
+  }
+  
+  .search-input-container {
+    gap: 1rem;
+  }
+  
+  .search-bar {
+    padding: 2.5rem 1.5rem;
+    min-height: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-section {
+    padding: 2.5rem 0 2rem 0;
+    min-height: 300px;
+  }
+  
+  .search-container {
+    padding: 0 1rem;
+    gap: 1.5rem;
+  }
+  
+  .search-title {
+    font-size: 2rem;
+    gap: 0.75rem;
+  }
+  
+  .search-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .search-bar {
+    padding: 2rem 1.5rem;
+    min-height: 160px;
+  }
+  
+  .search-input-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .search-field {
+    width: 100%;
+  }
+  
+  .search-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .search-advanced-header {
+    padding: 1.2rem 1.5rem;
+  }
+  
+  .search-advanced-content {
+    padding: 2rem 1.5rem;
+  }
+  
+  .search-actions {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-section {
+    padding: 2rem 0 1.5rem 0;
+    min-height: 250px;
+  }
+  
+  .search-container {
+    padding: 0 0.75rem;
+    gap: 1rem;
+  }
+  
+  .search-title {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .search-subtitle {
+    font-size: 1rem;
+  }
+  
+  .search-bar {
+    padding: 1.5rem 1.2rem;
+    min-height: 140px;
+  }
+  
+  .search-input {
+    padding: 1rem 1rem 1rem 2.8rem;
+    font-size: 1rem;
+  }
+  
+  .search-icon {
+    left: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .search-button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+}

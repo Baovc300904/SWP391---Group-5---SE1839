@@ -1,0 +1,59 @@
+/* No Gaps CSS - Đảm bảo không có khoảng trắng giữa các sections */
+
+/* Reset all margins and paddings for sections */
+.home-page__container > *,
+.home-page__container > section,
+.home-page__container > div {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Ensure sections are directly adjacent */
+.hero-section,
+.search-section,
+.intro-section,
+.slide-section,
+.tip-section,
+.video-section,
+.faq-section,
+.post-section {
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Remove any gaps from search container */
+.search-section .search-container {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Ensure main content has no top margin */
+.main-content {
+  margin-top: 130px !important;
+  padding: 0 !important;
+}
+
+.main-header.scrolled ~ .main-content {
+  margin-top: 120px !important;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .main-content {
+    margin-top: 120px !important;
+  }
+  
+  .home-page__container {
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-page__container {
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+} 

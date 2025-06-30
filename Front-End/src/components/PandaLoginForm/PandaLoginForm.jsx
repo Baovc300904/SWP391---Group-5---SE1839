@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import './PandaLoginForm.css';
 
 export default function PandaLoginForm({
-  email,
-  password,
-  onEmailChange,
-  onPasswordChange,
+  tendangnhap,
+  matkhau,
+  onTendangnhapChange,
+  onMatkhauChange,
   errorMessage,
   onSubmit,
 }) {
@@ -67,22 +67,22 @@ export default function PandaLoginForm({
 
         <div className="form-group">
           <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={onEmailChange}
+            id="tendangnhap"
+            type="text"
+            value={tendangnhap}
+            onChange={onTendangnhapChange}
             required
             className="form-control"
           />
-          <label className="form-label">Email</label>
+          <label className="form-label">Tên đăng nhập</label>
         </div>
 
         <div className="form-group">
           <input
-            id="password"
+            id="matkhau"
             type="password"
-            value={password}
-            onChange={onPasswordChange}
+            value={matkhau}
+            onChange={onMatkhauChange}
             required
             className="form-control"
           />

@@ -1,0 +1,157 @@
+/* ===== LEGACY CSS FIXES ===== */
+
+/* Modern forced-colors mode (replaces deprecated -ms-high-contrast) */
+@media (forced-colors: active) {
+  /* High contrast mode styles */
+  .ant-btn {
+    border: 2px solid CanvasText;
+  }
+
+  .ant-btn-primary {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+
+  .ant-btn-primary:hover {
+    background: HighlightText !important;
+    color: Highlight !important;
+  }
+
+  .ant-input {
+    border: 2px solid CanvasText;
+    background: Canvas !important;
+    color: CanvasText !important;
+  }
+
+  .ant-input:focus {
+    border-color: Highlight;
+    outline: 2px solid Highlight;
+  }
+
+  .ant-card {
+    border: 2px solid CanvasText;
+    background: Canvas !important;
+  }
+
+  .ant-list-item {
+    border: 1px solid CanvasText;
+  }
+
+  .ant-tag {
+    border: 1px solid CanvasText;
+  }
+
+  .ant-pagination-item {
+    border: 1px solid CanvasText;
+  }
+
+  .ant-pagination-item-active {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+
+  .ant-dropdown-menu {
+    border: 2px solid CanvasText !important;
+    background: Canvas !important;
+  }
+
+  .ant-dropdown-menu-item {
+    color: CanvasText !important;
+  }
+
+  .ant-dropdown-menu-item:hover {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+
+  .ant-spin-dot-item {
+    background: Highlight !important;
+  }
+
+  .ant-typography {
+    color: CanvasText !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .ant-btn {
+    border: 2px solid #000;
+  }
+
+  .ant-btn-primary {
+    background: #000 !important;
+    color: #fff !important;
+  }
+
+  .ant-btn-primary:hover {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .ant-input {
+    border: 2px solid #000;
+  }
+
+  .ant-card {
+    border: 2px solid #000;
+  }
+
+  .ant-list-item {
+    border: 1px solid #000;
+  }
+
+  .ant-tag {
+    border: 1px solid #000;
+  }
+
+  .ant-pagination-item {
+    border: 1px solid #000;
+  }
+
+  .ant-pagination-item-active {
+    background: #000 !important;
+    color: #fff !important;
+  }
+}
+
+/* Focus indicators for better accessibility */
+.ant-btn:focus,
+.ant-input:focus,
+.ant-select:focus,
+.ant-pagination-item:focus {
+  outline: 2px solid var(--color-primary, #1890ff);
+  outline-offset: 2px;
+}
+
+.ant-btn:focus:not(:focus-visible),
+.ant-input:focus:not(:focus-visible),
+.ant-select:focus:not(:focus-visible),
+.ant-pagination-item:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .ant-spin {
+    animation: none !important;
+  }
+
+  .ant-spin-dot {
+    animation: none !important;
+  }
+
+  .ant-spin-dot-item {
+    animation: none !important;
+  }
+
+  .ant-fade-enter,
+  .ant-fade-leave {
+    transition: none !important;
+  }
+
+  .ant-slide-up-enter,
+  .ant-slide-up-leave {
+    transition: none !important;
+  }
+} 
