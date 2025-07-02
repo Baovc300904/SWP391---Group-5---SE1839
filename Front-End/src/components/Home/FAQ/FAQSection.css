@@ -1,0 +1,236 @@
+.home-faq-section {
+  background-color: #7A0300;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.home-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  justify-items: stretch;
+  align-items: stretch; /* ⚠️ THÊM DÒNG NÀY */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Thẻ tiêu đề to ở cột 1 */
+.home-faq-title-card {
+  position: relative;
+  grid-row: span 2;
+  background-image: url('../../../assets/images/home-images/faq-home-section.jpg');
+  background-position: center;
+  background-size: cover;
+  border-radius: 12px;
+  padding: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1d3557;
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.home-faq-title-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(2px);
+  border-radius: 12px;
+  z-index: 0;
+}
+
+.home-faq-title-card h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+/* Thẻ FAQ nhỏ nằm ngang */
+.home-faq-card {
+  background-color: #fff;
+  color: #333;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column; /* giữ hàng ngang */
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.home-faq-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px; /* bo góc */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff; /* icon màu trắng */
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* Các màu riêng cho từng icon */
+.icon-red {
+  background-color: #dc2626;
+}
+
+.icon-green {
+  background-color: #dc2626;
+}
+
+.icon-blue {
+  background-color: #dc2626;
+}
+
+.icon-orange {
+  background-color: #dc2626;
+}
+
+.icon-purple {
+  background-color: #dc2626;
+}
+
+.icon-yellow {
+  background-color: #dc2626;
+}
+.home-faq-double {
+  grid-row: span 2;
+}
+
+/* Nội dung phải */
+.home-faq-content {
+  flex: 1;
+}
+
+.home-faq-content p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.home-faq-description {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Stats + Stories giữ nguyên */
+.home-quick-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 3rem 0;
+  justify-content: center;
+}
+
+.home-stat-card {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+  background-color: #f9fafb;
+  border-radius: 12px;
+}
+
+.home-stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #dc2626;
+}
+
+.home-stat-label {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.home-donor-stories {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.home-story-slide {
+  padding: 1.5rem;
+  background-color: #fff7ed;
+  border-radius: 12px;
+  margin: 0 auto;
+  max-width: 600px;
+  font-style: italic;
+  color: #374151;
+}
+
+/* Mặc định (light theme) */
+
+
+.home-faq-card {
+  background-color: #f8f8f8;
+  color: #222;
+  border: 1px solid #ddd;
+}
+
+.home-faq-description {
+  color: #444;
+}
+
+.home-faq-title-card h2,
+.home-section-title {
+  color: #222;
+}
+
+/* Dark theme */
+.dark-theme .home-faq-section {
+  background-color: #1e1e1e;
+  color: #ddd;
+}
+
+.dark-theme .home-faq-card {
+  background-color: #2c2c2c;
+  color: #eee;
+  border: 1px solid #444;
+}
+
+.dark-theme .home-faq-description {
+  color: #ccc;
+}
+
+.dark-theme .home-faq-title-card h2,
+.dark-theme .home-section-title {
+  color: #000000;
+}
+
+/* Quick stats cards */
+.home-quick-stats .home-stat-card {
+  background-color: #f0f0f0;
+  color: #222;
+}
+
+.dark-theme .home-quick-stats .home-stat-card {
+  background-color: #333;
+  color: #eee;
+}
+
+/* Slider text */
+.home-story-slide p {
+  color: #222;
+}
+
+.dark-theme .home-story-slide p {
+  color: #000000;
+}
+
+.home-story-slide strong {
+  color: #555;
+}
+
+.dark-theme .home-story-slide strong {
+  color: #da0000;
+}

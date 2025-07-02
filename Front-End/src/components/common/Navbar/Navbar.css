@@ -1,0 +1,179 @@
+/* ========== Navbar Container ========== */
+.main-navbar {
+  position: relative;
+  width: 100%;
+  padding: 8px 0;
+  background-color: #7A0300;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.main-navbar.scrolled {
+  background-color: #4a0100;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ========== Menu List ========== */
+.main-navbar ul {
+  display: flex;
+  gap: 48px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+.main-navbar li {
+  position: relative;
+}
+
+/* ========== Menu Links ========== */
+.nav-link {
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  background-color: #d9534f;
+  color: white;
+  outline: none;
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 10%;
+  width: 80%;
+  height: 3px;
+  background-color: #fff;
+  border-radius: 2px;
+}
+
+/* ========== Submenu Dropdown ========== */
+/* ========== Submenu Dropdown ========== */
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #7A0300;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  min-width: 140px;           /* Giảm chiều rộng tối thiểu */
+  padding: 4px 0;              /* Giảm khoảng cách dọc */
+  margin: 0;
+  list-style: none;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 1000;
+}
+
+.has-submenu.open .submenu {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.submenu li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);  /* Nhẹ hơn */
+}
+
+.submenu li:last-child {
+  border-bottom: none;
+}
+
+.submenu .nav-link {
+  display: block;
+  padding: 6px 12px;           /* Giảm padding cho gọn */
+  font-weight: 500;
+  font-size: 13.5px;
+  color: #ffffff;
+  border-radius: 4px;
+  transition: background-color 0.25s ease;
+  text-align: left;
+  white-space: nowrap;         /* Không xuống dòng chữ */
+}
+
+.submenu .nav-link:hover,
+.submenu .nav-link:focus {
+  background-color: #d9534f;
+  outline: none;
+}
+
+
+/* ========== Arrow Icon ========== */
+.arrow {
+  margin-left: 5px;
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+}
+
+.arrow.rotated {
+  transform: rotate(180deg);
+}
+
+/* ========== Theme Toggle ========== */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 1rem;
+  margin-right: 1rem;
+}
+
+.theme-text {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-top: 15px;
+  color: var(--text-color, #333);
+}
+
+.btn-toggle-theme {
+  background-color: var(--btn-bg, #fff);
+  border: none;
+  border-radius: 50%;
+  padding: 12px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-color, #333);
+}
+
+.btn-toggle-theme:hover {
+  transform: scale(1.1);
+  background-color: var(--btn-hover-bg, #eaeaea);
+}
+
+/* ========== Theme Support ========== */
+.light-theme {
+  background-color: white;
+  color: black;
+}
+
+.dark-theme {
+  background-color: #121212;
+  color: #eeeeee;
+}
+
+.dark-theme .main-navbar {
+  background-color: #1f1f1f;
+  color: white;
+}

@@ -1,0 +1,93 @@
+.about-section {
+  background: #fff5f5;
+  padding: 60px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #5a0b0b;
+}
+
+.about-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.about-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+.about-content h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.heartbeat-icon {
+  color: #d90429;
+  font-size: 32px;
+}
+
+.about-quote {
+  font-style: italic;
+  font-size: 18px;
+  color: #d90429;
+  margin-bottom: 20px;
+}
+
+.about-content p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+.about-contact-section {
+  margin-top: 30px;
+  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap; /* responsive cho mobile */
+}
+
+.join-btn,
+.contact-link {
+  padding: 12px 24px;
+  background-color: #d90429;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.join-btn:hover,
+.contact-link:hover {
+  background-color: #a3021f;
+}
+
+.about-image-container {
+  flex: 1;
+  min-width: 280px;
+  text-align: center;
+}
+
+.about-image {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
