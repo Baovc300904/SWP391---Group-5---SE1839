@@ -1,0 +1,94 @@
+/* StaffNavbar.css (hiển thị dọc) */
+
+.staff-navbar {
+  display: flex;
+  flex-direction: column;     /* Đổi thành chiều dọc */
+  align-items: flex-start;
+  background-color: #2c3e50;
+  padding: 20px;
+  width: 220px;
+  height: 100vh;              /* Chiều cao toàn bộ trang */
+  position: fixed;            /* Cố định bên trái */
+  top: 0;
+  left: 0;
+  color: #ecf0f1;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.staff-nav-list {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.staff-nav-list li {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.link {
+  text-decoration: none;
+  color: #ecf0f1;
+  font-weight: 500;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.link:hover {
+  background-color: #34495e;
+}
+
+.active-link {
+  background-color: #3498db;
+  color: white;
+  font-weight: 700;
+}
+
+.staff-logout-button {
+  background-color: transparent;
+  border: 2px solid #e74c3c;
+  color: #e74c3c;
+  padding: 10px 15px;
+  width: 100%;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.staff-logout-button:hover {
+  background-color: #e74c3c;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .staff-navbar {
+    position: static;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .staff-nav-list {
+    flex-direction: row;
+    display: flex;
+    gap: 10px;
+  }
+
+  .staff-nav-list li {
+    margin: 0;
+  }
+
+  .staff-logout-button {
+    width: auto;
+  }
+}

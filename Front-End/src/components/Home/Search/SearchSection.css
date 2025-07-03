@@ -1,0 +1,105 @@
+.search-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Search Bar Wrapper */
+.search-bar-wrapper {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Label with Calendar Icon */
+.search-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Calendar Icon */
+.calendar-icon-title {
+  font-size: 18px;
+  color: #9ca3af;
+}
+
+/* Input container */
+.search-bar {
+  display: flex;
+  align-items: center;  /* Align items horizontally */
+  gap: 12px;  /* Add space between input and button */
+  width: 100%;
+}
+
+/* Input Styling */
+.search-input-wrapper {
+  position: relative;
+  flex-grow: 1;
+}
+
+.search-input {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 14px 12px 40px;  /* Padding to keep the icon inside */
+  font-size: 16px;
+  outline: none;
+  background-color: #fff;
+}
+
+/* Input placeholder text */
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+/* Button Styling */
+.search-button {
+  background-color: #dc2626;
+  border: none;
+  color: white;
+  padding: 12px 30px; /* Adjust padding to be smaller */
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #8d0303;
+}
+
+/* Calendar Icon in Input Field */
+.calendar-icon {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+/* Search Card for Detailed Search */
+.search-card {
+  width: 100%;
+  max-width: 900px;
+}
+
+/* Responsive for smaller devices */
+@media (max-width: 768px) {
+  .search-bar-wrapper {
+    padding: 0.8rem;
+  }
+
+  .search-button {
+    width: 100%;
+  }
+}

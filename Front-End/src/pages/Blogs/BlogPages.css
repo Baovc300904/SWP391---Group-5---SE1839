@@ -1,0 +1,169 @@
+/* Tạo kiểu cho phần trang Blog */
+.blog-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Tiêu đề trang */
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Tạo kiểu cho thanh tìm kiếm và lọc thể loại */
+.search-filter {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.search-bar {
+  width: 100%;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+/* Thể loại bên phải */
+.category-filter {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.category-filter button {
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.category-filter button:hover {
+  background-color: #ddd;
+}
+
+.category-filter .btn-outline-primary {
+  border: 1px solid #007bff;
+  color: #007bff;
+}
+
+.category-filter .btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Danh sách bài viết */
+.card-body {
+  padding: 20px;
+}
+
+.card-text {
+  color: #777;
+  margin-bottom: 15px;
+}
+
+.card-footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+  padding: 10px;
+}
+
+.card-footer .d-flex {
+  gap: 15px;
+}
+
+.card-footer .text-muted {
+  color: #888;
+}
+
+.card-footer .text-primary {
+  color: #007bff;
+}
+
+/* Các nút điều hướng */
+.btn-outline-secondary {
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #f8f9fa;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  border-radius: 25px;
+  padding: 8px 15px;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Phân trang */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 10px;
+}
+
+.pagination button {
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination .active {
+  background-color: #007bff;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .search-filter {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .category-filter {
+    width: 100%;
+    margin-top: 20px;
+  }
+}

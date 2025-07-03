@@ -1,0 +1,33 @@
+.hero-section {
+  max-width: 1200px;
+  margin: 0 auto;                /* ✅ Căn giữa khối section */
+  display: flex;                 /* ✅ Bật chế độ Flexbox */
+  flex-direction: column;       /* ✅ Dọc (vì tiêu đề nằm trên subtitle, v.v.) */
+  align-items: center;          /* ✅ Căn giữa theo trục ngang */
+  text-align: center;
+  background-color: antiquewhite;
+  padding: 2rem 1rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+}
+  
+  .hero-title {
+    font-size: 2.5rem;
+    color: #dc2626;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: #b91c1c;
+    margin-bottom: 1rem;  
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+    color: #808080;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
