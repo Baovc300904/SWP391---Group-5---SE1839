@@ -2,7 +2,6 @@ package org.fpt.blooddonate.controllers;
 
 import jakarta.validation.Valid;
 import org.fpt.blooddonate.dtos.requests.CancelBloodUnitWareHouseRequestDTO;
-import org.fpt.blooddonate.dtos.requests.ChangeStatusDonationRequestDTO;
 import org.fpt.blooddonate.dtos.requests.TestedBloodUnitWareHouseRequestDTO;
 import org.fpt.blooddonate.models.BloodUnitWareHouse;
 import org.fpt.blooddonate.services.BloodUnitWareHouseService;

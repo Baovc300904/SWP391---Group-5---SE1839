@@ -4,8 +4,10 @@ import org.fpt.blooddonate.configs.AppConfig;
 import org.fpt.blooddonate.dtos.requests.CreateBloodDonationActivityRequestDTO;
 import org.fpt.blooddonate.dtos.requests.UpdateBloodDonationActivityRequestDTO;
 import org.fpt.blooddonate.models.BloodDonationActivity;
+import org.fpt.blooddonate.models.BloodDonationRequest;
 import org.fpt.blooddonate.models.User;
 import org.fpt.blooddonate.repositories.BloodDonationActivityRespository;
+import org.fpt.blooddonate.repositories.BloodDonationRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,8 +17,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,12 +30,24 @@ public class BloodDonationActivityService {
     @Autowired
     private BloodDonationActivityRespository repository;
 
+    @Autowired
+    private BloodDonationRequestRepository bloodDonationRequestRepository;
+
     public Page<BloodDonationActivity> getAll(int page, String status, String keyword) {
-        Pageable pageable = PageRequest.of(page - 1, 20);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         return repository.paginated(status, keyword, pageable);
     }
 
-    public Optional<BloodDonationActivity> getById(Integer id) {
+    public BloodDonationActivity getById(Integer id) {
+        BloodDonationActivity bloodDonationActivity = repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not existed activity"));
+
+        List<BloodDonationRequest> list = Collections.emptyList();
+        bloodDonationActivity.setDanhSachYeuCauHieuMau(list);
+        return bloodDonationActivity;
+    }
+
+    public Optional<BloodDonationActivity> getDetailById(Integer id) {
         return repository.findById(id);
     }
 

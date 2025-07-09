@@ -1,8 +1,8 @@
 package org.fpt.blooddonate.services;
 
 import org.fpt.blooddonate.dtos.requests.CreateCompatibleBloodDTO;
-import org.fpt.blooddonate.models.Blood;
-import org.fpt.blooddonate.models.CompatibleBlood;
+import org.fpt.blooddonate.dtos.requests.UpdateStatusCompatibleBlood;
+import org.fpt.blooddonate.models.*;
 import org.fpt.blooddonate.repositories.BloodRepository;
 import org.fpt.blooddonate.repositories.CompatibleBloodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +58,14 @@ public class CompatibleBloodService {
         compatibleBlood.setNhomMauHien(sourceBlood);
         compatibleBlood.setNhomMauNhan(targetBlood);
         return repository.save(compatibleBlood);
+    }
+
+    public Optional<CompatibleBlood> updateStatus(Integer id, UpdateStatusCompatibleBlood payload) {
+        return repository.findById(id).map(compatibleBlood -> {
+            System.out.println(payload.getTrangthai());
+            compatibleBlood.setTrangThai(payload.getTrangthai());
+            repository.save(compatibleBlood);
+            return compatibleBlood;
+        });
     }
 }

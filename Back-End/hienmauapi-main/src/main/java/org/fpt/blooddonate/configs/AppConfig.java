@@ -5,6 +5,7 @@ public class AppConfig {
     public static final int ACTIVE_STATUS = 1;
     public static final int INACTIVE_STATUS = 0;
     public static final String USER_CUSTOMER_ROLE = "nguoidung";
+    public static final String USER_EMPLOYEE_ROLE = "nhanvien";
     public static final String BLOOD_DONATION_ACTIVITY_COMMING_SOOM = "sapdienra";
 
     public static final String BLOOD_DONATION_REQUEST_PENDING = "dangcho";
@@ -22,5 +23,4 @@ public class AppConfig {
     public static final String BLOOD_RECEIVE_REQUEST_CANCEL = "huy";
     public static final String BLOOD_RECEIVE_REQUEST_HAVE_BLOOD = "dacomau";
     public static final String BLOOD_RECEIVE_REQUEST_COMPLETED = "dahoanthanh";
-
 }

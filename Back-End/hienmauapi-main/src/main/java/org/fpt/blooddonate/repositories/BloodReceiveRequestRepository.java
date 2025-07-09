@@ -1,6 +1,5 @@
 package org.fpt.blooddonate.repositories;
 
-import org.fpt.blooddonate.models.BloodDonationRequest;
 import org.fpt.blooddonate.models.BloodReceiveRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

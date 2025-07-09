@@ -32,7 +32,7 @@ public class BlogService {
     private BlogCategoryRepository blogCategoryRepository;
 
     public Page<Blog> getAll(int page, Integer categoryId, Integer status, String keyword) {
-        Pageable pageable = PageRequest.of(page - 1, 20);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         return repository.paginated(categoryId, status, keyword, pageable);
     }
 

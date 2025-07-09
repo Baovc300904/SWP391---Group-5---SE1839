@@ -48,6 +48,10 @@ public class BloodUnitWareHouse {
     @Column(name = "TrangThai", nullable = false)
     private String trangThai = "choxetnghiem";
 
+    @ManyToOne
+    @JoinColumn(name = "YeuCauCanMauId")
+    private BloodReceiveRequest yeuCauCanMau;
+
     @Column(name = "NgayTao", updatable = false)
     private LocalDateTime ngayTao = LocalDateTime.now();
 

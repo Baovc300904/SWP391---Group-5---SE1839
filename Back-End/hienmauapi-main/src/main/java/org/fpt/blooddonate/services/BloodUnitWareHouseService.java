@@ -22,7 +22,7 @@ public class BloodUnitWareHouseService {
     private BloodUnitWareHouseRepository bloodUnitWareHouseRepository;
 
     public Page<BloodUnitWareHouse> getAll(int page, String status, String keyword) {
-        Pageable pageable = PageRequest.of(page - 1, 20);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         return bloodUnitWareHouseRepository.paginated(status, keyword, pageable);
     }
 
