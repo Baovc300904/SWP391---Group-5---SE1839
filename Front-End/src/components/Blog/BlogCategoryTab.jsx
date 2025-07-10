@@ -83,7 +83,7 @@ export default function BlogCategoryTab() {
       render: (v) => v || <i style={{ color: "#b0b0b0" }}>Không có</i>,
     },
     {
-      title: "Hành động",
+      title: "Chi tiết",
       align: "center",
       width: 90,
       render: (_, record) => (
@@ -92,7 +92,7 @@ export default function BlogCategoryTab() {
             icon={<EyeOutlined />}
             size="small"
             onClick={() =>
-              navigate(`/admin/blogs-manager/category-detail/${record.id}`)
+              navigate(`/employee/blogs-manager/category-detail/${record.id}`)
             }
             style={{ borderRadius: 8, background: "#fff" }}
           />

@@ -1,7 +1,5 @@
 // Import moment để xử lý định dạng ngày
 import moment from "moment";
-
-// DetailCampaign.js
 import {
   Button,
   DatePicker,
@@ -14,14 +12,35 @@ import {
   Spin,
   Tag,
   Typography,
+  Row,
+  Col,
+  Table,
+  Avatar,
 } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCampaignDetail } from "../../services/campaignService";
 import { donateBloodRequest } from "../../services/donationService";
+import { UserOutlined } from "@ant-design/icons";
 
 const { Title, Paragraph } = Typography;
 const { Option } = Select;
+
+const statusColor = {
+  dangcho: "gold",
+  tuchoi: "red",
+  huy: "gray",
+  xacnhan: "blue",
+  dahien: "green",
+};
+
+const statusText = {
+  dangcho: "Đang chờ",
+  tuchoi: "Từ chối",
+  huy: "Hủy",
+  xacnhan: "Xác nhận",
+  dahien: "Đã hiến",
+};
 
 export default function DetailCampaign() {
   const [campaign, setCampaign] = useState(null);
@@ -61,6 +80,9 @@ export default function DetailCampaign() {
         ghiChu: values.ghiChu,
         loaiHien: values.loaiHien.toLowerCase(),
         soLuong: Number(values.soLuong),
+        sucKhoeHienTai: values.sucKhoeHienTai,
+        dangMangThai: Number(values.dangMangThai),
+        macBenhTruyenNhiem: Number(values.macBenhTruyenNhiem),
       };
       await donateBloodRequest(data);
       notification.success({
@@ -68,8 +90,9 @@ export default function DetailCampaign() {
         description: `Cảm ơn bạn đã đăng ký hiến máu cho chiến dịch ${campaign.ten}.`,
       });
       setVisible(false);
+      form.resetFields();
+      fetchCampaignDetail(); // cập nhật lại bảng lịch sử
     } catch (error) {
-      // Hiển thị lỗi từ err.data.message nếu có
       notification.error({
         message: "Lỗi",
         description:
@@ -172,7 +195,7 @@ export default function DetailCampaign() {
         <Button
           type="primary"
           shape="round"
-          onClick={() => setVisible(true)} // Mở modal khi nhấn nút
+          onClick={() => setVisible(true)}
           style={{
             backgroundColor: "#ec407a",
             borderColor: "#ec407a",
@@ -188,10 +211,11 @@ export default function DetailCampaign() {
       {/* Modal Form Đăng ký Hiến máu */}
       <Modal
         title="Đăng ký hiến máu"
-        visible={visible}
+        open={visible}
         onCancel={() => setVisible(false)}
         footer={null}
-        width={600}
+        width={700}
+        destroyOnClose
       >
         <Form
           form={form}
@@ -201,60 +225,98 @@ export default function DetailCampaign() {
             hoatDongHienMauId: campaign.id,
           }}
         >
-          <Form.Item
-            label="Ngày hiến máu dự kiến"
-            name="ngayHienMauDuKien"
-            rules={[
-              { required: true, message: "Vui lòng chọn ngày hiến máu!" },
-            ]}
-          >
-            <DatePicker style={{ width: "100%" }} />
-          </Form.Item>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                label="Ngày hiến máu dự kiến"
+                name="ngayHienMauDuKien"
+                rules={[
+                  { required: true, message: "Vui lòng chọn ngày hiến máu!" },
+                ]}
+              >
+                <DatePicker style={{ width: "100%" }} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="Ngày phục hồi gần nhất"
+                name="ngayPhucHoiGanNhat"
+                rules={[
+                  { required: true, message: "Vui lòng chọn ngày phục hồi!" },
+                ]}
+              >
+                <DatePicker style={{ width: "100%" }} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="Loại hiến máu"
+                name="loaiHien"
+                rules={[
+                  { required: true, message: "Vui lòng chọn loại hiến máu!" },
+                ]}
+              >
+                <Select placeholder="Chọn loại hiến máu">
+                  <Option value="toanphan">Toàn Phần</Option>
+                  <Option value="hongcau">Hồng Cầu</Option>
+                  <Option value="tieucau">Tiểu Cầu</Option>
+                  <Option value="huyettuong">Huyết Tương</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="Số lượng máu hiến"
+                name="soLuong"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng chọn số lượng máu hiến!",
+                  },
+                ]}
+              >
+                <Select>
+                  <Option value="350">350 ml</Option>
+                  <Option value="250">250 ml</Option>
+                </Select>
+              </Form.Item>
+            </Col>
 
-          <Form.Item
-            label="Ngày phục hồi gần nhất"
-            name="ngayPhucHoiGanNhat"
-            rules={[
-              { required: true, message: "Vui lòng chọn ngày phục hồi!" },
-            ]}
-          >
-            <DatePicker style={{ width: "100%" }} />
-          </Form.Item>
-
-          <Form.Item label="Ghi chú" name="ghiChu">
-            <Input.TextArea placeholder="Nhập ghi chú nếu có..." />
-          </Form.Item>
-
-          <Form.Item
-            label="Loại hiến máu"
-            name="loaiHien"
-            rules={[
-              { required: true, message: "Vui lòng chọn loại hiến máu!" },
-            ]}
-          >
-            <Select placeholder="Chọn loại hiến máu" style={{ width: "100%" }}>
-              <Option value="toanphan">Toàn Phần</Option>
-              <Option value="hongcau">Hồng Cầu</Option>
-              <Option value="tieucau">Tiểu Cầu</Option>
-              <Option value="huyettuong">Huyết Tương</Option>
-            </Select>
-          </Form.Item>
-
-          <Form.Item
-            label="Số lượng máu hiến"
-            name="soLuong"
-            rules={[
-              { required: true, message: "Vui lòng chọn số lượng máu hiến!" },
-            ]}
-          >
-            <Select style={{ width: "100%" }}>
-              {" "}
-              {/* Mặc định là 350 */}
-              <Option value="350">350 ml</Option>
-              <Option value="250">250 ml</Option>
-            </Select>
-          </Form.Item>
-
+            <Col span={24}>
+              <Form.Item label="Sức khoẻ hiện tại" name="sucKhoeHienTai">
+                <Input.TextArea placeholder="Nhập tình trạng sức khoẻ..." />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="Đang mang thai"
+                name="dangMangThai"
+                rules={[{ required: true, message: "Vui lòng chọn!" }]}
+              >
+                <Select placeholder="Chọn">
+                  <Option value={1}>Có</Option>
+                  <Option value={0}>Không</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="Mắc bệnh truyền nhiễm"
+                name="macBenhTruyenNhiem"
+                rules={[{ required: true, message: "Vui lòng chọn!" }]}
+              >
+                <Select placeholder="Chọn">
+                  <Option value={1}>Có</Option>
+                  <Option value={0}>Không</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <Form.Item label="Ghi chú" name="ghiChu">
+                <Input.TextArea placeholder="Nhập ghi chú nếu có..." />
+              </Form.Item>
+            </Col>
+          </Row>
           <Button
             type="primary"
             htmlType="submit"
@@ -266,12 +328,100 @@ export default function DetailCampaign() {
               borderColor: "#ec407a",
               fontSize: 16,
               fontWeight: 600,
+              marginTop: 16,
             }}
           >
             Gửi yêu cầu
           </Button>
         </Form>
       </Modal>
+
+      {/* ========== LỊCH SỬ ĐĂNG KÝ HIẾN MÁU ========== */}
+      {Array.isArray(campaign.danhSachYeuCauHieuMau) &&
+        campaign.danhSachYeuCauHieuMau.length > 0 && (
+          <div
+            style={{
+              marginTop: 42,
+              background: "#fff",
+              borderRadius: 16,
+              boxShadow: "0 2px 8px #d1c4e9",
+              padding: 16,
+            }}
+          >
+            <Title
+              level={4}
+              style={{
+                marginBottom: 18,
+                color: "#6a1b9a",
+              }}
+            >
+              Lịch sử đăng ký hiến máu cho chiến dịch này
+            </Title>
+            <Table
+              rowKey="id"
+              dataSource={campaign.danhSachYeuCauHieuMau}
+              pagination={{ pageSize: 6 }}
+              scroll={{ x: true }}
+              columns={[
+                {
+                  title: "Người hiến",
+                  dataIndex: "nguoiHien",
+                  key: "nguoiHien",
+                  render: () => (
+                    <div
+                      style={{ display: "flex", alignItems: "center", gap: 8 }}
+                    >
+                      <Avatar icon={<UserOutlined />} />
+                      Hide Information
+                    </div>
+                  ),
+                },
+                {
+                  title: "Ngày đăng ký",
+                  dataIndex: "ngayTao",
+                  render: (v) =>
+                    v ? new Date(v).toLocaleString("vi-VN") : "-",
+                },
+                {
+                  title: "Ngày hiến dự kiến",
+                  dataIndex: "ngayHienMauDuKien",
+                  render: (v) =>
+                    v ? new Date(v).toLocaleDateString("vi-VN") : "-",
+                },
+
+                {
+                  title: "Loại hiến",
+                  dataIndex: "loaiHien",
+                  render: (v) =>
+                    v === "toanphan"
+                      ? "Toàn phần"
+                      : v === "hongcau"
+                      ? "Hồng cầu"
+                      : v === "tieucau"
+                      ? "Tiểu cầu"
+                      : v === "huyettuong"
+                      ? "Huyết tương"
+                      : v,
+                },
+                {
+                  title: "Số lượng (ml)",
+                  dataIndex: "soLuong",
+                  align: "center",
+                },
+                {
+                  title: "Trạng thái",
+                  dataIndex: "trangThai",
+                  render: (v) => (
+                    <Tag color={statusColor[v] || "default"}>
+                      {statusText[v] || v}
+                    </Tag>
+                  ),
+                  align: "center",
+                },
+              ]}
+            />
+          </div>
+        )}
     </div>
   );
 }

@@ -48,3 +48,12 @@ export const createEmployee = async (data) => {
   const res = await instance.post("/api/users/employee", data);
   return res.data;
 };
+
+export const getUsersNearMe = async () => {
+  const res = await instance.get("/api/users/near-me", {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  });
+  return res.data;
+};

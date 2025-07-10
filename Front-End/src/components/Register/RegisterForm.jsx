@@ -1,21 +1,78 @@
 import {
-  Card,
-  Form,
-  Input,
   Button,
-  message,
-  Row,
+  Card,
   Col,
   DatePicker,
+  Form,
+  Input,
+  message,
+  Row,
   Select,
   Slider,
   Steps,
 } from "antd";
-import { useEffect, useState } from "react";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { useEffect, useRef, useState } from "react";
+import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
-import "../Login/Card/LoginCard.css";
 import { register } from "../../services/authService";
 import { getBloods } from "../../services/bloodService";
+import "../Login/Card/LoginCard.css";
+
+// Sửa lại icon mặc định của Leaflet
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+  iconUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+});
+
+// Marker chọn vị trí
+function LocationMarker({ value, onChange }) {
+  useMapEvents({
+    click(e) {
+      onChange(e.latlng.lat, e.latlng.lng);
+    },
+  });
+  return value?.lat && value?.lng ? (
+    <Marker position={[value.lat, value.lng]} />
+  ) : null;
+}
+
+// Component Map đã fix lỗi xám
+function MapWithFix({ position, onPick, visible }) {
+  const mapRef = useRef();
+
+  useEffect(() => {
+    if (visible && mapRef.current) {
+      // Delay nhỏ giúp đảm bảo container đã hiện ra
+      setTimeout(() => {
+        mapRef.current.invalidateSize();
+      }, 100); // 100ms là vừa đủ, không nên để 0
+    }
+  }, [visible]);
+
+  return (
+    <MapContainer
+      center={position}
+      zoom={13}
+      style={{ height: 300, width: "100%", borderRadius: 14 }}
+      whenCreated={(mapInstance) => (mapRef.current = mapInstance)}
+      scrollWheelZoom
+      preferCanvas={false}
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <LocationMarker value={position} onChange={onPick} />
+    </MapContainer>
+  );
+}
 
 const { Option } = Select;
 const { Step } = Steps;
@@ -25,6 +82,12 @@ export default function RegisterForm() {
   const [form] = Form.useForm();
   const [bloodOptions, setBloodOptions] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
+
+  // State cho map position
+  const [mapPosition, setMapPosition] = useState({
+    lat: 21.028511, // trung tâm Hà Nội
+    lng: 105.804817,
+  });
 
   useEffect(() => {
     async function fetchBloods() {
@@ -37,6 +100,20 @@ export default function RegisterForm() {
     }
     fetchBloods();
   }, []);
+
+  // Khi vào step 1 mà chưa có vị trí, set lại từ state map
+  useEffect(() => {
+    if (
+      currentStep === 1 &&
+      (!form.getFieldValue("latitude") || !form.getFieldValue("longitude"))
+    ) {
+      form.setFieldsValue({
+        latitude: mapPosition.lat,
+        longitude: mapPosition.lng,
+      });
+    }
+    // eslint-disable-next-line
+  }, [currentStep, mapPosition.lat, mapPosition.lng]);
 
   const onFinish = async (values) => {
     try {
@@ -54,6 +131,8 @@ export default function RegisterForm() {
         tiensubenh: values.tienSuBenh || "Không có",
         cannang: parseFloat(values.canNang),
         chieucao: parseFloat(values.chieuCao),
+        latitude: mapPosition.lat,
+        longitude: mapPosition.lng,
       };
       await register(payload);
       message.success("Đăng ký thành công! Vui lòng đăng nhập.");
@@ -78,10 +157,7 @@ export default function RegisterForm() {
     display: currentStep === step ? "block" : "none",
   });
 
-  const next = async () => {
-    setCurrentStep(currentStep + 1);
-  };
-
+  const next = () => setCurrentStep(currentStep + 1);
   const prev = () => setCurrentStep(currentStep - 1);
 
   return (
@@ -283,6 +359,64 @@ export default function RegisterForm() {
                     />
                   </Form.Item>
                 </Col>
+                {/* Map Step */}
+                <Form.Item
+                  label={<span style={labelStyle}>Vị trí trên bản đồ</span>}
+                  required
+                >
+                  <MapWithFix
+                    position={mapPosition}
+                    onPick={(lat, lng) => {
+                      setMapPosition({ lat, lng });
+                      form.setFieldsValue({ latitude: lat, longitude: lng });
+                    }}
+                    visible={currentStep === 1}
+                  />
+                  <div style={{ marginTop: 8 }}>
+                    <Input
+                      value={
+                        mapPosition.lat && mapPosition.lng
+                          ? `${mapPosition.lat.toFixed(
+                              6
+                            )}, ${mapPosition.lng.toFixed(6)}`
+                          : ""
+                      }
+                      readOnly
+                      style={{
+                        background: "#f5f5f5",
+                        borderRadius: 10,
+                        width: 260,
+                        color: "#1976d2",
+                        marginRight: 12,
+                      }}
+                    />
+                    {(!mapPosition.lat || !mapPosition.lng) && (
+                      <span style={{ color: "red" }}>
+                        Chọn vị trí trên bản đồ
+                      </span>
+                    )}
+                  </div>
+                  <Form.Item
+                    name="latitude"
+                    hidden
+                    rules={[
+                      {
+                        required: true,
+                        message: "Vui lòng chọn vị trí trên bản đồ!",
+                      },
+                    ]}
+                  />
+                  <Form.Item
+                    name="longitude"
+                    hidden
+                    rules={[
+                      {
+                        required: true,
+                        message: "Vui lòng chọn vị trí trên bản đồ!",
+                      },
+                    ]}
+                  />
+                </Form.Item>
               </Row>
             </Col>
 

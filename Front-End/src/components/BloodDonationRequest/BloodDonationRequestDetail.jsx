@@ -138,10 +138,50 @@ export default function BloodRequestDetail() {
         bordered
         size="middle"
         style={{ backgroundColor: "white", borderRadius: 10 }}
+        column={3}
       >
         <Descriptions.Item label="Tên người hiến">
           {requestDetail?.nguoiHien.ten}
         </Descriptions.Item>
+        <Descriptions.Item label="Email">
+          {requestDetail?.nguoiHien.email}
+        </Descriptions.Item>
+        <Descriptions.Item label="Số điện thoại">
+          {requestDetail?.nguoiHien.soDienThoai}
+        </Descriptions.Item>
+        <Descriptions.Item label="Ngày sinh">
+          {requestDetail?.nguoiHien.ngaySinh
+            ? new Date(requestDetail.nguoiHien.ngaySinh).toLocaleDateString(
+                "vi-VN"
+              )
+            : "-"}
+        </Descriptions.Item>
+        <Descriptions.Item label="Giới tính">
+          {requestDetail?.nguoiHien.gioiTinh === "nam"
+            ? "Nam"
+            : requestDetail?.nguoiHien.gioiTinh === "nu"
+            ? "Nữ"
+            : requestDetail?.nguoiHien.gioiTinh}
+        </Descriptions.Item>
+        <Descriptions.Item label="Địa chỉ">
+          {requestDetail?.nguoiHien.diaChi}
+        </Descriptions.Item>
+        <Descriptions.Item label="Nhóm máu">
+          {requestDetail?.nguoiHien.nhomMau?.ten}
+        </Descriptions.Item>
+        <Descriptions.Item label="Rh">
+          {requestDetail?.nguoiHien.yeuToRh}
+        </Descriptions.Item>
+        <Descriptions.Item label="Chiều cao (cm)">
+          {requestDetail?.nguoiHien.chieuCao}
+        </Descriptions.Item>
+        <Descriptions.Item label="Cân nặng (kg)">
+          {requestDetail?.nguoiHien.canNang}
+        </Descriptions.Item>
+        <Descriptions.Item label="Tiền sử bệnh">
+          {requestDetail?.nguoiHien.tienSuBenh}
+        </Descriptions.Item>
+        {/* Các trường sẵn có về yêu cầu */}
         <Descriptions.Item label="Trạng thái">
           <Tag color={statusMap[requestDetail?.trangThai]?.color}>
             {statusMap[requestDetail?.trangThai]?.text || "Không rõ"}

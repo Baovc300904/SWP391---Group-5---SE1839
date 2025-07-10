@@ -17,11 +17,25 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { getCampaigns, createCampaign } from "../services/campaignService";
-
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 const statusMap = {
   sapdienra: { label: "Sắp diễn ra", color: "#42a5f5" }, // Blue
   dangdienra: { label: "Đang diễn ra", color: "#43a047" }, // Green
   daketthuc: { label: "Đã kết thúc", color: "#bdbdbd" }, // Grey
+};
+
+const getStatusByTime = (ngayBatDau, ngayKetThuc) => {
+  const now = dayjs();
+  if (now.isBefore(dayjs(ngayBatDau), "day")) return "sapdienra";
+  if (
+    now.isSameOrAfter(dayjs(ngayBatDau), "day") &&
+    now.isSameOrBefore(dayjs(ngayKetThuc), "day")
+  )
+    return "dangdienra";
+  return "daketthuc";
 };
 
 export default function Campaigns() {
@@ -88,7 +102,9 @@ export default function Campaigns() {
         <Button
           type="link"
           style={{ padding: 0, fontWeight: 600 }}
-          onClick={() => navigate(`/campaigns-manager/detail/${record.id}`)}
+          onClick={() =>
+            navigate(`/admin/campaigns-manager/detail/${record.id}`)
+          }
         >
           {text}
         </Button>
@@ -115,31 +131,36 @@ export default function Campaigns() {
       render: (val) => val || <i>Chưa cập nhật</i>,
     },
     {
-      title: "Số lượng cần",
-      dataIndex: "soLuongNguoiToiDa",
+      title: "Số người",
       align: "center",
-      render: (v) => <b>{v}</b>,
+      render: (v) => (
+        <b>
+          {v.soLuongNguoiDangKyHienTai} / {v.soLuongNguoiToiDa}
+        </b>
+      ),
     },
     {
       title: "Trạng thái",
-      dataIndex: "trangThaiHoatDong",
-      render: (v) => (
-        <Tag
-          color={statusMap[v]?.color || "#bdbdbd"}
-          style={{
-            fontWeight: 600,
-            borderRadius: 12,
-            fontSize: 14,
-            padding: "2px 12px",
-          }}
-        >
-          {statusMap[v]?.label || v}
-        </Tag>
-      ),
+      render: (v, record) => {
+        const status = getStatusByTime(record.ngayBatDau, record.ngayKetThuc);
+        return (
+          <Tag
+            color={statusMap[status]?.color || "#bdbdbd"}
+            style={{
+              fontWeight: 600,
+              borderRadius: 12,
+              fontSize: 14,
+              padding: "2px 12px",
+            }}
+          >
+            {statusMap[status]?.label}
+          </Tag>
+        );
+      },
       align: "center",
     },
     {
-      title: "Hành động",
+      title: "Chi tiết",
       align: "center",
       render: (_, record) => (
         <Tooltip title="Xem chi tiết">
@@ -147,7 +168,9 @@ export default function Campaigns() {
             icon={<EyeOutlined />}
             size="small"
             style={{ borderRadius: 6, background: "#fff" }}
-            onClick={() => navigate(`/campaigns-manager/detail/${record.id}`)}
+            onClick={() =>
+              navigate(`/admin/campaigns-manager/detail/${record.id}`)
+            }
           />
         </Tooltip>
       ),
