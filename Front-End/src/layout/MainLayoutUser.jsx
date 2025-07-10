@@ -6,8 +6,11 @@ import {
   SettingOutlined,
   UserOutlined,
   LockOutlined,
+  BookOutlined,
+  PullRequestOutlined,
 } from "@ant-design/icons";
 import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
+import SupportModalButton from "../components/SupportModalButton";
 
 const { Header, Content, Footer } = Layout;
 
@@ -21,6 +24,9 @@ export default function MainLayoutUser() {
       return "list-request";
     if (location.pathname.startsWith("/user/receive-blood"))
       return "receive-blood";
+    if (location.pathname.startsWith("/user/blog")) return "blog";
+    if (location.pathname.startsWith("/user/near-me")) return "near-me";
+
     return "";
   };
 
@@ -95,6 +101,19 @@ export default function MainLayoutUser() {
           }}
         >
           <Menu.Item
+            key="near-me"
+            icon={<UserOutlined style={menuItemStyle} />}
+            style={{
+              ...menuItemStyle,
+              background:
+                getSelectedKey() === "near-me" ? "#f89595" : "transparent",
+            }}
+          >
+            <Link to="/user/near-me" style={linkStyle}>
+              Người dùng gần bạn
+            </Link>
+          </Menu.Item>
+          <Menu.Item
             key="dashboard"
             icon={<HomeOutlined style={menuItemStyle} />}
             style={{
@@ -124,7 +143,7 @@ export default function MainLayoutUser() {
 
           <Menu.Item
             key="receive-blood"
-            icon={<ProfileOutlined style={menuItemStyle} />}
+            icon={<PullRequestOutlined style={menuItemStyle} />}
             style={{
               ...menuItemStyle,
               background:
@@ -137,7 +156,19 @@ export default function MainLayoutUser() {
               Yêu cầu nhận máu
             </Link>
           </Menu.Item>
-
+          <Menu.Item
+            key="blog"
+            icon={<BookOutlined style={menuItemStyle} />}
+            style={{
+              ...menuItemStyle,
+              background:
+                getSelectedKey() === "blog" ? "#f89595" : "transparent",
+            }}
+          >
+            <Link to="/user/blog" style={linkStyle}>
+              Bài viết
+            </Link>
+          </Menu.Item>
           <Menu.Item
             key="settings"
             icon={<SettingOutlined style={menuItemStyle} />}
@@ -205,6 +236,7 @@ export default function MainLayoutUser() {
           </a>
         </div>
       </Footer>
+      <SupportModalButton />
     </Layout>
   );
 }

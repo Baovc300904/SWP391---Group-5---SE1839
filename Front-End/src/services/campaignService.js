@@ -9,7 +9,7 @@ export const getCampaigns = async (page = 1, status = "") => {
 };
 
 export const getCampaignDetail = async (id) => {
-  const res = await instance.get(`/api/blood-donation-activities/${id}`);
+  const res = await instance.get(`/api/blood-donation-activities/detail/${id}`);
   return res.data;
 };
 

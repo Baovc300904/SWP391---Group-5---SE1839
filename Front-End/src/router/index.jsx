@@ -29,6 +29,9 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import UserManager from "../pages/UserManager";
 import BloodReceiveRequestDetail from "../components/ReceiveBloodAdmin/ReceiveBloodAdminDetail";
+import BlogTabUser from "../pages/ForUser/BlogPage";
+import BlogDetailUser from "../pages/ForUser/BlogDetailUser";
+import UserNearMe from "../pages/ForUser/NearMe";
 
 // =================== Protected Home Redirect ===================
 const ProtectedHome = () => {
@@ -70,30 +73,10 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Dashboard /> },
       { path: "donors", element: <Donors /> },
-      { path: "bloods-manager", element: <BloodManager /> },
-      { path: "bloods-manager/:id", element: <BloodDetail /> },
-      { path: "blogs-manager", element: <BlogManager /> },
-      {
-        path: "blogs-manager/category-detail/:id",
-        element: <BlogCategoryDetail />,
-      },
-      { path: "blogs-manager/blog-detail/:id", element: <BlogDetail /> },
       { path: "users-manager", element: <UserManager /> },
       { path: "users-manager/detail/:id", element: <UserDetail /> },
       { path: "campaigns-manager", element: <Campaigns /> },
       { path: "campaigns-manager/detail/:id", element: <CampaignDetail /> },
-      { path: "blood-warehouse", element: <BloodWarehouse /> },
-      { path: "blood-donation-request", element: <BloodDonationManager /> },
-      { path: "blood-donation-request/:id", element: <BloodRequestDetail /> },
-      { path: "blood-unit-warehouses", element: <BloodUnitWarehouseList /> },
-      {
-        path: "receive-blood-manager",
-        element: <BloodReceiveRequestManager />,
-      },
-      {
-        path: "receive-blood-manager/:id",
-        element: <BloodReceiveRequestDetail />,
-      },
     ],
   },
 
@@ -113,6 +96,9 @@ const router = createBrowserRouter([
       { path: "campaigns-detail/:id", element: <DetailCampaign /> },
       { path: "list-request", element: <BloodDonationRequests /> },
       { path: "receive-blood", element: <BloodRequestPage /> },
+      { path: "blog", element: <BlogTabUser /> },
+      { path: "blogs/:id", element: <BlogDetailUser /> },
+      { path: "near-me", element: <UserNearMe /> },
     ],
   },
 

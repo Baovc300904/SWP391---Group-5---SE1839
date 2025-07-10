@@ -174,7 +174,6 @@ export default function BloodReceiveRequestDetail() {
           Quay lại
         </Button>
       }
-      style={{ marginTop: 24 }}
     >
       <Descriptions
         bordered
@@ -204,6 +203,15 @@ export default function BloodReceiveRequestDetail() {
         </Descriptions.Item>
         <Descriptions.Item label="Lý do">
           {requestDetail?.lyDo || "Không có"}
+        </Descriptions.Item>
+        <Descriptions.Item label="Sức khỏe hiện tại">
+          {requestDetail?.sucKhoeHienTai}
+        </Descriptions.Item>
+        <Descriptions.Item label="Đang mang thai">
+          {requestDetail?.dangMangThai === 1 ? "Có" : "Không"}
+        </Descriptions.Item>
+        <Descriptions.Item label="Mắc bệnh truyền nhiễm">
+          {requestDetail?.macBenhTruyenNhiem === 1 ? "Có" : "Không"}
         </Descriptions.Item>
         <Descriptions.Item label="Ngày yêu cầu">
           {new Date(requestDetail?.ngayTao).toLocaleString("vi-VN")}

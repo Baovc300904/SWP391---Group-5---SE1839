@@ -16,3 +16,7 @@ export const register = async (data) => {
   const res = await instance.post("/api/auth/register", data);
   return res.data;
 };
+export const createSupportTicket = async (data) => {
+  const res = await instance.post("/api/support-tickets", data);
+  return res.data;
+};

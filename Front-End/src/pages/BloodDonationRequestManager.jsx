@@ -103,7 +103,7 @@ export default function BloodDonationManager() {
       render: (val) => new Date(val).toLocaleString("vi-VN"),
     },
     {
-      title: "Actions",
+      title: "Hành động",
       render: (_, record) => (
         <div style={{ display: "flex", gap: 8 }}>
           <Tooltip title="Xem chi tiết">
