@@ -39,12 +39,12 @@ public class BloodDonationRequestService {
     private BloodRepository bloodRepository;
 
     public Page<BloodDonationRequest> getAll(int page, String status, String keyword) {
-        Pageable pageable = PageRequest.of(page - 1, 20);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         return repository.paginated(status, keyword, pageable);
     }
 
     public Page<BloodDonationRequest> getAllByUserId(int userId, int page, String status, String keyword) {
-        Pageable pageable = PageRequest.of(page - 1, 20);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         return repository.paginatedByUserId(userId, status, keyword, pageable);
     }
 
@@ -72,6 +72,9 @@ public class BloodDonationRequestService {
         bloodDonationRequest.setGhiChu(payload.getGhiChu());
         bloodDonationRequest.setLoaiHien(payload.getLoaiHien());
         bloodDonationRequest.setSoLuong(payload.getSoLuong());
+        bloodDonationRequest.setSucKhoeHienTai(payload.getSucKhoeHienTai());
+        bloodDonationRequest.setDangMangThai(payload.getDangMangThai());
+        bloodDonationRequest.setMacBenhTruyenNhiem(payload.getMacBenhTruyenNhiem());
         bloodDonationRequest.setNgayHienMauDuKien(LocalDate.parse(payload.getNgayHienMauDuKien()));
         bloodDonationRequest.setNgayPhucHoiGanNhat(LocalDate.parse(payload.getNgayPhucHoiGanNhat()));
 
@@ -83,6 +86,9 @@ public class BloodDonationRequestService {
             bloodDonationRequest.setGhiChu(payload.getGhiChu());
             bloodDonationRequest.setLoaiHien(payload.getLoaiHien());
             bloodDonationRequest.setSoLuong(payload.getSoLuong());
+            bloodDonationRequest.setSucKhoeHienTai(payload.getSucKhoeHienTai());
+            bloodDonationRequest.setDangMangThai(payload.getDangMangThai());
+            bloodDonationRequest.setMacBenhTruyenNhiem(payload.getMacBenhTruyenNhiem());
             bloodDonationRequest.setNgayHienMauDuKien(LocalDate.parse(payload.getNgayHienMauDuKien()));
             bloodDonationRequest.setNgayPhucHoiGanNhat(LocalDate.parse(payload.getNgayPhucHoiGanNhat()));
             return repository.save(bloodDonationRequest);

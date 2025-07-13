@@ -26,4 +26,13 @@ public class CreateReceiveDonationRequestDTO {
 
     @NotNull
     private Integer khanCap = 1;
+
+    @NotBlank()
+    private String sucKhoeHienTai;
+
+    @NotNull
+    private int dangMangThai;
+
+    @NotNull
+    private int macBenhTruyenNhiem;
 }

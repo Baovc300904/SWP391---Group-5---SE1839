@@ -75,6 +75,8 @@ public class AuthService {
         user.setNgaySinh(LocalDate.parse(payload.getNgaysinh()));
         user.setSoDienThoai(payload.getSodienthoai());
         user.setVaiTro(AppConfig.USER_CUSTOMER_ROLE);
+        user.setLatitude(payload.getLatitude());
+        user.setLongitude(payload.getLongitude());
         User registeredUser = userRepository.save(user);
         LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
         loginResponseDTO.setToken(authUtil.generateToken(registeredUser));

@@ -1,10 +1,13 @@
 package org.fpt.blooddonate.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "HoatDongHienMau")
@@ -41,6 +44,10 @@ public class BloodDonationActivity {
 
     @Column(length = 20)
     private String trangThaiHoatDong;
+
+    @OneToMany(mappedBy = "hoatDongHienMau", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<BloodDonationRequest> danhSachYeuCauHieuMau = new ArrayList<>();
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime ngayTao;

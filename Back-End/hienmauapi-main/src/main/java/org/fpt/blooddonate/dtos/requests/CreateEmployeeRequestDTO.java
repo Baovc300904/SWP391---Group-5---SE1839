@@ -1,15 +1,13 @@
 package org.fpt.blooddonate.dtos.requests;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Data
 @NoArgsConstructor
-public class RegisterRequestDTO {
-
+public class CreateEmployeeRequestDTO {
     @NotBlank
     private String ten;
 
@@ -35,26 +33,18 @@ public class RegisterRequestDTO {
     @NotBlank
     private String diachi;
 
-    @NotNull
-    private Integer nhommau;
+    @NotBlank()
+    private String maSoNhanVien;
 
-    @NotBlank
-    private String yeutorh;
+    @NotBlank()
+    private String chucVu;
 
-    @NotBlank
-    private String tiensubenh;
+    @NotBlank()
+    private String phongBan;
 
-    @NotNull
-    @DecimalMin("0.0")
-    private BigDecimal cannang;
+    @NotBlank()
+    private String ngayVaoLam;
 
-    @NotNull
-    @DecimalMin("0.0")
-    private BigDecimal chieucao;
-
-    @NotNull
-    private Double latitude;
-
-    @NotNull
-    private Double longitude;
+    @NotBlank()
+    private String trangThaiLamViec;
 }

@@ -7,6 +7,7 @@ import org.fpt.blooddonate.services.BloodDonationRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.Optional;
@@ -23,7 +24,8 @@ public class BloodDonationRequestController {
         @RequestParam(required = false) String status,
         @RequestParam(required = false) String keyword
     ) {
-        return ResponseEntity.ok(bloodDonationRequestService.getAll(page, status, keyword));
+        Integer userId = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResponseEntity.ok(bloodDonationRequestService.getAllByUserId(userId, page, status, keyword));
     }
 
     @GetMapping("/{id}")
