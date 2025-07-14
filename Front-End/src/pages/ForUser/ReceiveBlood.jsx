@@ -158,96 +158,134 @@ const BloodRequestPage = () => {
     return (
       <Row gutter={[16, 16]}>
         {requests.map((request) => (
-          <Col key={request.id} span={8}>
+          <Col key={request.id} span={8} style={{ display: "flex" }}>
             <Card
               style={{
-                borderRadius: 8,
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                borderRadius: 12,
+                boxShadow: "0 4px 16px rgba(233, 30, 99, 0.08)",
                 background: "#fff",
+                width: "100%",
+                height: "100%",
+                display: "flex",
               }}
             >
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Title level={4}>{request.diaChiNhanMau}</Title>
-                <p>{request?.ngayNhanMauDuKien}</p>
-              </div>
-
-              <div style={{ display: "flex", gap: "32px" }}>
-                <p>
-                  <strong>Nhóm máu:</strong> {request.nhomMau?.ten}
-                </p>
-                <p>
-                  <strong>Thành phần máu cần: </strong>
-                  <Tag color="cyan">
-                    {
-                      componentOptions.find(
-                        (option) => option.value === request.thanhPhanMauCan
-                      )?.label
-                    }
-                  </Tag>
-                </p>
-              </div>
-
-              <div style={{ display: "flex", gap: "32px" }}>
-                <p>
-                  <strong>Đang mang thai:</strong>{" "}
-                  {request.dangMangThai === 1 ? "Có" : "Không"}
-                </p>
-                <p>
-                  <strong>Mắc bệnh truyền nhiễm:</strong>{" "}
-                  {request.macBenhTruyenNhiem === 1 ? "Có" : "Không"}
-                </p>
-              </div>
-              <div style={{ display: "flex", gap: "32px" }}>
-                <p>
-                  <strong>Số lượng đơn vị:</strong> {request.soLuongDonVi} ml
-                </p>
-
-                <p>
-                  <strong>Trạng thái:</strong>
-                  <Tag color={getStatusColor(request.trangThai)}>
-                    {getStatusLabel(request.trangThai)}
-                  </Tag>
-                </p>
-              </div>
-
-              <p>
-                <strong>Sức khỏe hiện tại:</strong> {request.sucKhoeHienTai}
-              </p>
-
-              <p>
-                <strong>Lý do:</strong> {request.lyDo}
-              </p>
-
-              {request.trangThai === "dangcho" && (
-                <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                  <Button
-                    type="danger"
-                    onClick={() => handleCancelRequest(request.id)}
+              <div
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  height: "100%",
+                }}
+              >
+                <div>
+                  <div
                     style={{
-                      borderRadius: "12px",
-                      padding: "8px 16px",
-                      background:
-                        request.trangThai !== "dangcho" ? "grey" : "#d48806",
-                      color: "white",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 8,
                     }}
-                    disabled={request.trangThai !== "dangcho"}
                   >
-                    Hủy yêu cầu
-                  </Button>
-                  <Button
-                    type="primary"
-                    onClick={() => handleUpdate(request)}
-                    style={{
-                      marginLeft: "10px",
-                      borderRadius: "12px",
-                      padding: "8px 16px",
-                    }}
-                    disabled={request.trangThai !== "dangcho"}
+                    <Title level={4} style={{ margin: 0 }}>
+                      {request.diaChiNhanMau}
+                    </Title>
+                    <span style={{ color: "#b71c1c", fontWeight: 600 }}>
+                      {request?.ngayNhanMauDuKien}
+                    </span>
+                  </div>
+
+                  <div
+                    style={{ display: "flex", gap: "32px", marginBottom: 6 }}
                   >
-                    Cập nhật
-                  </Button>
+                    <p>
+                      <strong>Nhóm máu:</strong> {request.nhomMau?.ten}
+                    </p>
+                    <p>
+                      <strong>Thành phần máu:</strong>{" "}
+                      <Tag color="cyan">
+                        {
+                          componentOptions.find(
+                            (option) => option.value === request.thanhPhanMauCan
+                          )?.label
+                        }
+                      </Tag>
+                    </p>
+                  </div>
+
+                  <div
+                    style={{ display: "flex", gap: "32px", marginBottom: 6 }}
+                  >
+                    <p>
+                      <strong>Đang mang thai:</strong>{" "}
+                      {request.dangMangThai === 1 ? "Có" : "Không"}
+                    </p>
+                    <p>
+                      <strong>Mắc bệnh truyền nhiễm:</strong>{" "}
+                      {request.macBenhTruyenNhiem === 1 ? "Có" : "Không"}
+                    </p>
+                  </div>
+                  <div
+                    style={{ display: "flex", gap: "32px", marginBottom: 6 }}
+                  >
+                    <p>
+                      <strong>Số lượng:</strong> {request.soLuongDonVi} ml
+                    </p>
+                    <p>
+                      <strong>Trạng thái:</strong>{" "}
+                      <Tag color={getStatusColor(request.trangThai)}>
+                        {getStatusLabel(request.trangThai)}
+                      </Tag>
+                    </p>
+                  </div>
+                  <p>
+                    <strong>Sức khỏe hiện tại:</strong>{" "}
+                    {request.sucKhoeHienTai || (
+                      <i style={{ color: "#b0b0b0" }}>-</i>
+                    )}
+                  </p>
+                  <p>
+                    <strong>Lý do:</strong>{" "}
+                    {request.lyDo || <i style={{ color: "#b0b0b0" }}>-</i>}
+                  </p>
                 </div>
-              )}
+                {/* Button group */}
+                {request.trangThai === "dangcho" && (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      marginTop: 8,
+                    }}
+                  >
+                    <Button
+                      type="danger"
+                      onClick={() => handleCancelRequest(request.id)}
+                      style={{
+                        borderRadius: "12px",
+                        padding: "8px 16px",
+                        background:
+                          request.trangThai !== "dangcho" ? "grey" : "#d48806",
+                        color: "white",
+                      }}
+                      disabled={request.trangThai !== "dangcho"}
+                    >
+                      Hủy yêu cầu
+                    </Button>
+                    <Button
+                      type="primary"
+                      onClick={() => handleUpdate(request)}
+                      style={{
+                        marginLeft: "10px",
+                        borderRadius: "12px",
+                        padding: "8px 16px",
+                      }}
+                      disabled={request.trangThai !== "dangcho"}
+                    >
+                      Cập nhật
+                    </Button>
+                  </div>
+                )}
+              </div>
             </Card>
           </Col>
         ))}
@@ -304,8 +342,6 @@ const BloodRequestPage = () => {
     setEditingRequest(null); // Reset editing request
     setIsUpdating(false); // Reset update flag
   };
-
-  console.log("test", editingRequest);
 
   useEffect(() => {
     if (editingRequest === null) form.resetFields();

@@ -1,16 +1,17 @@
-import { Layout, Menu, Dropdown } from "antd";
 import {
+  BookOutlined,
   HomeOutlined,
-  ProfileOutlined,
+  LockOutlined,
   LogoutOutlined,
+  ProfileOutlined,
+  PullRequestOutlined,
   SettingOutlined,
   UserOutlined,
-  LockOutlined,
-  BookOutlined,
-  PullRequestOutlined,
 } from "@ant-design/icons";
-import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
+import { Dropdown, Layout, Menu } from "antd";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import SupportModalButton from "../components/SupportModalButton";
+import NotificationBellUser from "../components/NotificationBellUser";
 
 const { Header, Content, Footer } = Layout;
 
@@ -88,7 +89,7 @@ export default function MainLayoutUser() {
         >
           HỆ THỐNG HIẾN MÁU TÌNH NGUYỆN
         </div>
-
+        <NotificationBellUser />
         <Menu
           theme="dark"
           mode="horizontal"

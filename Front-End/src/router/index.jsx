@@ -6,6 +6,7 @@ import BloodDetail from "../components/Blood/BloodDetail";
 import BloodRequestDetail from "../components/BloodDonationRequest/BloodDonationRequestDetail";
 import CampaignDetail from "../components/Campaign/CampaignDetail";
 import ProtectedRoute from "../components/ProtectedRoute";
+import BloodReceiveRequestDetail from "../components/ReceiveBloodAdmin/ReceiveBloodAdminDetail";
 import UserDetail from "../components/User/UserDetail";
 import MainLayout from "../layout/MainLayout";
 import MainLayoutUser from "../layout/MainLayoutUser";
@@ -18,20 +19,21 @@ import BloodWarehouse from "../pages/BloodWarehouse";
 import Campaigns from "../pages/CampaignManager";
 import Dashboard from "../pages/Dashboard";
 import Donors from "../pages/Donors";
+import BlogDetailUser from "../pages/ForUser/BlogDetailUser";
+import BlogTabUser from "../pages/ForUser/BlogPage";
 import DetailCampaign from "../pages/ForUser/CampaignDetail";
 import ChangePassword from "../pages/ForUser/ChangePassword";
 import DashboardUser from "../pages/ForUser/Dashboard";
 import BloodDonationRequests from "../pages/ForUser/ListRequest";
+import UserNearMe from "../pages/ForUser/NearMe";
 import ProfileDetail from "../pages/ForUser/ProfileDetail";
 import ProfileEdit from "../pages/ForUser/ProfileEdit";
 import BloodRequestPage from "../pages/ForUser/ReceiveBlood";
 import Login from "../pages/Login";
+import NotificationManager from "../pages/NotificationManager";
 import Register from "../pages/Register";
+import SupportTicketManager from "../pages/SupportManager";
 import UserManager from "../pages/UserManager";
-import BloodReceiveRequestDetail from "../components/ReceiveBloodAdmin/ReceiveBloodAdminDetail";
-import BlogTabUser from "../pages/ForUser/BlogPage";
-import BlogDetailUser from "../pages/ForUser/BlogDetailUser";
-import UserNearMe from "../pages/ForUser/NearMe";
 
 // =================== Protected Home Redirect ===================
 const ProtectedHome = () => {
@@ -77,6 +79,8 @@ const router = createBrowserRouter([
       { path: "users-manager/detail/:id", element: <UserDetail /> },
       { path: "campaigns-manager", element: <Campaigns /> },
       { path: "campaigns-manager/detail/:id", element: <CampaignDetail /> },
+      { path: "support-ticket", element: <SupportTicketManager /> },
+      { path: "notification", element: <NotificationManager /> },
     ],
   },
 
