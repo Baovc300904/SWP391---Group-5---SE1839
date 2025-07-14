@@ -34,11 +34,13 @@ export default function SupportModalButton() {
         style={{
           position: "fixed",
           right: 36,
-          bottom: 90,
+          bottom: 130,
           zIndex: 2001,
           boxShadow: "0 4px 12px rgba(244,67,54,0.24)",
           background: "#f44336",
           borderColor: "#f44336",
+          width: 70,
+          height: 70,
         }}
       />
       <Modal

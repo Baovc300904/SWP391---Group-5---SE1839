@@ -17,6 +17,23 @@ export const getUserDetail = async (id) => {
   return res.data;
 };
 
+export const getUserBloodDonationHistory = async (userId, params = {}) => {
+  // params có thể gồm page, trangthai, keyword,...
+  const res = await instance.get(
+    `/api/admin/blood-donation-requests/user/${userId}`,
+    { params }
+  );
+  return res.data;
+};
+
+export const getUserBloodReceiveRequests = async (userId, params = {}) => {
+  const res = await instance.get(
+    `/api/admin/blood-receive-requests/user/${userId}`,
+    { params }
+  );
+  return res.data;
+};
+
 // Xoá user theo ID
 export const deleteUser = async (id) => {
   const res = await instance.delete(`/api/users/${id}`);
