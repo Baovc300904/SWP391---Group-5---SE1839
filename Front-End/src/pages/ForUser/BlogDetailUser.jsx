@@ -133,9 +133,6 @@ export default function BlogDetailUser() {
         />
 
         <Divider style={{ margin: "20px 0" }} />
-        <div style={{ color: "#bbb", fontSize: 13 }}>
-          Lượt xem: <b>{blog.luotXem ?? 0}</b>
-        </div>
         <div style={{ color: "#bbb", fontSize: 13, marginTop: 4 }}>
           Ngày cập nhật:{" "}
           <b>

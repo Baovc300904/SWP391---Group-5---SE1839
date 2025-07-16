@@ -51,8 +51,9 @@ export default function BloodReceiveRequestDetail() {
       const data = await getBloodReceiveRequestDetail(id);
       setRequestDetail(data);
       setStatus(data.trangThai);
-      // Lấy máu phù hợp (chỉ khi đang chờ)
+      // Chỉ lấy máu phù hợp khi trạng thái là "đang chờ"
       if (data.trangThai === "dangcho") {
+        // LẤY KHO MÁU PHÙ HỢP THEO NHÓM MÁU YÊU CẦU (KHÔNG PHẢI nhóm máu người nhận!)
         const available = await getAvailableBloodUnitWarehouses(
           data?.nhomMau?.id
         );
@@ -198,8 +199,11 @@ export default function BloodReceiveRequestDetail() {
         <Descriptions.Item label="Địa chỉ">
           {requestDetail?.nguoiNhan.diaChi}
         </Descriptions.Item>
-        <Descriptions.Item label="Nhóm máu">
-          {requestDetail?.nguoiNhan.nhomMau.ten}
+        <Descriptions.Item label="Nhóm máu người nhận">
+          {requestDetail?.nguoiNhan?.nhomMau?.ten}
+        </Descriptions.Item>
+        <Descriptions.Item label="Nhóm máu cần nhận">
+          <b style={{ color: "#d32f2f" }}>{requestDetail?.nhomMau?.ten}</b>
         </Descriptions.Item>
         <Descriptions.Item label="Lý do">
           {requestDetail?.lyDo || "Không có"}
@@ -217,7 +221,23 @@ export default function BloodReceiveRequestDetail() {
           {new Date(requestDetail?.ngayTao).toLocaleString("vi-VN")}
         </Descriptions.Item>
         <Descriptions.Item label="Ngày nhận máu dự kiến">
-          {new Date(requestDetail?.ngayNhanMauDuKien).toLocaleString("vi-VN")}
+          {new Date(requestDetail?.ngayNhanMauDuKien).toLocaleDateString(
+            "vi-VN"
+          )}
+        </Descriptions.Item>
+        <Descriptions.Item label="Thành phần máu cần">
+          {requestDetail?.thanhPhanMauCan === "toanphan"
+            ? "Toàn phần"
+            : requestDetail?.thanhPhanMauCan === "hongcau"
+            ? "Hồng cầu"
+            : requestDetail?.thanhPhanMauCan === "tieucau"
+            ? "Tiểu cầu"
+            : requestDetail?.thanhPhanMauCan === "huyettuong"
+            ? "Huyết tương"
+            : requestDetail?.thanhPhanMauCan}
+        </Descriptions.Item>
+        <Descriptions.Item label="Số lượng cần (ml)">
+          {requestDetail?.soLuongDonVi}
         </Descriptions.Item>
         <Descriptions.Item label="Địa chỉ nhận máu">
           {requestDetail?.diaChiNhanMau}

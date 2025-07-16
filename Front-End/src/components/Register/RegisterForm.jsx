@@ -138,7 +138,7 @@ export default function RegisterForm() {
       message.success("Đăng ký thành công! Vui lòng đăng nhập.");
       navigate("/login");
     } catch (error) {
-      message.error(error?.message || "Đăng ký thất bại!");
+      message.error(error?.response?.data?.message || "Đăng ký thất bại!");
     }
   };
 

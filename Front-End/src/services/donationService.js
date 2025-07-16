@@ -14,7 +14,7 @@ export const getDonationRequests = async (
   keyword = ""
 ) => {
   const res = await instance.get("/api/blood-donation-requests", {
-    params: { page, trangthai, keyword },
+    params: { page, status: trangthai || null , keyword },
   });
   return res.data;
 };

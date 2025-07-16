@@ -186,9 +186,7 @@ export default function BlogDetail() {
                 style={{ fontSize: 15 }}
               />
             </Descriptions.Item>
-            <Descriptions.Item label="Lượt xem">
-              {blog.luotXem}
-            </Descriptions.Item>
+
             <Descriptions.Item label="Người tạo">
               {blog.nguoiTao}
             </Descriptions.Item>
