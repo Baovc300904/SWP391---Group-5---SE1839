@@ -306,7 +306,7 @@ export default function NotificationBellUser() {
       placement="bottomRight"
       arrow
     >
-      <Badge count={notifications?.length} color="black" offset={[-2, 2]}>
+      <Badge count={0} color="black" offset={[-2, 2]}>
         <BellOutlined
           style={{
             fontSize: 24,

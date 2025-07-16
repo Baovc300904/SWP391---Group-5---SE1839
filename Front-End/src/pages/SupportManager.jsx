@@ -103,12 +103,13 @@ export default function SupportTicketManager() {
         trangthai: trangThai,
         ghichu: ghiChu,
       });
-      message.success("Cập nhật trạng thái thành công!");
+
       setEditModal(false);
       fetchTickets(page, keyword);
     } catch {
-      message.error("Cập nhật trạng thái thất bại!");
     } finally {
+      message.success("Cập nhật trạng thái thành công!");
+      fetchTickets();
       setEditLoading(false);
     }
   };

@@ -67,7 +67,7 @@ export default function BloodReceiveRequestManager() {
       <Menu.Item key="dangcho" onClick={() => handleStatusFilter("dangcho")}>
         Đang chờ
       </Menu.Item>
-      <Menu.Item key="dacomau" onClick={() => handleStatusFilter("dacomau")}>
+      {/* <Menu.Item key="dacomau" onClick={() => handleStatusFilter("dacomau")}>
         Đã có máu
       </Menu.Item>
       <Menu.Item
@@ -75,7 +75,7 @@ export default function BloodReceiveRequestManager() {
         onClick={() => handleStatusFilter("dangketnoi")}
       >
         Đang kết nối
-      </Menu.Item>
+      </Menu.Item> */}
       <Menu.Item
         key="dahoanthanh"
         onClick={() => handleStatusFilter("dahoanthanh")}

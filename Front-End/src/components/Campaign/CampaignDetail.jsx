@@ -97,6 +97,7 @@ export default function CampaignDetail() {
         ...values,
         ngayBatDau: values.ngayBatDau.format("YYYY-MM-DD"),
         ngayKetThuc: values.ngayKetThuc.format("YYYY-MM-DD"),
+        trangthai: campaign?.trangThaiHoatDong,
       });
       message.success("Cập nhật thành công");
       setEditMode(false);
@@ -108,7 +109,7 @@ export default function CampaignDetail() {
 
   if (!campaign) return <Card loading={loading} />;
 
-  const status = getStatusByTime(campaign.ngayBatDau, campaign.ngayKetThuc);
+  const status = campaign?.trangThaiHoatDong;
 
   // Cột bảng danh sách yêu cầu hiến máu
   const columns = [
@@ -166,9 +167,20 @@ export default function CampaignDetail() {
     <Card
       title={`📋 Chi tiết chiến dịch: ${campaign.ten}`}
       extra={
-        <Button onClick={() => navigate(-1)} style={{ borderRadius: 30 }}>
-          Quay lại
-        </Button>
+        <div style={{ display: "flex", gap: 12 }}>
+          <Button onClick={() => navigate(-1)} style={{ borderRadius: 30 }}>
+            Quay lại
+          </Button>
+          {!editMode && (
+            <Button
+              type="primary"
+              onClick={() => setEditMode(true)}
+              style={{ backgroundColor: "#1890ff", borderColor: "#1890ff" }} // Xanh dương nổi bật
+            >
+              Chỉnh sửa
+            </Button>
+          )}
+        </div>
       }
       loading={loading}
     >
@@ -191,10 +203,82 @@ export default function CampaignDetail() {
               </Tag>
             </Descriptions.Item>
             <Descriptions.Item label="Trạng thái">
-              <Tag color={statusColors[status]} style={{ fontWeight: 600 }}>
-                {statusLabels[status]}
-              </Tag>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <Tag color={statusColors[status]} style={{ fontWeight: 600 }}>
+                  {statusLabels[status]}
+                </Tag>
+                {status !== "daketthuc" && status !== "huy" && (
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <Button
+                      size="small"
+                      onClick={async () => {
+                        const formValues = form.getFieldsValue([
+                          "ten",
+                          "diaDiem",
+                          "moTa",
+                          "ngayBatDau",
+                          "ngayKetThuc",
+                        ]);
+                        try {
+                          await updateCampaign(id, {
+                            ...formValues,
+                            ngayBatDau:
+                              formValues.ngayBatDau.format("YYYY-MM-DD"),
+                            ngayKetThuc:
+                              formValues.ngayKetThuc.format("YYYY-MM-DD"),
+                            trangthai: "dangdienra",
+                          });
+                          message.success(
+                            "Đã cập nhật trạng thái: Đang diễn ra"
+                          );
+                          fetchDetail();
+                        } catch (er) {
+                          message.error(
+                            er?.response?.data?.message || "Cập nhật thất bại"
+                          );
+                        }
+                      }}
+                    >
+                      Cập nhật: Đang diễn ra
+                    </Button>
+
+                    <Button
+                      size="small"
+                      onClick={async () => {
+                        const formValues = form.getFieldsValue([
+                          "ten",
+                          "diaDiem",
+                          "moTa",
+                          "ngayBatDau",
+                          "ngayKetThuc",
+                        ]);
+                        try {
+                          await updateCampaign(id, {
+                            ...formValues,
+                            ngayBatDau:
+                              formValues.ngayBatDau.format("YYYY-MM-DD"),
+                            ngayKetThuc:
+                              formValues.ngayKetThuc.format("YYYY-MM-DD"),
+                            trangthai: "daketthuc",
+                          });
+                          message.success(
+                            "Đã cập nhật trạng thái: Đã kết thúc"
+                          );
+                          fetchDetail();
+                        } catch (er) {
+                          message.error(
+                            er?.response?.data?.message || "Cập nhật thất bại"
+                          );
+                        }
+                      }}
+                    >
+                      Cập nhật: Đã kết thúc
+                    </Button>
+                  </div>
+                )}
+              </div>
             </Descriptions.Item>
+
             <Descriptions.Item label="Số người tối đa">
               {campaign.soLuongNguoiToiDa}
             </Descriptions.Item>
@@ -254,12 +338,6 @@ export default function CampaignDetail() {
               )}
             </div>
           </Card>
-          {/* 
-          <div style={{ textAlign: "right", marginTop: 20 }}>
-            <Button type="primary" onClick={() => setEditMode(true)}>
-              Chỉnh sửa
-            </Button>
-          </div> */}
         </>
       ) : (
         <Form

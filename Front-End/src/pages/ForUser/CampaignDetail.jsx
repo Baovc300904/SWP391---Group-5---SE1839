@@ -42,6 +42,95 @@ const statusText = {
   dahien: "Đã hiến",
 };
 
+// Hàm kiểm tra khoảng cách theo loại hiến máu
+const validateDateDifference = (recoveryDate, donationDate, donationType) => {
+  if (!recoveryDate || !donationDate) return true;
+
+  // Thời gian hiến lại theo loại hiến máu (đơn vị: tuần)
+  const requiredWeeks = {
+    toanphan: 12, // 12 tuần
+    hongcau: 16, // 16 tuần
+    tieucau: 2, // 2 tuần
+    huyettuong: 2, // 2 tuần
+  };
+  const required = requiredWeeks[donationType] || 12; // Mặc định 12 tuần
+
+  // Chuyển đổi số tuần yêu cầu thành số ngày
+  const requiredDays = required * 7;
+
+  // Tính số ngày chênh lệch giữa hai ngày
+  const diffInDays = Math.abs(donationDate.diff(recoveryDate, "days"));
+
+  // So sánh số ngày chênh lệch với số ngày yêu cầu
+  return diffInDays >= requiredDays;
+};
+
+// Hàm lấy thời gian hiến lại theo loại hiến máu
+const getRequiredWeeks = (donationType) => {
+  const requiredWeeks = {
+    toanphan: 12, // 12 tuần (3 tháng)
+    hongcau: 16, // 16 tuần (4 tháng)
+    tieucau: 2, // 2 tuần
+    huyettuong: 2, // 2 tuần
+  };
+  return requiredWeeks[donationType] || 12;
+};
+
+// Hàm lấy tên loại hiến máu
+const getDonationTypeName = (donationType) => {
+  const typeNames = {
+    toanphan: "Toàn Phần",
+    hongcau: "Hồng Cầu",
+    tieucau: "Tiểu Cầu",
+    huyettuong: "Huyết Tương",
+  };
+  return typeNames[donationType] || "Toàn Phần";
+};
+
+// Custom validator cho ngày hiến máu dự kiến
+const createDonationDateValidator = (form) => (_, value) => {
+  const recoveryDate = form.getFieldValue("ngayPhucHoiGanNhat");
+  const donationType = form.getFieldValue("loaiHien");
+
+  if (!value || !recoveryDate || !donationType) {
+    return Promise.resolve();
+  }
+
+  if (!validateDateDifference(recoveryDate, value, donationType)) {
+    const requiredWeeks = getRequiredWeeks(donationType);
+    const typeName = getDonationTypeName(donationType);
+    return Promise.reject(
+      new Error(
+        `Ngày hiến máu phải cách ngày phục hồi gần nhất ít nhất ${requiredWeeks} tuần cho loại hiến ${typeName}!`
+      )
+    );
+  }
+
+  return Promise.resolve();
+};
+
+// Custom validator cho ngày phục hồi gần nhất
+const createRecoveryDateValidator = (form) => (_, value) => {
+  const donationDate = form.getFieldValue("ngayHienMauDuKien");
+  const donationType = form.getFieldValue("loaiHien");
+
+  if (!value || !donationDate || !donationType) {
+    return Promise.resolve();
+  }
+
+  if (!validateDateDifference(value, donationDate, donationType)) {
+    const requiredWeeks = getRequiredWeeks(donationType);
+    const typeName = getDonationTypeName(donationType);
+    return Promise.reject(
+      new Error(
+        `Ngày phục hồi phải cách ngày hiến máu dự kiến ít nhất ${requiredWeeks} tuần cho loại hiến ${typeName}!`
+      )
+    );
+  }
+
+  return Promise.resolve();
+};
+
 export default function DetailCampaign() {
   const [campaign, setCampaign] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -49,6 +138,12 @@ export default function DetailCampaign() {
   const [form] = Form.useForm();
   const { id } = useParams(); // Nhận id từ URL
   const navigate = useNavigate();
+
+  const now = moment();
+  const start = moment(campaign?.ngayBatDau, "YYYY-MM-DD");
+  const end = moment(campaign?.ngayKetThuc, "YYYY-MM-DD");
+  const isNotYet = now.isBefore(start, "day");
+  const isEnded = now.isAfter(end, "day");
 
   const fetchCampaignDetail = async () => {
     setLoading(true);
@@ -70,7 +165,7 @@ export default function DetailCampaign() {
     try {
       const values = await form.validateFields();
       const data = {
-        hoatDongHienMauId: campaign.id,
+        hoatDongHienMau: campaign.id,
         ngayHienMauDuKien: moment(values.ngayHienMauDuKien).format(
           "YYYY-MM-DD"
         ),
@@ -100,6 +195,22 @@ export default function DetailCampaign() {
           "Đã xảy ra lỗi khi gửi yêu cầu. Vui lòng thử lại.",
       });
     }
+  };
+  const handleRecoveryDateChange = (date) => {
+    // Trigger validation cho ngày hiến máu dự kiến
+    form.validateFields(["ngayHienMauDuKien"]);
+  };
+
+  // Hàm xử lý khi thay đổi ngày hiến máu dự kiến
+  const handleDonationDateChange = (date) => {
+    // Trigger validation cho ngày phục hồi gần nhất
+    form.validateFields(["ngayPhucHoiGanNhat"]);
+  };
+
+  // Hàm xử lý khi thay đổi loại hiến máu
+  const handleDonationTypeChange = (type) => {
+    // Trigger validation cho cả hai ngày khi thay đổi loại hiến máu
+    form.validateFields(["ngayHienMauDuKien", "ngayPhucHoiGanNhat"]);
   };
 
   if (loading) {
@@ -203,6 +314,7 @@ export default function DetailCampaign() {
             borderRadius: "20px",
             padding: "12px 20px",
           }}
+          disabled={isNotYet || isEnded}
         >
           Hiến máu
         </Button>
@@ -232,9 +344,14 @@ export default function DetailCampaign() {
                 name="ngayHienMauDuKien"
                 rules={[
                   { required: true, message: "Vui lòng chọn ngày hiến máu!" },
+                  { validator: createDonationDateValidator(form) },
                 ]}
               >
-                <DatePicker style={{ width: "100%" }} />
+                <DatePicker
+                  style={{ width: "100%" }}
+                  onChange={handleDonationDateChange}
+                  placeholder="Chọn ngày hiến máu"
+                />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -243,9 +360,14 @@ export default function DetailCampaign() {
                 name="ngayPhucHoiGanNhat"
                 rules={[
                   { required: true, message: "Vui lòng chọn ngày phục hồi!" },
+                  { validator: createRecoveryDateValidator(form) },
                 ]}
               >
-                <DatePicker style={{ width: "100%" }} />
+                <DatePicker
+                  style={{ width: "100%" }}
+                  onChange={handleRecoveryDateChange}
+                  placeholder="Chọn ngày phục hồi"
+                />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -256,11 +378,14 @@ export default function DetailCampaign() {
                   { required: true, message: "Vui lòng chọn loại hiến máu!" },
                 ]}
               >
-                <Select placeholder="Chọn loại hiến máu">
-                  <Option value="toanphan">Toàn Phần</Option>
-                  <Option value="hongcau">Hồng Cầu</Option>
-                  <Option value="tieucau">Tiểu Cầu</Option>
-                  <Option value="huyettuong">Huyết Tương</Option>
+                <Select
+                  placeholder="Chọn loại hiến máu"
+                  onChange={handleDonationTypeChange}
+                >
+                  <Option value="toanphan">Toàn Phần (12 tuần)</Option>
+                  <Option value="hongcau">Hồng Cầu (16 tuần)</Option>
+                  <Option value="tieucau">Tiểu Cầu (2 tuần)</Option>
+                  <Option value="huyettuong">Huyết Tương (2 tuần)</Option>
                 </Select>
               </Form.Item>
             </Col>
