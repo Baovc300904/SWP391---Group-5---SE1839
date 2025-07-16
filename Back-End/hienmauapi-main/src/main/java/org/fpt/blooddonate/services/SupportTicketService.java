@@ -2,12 +2,14 @@ package org.fpt.blooddonate.services;
 
 import org.fpt.blooddonate.dtos.requests.CreateSupportTicketRequestDTO;
 import org.fpt.blooddonate.dtos.requests.UpdateStatusSupportTicketRequestDTO;
-import org.fpt.blooddonate.models.BlogCategory;
 import org.fpt.blooddonate.models.SupportTicket;
 import org.fpt.blooddonate.models.SupportTicketHistory;
 import org.fpt.blooddonate.models.User;
 import org.fpt.blooddonate.repositories.SupportTicketHistoryRepository;
 import org.fpt.blooddonate.repositories.SupportTicketRepository;
+import org.fpt.blooddonate.repositories.UserRepository;
+import org.fpt.blooddonate.utils.SendEmail;
+import org.fpt.blooddonate.utils.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,10 +28,16 @@ public class SupportTicketService {
     private SupportTicketRepository repository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private SupportTicketHistoryRepository historyRepository;
 
     public Page<SupportTicket> getAll(int page, String status, String keyword) {
         Pageable pageable = PageRequest.of(page - 1, 10);
+        if (keyword != null && keyword.isEmpty()) {
+            keyword = TextUtil.removeVietNamese(keyword);
+        }
         return repository.paginated(status, keyword, pageable);
     }
 
@@ -68,13 +76,17 @@ public class SupportTicketService {
             // Update support ticket history
             SupportTicketHistory history = new SupportTicketHistory();
             Integer userId = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            User user = new User();
+            User user = this.userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not existed user"));
+
             user.setId(userId);
             history.setSupporter(user);
             history.setSupportTicket(supportTicket);
             history.setTrangThai(payload.getTrangthai());
             history.setGhiChu(payload.getGhichu());
             historyRepository.save(history);
+
+            SendEmail.changeSupportTicketStatus(supportTicket.getEmail(), id, payload.getTrangthai());
             return supportTicket;
         });
     }

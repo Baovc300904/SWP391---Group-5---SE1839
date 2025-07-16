@@ -67,6 +67,10 @@ public class UserService {
         });
     }
 
+    public long getTotalByVaitro(String vaitro) {
+        return userRepository.countByVaiTro(vaitro);
+    }
+
     public double haversine(double lat1, double lon1, double lat2, double lon2) {
         final int R = 6371;
         double latDistance = Math.toRadians(lat2 - lat1);
