@@ -6,6 +6,7 @@ import BloodDetail from "../components/Blood/BloodDetail";
 import BloodRequestDetail from "../components/BloodDonationRequest/BloodDonationRequestDetail";
 import CampaignDetail from "../components/Campaign/CampaignDetail";
 import ProtectedRoute from "../components/ProtectedRoute";
+import BloodReceiveRequestDetail from "../components/ReceiveBloodAdmin/ReceiveBloodAdminDetail";
 import UserDetail from "../components/User/UserDetail";
 import MainLayout from "../layout/MainLayout";
 import MainLayoutUser from "../layout/MainLayoutUser";
@@ -18,17 +19,21 @@ import BloodWarehouse from "../pages/BloodWarehouse";
 import Campaigns from "../pages/CampaignManager";
 import Dashboard from "../pages/Dashboard";
 import Donors from "../pages/Donors";
+import BlogDetailUser from "../pages/ForUser/BlogDetailUser";
+import BlogTabUser from "../pages/ForUser/BlogPage";
 import DetailCampaign from "../pages/ForUser/CampaignDetail";
 import ChangePassword from "../pages/ForUser/ChangePassword";
 import DashboardUser from "../pages/ForUser/Dashboard";
 import BloodDonationRequests from "../pages/ForUser/ListRequest";
+import UserNearMe from "../pages/ForUser/NearMe";
 import ProfileDetail from "../pages/ForUser/ProfileDetail";
 import ProfileEdit from "../pages/ForUser/ProfileEdit";
 import BloodRequestPage from "../pages/ForUser/ReceiveBlood";
 import Login from "../pages/Login";
+import NotificationManager from "../pages/NotificationManager";
 import Register from "../pages/Register";
+import SupportTicketManager from "../pages/SupportManager";
 import UserManager from "../pages/UserManager";
-import BloodReceiveRequestDetail from "../components/ReceiveBloodAdmin/ReceiveBloodAdminDetail";
 
 // =================== Protected Home Redirect ===================
 const ProtectedHome = () => {
@@ -70,30 +75,12 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Dashboard /> },
       { path: "donors", element: <Donors /> },
-      { path: "bloods-manager", element: <BloodManager /> },
-      { path: "bloods-manager/:id", element: <BloodDetail /> },
-      { path: "blogs-manager", element: <BlogManager /> },
-      {
-        path: "blogs-manager/category-detail/:id",
-        element: <BlogCategoryDetail />,
-      },
-      { path: "blogs-manager/blog-detail/:id", element: <BlogDetail /> },
       { path: "users-manager", element: <UserManager /> },
       { path: "users-manager/detail/:id", element: <UserDetail /> },
       { path: "campaigns-manager", element: <Campaigns /> },
       { path: "campaigns-manager/detail/:id", element: <CampaignDetail /> },
-      { path: "blood-warehouse", element: <BloodWarehouse /> },
-      { path: "blood-donation-request", element: <BloodDonationManager /> },
-      { path: "blood-donation-request/:id", element: <BloodRequestDetail /> },
-      { path: "blood-unit-warehouses", element: <BloodUnitWarehouseList /> },
-      {
-        path: "receive-blood-manager",
-        element: <BloodReceiveRequestManager />,
-      },
-      {
-        path: "receive-blood-manager/:id",
-        element: <BloodReceiveRequestDetail />,
-      },
+      { path: "support-ticket", element: <SupportTicketManager /> },
+      { path: "notification", element: <NotificationManager /> },
     ],
   },
 
@@ -113,6 +100,9 @@ const router = createBrowserRouter([
       { path: "campaigns-detail/:id", element: <DetailCampaign /> },
       { path: "list-request", element: <BloodDonationRequests /> },
       { path: "receive-blood", element: <BloodRequestPage /> },
+      { path: "blog", element: <BlogTabUser /> },
+      { path: "blogs/:id", element: <BlogDetailUser /> },
+      { path: "near-me", element: <UserNearMe /> },
     ],
   },
 

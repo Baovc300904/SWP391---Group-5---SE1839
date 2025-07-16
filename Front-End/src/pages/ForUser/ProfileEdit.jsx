@@ -57,20 +57,13 @@ export default function ProfileEdit() {
       const payload = {
         ...values,
         ngaysinh: values.ngaysinh.format("YYYY-MM-DD"),
-        nhommau: { id: values.nhommau },
+        nhommau: values.nhommau,
       };
-      await updateProfile(payload);
+      const profile = await updateProfile(payload);
       // Cập nhật lại localStorage đúng chuẩn
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          ...user,
-          ...payload,
-          nhommau: bloodOptions.find((b) => b.id === values.nhommau),
-        })
-      );
+      localStorage.setItem("user", JSON.stringify(profile));
       message.success("Cập nhật hồ sơ thành công!");
-      navigate("/profile");
+      navigate("/user/profile");
     } catch (err) {
       message.error(err?.message || "Cập nhật thất bại!");
     }
