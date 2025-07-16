@@ -4,7 +4,6 @@ import org.fpt.blooddonate.configs.AppConfig;
 import org.fpt.blooddonate.dtos.requests.*;
 import org.fpt.blooddonate.models.*;
 import org.fpt.blooddonate.repositories.*;
-import org.fpt.blooddonate.utils.SendEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,9 +34,6 @@ public class BloodReceiveRequestService {
     @Autowired
     private BloodRepository bloodRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
     public Page<BloodReceiveRequest> getAll(int page, String status, String keyword) {
         Pageable pageable = PageRequest.of(page - 1, 10);
         return repository.paginated(status, keyword, pageable);
@@ -50,10 +46,6 @@ public class BloodReceiveRequestService {
 
     public Optional<BloodReceiveRequest> getById(Integer id) {
         return repository.findById(id);
-    }
-
-    public long getTotal() {
-        return repository.count();
     }
 
     public BloodReceiveRequest create(CreateReceiveDonationRequestDTO payload) throws IOException {
@@ -111,8 +103,6 @@ public class BloodReceiveRequestService {
 
             bloodReceiveRequest.setTrangThai(AppConfig.BLOOD_RECEIVE_REQUEST_CANCEL);
             bloodReceiveRequest.setGhiChu("User cancel blood receive request");
-            User user = this.userRepository.findById(bloodReceiveRequest.getNguoiNhan().getId()).orElseThrow();
-            SendEmail.changeBloodReceiveRequestStatus(user.getEmail(), bloodReceiveRequest.getId(), "huỷ");
             return repository.save(bloodReceiveRequest);
         });
     }
@@ -157,9 +147,6 @@ public class BloodReceiveRequestService {
             bloodReceiveRequest.setNgayDuyet(LocalDateTime.now());
             bloodReceiveRequest.setTrangThai(AppConfig.BLOOD_RECEIVE_REQUEST_HAVE_BLOOD);
             bloodReceiveRequest.setGhiChu("Admin change request status to available");
-
-            User userCreated = this.userRepository.findById(bloodReceiveRequest.getNguoiNhan().getId()).orElseThrow();
-            SendEmail.changeBloodReceiveRequestStatus(userCreated.getEmail(), bloodReceiveRequest.getId(), "đã có máu");
             return repository.save(bloodReceiveRequest);
         });
     }
@@ -182,8 +169,6 @@ public class BloodReceiveRequestService {
                 bloodReceiveRequest.setGhiChu(payload.getGhiChu());
             }
 
-            User userCreated = this.userRepository.findById(bloodReceiveRequest.getNguoiNhan().getId()).orElseThrow();
-            SendEmail.changeBloodReceiveRequestStatus(userCreated.getEmail(), bloodReceiveRequest.getId(), "huỷ");
             return repository.save(bloodReceiveRequest);
         });
     }
@@ -207,9 +192,6 @@ public class BloodReceiveRequestService {
                 bloodUnitWareHouse.setTrangThai(AppConfig.BLOOD_UNIT_WAREHOUSE_COMPLETED);
                 this.bloodUnitWareHouseRepository.save(bloodUnitWareHouse);
             }
-
-            User userCreated = this.userRepository.findById(bloodReceiveRequest.getNguoiNhan().getId()).orElseThrow();
-            SendEmail.changeBloodReceiveRequestStatus(userCreated.getEmail(), bloodReceiveRequest.getId(), "đã hoàn thành");
             return repository.save(bloodReceiveRequest);
         });
     }
@@ -218,11 +200,11 @@ public class BloodReceiveRequestService {
         BloodReceiveRequest request = this.repository.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not existed request"));
 
-        List<CompatibleBlood> listCompatibleBlood = this.compatibleBloodRepository.findAllByNhomMauHien(request.getNhomMau().getId());
+        List<CompatibleBlood> listCompatibleBlood = this.compatibleBloodRepository.findAllByNhomMauNhan(request.getNhomMau().getId());
         List<Integer> listBloodId = new ArrayList<>();
         for (CompatibleBlood compatibleBlood : listCompatibleBlood) {
             if (compatibleBlood.getTrangThai() == 1) {
-                listBloodId.add(compatibleBlood.getNhomMauNhan().getId());
+                listBloodId.add(compatibleBlood.getNhomMauHien().getId());
             }
         }
 

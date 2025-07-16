@@ -20,8 +20,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     boolean existsByTenDangNhap(String tenDangNhap);
 
-    long countByVaiTro(String vaitro);
-
     boolean existsByEmail(String email);
 
     @Query("""

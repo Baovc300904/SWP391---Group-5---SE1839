@@ -68,12 +68,12 @@ public class BloodDonationActivityService {
         return repository.save(bloodDonationActivity);
     }
 
-    public long getTotal() {
-        return repository.count();
-    }
-
     public Optional<BloodDonationActivity> update(Integer id, UpdateBloodDonationActivityRequestDTO payload) throws IOException {
         return repository.findById(id).map(bloodDonationActivity -> {
+            if (!bloodDonationActivity.getTrangThaiHoatDong().equals(AppConfig.BLOOD_DONATION_REQUEST_PENDING)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only update pending blood donation request");
+            }
+
             Integer userId = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (bloodDonationActivity.getNguoiTao().getId() != userId) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You are not the owner of this request.");
@@ -85,7 +85,6 @@ public class BloodDonationActivityService {
             bloodDonationActivity.setNgayBatDau(LocalDate.parse(payload.getNgayBatDau()));
             bloodDonationActivity.setNgayKetThuc(LocalDate.parse(payload.getNgayKetThuc()));
             bloodDonationActivity.setSoLuongNguoiToiDa(payload.getSoLuongNguoiToiDa());
-            bloodDonationActivity.setTrangThaiHoatDong(payload.getTrangthai());
             return repository.save(bloodDonationActivity);
         });
     }

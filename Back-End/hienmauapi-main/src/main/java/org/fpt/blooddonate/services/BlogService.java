@@ -90,10 +90,6 @@ public class BlogService {
         });
     }
 
-    public long getTotal() {
-        return repository.count();
-    }
-
     public Optional<Blog> delete(Integer id) {
         return repository.findById(id).map(blog -> {
             blog.setTrangThai(AppConfig.INACTIVE_STATUS);

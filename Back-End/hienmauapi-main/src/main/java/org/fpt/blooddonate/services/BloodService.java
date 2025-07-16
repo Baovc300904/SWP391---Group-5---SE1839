@@ -4,6 +4,7 @@ import org.fpt.blooddonate.configs.AppConfig;
 import org.fpt.blooddonate.dtos.requests.CreateBloodRequestDTO;
 import org.fpt.blooddonate.dtos.requests.UpdateBloodRequestDTO;
 import org.fpt.blooddonate.models.Blood;
+import org.fpt.blooddonate.models.CompatibleBlood;
 import org.fpt.blooddonate.repositories.BloodRepository;
 import org.fpt.blooddonate.repositories.CompatibleBloodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,7 @@ public class BloodService {
     private CompatibleBloodRepository compatibleBloodRepository;
 
     public List<Blood> getAll() {
-        List<Blood> listBlood = repository.findAllByTrangThai(1);
-        return listBlood;
+        return repository.findAll();
     }
 
     public Blood getById(Integer id) {
@@ -47,10 +47,6 @@ public class BloodService {
             blood.setMota(payload.getMota());
             return repository.save(blood);
         });
-    }
-
-    public long getTotal() {
-        return repository.count();
     }
 
     public Optional<Blood> delete(Integer id) {

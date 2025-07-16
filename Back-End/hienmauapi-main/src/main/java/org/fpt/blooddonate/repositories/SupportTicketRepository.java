@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 public interface SupportTicketRepository extends JpaRepository<SupportTicket, Integer> {
     @Query("""
     SELECT b FROM SupportTicket b
-      WHERE (:keyword IS NULL OR LOWER(b.email) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(b.hoTen) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(b.noiDung) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(b.soDienThoai) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(b.tieuDe) LIKE LOWER(CONCAT('%', :keyword, '%')))
+      WHERE (:keyword IS NULL OR LOWER(b.tieuDe) LIKE LOWER(CONCAT('%', :keyword, '%')))
           AND (:status IS NULL OR b.trangThai = :status)
     """)
     Page<SupportTicket> paginated(

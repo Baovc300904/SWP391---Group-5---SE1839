@@ -38,10 +38,6 @@ public class BloodUnitWareHouseService {
         });
     }
 
-    public long getTotal() {
-        return bloodUnitWareHouseRepository.count();
-    }
-
     public Optional<BloodUnitWareHouse> tested(int id, TestedBloodUnitWareHouseRequestDTO payload) {
         return bloodUnitWareHouseRepository.findById(id).map(bloodUnitWareHouse -> {
             if (!bloodUnitWareHouse.getTrangThai().equals(AppConfig.BLOOD_UNIT_WAREHOUSE_WAIT_FOR_TESTING)) {
