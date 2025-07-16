@@ -7,6 +7,7 @@ import org.fpt.blooddonate.dtos.responses.LoginResponseDTO;
 import org.fpt.blooddonate.models.Blood;
 import org.fpt.blooddonate.repositories.BloodRepository;
 import org.fpt.blooddonate.utils.AuthUtil;
+import org.fpt.blooddonate.utils.SendEmail;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
