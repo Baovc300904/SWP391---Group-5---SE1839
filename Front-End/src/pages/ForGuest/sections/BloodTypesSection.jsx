@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Row, Typography, Progress, Tag, Spin } from 'antd';
 import { 
-  DropletOutlined,
+  HeartOutlined,
   ExclamationCircleOutlined,
   CheckCircleOutlined,
   WarningOutlined
@@ -45,7 +45,7 @@ const BloodTypesSection = () => {
     switch (urgency) {
       case 'critical': return <ExclamationCircleOutlined />;
       case 'high': return <WarningOutlined />;
-      case 'medium': return <DropletOutlined />;
+      case 'medium': return <HeartOutlined />;
       case 'normal': return <CheckCircleOutlined />;
       default: return <CheckCircleOutlined />;
     }
