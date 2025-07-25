@@ -10,6 +10,7 @@ import BloodReceiveRequestDetail from "../components/ReceiveBloodAdmin/ReceiveBl
 import UserDetail from "../components/User/UserDetail";
 import MainLayout from "../layout/MainLayout";
 import MainLayoutUser from "../layout/MainLayoutUser";
+import GuestLayout from "../layout/GuestLayout";
 import BlogManager from "../pages/BlogManager";
 import BloodDonationManager from "../pages/BloodDonationRequestManager";
 import BloodManager from "../pages/BloodManager";
@@ -29,7 +30,9 @@ import UserNearMe from "../pages/ForUser/NearMe";
 import ProfileDetail from "../pages/ForUser/ProfileDetail";
 import ProfileEdit from "../pages/ForUser/ProfileEdit";
 import BloodRequestPage from "../pages/ForUser/ReceiveBlood";
-import GuestHome from "../pages/ForGuest/Home";
+import Home from "../pages/ForGuest/Home";
+import About from "../pages/ForGuest/pages/About";
+import Contact from "../pages/ForGuest/pages/Contact";
 import Login from "../pages/Login";
 import NotificationManager from "../pages/NotificationManager";
 import Register from "../pages/Register";
@@ -57,13 +60,23 @@ const ProtectedHome = () => {
     // Nếu không có token hoặc user, hiển thị trang Home cho guest
   }, [navigate]);
 
-  return <GuestHome />;
+  return <Home />;
 };
 
 // =================== ROUTER CONFIG ===================
 const router = createBrowserRouter([
-  { path: "/", element: <ProtectedHome /> },
-  { path: "/home", element: <ProtectedHome /> },
+  // HOME WITH GUEST LAYOUT
+  {
+    path: "/",
+    element: <GuestLayout />,
+    children: [
+      { index: true, element: <ProtectedHome /> },
+      { path: "about", element: <About /> },
+      { path: "contact", element: <Contact /> }
+    ],
+  },
+
+  // STANDALONE PAGES (NO LAYOUT)
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
 
@@ -145,7 +158,7 @@ const router = createBrowserRouter([
     ],
   },
 
-  // NOT FOUND - REDIRECT TO LOGIN
+  // NOT FOUND - REDIRECT TO HOME
   { path: "*", element: <Navigate to="/" /> },
 ]);
 
