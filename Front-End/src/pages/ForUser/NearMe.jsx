@@ -87,7 +87,7 @@ export default function UserNearMe() {
                   flexDirection: "column",
                   justifyContent: "space-between",
                 }}
-                bodyStyle={{ padding: 20 }}
+                styles={{ body: { padding: 20 } }}
               >
                 <Space direction="vertical" size={4} style={{ width: "100%" }}>
                   <Space align="center">
