@@ -1,0 +1,284 @@
+/* Hero Section Styles */
+.hero-section {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f87171 0%, #ef4444 50%, #dc2626 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 80px 0;
+}
+
+/* Background Elements */
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blood-drop {
+  position: absolute;
+  width: 60px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.blood-drop-1 {
+  top: 20%;
+  left: 10%;
+  animation-delay: -1s;
+  transform: rotate(-15deg);
+}
+
+.blood-drop-2 {
+  top: 60%;
+  right: 15%;
+  animation-delay: -3s;
+  transform: rotate(25deg);
+}
+
+.blood-drop-3 {
+  bottom: 20%;
+  left: 20%;
+  animation-delay: -5s;
+  transform: rotate(-30deg);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(var(--rotation, 0deg)); }
+  33% { transform: translateY(-20px) rotate(calc(var(--rotation, 0deg) + 5deg)); }
+  66% { transform: translateY(-10px) rotate(calc(var(--rotation, 0deg) - 3deg)); }
+}
+
+/* Hero Content */
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+/* Hero Text */
+.hero-text {
+  color: white;
+  text-align: left;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-title {
+  color: white !important;
+  font-size: 3.5rem !important;
+  font-weight: 900 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 24px !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-description {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 18px !important;
+  line-height: 1.6 !important;
+  margin-bottom: 32px !important;
+  max-width: 500px;
+}
+
+/* Hero Buttons */
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.primary-btn {
+  background: white !important;
+  border: 2px solid white !important;
+  color: #e53e3e !important;
+  border-radius: 25px !important;
+  height: 50px !important;
+  padding: 0 32px !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+.primary-btn:hover {
+  background: rgba(255, 255, 255, 0.9) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.secondary-btn {
+  background: transparent !important;
+  border: 2px solid rgba(255, 255, 255, 0.5) !important;
+  color: white !important;
+  border-radius: 25px !important;
+  height: 50px !important;
+  padding: 0 32px !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  transition: all 0.3s ease !important;
+  backdrop-filter: blur(10px);
+}
+
+.secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: white !important;
+  color: white !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Hero Stats */
+.hero-stats {
+  position: relative;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  font-size: 24px;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.stat-icon.donors {
+  background: linear-gradient(45deg, #ff6b6b, #ee5a5a);
+}
+
+.stat-icon.units {
+  background: linear-gradient(45deg, #4ecdc4, #44a08d);
+}
+
+.stat-icon.campaigns {
+  background: linear-gradient(45deg, #45b7d1, #3a9bc1);
+}
+
+.stat-icon.hospitals {
+  background: linear-gradient(45deg, #f093fb, #f5576c);
+}
+
+.stat-card .ant-statistic-title {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  margin-bottom: 8px !important;
+}
+
+.stat-card .ant-statistic-content {
+  color: white !important;
+}
+
+.stat-card .ant-statistic-content-value {
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  color: white !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 0;
+    min-height: 90vh;
+  }
+
+  .hero-title {
+    font-size: 2.5rem !important;
+  }
+
+  .hero-description {
+    font-size: 16px !important;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+    margin-top: 24px;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .hero-text {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .stat-card {
+    padding: 20px;
+  }
+
+  .stat-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .stat-card .ant-statistic-content-value {
+    font-size: 24px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem !important;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .blood-drop {
+    width: 40px;
+    height: 50px;
+  }
+}
