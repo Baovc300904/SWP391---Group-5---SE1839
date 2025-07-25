@@ -82,7 +82,6 @@ export default function UserManager() {
 
   useEffect(() => {
     fetchUsers(roleFilter);
-    // eslint-disable-next-line
   }, [roleFilter]);
 
   const handleCreateEmployee = async (values) => {
