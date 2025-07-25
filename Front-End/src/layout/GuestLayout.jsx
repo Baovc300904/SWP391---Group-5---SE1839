@@ -1,5 +1,5 @@
-import { Button, Layout, Menu, Space } from 'antd';
-import { HeartOutlined, LoginOutlined, UserAddOutlined, InfoCircleOutlined, PhoneOutlined } from '@ant-design/icons';
+import { Button, Layout, Space } from 'antd';
+import { HeartOutlined, LoginOutlined, UserAddOutlined, InfoCircleOutlined, PhoneOutlined, HomeOutlined } from '@ant-design/icons';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import './GuestLayout.css';
 
@@ -14,21 +14,21 @@ export default function GuestLayout() {
         <div className="guest-header-content">
           <div className="logo" onClick={() => navigate('/')}>
             <HeartOutlined className="logo-icon" />
-            <span className="logo-text">BloodConnect</span>
+            <span className="logo-text">Hiến Máu Cộng Đồng Việt</span>
           </div>
           
-          {/* Custom horizontal menu */}
+          {/* Navigation Menu */}
           <div className="guest-menu-custom">
             <Link to="/" className="menu-item">
-              <HeartOutlined className="menu-icon" />
+              <HomeOutlined />
               <span>Trang chủ</span>
             </Link>
             <Link to="/about" className="menu-item">
-              <InfoCircleOutlined className="menu-icon" />
+              <InfoCircleOutlined />
               <span>Giới thiệu</span>
             </Link>
             <Link to="/contact" className="menu-item">
-              <PhoneOutlined className="menu-icon" />
+              <PhoneOutlined />
               <span>Liên hệ</span>
             </Link>
           </div>

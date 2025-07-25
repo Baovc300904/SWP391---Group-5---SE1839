@@ -47,7 +47,8 @@ const ProtectedHome = () => {
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user") || "null");
 
-    if (token && user) {
+    // Chỉ redirect nếu có cả token VÀ user hợp lệ
+    if (token && user && user.vaiTro) {
       const role = user.vaiTro;
       if (role === "admin") {
         navigate("/admin");
@@ -56,8 +57,14 @@ const ProtectedHome = () => {
       } else if (role === "nhanvien") {
         navigate("/employee");
       }
+    } else {
+      // Clear invalid tokens
+      if (token && !user) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      }
     }
-    // Nếu không có token hoặc user, hiển thị trang Home cho guest
+    // Nếu không có token hoặc user hợp lệ, hiển thị trang Home cho guest
   }, [navigate]);
 
   return <Home />;

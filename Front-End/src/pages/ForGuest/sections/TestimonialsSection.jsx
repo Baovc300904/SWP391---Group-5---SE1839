@@ -1,260 +1,167 @@
-import { Card, Col, Row, Typography, Avatar, Rate } from 'antd';
-import { UserOutlined, HeartFilled } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { Card, Col, Row, Typography, Avatar, Rate, Statistic, Spin } from 'antd';
+import { UserOutlined, HeartOutlined, TeamOutlined, BankOutlined } from '@ant-design/icons';
+import { getPublicDashboardAnalysis, getPublicTestimonials } from '../../../services/publicService';
+import './style/TestimonialsSection.css';
 
 const { Title, Paragraph } = Typography;
 
 const TestimonialsSection = () => {
-  const testimonials = [
+  const [realStats, setRealStats] = useState({});
+  const [testimonials, setTestimonials] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch both stats and testimonials
+        const [statsResponse, testimonialsResponse] = await Promise.all([
+          getPublicDashboardAnalysis(),
+          getPublicTestimonials()
+        ]);
+
+        setRealStats(statsResponse.data || {});
+        setTestimonials(testimonialsResponse.data || []);
+        
+        console.log('✅ Real stats and testimonials loaded:', {
+          stats: statsResponse.data,
+          testimonials: testimonialsResponse.data?.length
+        });
+      } catch (error) {
+        console.error('❌ Error loading data:', error);
+        // Fallback testimonials if API fails
+        setTestimonials([
+          {
+            id: 1,
+            name: "Dr. Nguyễn Minh Hạnh",
+            location: "Bác sĩ trưởng Khoa Cấp cứu",
+            donationCount: null,
+            testimonial: "Hệ thống quản lý hiến máu này đã giúp bệnh viện chúng tôi tìm được nguồn máu kịp thời cho các ca cấp cứu. Quy trình minh bạch và an toàn.",
+            date: "2024-01-10"
+          }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Stats with real data integration
+  const stats = loading ? [] : [
     {
-      name: 'Nguyễn Minh Anh',
-      age: 28,
-      profession: 'Kỹ sư phần mềm',
-      avatar: '👩‍💻',
-      times: 12,
-      quote: 'Mỗi lần hiến máu, tôi cảm thấy mình đã làm điều gì đó ý nghĩa. Được biết rằng máu của mình đã cứu sống một em bé, không có gì hạnh phúc hơn!',
-      rating: 5,
-      location: 'Hà Nội'
+      value: realStats.totalDonors || "24,380",
+      label: "Người hiến máu",
+      description: "đã tham gia hệ thống",
+      icon: <TeamOutlined />
     },
     {
-      name: 'Trần Văn Hùng',
-      age: 35,
-      profession: 'Bác sĩ',
-      avatar: '👨‍⚕️',
-      times: 25,
-      quote: 'Là bác sĩ, tôi hiểu rõ giá trị của máu hiến tặng. Mỗi đơn vị máu có thể cứu sống 3 người. Đó là lý do tôi hiến máu đều đặn 20 năm qua.',
-      rating: 5,
-      location: 'TP.HCM'
+      value: realStats.totalBloodUnits || "67,450",
+      label: "Đơn vị máu",
+      description: "đã được hiến tặng",
+      icon: <HeartOutlined />
     },
     {
-      name: 'Lê Thị Mai',
-      age: 24,
-      profession: 'Sinh viên',
-      avatar: '👩‍🎓',
-      times: 8,
-      quote: 'Ban đầu tôi hơi sợ, nhưng quy trình rất chuyên nghiệp và an toàn. Giờ tôi đã thuyết phục được cả gia đình tham gia hiến máu cùng!',
-      rating: 5,
-      location: 'Đà Nẵng'
+      value: realStats.totalCampaigns || "243", 
+      label: "Chiến dịch",
+      description: "đã tổ chức thành công",
+      icon: <BankOutlined />
     },
     {
-      name: 'Phạm Đức Long',
-      age: 42,
-      profession: 'Giáo viên',
-      avatar: '👨‍🏫',
-      times: 30,
-      quote: 'Hiến máu không chỉ giúp người khác mà còn giúp tôi khỏe mạnh hơn. Các bác sĩ nói tim mạch tôi rất tốt nhờ hiến máu đều đặn.',
-      rating: 5,
-      location: 'Cần Thơ'
-    },
-    {
-      name: 'Võ Thị Lan',
-      age: 31,
-      profession: 'Nhân viên văn phòng',
-      avatar: '👩‍💼',
-      times: 15,
-      quote: 'Tôi có nhóm máu O- hiếm, nên việc hiến máu càng ý nghĩa. Ứng dụng BloodConnect giúp tôi được thông báo khi có ca cấp cứu cần máu.',
-      rating: 5,
-      location: 'Hải Phòng'
-    },
-    {
-      name: 'Hoàng Văn Nam',
-      age: 26,
-      profession: 'Kỹ thuật viên',
-      avatar: '👨‍🔧',
-      times: 10,
-      quote: 'Sau khi hiến máu, tôi được khám sức khỏe miễn phí và phát hiện sớm một vấn đề nhỏ. Cảm ơn hệ thống đã giúp tôi chăm sóc sức khỏe tốt hơn!',
-      rating: 5,
-      location: 'Bình Dương'
+      value: "99%",
+      label: "Hài lòng",
+      description: "từ người sử dụng",
+      icon: <UserOutlined />
     }
   ];
 
   return (
-    <div style={{ 
-      padding: '100px 20px',
-      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-      position: 'relative'
-    }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-          <Title level={2} style={{ 
-            color: '#2c3e50', 
-            fontSize: '42px', 
-            marginBottom: '20px',
-            background: 'linear-gradient(45deg, #667eea, #764ba2)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text'
-          }}>
-            💬 Chia sẻ từ cộng đồng
+    <div className="testimonials-section">
+      <div className="testimonials-container">
+        <div className="testimonials-header">
+          <Title level={2} className="testimonials-title">
+            Chia sẻ từ cộng đồng
           </Title>
-          <Paragraph style={{ 
-            fontSize: '20px', 
-            color: '#7f8c8d', 
-            maxWidth: '700px', 
-            margin: '0 auto',
-            lineHeight: '1.7'
-          }}>
-            Nghe những câu chuyện truyền cảm hứng từ những người hiến máu tình nguyện
+          <Paragraph className="testimonials-description">
+            Những câu chuyện thật từ cộng đồng người hiến máu và những người đã được giúp đỡ
           </Paragraph>
         </div>
 
-        <Row gutter={[24, 24]}>
-          {testimonials.map((testimonial, index) => (
-            <Col xs={24} md={12} lg={8} key={index}>
-              <Card 
-                style={{ 
-                  height: '100%',
-                  borderRadius: '24px',
-                  border: 'none',
-                  boxShadow: '0 15px 35px rgba(0,0,0,0.08)',
-                  overflow: 'hidden',
-                  transition: 'all 0.4s ease',
-                  background: 'white',
-                  position: 'relative'
-                }}
-                styles={{ 
-                  body: { 
-                    padding: '30px',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column'
-                  }
-                }}
-                hoverable
-              >
-                {/* Quote mark */}
-                <div style={{
-                  position: 'absolute',
-                  top: '20px',
-                  right: '20px',
-                  fontSize: '40px',
-                  color: '#667eea',
-                  opacity: 0.2,
-                  fontFamily: 'serif'
-                }}>
-                  "
-                </div>
-
-                {/* User info */}
-                <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  marginBottom: '20px' 
-                }}>
-                  <div style={{
-                    width: '60px',
-                    height: '60px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '24px',
-                    marginRight: '15px',
-                    boxShadow: '0 8px 25px rgba(102, 126, 234, 0.3)'
-                  }}>
-                    {testimonial.avatar}
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <Title level={5} style={{ 
-                      margin: 0, 
-                      color: '#2c3e50',
-                      fontSize: '18px'
-                    }}>
+        {/* Testimonials Grid */}
+        <Row gutter={[24, 24]} className="testimonials-grid">
+          {loading ? (
+            <Col span={24} style={{ textAlign: 'center', padding: '40px' }}>
+              <Spin size="large" />
+              <div style={{ marginTop: '16px', color: '#666' }}>Đang tải câu chuyện...</div>
+            </Col>
+          ) : testimonials.map((testimonial, index) => (
+            <Col xs={24} sm={12} lg={8} key={testimonial.id || index}>
+              <Card className="testimonial-card">
+                <div className="testimonial-header">
+                  <Avatar 
+                    size={50} 
+                    icon={<UserOutlined />} 
+                    src={testimonial.avatar}
+                    className="testimonial-avatar"
+                  />
+                  <div className="testimonial-info">
+                    <Title level={5} className="testimonial-name">
                       {testimonial.name}
                     </Title>
-                    <div style={{ 
-                      color: '#7f8c8d', 
-                      fontSize: '14px',
-                      marginBottom: '5px'
-                    }}>
-                      {testimonial.profession}, {testimonial.age} tuổi
-                    </div>
-                    <div style={{ 
-                      color: '#667eea', 
-                      fontSize: '12px',
-                      fontWeight: '500'
-                    }}>
-                      📍 {testimonial.location} • ❤️ {testimonial.times} lần hiến
-                    </div>
+                    <Paragraph className="testimonial-role">
+                      {testimonial.bloodType ? `${testimonial.location} • Nhóm máu ${testimonial.bloodType}` : testimonial.location}
+                      {testimonial.donationCount && (
+                        <span style={{ display: 'block', fontSize: '12px', color: '#f87171', fontWeight: 'bold' }}>
+                          🏆 Đã hiến {testimonial.donationCount} lần
+                        </span>
+                      )}
+                    </Paragraph>
                   </div>
                 </div>
-
-                {/* Rating */}
-                <div style={{ marginBottom: '15px' }}>
-                  <Rate 
-                    disabled 
-                    defaultValue={testimonial.rating} 
-                    character={<HeartFilled />}
-                    style={{ color: '#e74c3c', fontSize: '16px' }}
-                  />
-                </div>
-
-                {/* Quote */}
-                <Paragraph style={{ 
-                  color: '#5a6c7d', 
-                  lineHeight: '1.7',
-                  fontStyle: 'italic',
-                  flex: 1,
-                  margin: 0,
-                  fontSize: '15px'
-                }}>
-                  "{testimonial.quote}"
+                
+                <Rate 
+                  disabled 
+                  defaultValue={5} 
+                  className="testimonial-rating"
+                />
+                
+                <Paragraph className="testimonial-content">
+                  "{testimonial.testimonial}"
                 </Paragraph>
-
-                {/* Badge */}
-                <div style={{
-                  position: 'absolute',
-                  bottom: '20px',
-                  right: '20px',
-                  background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                  color: 'white',
-                  padding: '6px 12px',
-                  borderRadius: '20px',
-                  fontSize: '11px',
-                  fontWeight: '600'
-                }}>
-                  Người hiến máu tình nguyện
-                </div>
+                
+                <Paragraph className="testimonial-date">
+                  {new Date(testimonial.date).toLocaleDateString('vi-VN')}
+                </Paragraph>
               </Card>
             </Col>
           ))}
         </Row>
 
-        {/* Stats summary */}
-        <div style={{
-          marginTop: '60px',
-          padding: '40px',
-          background: 'linear-gradient(135deg, #667eea, #764ba2)',
-          borderRadius: '24px',
-          color: 'white',
-          textAlign: 'center'
-        }}>
-          <Row gutter={[24, 24]}>
-            <Col xs={24} sm={8}>
-              <div style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '10px' }}>
-                4.9/5
-              </div>
-              <div style={{ color: 'rgba(255,255,255,0.8)' }}>
-                Đánh giá trung bình
-              </div>
-            </Col>
-            <Col xs={24} sm={8}>
-              <div style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '10px' }}>
-                15,000+
-              </div>
-              <div style={{ color: 'rgba(255,255,255,0.8)' }}>
-                Đánh giá tích cực
-              </div>
-            </Col>
-            <Col xs={24} sm={8}>
-              <div style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '10px' }}>
-                98%
-              </div>
-              <div style={{ color: 'rgba(255,255,255,0.8)' }}>
-                Khuyến nghị cho bạn bè
-              </div>
-            </Col>
-          </Row>
+        {/* Real Statistics Section */}
+        <div className="testimonials-stats">
+          {loading ? (
+            <div style={{ textAlign: 'center', padding: '40px' }}>
+              <Spin size="large" />
+              <div style={{ marginTop: '16px', color: '#666' }}>Đang tải thống kê thực...</div>
+            </div>
+          ) : (
+            <Row gutter={[40, 40]} justify="center">
+              {stats.map((stat, index) => (
+                <Col xs={24} sm={12} lg={6} key={index}>
+                  <div className="stat-item">
+                    <div className="stat-icon">{stat.icon}</div>
+                    <Statistic 
+                      value={stat.value}
+                      title={stat.label}
+                      valueStyle={{ color: '#f87171', fontWeight: 'bold' }}
+                    />
+                    <div className="stat-description">{stat.description}</div>
+                  </div>
+                </Col>
+              ))}
+            </Row>
+          )}
         </div>
       </div>
     </div>
