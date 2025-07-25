@@ -64,7 +64,6 @@ export default function BloodUnitWarehouseList() {
 
   useEffect(() => {
     fetchBloodUnits(page, statusFilter);
-    // eslint-disable-next-line
   }, [page, statusFilter]);
 
   // Filter menu

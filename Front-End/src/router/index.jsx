@@ -29,6 +29,7 @@ import UserNearMe from "../pages/ForUser/NearMe";
 import ProfileDetail from "../pages/ForUser/ProfileDetail";
 import ProfileEdit from "../pages/ForUser/ProfileEdit";
 import BloodRequestPage from "../pages/ForUser/ReceiveBlood";
+import GuestHome from "../pages/ForGuest/Home";
 import Login from "../pages/Login";
 import NotificationManager from "../pages/NotificationManager";
 import Register from "../pages/Register";
@@ -41,7 +42,7 @@ const ProtectedHome = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user") || "null");
 
     if (token && user) {
       const role = user.vaiTro;
@@ -53,15 +54,17 @@ const ProtectedHome = () => {
         navigate("/employee");
       }
     }
+    // Nếu không có token hoặc user, hiển thị trang Home cho guest
   }, [navigate]);
 
-  return <Login />;
+  return <GuestHome />;
 };
 
 // =================== ROUTER CONFIG ===================
 const router = createBrowserRouter([
   { path: "/", element: <ProtectedHome /> },
-  { path: "/login", element: <ProtectedHome /> },
+  { path: "/home", element: <ProtectedHome /> },
+  { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
 
   // ADMIN ROUTES
@@ -142,7 +145,7 @@ const router = createBrowserRouter([
     ],
   },
 
-  // NOT FOUND - REDIRECT HOME
+  // NOT FOUND - REDIRECT TO LOGIN
   { path: "*", element: <Navigate to="/" /> },
 ]);
 
