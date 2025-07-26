@@ -49,7 +49,7 @@ export default function SupportModalButton() {
         onCancel={() => setOpen(false)}
         footer={null}
         centered
-        destroyOnClose
+        destroyOnHidden
       >
         <Form
           form={form}

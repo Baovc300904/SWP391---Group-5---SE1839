@@ -57,28 +57,40 @@ export default function BloodDonationManager() {
   };
 
   // Filter menu
-  const filterMenu = (
-    <Menu>
-      <Menu.Item key="all" onClick={() => handleStatusFilter("")}>
-        Tất cả
-      </Menu.Item>
-      <Menu.Item key="dangcho" onClick={() => handleStatusFilter("dangcho")}>
-        Đang chờ
-      </Menu.Item>
-      <Menu.Item key="tuchoi" onClick={() => handleStatusFilter("tuchoi")}>
-        Từ chối
-      </Menu.Item>
-      <Menu.Item key="huy" onClick={() => handleStatusFilter("huy")}>
-        Hủy
-      </Menu.Item>
-      <Menu.Item key="xacnhan" onClick={() => handleStatusFilter("xacnhan")}>
-        Xác nhận
-      </Menu.Item>
-      <Menu.Item key="dahien" onClick={() => handleStatusFilter("dahien")}>
-        Đã hiến
-      </Menu.Item>
-    </Menu>
-  );
+  const filterMenu = {
+    items: [
+      {
+        key: "all",
+        label: "Tất cả",
+        onClick: () => handleStatusFilter(""),
+      },
+      {
+        key: "dangcho",
+        label: "Đang chờ",
+        onClick: () => handleStatusFilter("dangcho"),
+      },
+      {
+        key: "tuchoi",
+        label: "Từ chối",
+        onClick: () => handleStatusFilter("tuchoi"),
+      },
+      {
+        key: "huy",
+        label: "Hủy",
+        onClick: () => handleStatusFilter("huy"),
+      },
+      {
+        key: "xacnhan",
+        label: "Xác nhận",
+        onClick: () => handleStatusFilter("xacnhan"),
+      },
+      {
+        key: "dahien",
+        label: "Đã hiến",
+        onClick: () => handleStatusFilter("dahien"),
+      },
+    ],
+  };
 
   // Table columns
   const columns = [
@@ -123,7 +135,7 @@ export default function BloodDonationManager() {
   return (
     <Card title="🩸 Quản lý yêu cầu hiến máu">
       <div style={{ marginBottom: 16 }}>
-        <Dropdown overlay={filterMenu}>
+        <Dropdown menu={filterMenu}>
           <Button>
             Lọc theo trạng thái <span>▼</span>
           </Button>
@@ -140,7 +152,7 @@ export default function BloodDonationManager() {
           pageSize: 10, // Define how many items per page
           onChange: (page) => setPage(page), // Change page number
         }}
-        bordered={false}
+        variant="borderless"
         style={{ marginTop: 16 }}
         rowClassName={() => "custom-row"}
       />

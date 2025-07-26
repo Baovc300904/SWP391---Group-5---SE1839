@@ -399,7 +399,7 @@ const BloodRequestPage = () => {
 
       {/* Modal form */}
       <Modal
-        visible={isModalVisible}
+        open={isModalVisible}
         onCancel={handleCancel}
         footer={null}
         width={780}

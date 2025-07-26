@@ -131,7 +131,7 @@ export default function BlogCategoryTab() {
         columns={columns}
         dataSource={data}
         pagination={false}
-        bordered={false}
+        variant="borderless"
         style={{ marginTop: 16 }}
         scroll={{ x: true }}
       />
@@ -158,8 +158,8 @@ export default function BlogCategoryTab() {
         cancelButtonProps={{ style: { borderRadius: 30 } }}
         centered
         style={{ borderRadius: 16 }}
-        bodyStyle={{ marginTop: 12 }}
-        destroyOnClose
+        styles={{ body: { marginTop: 12 } }}
+        destroyOnHidden
       >
         <Form layout="vertical" form={form} onFinish={onFinish}>
           <Form.Item
