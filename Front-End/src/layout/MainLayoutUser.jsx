@@ -31,33 +31,30 @@ export default function MainLayoutUser() {
     return "";
   };
 
-  const settingsMenu = (
-    <Menu
-      style={{
-        backgroundColor: "#fff",
-        borderRadius: 4,
-        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-        minWidth: 160,
-      }}
-    >
-      <Menu.Item
-        key="profile"
-        icon={<UserOutlined />}
-        onClick={() => navigate("/user/profile")}
-        style={{ color: "#333" }}
-      >
-        Xem hồ sơ
-      </Menu.Item>
-      <Menu.Item
-        key="change-password"
-        icon={<LockOutlined />}
-        onClick={() => navigate("/user/change-password")}
-        style={{ color: "#333" }}
-      >
-        Đổi mật khẩu
-      </Menu.Item>
-    </Menu>
-  );
+  const settingsMenu = {
+    items: [
+      {
+        key: "profile",
+        icon: <UserOutlined />,
+        label: "Xem hồ sơ",
+        onClick: () => navigate("/user/profile"),
+        style: { color: "#333" },
+      },
+      {
+        key: "change-password",
+        icon: <LockOutlined />,
+        label: "Đổi mật khẩu",
+        onClick: () => navigate("/user/change-password"),
+        style: { color: "#333" },
+      },
+    ],
+    style: {
+      backgroundColor: "#fff",
+      borderRadius: 4,
+      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+      minWidth: 160,
+    },
+  };
 
   const menuItemStyle = {
     color: "#fff",
@@ -65,6 +62,109 @@ export default function MainLayoutUser() {
     alignItems: "center",
   };
   const linkStyle = { color: "#fff" };
+
+  const menuItems = [
+    {
+      key: "near-me",
+      icon: <UserOutlined style={menuItemStyle} />,
+      label: (
+        <Link to="/user/near-me" style={linkStyle}>
+          Người dùng gần bạn
+        </Link>
+      ),
+      style: {
+        ...menuItemStyle,
+        background: getSelectedKey() === "near-me" ? "#f89595" : "transparent",
+      },
+    },
+    {
+      key: "dashboard",
+      icon: <HomeOutlined style={menuItemStyle} />,
+      label: (
+        <Link to="/user" style={linkStyle}>
+          Hoạt động
+        </Link>
+      ),
+      style: {
+        ...menuItemStyle,
+        background:
+          getSelectedKey() === "dashboard" ? "#f89595" : "transparent",
+      },
+    },
+    {
+      key: "list-request",
+      icon: <ProfileOutlined style={menuItemStyle} />,
+      label: (
+        <Link to="/user/list-request" style={linkStyle}>
+          Lịch sử đăng ký
+        </Link>
+      ),
+      style: {
+        ...menuItemStyle,
+        background:
+          getSelectedKey() === "list-request" ? "#f89595" : "transparent",
+      },
+    },
+    {
+      key: "receive-blood",
+      icon: <PullRequestOutlined style={menuItemStyle} />,
+      label: (
+        <Link to="/user/receive-blood" style={linkStyle}>
+          Yêu cầu nhận máu
+        </Link>
+      ),
+      style: {
+        ...menuItemStyle,
+        background:
+          getSelectedKey() === "receive-blood" ? "#f89595" : "transparent",
+      },
+    },
+    {
+      key: "blog",
+      icon: <BookOutlined style={menuItemStyle} />,
+      label: (
+        <Link to="/user/blog" style={linkStyle}>
+          Bài viết
+        </Link>
+      ),
+      style: {
+        ...menuItemStyle,
+        background: getSelectedKey() === "blog" ? "#f89595" : "transparent",
+      },
+    },
+    {
+      key: "settings",
+      icon: <SettingOutlined style={menuItemStyle} />,
+      label: (
+        <Dropdown
+          menu={settingsMenu}
+          placement="bottomRight"
+          trigger={["click"]}
+        >
+          <span style={linkStyle}>Cài đặt</span>
+        </Dropdown>
+      ),
+      style: {
+        ...menuItemStyle,
+        background:
+          getSelectedKey() === "settings" ? "#f89595" : "transparent",
+      },
+    },
+    {
+      key: "logout",
+      icon: <LogoutOutlined style={menuItemStyle} />,
+      label: <span style={linkStyle}>Đăng xuất</span>,
+      style: {
+        ...menuItemStyle,
+        background: getSelectedKey() === "logout" ? "#f89595" : "transparent",
+      },
+      onClick: () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        navigate("/login");
+      },
+    },
+  ];
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -94,117 +194,14 @@ export default function MainLayoutUser() {
           theme="dark"
           mode="horizontal"
           selectedKeys={[getSelectedKey()]}
+          items={menuItems}
           style={{
             background: "transparent",
             flex: 1,
             justifyContent: "flex-end",
             color: "#fff",
           }}
-        >
-          <Menu.Item
-            key="near-me"
-            icon={<UserOutlined style={menuItemStyle} />}
-            style={{
-              ...menuItemStyle,
-              background:
-                getSelectedKey() === "near-me" ? "#f89595" : "transparent",
-            }}
-          >
-            <Link to="/user/near-me" style={linkStyle}>
-              Người dùng gần bạn
-            </Link>
-          </Menu.Item>
-          <Menu.Item
-            key="dashboard"
-            icon={<HomeOutlined style={menuItemStyle} />}
-            style={{
-              ...menuItemStyle,
-              background:
-                getSelectedKey() === "dashboard" ? "#f89595" : "transparent",
-            }}
-          >
-            <Link to="/user" style={linkStyle}>
-              Hoạt động
-            </Link>
-          </Menu.Item>
-
-          <Menu.Item
-            key="list-request"
-            icon={<ProfileOutlined style={menuItemStyle} />}
-            style={{
-              ...menuItemStyle,
-              background:
-                getSelectedKey() === "list-request" ? "#f89595" : "transparent",
-            }}
-          >
-            <Link to="/user/list-request" style={linkStyle}>
-              Lịch sử đăng ký
-            </Link>
-          </Menu.Item>
-
-          <Menu.Item
-            key="receive-blood"
-            icon={<PullRequestOutlined style={menuItemStyle} />}
-            style={{
-              ...menuItemStyle,
-              background:
-                getSelectedKey() === "receive-blood"
-                  ? "#f89595"
-                  : "transparent",
-            }}
-          >
-            <Link to="/user/receive-blood" style={linkStyle}>
-              Yêu cầu nhận máu
-            </Link>
-          </Menu.Item>
-          <Menu.Item
-            key="blog"
-            icon={<BookOutlined style={menuItemStyle} />}
-            style={{
-              ...menuItemStyle,
-              background:
-                getSelectedKey() === "blog" ? "#f89595" : "transparent",
-            }}
-          >
-            <Link to="/user/blog" style={linkStyle}>
-              Bài viết
-            </Link>
-          </Menu.Item>
-          <Menu.Item
-            key="settings"
-            icon={<SettingOutlined style={menuItemStyle} />}
-            style={{
-              ...menuItemStyle,
-              background:
-                getSelectedKey() === "settings" ? "#f89595" : "transparent",
-            }}
-          >
-            <Dropdown
-              overlay={settingsMenu}
-              placement="bottomRight"
-              trigger={["click"]}
-            >
-              <span style={linkStyle}>Cài đặt</span>
-            </Dropdown>
-          </Menu.Item>
-
-          <Menu.Item
-            key="logout"
-            icon={<LogoutOutlined style={menuItemStyle} />}
-            style={{
-              ...menuItemStyle,
-              background:
-                getSelectedKey() === "logout" ? "#f89595" : "transparent",
-            }}
-            onClick={() => {
-              localStorage.removeItem("token");
-              localStorage.removeItem("user");
-              navigate("/login");
-            }}
-          >
-            <span style={linkStyle}>Đăng xuất</span>
-          </Menu.Item>
-        </Menu>
+        />
       </Header>
 
       <Content style={{ background: "#f5f5f5" }}>

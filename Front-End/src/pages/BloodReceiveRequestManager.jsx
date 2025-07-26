@@ -59,34 +59,30 @@ export default function BloodReceiveRequestManager() {
   };
 
   // Filter menu
-  const filterMenu = (
-    <Menu>
-      <Menu.Item key="all" onClick={() => handleStatusFilter("")}>
-        Tất cả
-      </Menu.Item>
-      <Menu.Item key="dangcho" onClick={() => handleStatusFilter("dangcho")}>
-        Đang chờ
-      </Menu.Item>
-      {/* <Menu.Item key="dacomau" onClick={() => handleStatusFilter("dacomau")}>
-        Đã có máu
-      </Menu.Item>
-      <Menu.Item
-        key="dangketnoi"
-        onClick={() => handleStatusFilter("dangketnoi")}
-      >
-        Đang kết nối
-      </Menu.Item> */}
-      <Menu.Item
-        key="dahoanthanh"
-        onClick={() => handleStatusFilter("dahoanthanh")}
-      >
-        Đã hoàn thành
-      </Menu.Item>
-      <Menu.Item key="huy" onClick={() => handleStatusFilter("huy")}>
-        Hủy
-      </Menu.Item>
-    </Menu>
-  );
+  const filterMenu = {
+    items: [
+      {
+        key: "all",
+        label: "Tất cả",
+        onClick: () => handleStatusFilter(""),
+      },
+      {
+        key: "dangcho",
+        label: "Đang chờ",
+        onClick: () => handleStatusFilter("dangcho"),
+      },
+      {
+        key: "dahoanthanh",
+        label: "Đã hoàn thành",
+        onClick: () => handleStatusFilter("dahoanthanh"),
+      },
+      {
+        key: "huy",
+        label: "Hủy",
+        onClick: () => handleStatusFilter("huy"),
+      },
+    ],
+  };
 
   // Table columns
   const columns = [
@@ -135,7 +131,7 @@ export default function BloodReceiveRequestManager() {
   return (
     <Card title="🩸 Quản lý yêu cầu nhận máu">
       <div style={{ marginBottom: 16 }}>
-        <Dropdown overlay={filterMenu}>
+        <Dropdown menu={filterMenu}>
           <Button>
             Lọc theo trạng thái <span>▼</span>
           </Button>

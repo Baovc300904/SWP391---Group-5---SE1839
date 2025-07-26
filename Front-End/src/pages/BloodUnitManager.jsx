@@ -67,55 +67,50 @@ export default function BloodUnitWarehouseList() {
   }, [page, statusFilter]);
 
   // Filter menu
-  const filterMenu = (
-    <Menu>
-      <Menu.Item
-        key="all"
-        onClick={() => {
+  const filterMenu = {
+    items: [
+      {
+        key: "all",
+        label: "Tất cả",
+        onClick: () => {
           setStatusFilter("");
           setPage(1);
-        }}
-      >
-        Tất cả
-      </Menu.Item>
-      <Menu.Item
-        key="sansang"
-        onClick={() => {
+        },
+      },
+      {
+        key: "sansang",
+        label: "Sẵn sàng",
+        onClick: () => {
           setStatusFilter("sansang");
           setPage(1);
-        }}
-      >
-        Sẵn sàng
-      </Menu.Item>
-      <Menu.Item
-        key="dasudung"
-        onClick={() => {
+        },
+      },
+      {
+        key: "dasudung",
+        label: "Đã sử dụng",
+        onClick: () => {
           setStatusFilter("dasudung");
           setPage(1);
-        }}
-      >
-        Đã sử dụng
-      </Menu.Item>
-      <Menu.Item
-        key="huybo"
-        onClick={() => {
+        },
+      },
+      {
+        key: "huybo",
+        label: "Hủy bỏ",
+        onClick: () => {
           setStatusFilter("huybo");
           setPage(1);
-        }}
-      >
-        Hủy bỏ
-      </Menu.Item>
-      <Menu.Item
-        key="choxetnghiem"
-        onClick={() => {
+        },
+      },
+      {
+        key: "choxetnghiem",
+        label: "Chờ xét nghiệm",
+        onClick: () => {
           setStatusFilter("choxetnghiem");
           setPage(1);
-        }}
-      >
-        Chờ xét nghiệm
-      </Menu.Item>
-    </Menu>
-  );
+        },
+      },
+    ],
+  };
 
   const handleCancelBloodUnit = async (values) => {
     setLoading(true);
@@ -226,7 +221,7 @@ export default function BloodUnitWarehouseList() {
     <Card
       title="🩸 Danh sách kho đơn vị máu"
       extra={
-        <Dropdown overlay={filterMenu} trigger={["click"]}>
+        <Dropdown menu={filterMenu} trigger={["click"]}>
           <Button icon={<FilterOutlined />}>Lọc theo trạng thái</Button>
         </Dropdown>
       }
@@ -258,7 +253,7 @@ export default function BloodUnitWarehouseList() {
         centered
         width={500}
         style={{ borderRadius: 16 }}
-        destroyOnClose
+        destroyOnHidden
       >
         <Form
           form={form}
