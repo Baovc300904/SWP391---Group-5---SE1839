@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/bloods")
@@ -25,12 +24,8 @@ public class BloodController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Integer id) {
-        Optional<Blood> result = bloodService.getById(id);
-        if (result.isPresent()) {
-            return ResponseEntity.ok(result.get());
-        } else {
-            return ResponseEntity.status(404).body("Not found blood");
-        }
+        Blood result = bloodService.getById(id);
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping

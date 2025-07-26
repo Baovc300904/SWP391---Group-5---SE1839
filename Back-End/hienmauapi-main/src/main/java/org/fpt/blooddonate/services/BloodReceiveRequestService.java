@@ -4,6 +4,7 @@ import org.fpt.blooddonate.configs.AppConfig;
 import org.fpt.blooddonate.dtos.requests.*;
 import org.fpt.blooddonate.models.*;
 import org.fpt.blooddonate.repositories.*;
+import org.fpt.blooddonate.utils.SendEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +17,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,23 +30,30 @@ public class BloodReceiveRequestService {
     private BloodUnitWareHouseRepository bloodUnitWareHouseRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private CompatibleBloodRepository compatibleBloodRepository;
 
     @Autowired
     private BloodRepository bloodRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public Page<BloodReceiveRequest> getAll(int page, String status, String keyword) {
-        Pageable pageable = PageRequest.of(page - 1, 20);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         return repository.paginated(status, keyword, pageable);
     }
 
     public Page<BloodReceiveRequest> getAllByUserId(int userId, int page, String status, String keyword) {
-        Pageable pageable = PageRequest.of(page - 1, 20);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         return repository.paginatedByUserId(userId, status, keyword, pageable);
     }
 
     public Optional<BloodReceiveRequest> getById(Integer id) {
         return repository.findById(id);
+    }
+
+    public long getTotal() {
+        return repository.count();
     }
 
     public BloodReceiveRequest create(CreateReceiveDonationRequestDTO payload) throws IOException {
@@ -63,6 +73,9 @@ public class BloodReceiveRequestService {
         bloodReceiveRequest.setThanhPhanMauCan(payload.getThanhPhanMauCan());
         bloodReceiveRequest.setNgayNhanMauDuKien(LocalDate.parse(payload.getNgayNhanMauDuKien()));
         bloodReceiveRequest.setSoLuongDonVi(payload.getSoLuongDonVi());
+        bloodReceiveRequest.setSucKhoeHienTai(payload.getSucKhoeHienTai());
+        bloodReceiveRequest.setDangMangThai(payload.getDangMangThai());
+        bloodReceiveRequest.setMacBenhTruyenNhiem(payload.getMacBenhTruyenNhiem());
         return repository.save(bloodReceiveRequest);
     }
 
@@ -82,6 +95,9 @@ public class BloodReceiveRequestService {
             bloodReceiveRequest.setThanhPhanMauCan(payload.getThanhPhanMauCan());
             bloodReceiveRequest.setNgayNhanMauDuKien(LocalDate.parse(payload.getNgayNhanMauDuKien()));
             bloodReceiveRequest.setSoLuongDonVi(payload.getSoLuongDonVi());
+            bloodReceiveRequest.setSucKhoeHienTai(payload.getSucKhoeHienTai());
+            bloodReceiveRequest.setDangMangThai(payload.getDangMangThai());
+            bloodReceiveRequest.setMacBenhTruyenNhiem(payload.getMacBenhTruyenNhiem());
             return repository.save(bloodReceiveRequest);
         });
     }
@@ -95,6 +111,8 @@ public class BloodReceiveRequestService {
 
             bloodReceiveRequest.setTrangThai(AppConfig.BLOOD_RECEIVE_REQUEST_CANCEL);
             bloodReceiveRequest.setGhiChu("User cancel blood receive request");
+            User user = this.userRepository.findById(bloodReceiveRequest.getNguoiNhan().getId()).orElseThrow();
+            SendEmail.changeBloodReceiveRequestStatus(user.getEmail(), bloodReceiveRequest.getId(), "huỷ");
             return repository.save(bloodReceiveRequest);
         });
     }
@@ -105,30 +123,43 @@ public class BloodReceiveRequestService {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only available request when request is pending");
             }
 
-            BloodUnitWareHouse bloodUnitWareHouse = bloodUnitWareHouseRepository.findById(payload.getKhoDonViMau())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not existed blood unit warehouse"));
+            List<BloodUnitWareHouse> listBloodUnitWareHouse = new ArrayList<>();
+            int totalQuantity = 0;
+            for (Integer bloodUnitId: payload.getDanhSachKhoDonViMau()) {
+                BloodUnitWareHouse bloodUnitWareHouse = bloodUnitWareHouseRepository.findById(bloodUnitId)
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not existed blood unit warehouse"));
 
-            if (!bloodUnitWareHouse.getTrangThai().equals(AppConfig.BLOOD_UNIT_WAREHOUSE_READY)) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Blood unit warehouse is not ready");
+                if (!bloodUnitWareHouse.getTrangThai().equals(AppConfig.BLOOD_UNIT_WAREHOUSE_READY)) {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Blood unit warehouse is not ready");
+                }
+
+                totalQuantity += bloodUnitWareHouse.getSoLuong();
+                listBloodUnitWareHouse.add(bloodUnitWareHouse);
             }
 
-            if (bloodUnitWareHouse.getNhomMau().getId().equals(bloodReceiveRequest.getNhomMau().getId())) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Blood is not matching");
-            }
-
-            if (bloodUnitWareHouse.getSoLuong() < bloodReceiveRequest.getSoLuongDonVi()) {
+            if (totalQuantity < bloodReceiveRequest.getSoLuongDonVi()) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Blood unit warehouse is not enough");
+            }
+
+            // Update blood receive id in blood unit database
+            for (Integer bloodUnitId: payload.getDanhSachKhoDonViMau()) {
+                BloodUnitWareHouse bloodUnitWareHouse = bloodUnitWareHouseRepository.findById(bloodUnitId)
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not existed blood unit warehouse"));
+
+                bloodUnitWareHouse.setYeuCauCanMau(bloodReceiveRequest);
+                this.bloodUnitWareHouseRepository.save(bloodUnitWareHouse);
             }
 
             Integer userId = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = new User();
             user.setId(userId);
-            bloodReceiveRequest.setKhoDonViMau(bloodUnitWareHouse);
             bloodReceiveRequest.setNguoiDuyet(user);
             bloodReceiveRequest.setNgayDuyet(LocalDateTime.now());
             bloodReceiveRequest.setTrangThai(AppConfig.BLOOD_RECEIVE_REQUEST_HAVE_BLOOD);
             bloodReceiveRequest.setGhiChu("Admin change request status to available");
 
+            User userCreated = this.userRepository.findById(bloodReceiveRequest.getNguoiNhan().getId()).orElseThrow();
+            SendEmail.changeBloodReceiveRequestStatus(userCreated.getEmail(), bloodReceiveRequest.getId(), "đã có máu");
             return repository.save(bloodReceiveRequest);
         });
     }
@@ -151,6 +182,8 @@ public class BloodReceiveRequestService {
                 bloodReceiveRequest.setGhiChu(payload.getGhiChu());
             }
 
+            User userCreated = this.userRepository.findById(bloodReceiveRequest.getNguoiNhan().getId()).orElseThrow();
+            SendEmail.changeBloodReceiveRequestStatus(userCreated.getEmail(), bloodReceiveRequest.getId(), "huỷ");
             return repository.save(bloodReceiveRequest);
         });
     }
@@ -168,12 +201,39 @@ public class BloodReceiveRequestService {
             bloodReceiveRequest.setNguoiDuyet(user);
             bloodReceiveRequest.setNgayDuyet(LocalDateTime.now());
             bloodReceiveRequest.setGhiChu("Admin completed blood receive request");
-            BloodUnitWareHouse bloodUnitWareHouse = bloodUnitWareHouseRepository.findById(bloodReceiveRequest.getKhoDonViMau().getId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not existed blood unit warehouse"));
 
-            bloodUnitWareHouse.setTrangThai(AppConfig.BLOOD_UNIT_WAREHOUSE_COMPLETED);
-            bloodUnitWareHouseRepository.save(bloodUnitWareHouse);
+            List<BloodUnitWareHouse> listBloodUnitWareHouse = this.bloodUnitWareHouseRepository.findAllByYeuCauCanMau(bloodReceiveRequest);
+            for (BloodUnitWareHouse bloodUnitWareHouse : listBloodUnitWareHouse) {
+                bloodUnitWareHouse.setTrangThai(AppConfig.BLOOD_UNIT_WAREHOUSE_COMPLETED);
+                this.bloodUnitWareHouseRepository.save(bloodUnitWareHouse);
+            }
+
+            User userCreated = this.userRepository.findById(bloodReceiveRequest.getNguoiNhan().getId()).orElseThrow();
+            SendEmail.changeBloodReceiveRequestStatus(userCreated.getEmail(), bloodReceiveRequest.getId(), "đã hoàn thành");
             return repository.save(bloodReceiveRequest);
         });
+    }
+
+    public List<BloodUnitWareHouse> getListAvailableBloodUnitWareHouse(Integer id) {
+        BloodReceiveRequest request = this.repository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not existed request"));
+
+        List<CompatibleBlood> listCompatibleBlood = this.compatibleBloodRepository.findAllByNhomMauHien(request.getNhomMau().getId());
+        List<Integer> listBloodId = new ArrayList<>();
+        for (CompatibleBlood compatibleBlood : listCompatibleBlood) {
+            if (compatibleBlood.getTrangThai() == 1) {
+                listBloodId.add(compatibleBlood.getNhomMauNhan().getId());
+            }
+        }
+
+        return this.bloodUnitWareHouseRepository.findListAvailableForReceive(listBloodId, LocalDateTime.now());
+    }
+
+    public List<BloodUnitWareHouse> getListBloodUnitUsed(Integer id) {
+        System.out.println(id);
+        BloodReceiveRequest request = this.repository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not existed request"));
+
+        return this.bloodUnitWareHouseRepository.findAllByYeuCauCanMau(request);
     }
 }

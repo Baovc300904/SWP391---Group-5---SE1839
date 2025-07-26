@@ -30,7 +30,13 @@ public class BloodDonationActivityController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Integer id) {
-        Optional<BloodDonationActivity> result = bloodDonationActivityService.getById(id);
+        BloodDonationActivity result = bloodDonationActivityService.getById(id);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<?> getDetailById(@PathVariable Integer id) {
+        Optional<BloodDonationActivity> result = bloodDonationActivityService.getDetailById(id);
         if (result.isPresent()) {
             return ResponseEntity.ok(result.get());
         } else {

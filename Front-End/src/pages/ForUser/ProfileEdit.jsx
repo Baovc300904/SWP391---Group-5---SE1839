@@ -57,20 +57,13 @@ export default function ProfileEdit() {
       const payload = {
         ...values,
         ngaysinh: values.ngaysinh.format("YYYY-MM-DD"),
-        nhommau: { id: values.nhommau },
+        nhommau: values.nhommau,
       };
-      await updateProfile(payload);
+      const profile = await updateProfile(payload);
       // Cập nhật lại localStorage đúng chuẩn
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          ...user,
-          ...payload,
-          nhommau: bloodOptions.find((b) => b.id === values.nhommau),
-        })
-      );
+      localStorage.setItem("user", JSON.stringify(profile));
       message.success("Cập nhật hồ sơ thành công!");
-      navigate("/profile");
+      navigate("/user/profile");
     } catch (err) {
       message.error(err?.message || "Cập nhật thất bại!");
     }
@@ -117,7 +110,11 @@ export default function ProfileEdit() {
           </Col>
           <Col xs={24} md={12} lg={8}>
             <Form.Item label="Email" name="email" rules={[{ required: true }]}>
-              <Input placeholder="email@example.com" style={inputStyle} />
+              <Input
+                disabled
+                placeholder="email@example.com"
+                style={inputStyle}
+              />
             </Form.Item>
           </Col>
           <Col xs={24} md={12} lg={8}>
@@ -160,6 +157,7 @@ export default function ProfileEdit() {
               <Select
                 placeholder="Chọn nhóm máu"
                 style={{ ...inputStyle, width: "100%" }}
+                disabled
               >
                 {bloodOptions.map((b) => (
                   <Select.Option key={b.id} value={b.id}>
@@ -174,6 +172,7 @@ export default function ProfileEdit() {
               <Select
                 placeholder="Chọn Rh"
                 style={{ ...inputStyle, width: "100%" }}
+                disabled
                 options={[
                   { value: "+", label: "Rh+" },
                   { value: "-", label: "Rh-" },

@@ -1,5 +1,7 @@
 import {
+  BellOutlined,
   BookOutlined,
+  GiftOutlined,
   HomeOutlined,
   LogoutOutlined,
   ProjectOutlined,
@@ -39,6 +41,10 @@ export default function MainLayout() {
       return "receive-blood-manager";
     if (location.pathname.startsWith(`${prefix}/blogs-manager`))
       return "blogs-manager";
+    if (location.pathname.startsWith(`${prefix}/support-ticket`))
+      return "support-ticket";
+    if (location.pathname.startsWith(`${prefix}/notification`))
+      return "notification";
     return "";
   };
 
@@ -59,6 +65,17 @@ export default function MainLayout() {
       icon: <ProjectOutlined />,
       label: <Link to="/admin/campaigns-manager">Chiến dịch</Link>,
     },
+    {
+      key: "support-ticket",
+      icon: <GiftOutlined />,
+      label: <Link to="/admin/support-ticket">Hỗ trợ</Link>,
+    },
+    {
+      key: "notification",
+      icon: <BellOutlined />,
+      label: <Link to="/admin/notification">Thông báo</Link>,
+    },
+
     {
       key: "logout",
       icon: <LogoutOutlined />,

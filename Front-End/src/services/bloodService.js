@@ -94,3 +94,11 @@ export const addCompatibleBlood = async ({ nhomMauHien, nhomMauNhan }) => {
   });
   return res.data;
 };
+
+export const changeCompatibleBloodStatus = async (id, trangthai) => {
+  const res = await instance.post(
+    `/api/admin/compatible-bloods/${id}/change-status`,
+    { trangthai }
+  );
+  return res.data;
+};

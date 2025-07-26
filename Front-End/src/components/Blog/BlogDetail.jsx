@@ -20,6 +20,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getBlogCategories } from "../../services/blogCategoryService";
 import { getBlogDetail, updateBlog } from "../../services/blogService";
 import { IMAGE_BASE_URL } from "../../variables/baseUrl";
+import { Editor } from "@tinymce/tinymce-react";
 
 export default function BlogDetail() {
   const { id } = useParams();
@@ -56,11 +57,12 @@ export default function BlogDetail() {
   };
   const handleUpdate = async (values) => {
     try {
-      await updateBlog(id, {
-        ...values,
-        tieuDe: values.tieuDe,
-        noiDung: values.noiDung,
-      });
+      const payload = {
+        tieude: values.tieude, // lưu ý form đặt name="tieude" (khác với tieuDe) hoặc đồng nhất lại
+        noidung: values.noidung,
+        danhmuc: values.danhmuc, // tuỳ backend cần truyền id danh mục hay object
+      };
+      await updateBlog(id, payload);
       message.success("Cập nhật thành công");
       setEditMode(false);
       fetchData();
@@ -68,6 +70,7 @@ export default function BlogDetail() {
       message.error("Cập nhật thất bại");
     }
   };
+
   const handleEdit = () => {
     setEditMode(true);
     fetchCategories();
@@ -176,11 +179,14 @@ export default function BlogDetail() {
               )}
             </Descriptions.Item>
             <Descriptions.Item label="Nội dung">
-              {blog.noiDung}
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: blog.noiDung,
+                }}
+                style={{ fontSize: 15 }}
+              />
             </Descriptions.Item>
-            <Descriptions.Item label="Lượt xem">
-              {blog.luotXem}
-            </Descriptions.Item>
+
             <Descriptions.Item label="Người tạo">
               {blog.nguoiTao}
             </Descriptions.Item>
@@ -238,10 +244,31 @@ export default function BlogDetail() {
               }}
             />
           </Form.Item>
-          <Form.Item name="noidung" label="Nội dung">
-            <Input.TextArea
-              rows={4}
-              style={{ borderRadius: 18, border: "1px solid #e1bee7" }}
+          <Form.Item
+            name="noidung"
+            label="Nội dung"
+            rules={[{ required: true, message: "Vui lòng nhập nội dung!" }]}
+            getValueFromEvent={(content) => content} // Đảm bảo form nhận HTML string
+          >
+            <Editor
+              apiKey="fx49rmdn18jd3zfrobbyfbr58yfp0ocqiwz05edcqzihm070" // Có thể đăng ký lấy key miễn phí từ Tiny hoặc để vậy
+              init={{
+                height: 300,
+                menubar: false,
+                plugins: [
+                  "advlist autolink lists link image charmap preview anchor",
+                  "searchreplace visualblocks code fullscreen",
+                  "insertdatetime media table paste code help wordcount",
+                ],
+                toolbar:
+                  "undo redo | formatselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+                content_style: "body { font-size:15px }",
+              }}
+              initialValue={form.getFieldValue("noidung")}
+              value={form.getFieldValue("noidung")}
+              onEditorChange={(value) =>
+                form.setFieldsValue({ noidung: value })
+              }
             />
           </Form.Item>
           <Form.Item

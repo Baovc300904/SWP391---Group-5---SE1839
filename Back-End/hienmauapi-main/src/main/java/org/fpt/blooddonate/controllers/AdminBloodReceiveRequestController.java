@@ -3,10 +3,9 @@ package org.fpt.blooddonate.controllers;
 import jakarta.validation.Valid;
 import org.fpt.blooddonate.dtos.requests.ChangeStatusBloodReceiveRequestToAvailable;
 import org.fpt.blooddonate.dtos.requests.ChangeStatusDonationRequestDTO;
-import org.fpt.blooddonate.dtos.requests.CompleteDonationRequestDTO;
-import org.fpt.blooddonate.dtos.requests.UpdateReceiveDonationRequestDTO;
 import org.fpt.blooddonate.models.BloodDonationRequest;
 import org.fpt.blooddonate.models.BloodReceiveRequest;
+import org.fpt.blooddonate.models.BloodUnitWareHouse;
 import org.fpt.blooddonate.services.BloodReceiveRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -41,6 +41,16 @@ public class AdminBloodReceiveRequestController {
         }
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Page<BloodReceiveRequest>> getAllByUserId(
+            @PathVariable Integer userId,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String keyword
+    ) {
+        return ResponseEntity.ok(bloodReceiveRequestService.getAllByUserId(userId, page, status, keyword));
+    }
+
     @PostMapping("/{id}/available")
     public ResponseEntity<?> available(@PathVariable Integer id, @Valid @RequestBody ChangeStatusBloodReceiveRequestToAvailable payload) throws IOException {
         return bloodReceiveRequestService.available(id, payload)
@@ -60,5 +70,17 @@ public class AdminBloodReceiveRequestController {
         return bloodReceiveRequestService.complete(id)
                 .<ResponseEntity<?>>map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(404).body("Not found activity"));
+    }
+
+    @GetMapping("/{id}/list-available-blood-unit-warehouse")
+    public ResponseEntity<?> getListAvailableBloodUnitWareHouse(@PathVariable Integer id) throws IOException {
+        List<BloodUnitWareHouse> list = bloodReceiveRequestService.getListAvailableBloodUnitWareHouse(id);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/{id}/list-blood-unit-used")
+    public ResponseEntity<?> getListBloodUnitUsed(@PathVariable Integer id) throws IOException {
+        List<BloodUnitWareHouse> list = bloodReceiveRequestService.getListBloodUnitUsed(id);
+        return ResponseEntity.ok(list);
     }
 }

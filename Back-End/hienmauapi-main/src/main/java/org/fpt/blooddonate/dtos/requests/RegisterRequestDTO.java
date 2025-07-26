@@ -51,4 +51,10 @@ public class RegisterRequestDTO {
     @NotNull
     @DecimalMin("0.0")
     private BigDecimal chieucao;
+
+    @NotNull
+    private Double latitude;
+
+    @NotNull
+    private Double longitude;
 }

@@ -114,7 +114,7 @@ export default function BloodManager() {
       render: (val) => (val ? new Date(val).toLocaleString("vi-VN") : "-"),
     },
     {
-      title: "Actions",
+      title: "Hành động",
       key: "actions",
       render: (_, record) => (
         <div style={{ display: "flex", gap: 8 }}>

@@ -1,10 +1,13 @@
 package org.fpt.blooddonate.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "NhomMau")
@@ -23,7 +26,7 @@ public class Blood {
     private String mota;
 
     @Column(nullable = false, columnDefinition = "INT DEFAULT 1", length = 1)
-    private Integer trangThai = 1; // 0: inactive, 1: active
+    private Integer trangThai = 1;
 
     @Column(name = "NgayTao", updatable = false)
     private LocalDateTime ngayTao;

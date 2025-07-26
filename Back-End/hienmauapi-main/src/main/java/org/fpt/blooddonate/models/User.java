@@ -1,6 +1,7 @@
 package org.fpt.blooddonate.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,9 +44,19 @@ public class User {
     @Column(length = 255)
     private String diaChi;
 
+    @Column(nullable = true)
+    private double latitude = 21.030653;
+
+    @Column(nullable = true)
+    private double longitude = 105.847130;
+
     @ManyToOne
-    @JoinColumn(name = "NhomMauId", nullable = false)
+    @JoinColumn(name = "NhomMauId", nullable = true)
     private Blood nhomMau;
+
+    @OneToOne(mappedBy = "nguoiDung", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private EmployeeInformation thongTinNhanVien;
 
     @Column(length = 1)
     private String yeuToRh;
@@ -81,4 +92,7 @@ public class User {
     protected void onUpdate() {
         this.ngayCapNhat = LocalDateTime.now();
     }
+
+    @Transient
+    private double distance;
 }

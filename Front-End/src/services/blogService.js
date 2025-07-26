@@ -1,7 +1,9 @@
 import instance from "../api/axiosConfig";
 
-export const getBlogs = async () => {
-  const res = await instance.get("/api/blogs");
+export const getBlogs = async (params = {}) => {
+  const res = await instance.get("/api/blogs", {
+    params: { ...params, status: 1 },
+  });
   return res.data;
 };
 

@@ -17,14 +17,13 @@ import {
   Tag,
   Tooltip,
 } from "antd";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import {
   cancelBloodUnitWarehouse,
   getBloodUnitWarehouses,
   testedBloodUnitWarehouse,
 } from "../services/unitBloodService";
-import dayjs from "dayjs";
 
 // Mapping status
 const statusMap = {
@@ -65,7 +64,6 @@ export default function BloodUnitWarehouseList() {
 
   useEffect(() => {
     fetchBloodUnits(page, statusFilter);
-    // eslint-disable-next-line
   }, [page, statusFilter]);
 
   // Filter menu
@@ -167,6 +165,11 @@ export default function BloodUnitWarehouseList() {
       render: (val) => (val ? new Date(val).toLocaleDateString("vi-VN") : "-"),
     },
     {
+      title: "Ngày hết hạn",
+      dataIndex: "ngayHetHan",
+      render: (val) => (val ? new Date(val).toLocaleDateString("vi-VN") : "-"),
+    },
+    {
       title: "Số lượng",
       dataIndex: "soLuong",
       render: (soLuong) => soLuong + " ml",
@@ -181,7 +184,7 @@ export default function BloodUnitWarehouseList() {
       ),
     },
     {
-      title: "Actions",
+      title: "Hành động",
       key: "actions",
       render: (_, record) => (
         <div style={{ display: "flex", gap: 8 }}>

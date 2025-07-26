@@ -10,6 +10,7 @@ import {
   Spin,
   Select,
   List,
+  Popconfirm,
 } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -19,12 +20,14 @@ import {
   getCompatibleBloodsDonate,
   addCompatibleBlood,
   getBloods,
+  changeCompatibleBloodStatus,
 } from "../../services/bloodService";
 import {
   PlusOutlined,
   EditOutlined,
   SaveOutlined,
   RollbackOutlined,
+  RetweetOutlined,
 } from "@ant-design/icons";
 
 const statusMap = {
@@ -46,6 +49,7 @@ export default function BloodDetail() {
   const [canReceiveGroups, setCanReceiveGroups] = useState([]); // nhóm này co thể nhận từ
   const [canDonateGroups, setCanDonateGroups] = useState([]); // nhóm này có thể hiến cho
   const [allBloodGroups, setAllBloodGroups] = useState([]); // tất cả nhóm máu
+  const [compatibleReceiveRaw, setCompatibleReceiveRaw] = useState([]); // thêm state này
 
   // State cho việc thêm liên kết
   const [selectedGroups, setSelectedGroups] = useState([]);
@@ -68,18 +72,27 @@ export default function BloodDetail() {
     }
   };
 
-  // Lấy các nhóm máu liên quan và tất cả nhóm máu
   const fetchCompatibleGroups = async () => {
     try {
-      const dataReceive = await getCompatibleBloodsReceive(id); // ai hiến cho nhóm này
-      const dataDonate = await getCompatibleBloodsDonate(id); // nhóm này hiến cho ai
-      const receive = dataReceive.map((item) => item.nhomMauHien);
-      const donate = dataDonate.map((item) => item.nhomMauNhan);
-      setCanReceiveGroups(receive);
-      setCanDonateGroups(donate);
+      const dataReceive = await getCompatibleBloodsReceive(id);
+      setCompatibleReceiveRaw(dataReceive); // lưu nguyên bản để đổi trạng thái
+      const dataDonate = await getCompatibleBloodsDonate(id);
+      setCanReceiveGroups(dataReceive.map((item) => item.nhomMauHien));
+      setCanDonateGroups(dataDonate.map((item) => item.nhomMauNhan));
     } catch (e) {
       message.error(e?.message || "Lỗi get list");
-      // ignore error
+    }
+  };
+
+  // Hàm đổi trạng thái
+  const handleChangeStatus = async (row) => {
+    try {
+      const newStatus = row.trangThai === 1 ? 0 : 1;
+      await changeCompatibleBloodStatus(row.id, newStatus);
+      message.success("Đã đổi trạng thái!");
+      fetchCompatibleGroups(); // reload
+    } catch (e) {
+      message.error(e?.response?.data?.message || "Lỗi đổi trạng thái");
     }
   };
 
@@ -170,7 +183,6 @@ export default function BloodDetail() {
           Quay lại
         </Button>
       }
-      style={{ marginTop: 24 }}
     >
       <Descriptions
         bordered
@@ -221,15 +233,46 @@ export default function BloodDetail() {
         bodyStyle={{ padding: 16 }}
       >
         <List
-          dataSource={canReceiveGroups}
+          dataSource={compatibleReceiveRaw}
           locale={{ emptyText: <i>Chưa có dữ liệu</i> }}
           renderItem={(item) => (
-            <List.Item>
+            <List.Item
+              actions={[
+                <Tag color={statusMap[item.trangThai]?.color} key="status">
+                  {statusMap[item.trangThai]?.text}
+                </Tag>,
+                <Popconfirm
+                  key="status-action"
+                  title={
+                    item.trangThai === 1
+                      ? "Tạm dừng tương thích này?"
+                      : "Kích hoạt lại tương thích này?"
+                  }
+                  onConfirm={() => handleChangeStatus(item)}
+                  okText="Xác nhận"
+                  cancelText="Hủy"
+                >
+                  <Button
+                    icon={<RetweetOutlined />}
+                    size="small"
+                    style={{
+                      background: item.trangThai === 1 ? "#fffde7" : "#e8f5e9",
+                      color: item.trangThai === 1 ? "#fbc02d" : "#388e3c",
+                      borderColor: "#eee",
+                      borderRadius: 6,
+                      fontWeight: 600,
+                    }}
+                  >
+                    {item.trangThai === 1 ? "Tạm dừng" : "Kích hoạt"}
+                  </Button>
+                </Popconfirm>,
+              ]}
+            >
               <Tag
                 color="#1976d2"
                 style={{ fontSize: 16, padding: "6px 18px", minWidth: 100 }}
               >
-                {item.ten}
+                {item.nhomMauHien.ten}
               </Tag>
             </List.Item>
           )}

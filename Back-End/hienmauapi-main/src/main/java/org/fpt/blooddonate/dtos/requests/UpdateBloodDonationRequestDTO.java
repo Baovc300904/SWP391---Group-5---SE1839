@@ -23,4 +23,13 @@ public class UpdateBloodDonationRequestDTO {
     @NotBlank()
     @Pattern(regexp = "toanphan|hongcau|tieucau|huyettuong")
     private String loaiHien;
+
+    @NotBlank()
+    private String sucKhoeHienTai;
+
+    @NotNull
+    private int dangMangThai;
+
+    @NotNull
+    private int macBenhTruyenNhiem;
 }
