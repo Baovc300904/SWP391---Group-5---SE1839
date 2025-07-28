@@ -33,6 +33,7 @@ public class SendEmail {
             message.setFrom(new InternetAddress(username));
             message.setRecipients(
                 Message.RecipientType.TO,
+                InternetAddress.parse(email)
             );
             message.setSubject("Thay Đổi trạng thái của yêu cầu hiến máu");
             message.setText("Xin chào " + email + "\n. Yêu cầu hiến máu với mã #" + id + " đã được chuyển sang trạng thái " + status);
@@ -64,6 +65,7 @@ public class SendEmail {
             message.setFrom(new InternetAddress(username));
             message.setRecipients(
                     Message.RecipientType.TO,
+                    InternetAddress.parse(email)
             );
             message.setSubject("Thay Đổi trạng thái của yêu cầu nhận máu");
             message.setText("Xin chào " + email + "\n. Yêu cầu nhận máu với mã #" + id + " đã được chuyển sang trạng thái " + status);
