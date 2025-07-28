@@ -189,7 +189,7 @@ export default function NotificationBellUser() {
         footer={null}
         width={600}
         bodyStyle={{ paddingTop: 18, paddingBottom: 2 }}
-        destroyOnClose
+        destroyOnHidden
       >
         {detailLoading ? (
           <Spin />
@@ -219,12 +219,11 @@ export default function NotificationBellUser() {
                 </Descriptions.Item>
                 <Descriptions.Item label="Thời gian hiệu lực">
                   {detailData.ngayBatDau
-                    ? `${dayjs(detailData.ngayBatDau).format("DD/MM/YYYY")}${
-                        detailData.ngayKetThuc
-                          ? " - " +
-                            dayjs(detailData.ngayKetThuc).format("DD/MM/YYYY")
-                          : ""
-                      }`
+                    ? `${dayjs(detailData.ngayBatDau).format("DD/MM/YYYY")}${detailData.ngayKetThuc
+                      ? " - " +
+                      dayjs(detailData.ngayKetThuc).format("DD/MM/YYYY")
+                      : ""
+                    }`
                     : "-"}
                 </Descriptions.Item>
                 <Descriptions.Item label="Ngày tạo">
@@ -279,8 +278,8 @@ export default function NotificationBellUser() {
                       {detailData.nguoiTao.gioiTinh === "nam"
                         ? "Nam"
                         : detailData.nguoiTao.gioiTinh === "nu"
-                        ? "Nữ"
-                        : detailData.nguoiTao.gioiTinh}
+                          ? "Nữ"
+                          : detailData.nguoiTao.gioiTinh}
                     </Descriptions.Item>
                     <Descriptions.Item label="Vai trò">
                       <Tag color="#1976d2" style={{ borderRadius: 8 }}>
@@ -299,7 +298,7 @@ export default function NotificationBellUser() {
 
   return (
     <Dropdown
-      overlay={dropdownContent}
+      dropdownRender={() => dropdownContent}
       trigger={["click"]}
       open={open}
       onOpenChange={handleOpenChange}

@@ -196,7 +196,7 @@ export default function BlogTab() {
         dataSource={blogs}
         columns={columns}
         pagination={{ pageSize: 10 }}
-        bordered={false}
+        variant="borderless"
         style={{ marginTop: 16 }}
         scroll={{ x: true }}
       />
@@ -206,7 +206,7 @@ export default function BlogTab() {
         open={open}
         onCancel={() => setOpen(false)}
         onOk={() => form.submit()}
-        destroyOnClose
+        destroyOnHidden
         width={800}
         okText="Thêm"
         cancelText="Huỷ"
@@ -220,7 +220,7 @@ export default function BlogTab() {
         cancelButtonProps={{ style: { borderRadius: 30 } }}
         centered
         style={{ borderRadius: 18 }}
-        bodyStyle={{ marginTop: 18 }}
+        styles={{ body: { marginTop: 18 } }}
       >
         <Form
           layout="vertical"
