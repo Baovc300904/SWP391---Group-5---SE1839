@@ -80,7 +80,7 @@ const CallToActionSection = () => {
                 </div>
               ) : upcomingCampaigns.length > 0 ? (
                 <div className="upcoming-campaigns">
-                  <Paragraph className="campaigns-title" style={{ color: 'white', fontSize: '16px', fontWeight: 'bold' }}>
+                  <Paragraph className="campaigns-title" style={{ color: '#6b7280', fontSize: '16px', fontWeight: '600' }}>
                     🗓️ Chiến dịch sắp diễn ra:
                   </Paragraph>
                   <div className="campaigns-list">
