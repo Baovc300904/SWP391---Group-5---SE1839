@@ -116,7 +116,7 @@ const HeroSection = () => {
                       value={stats.totalDonors}
                       loading={loading}
                       suffix="+"
-                      valueStyle={{ color: '#e53e3e', fontWeight: 'bold' }}
+                      valueStyle={{ color: '#1f2937', fontWeight: 'bold' }}
                     />
                   </div>
                 </Col>
@@ -131,7 +131,7 @@ const HeroSection = () => {
                       value={stats.totalBloodUnits}
                       loading={loading}
                       suffix="+"
-                      valueStyle={{ color: '#e53e3e', fontWeight: 'bold' }}
+                      valueStyle={{ color: '#1f2937', fontWeight: 'bold' }}
                     />
                   </div>
                 </Col>
@@ -146,7 +146,7 @@ const HeroSection = () => {
                       value={stats.totalCampaigns}
                       loading={loading}
                       suffix="+"
-                      valueStyle={{ color: '#e53e3e', fontWeight: 'bold' }}
+                      valueStyle={{ color: '#1f2937', fontWeight: 'bold' }}
                     />
                   </div>
                 </Col>
@@ -161,7 +161,7 @@ const HeroSection = () => {
                       value={stats.totalHospitals}
                       loading={loading}
                       suffix="+"
-                      valueStyle={{ color: '#e53e3e', fontWeight: 'bold' }}
+                      valueStyle={{ color: '#1f2937', fontWeight: 'bold' }}
                     />
                   </div>
                 </Col>

@@ -1,7 +1,7 @@
 /* Features Section Styles */
 .features-section {
   padding: 100px 0;
-  background: #f8f9fa;
+  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 50%, #e8e8e8 100%);
   position: relative;
 }
 
@@ -17,18 +17,19 @@
 }
 
 .features-title {
-  color: #2c3e50 !important;
+  color: #374151 !important;
   font-size: 2.5rem !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
   margin-bottom: 16px !important;
 }
 
 .features-description {
-  color: #6c757d !important;
-  font-size: 18px !important;
+  color: #6b7280 !important;
+  font-size: 17px !important;
   max-width: 600px;
   margin: 0 auto !important;
   line-height: 1.6 !important;
+  opacity: 0.9;
 }
 
 /* Feature Cards */
@@ -36,15 +37,15 @@
   border: none !important;
   border-radius: 20px !important;
   height: 100%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
   transition: all 0.3s ease !important;
   overflow: hidden;
-  background: white;
+  background: rgba(249, 250, 251, 0.8);
 }
 
 .feature-card:hover {
-  transform: translateY(-10px) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
 }
 
 .feature-card .ant-card-body {
@@ -73,7 +74,7 @@
   margin-bottom: 24px;
   font-size: 32px;
   color: white;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
 }
 

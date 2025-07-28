@@ -10,35 +10,47 @@ export default function GuestLayout() {
 
   return (
     <Layout className="guest-layout">
-      <Header className="guest-header">
-        <div className="guest-header-content">
-          <div className="logo" onClick={() => navigate('/')}>
-            <HeartOutlined className="logo-icon" />
-            <span className="logo-text">Hiến Máu Cộng Đồng Việt</span>
+      <Header className="modern-navbar">
+        <div className="navbar-container">
+          {/* Logo Section */}
+          <div className="navbar-brand" onClick={() => navigate('/')}>
+            <div className="brand-container">
+              <div className="brand-icon">
+                <HeartOutlined />
+              </div>
+              <div className="brand-text">
+                <div className="brand-name">Hiến Máu Cộng Đồng Việt</div>
+                <div className="brand-tagline">Kết nối sự sống</div>
+              </div>
+            </div>
           </div>
           
-          {/* Navigation Menu */}
-          <div className="guest-menu-custom">
-            <Link to="/" className="menu-item">
-              <HomeOutlined />
-              <span>Trang chủ</span>
+          {/* Navigation Links */}
+          <nav className="navbar-nav">
+            <Link to="/" className="nav-link">
+              <HomeOutlined className="nav-icon" />
+              <span className="nav-text">Trang chủ</span>
+              <div className="nav-indicator"></div>
             </Link>
-            <Link to="/about" className="menu-item">
-              <InfoCircleOutlined />
-              <span>Giới thiệu</span>
+            <Link to="/about" className="nav-link">
+              <InfoCircleOutlined className="nav-icon" />
+              <span className="nav-text">Giới thiệu</span>
+              <div className="nav-indicator"></div>
             </Link>
-            <Link to="/contact" className="menu-item">
-              <PhoneOutlined />
-              <span>Liên hệ</span>
+            <Link to="/contact" className="nav-link">
+              <PhoneOutlined className="nav-icon" />
+              <span className="nav-text">Liên hệ</span>
+              <div className="nav-indicator"></div>
             </Link>
-          </div>
+          </nav>
           
-          <Space className="header-actions">
+          {/* Action Buttons */}
+          <div className="navbar-actions">
             <Button 
               type="text" 
               icon={<LoginOutlined />}
               onClick={() => navigate('/login')}
-              className="login-btn"
+              className="action-btn login-action"
             >
               Đăng nhập
             </Button>
@@ -46,11 +58,11 @@ export default function GuestLayout() {
               type="primary" 
               icon={<UserAddOutlined />}
               onClick={() => navigate('/register')}
-              className="register-btn"
+              className="action-btn register-action"
             >
               Đăng ký
             </Button>
-          </Space>
+          </div>
         </div>
       </Header>
       
