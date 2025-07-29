@@ -220,6 +220,7 @@ export default function CampaignDetail() {
                           "moTa",
                           "ngayBatDau",
                           "ngayKetThuc",
+                          "soLuongNguoiToiDa",
                         ]);
                         try {
                           await updateCampaign(id, {
@@ -253,6 +254,7 @@ export default function CampaignDetail() {
                           "moTa",
                           "ngayBatDau",
                           "ngayKetThuc",
+                          "soLuongNguoiToiDa",
                         ]);
                         try {
                           await updateCampaign(id, {

@@ -127,6 +127,9 @@ export default function ProfileEdit() {
               <DatePicker
                 format="YYYY-MM-DD"
                 style={{ ...inputStyle, width: "100%" }}
+                disabledDate={(current) => {
+                  return current && current > dayjs().endOf("day");
+                }}
               />
             </Form.Item>
           </Col>

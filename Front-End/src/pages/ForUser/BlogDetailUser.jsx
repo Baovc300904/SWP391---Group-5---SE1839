@@ -129,7 +129,7 @@ export default function BlogDetailUser() {
             minHeight: 160,
           }}
           className="blog-html-content"
-          dangerouslySetInnerHTML={{ __html: blog.noiDung || "" }}
+          dangerouslySetInnerHTML={{ __html: blog?.noiDung || "" }}
         />
 
         <Divider style={{ margin: "20px 0" }} />

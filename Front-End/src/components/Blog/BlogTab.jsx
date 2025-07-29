@@ -1,3 +1,6 @@
+// Thêm import này vào đầu tệp
+import { Editor } from "@tinymce/tinymce-react";
+
 import {
   DeleteOutlined,
   EyeOutlined,
@@ -39,6 +42,7 @@ export default function BlogTab() {
     anh: [],
   };
 
+  // ... (các hàm fetchAll, onFinish, handleDelete giữ nguyên)
   const fetchAll = async () => {
     setLoading(true);
     try {
@@ -60,6 +64,7 @@ export default function BlogTab() {
   }, []);
 
   const onFinish = async (values) => {
+    // Chú ý: `values.noidung` bây giờ sẽ là chuỗi HTML
     try {
       const formData = new FormData();
       formData.append("tieude", values.tieuDe);
@@ -87,6 +92,7 @@ export default function BlogTab() {
     }
   };
 
+  // ... (phần columns của Table giữ nguyên)
   const columns = [
     {
       title: "#",
@@ -226,7 +232,7 @@ export default function BlogTab() {
           layout="vertical"
           form={form}
           onFinish={onFinish}
-          initialValues={initialFormValues} // reset tự động khi đóng mở modal
+          initialValues={initialFormValues}
         >
           <Form.Item
             name="tieuDe"
@@ -245,23 +251,52 @@ export default function BlogTab() {
             />
           </Form.Item>
 
+          {/* ----- THAY ĐỔI Ở ĐÂY ----- */}
           <Form.Item
             name="noidung"
             label="Nội dung"
             rules={[{ required: true, message: "Vui lòng nhập nội dung!" }]}
           >
-            <Input.TextArea
-              rows={3}
-              style={{
-                borderRadius: 18,
-                padding: 10,
-                backgroundColor: "#fefefe",
-                border: "1px solid #e1bee7",
+            <Editor
+              apiKey="fx49rmdn18jd3zfrobbyfbr58yfp0ocqiwz05edcqzihm070" // <-- Lấy API Key miễn phí từ website của TinyMCE
+              initialValue=""
+              init={{
+                height: 350,
+                menubar: false,
+                plugins: [
+                  "advlist",
+                  "autolink",
+                  "lists",
+                  "link",
+                  "image",
+                  "charmap",
+                  "preview",
+                  "anchor",
+                  "searchreplace",
+                  "visualblocks",
+                  "code",
+                  "fullscreen",
+                  "insertdatetime",
+                  "media",
+                  "table",
+                  "help",
+                  "wordcount",
+                ],
+                toolbar:
+                  "undo redo | blocks | " +
+                  "bold italic forecolor | alignleft aligncenter " +
+                  "alignright alignjustify | bullist numlist outdent indent | " +
+                  "removeformat | help",
+                content_style:
+                  "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
               }}
-              placeholder="Mô tả về  nội dung blog (nếu có)"
-              autoSize={{ minRows: 3, maxRows: 5 }}
+              // Cập nhật giá trị cho Form của Ant Design mỗi khi nội dung thay đổi
+              onEditorChange={(content) => {
+                form.setFieldsValue({ noidung: content });
+              }}
             />
           </Form.Item>
+          {/* ----- KẾT THÚC THAY ĐỔI ----- */}
 
           <Form.Item
             name="anh"

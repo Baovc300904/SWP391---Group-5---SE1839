@@ -141,8 +141,8 @@ export default function Campaigns() {
     },
     {
       title: "Trạng thái",
-      render: (v, record) => {
-        const status = getStatusByTime(record.ngayBatDau, record.ngayKetThuc);
+      dataIndex: "trangThaiHoatDong",
+      render: (status) => {
         return (
           <Tag
             color={statusMap[status]?.color || "#bdbdbd"}
