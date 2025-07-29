@@ -1,12 +1,12 @@
 package org.fpt.blooddonate.dtos.requests;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ChangeStatusDonationRequestDTO {
-    private String ghiChu;
-
+public class CompleteReceiveRequestDTO {
+    @NotBlank()
     private String formKham;
 }
