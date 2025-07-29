@@ -7,4 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChangeStatusDonationRequestDTO {
     private String ghiChu;
+
+    private String formKham;
 }

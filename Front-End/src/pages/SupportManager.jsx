@@ -106,7 +106,9 @@ export default function SupportTicketManager() {
 
       setEditModal(false);
       fetchTickets(page, keyword);
-    } catch {
+    } catch (error) {
+      message.error("Có lỗi xảy ra khi cập nhật trạng thái!");
+      console.error("Error updating support ticket:", error);
     } finally {
       message.success("Cập nhật trạng thái thành công!");
       fetchTickets();

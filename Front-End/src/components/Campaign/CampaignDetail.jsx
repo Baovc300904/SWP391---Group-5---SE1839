@@ -20,16 +20,6 @@ import {
   updateCampaign,
 } from "../../services/campaignService";
 
-// Hàm tính trạng thái dựa vào ngày
-function getStatusByTime(ngayBatDau, ngayKetThuc) {
-  const now = dayjs();
-  const start = dayjs(ngayBatDau);
-  const end = dayjs(ngayKetThuc);
-  if (now.isBefore(start, "day")) return "sapdienra";
-  if (now.isAfter(end, "day")) return "daketthuc";
-  return "dangdienra";
-}
-
 const statusLabels = {
   sapdienra: "Sắp diễn ra",
   dangdienra: "Đang diễn ra",

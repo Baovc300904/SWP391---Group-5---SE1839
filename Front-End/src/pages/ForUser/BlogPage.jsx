@@ -32,7 +32,6 @@ export default function BlogTabUser() {
 
   useEffect(() => {
     fetchBlogs(current, search);
-    // eslint-disable-next-line
   }, [current, search]);
 
   return (

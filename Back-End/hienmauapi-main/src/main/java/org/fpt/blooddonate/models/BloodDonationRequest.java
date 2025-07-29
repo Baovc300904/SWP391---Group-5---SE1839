@@ -1,5 +1,6 @@
 package org.fpt.blooddonate.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class BloodDonationRequest {
 
     @ManyToOne
     @JoinColumn(name = "HoatDongHienMauId", nullable = true)
+    @JsonBackReference
     private BloodDonationActivity hoatDongHienMau;
 
     @Column(name = "NgayHienMauDuKien", nullable = false)
@@ -49,6 +51,18 @@ public class BloodDonationRequest {
 
     @Column(name = "TrangThai", nullable = false)
     private String trangThai = "dangcho";
+
+    @Column(name = "SucKhoeHienTai", nullable = true)
+    private String sucKhoeHienTai = "";
+
+    @Column(name = "FormKham", nullable = true)
+    private String formKham = "";
+
+    @Column(name = "DangMangThai", nullable = true)
+    private int dangMangThai = 0;
+
+    @Column(name = "MacBenhTruyenNhiem", nullable = true)
+    private int macBenhTruyenNhiem = 0;
 
     @Column(name = "NgayTao", updatable = false)
     private LocalDateTime ngayTao = LocalDateTime.now();

@@ -7,6 +7,7 @@ import org.fpt.blooddonate.dtos.responses.LoginResponseDTO;
 import org.fpt.blooddonate.models.Blood;
 import org.fpt.blooddonate.repositories.BloodRepository;
 import org.fpt.blooddonate.utils.AuthUtil;
+import org.fpt.blooddonate.utils.SendEmail;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -75,6 +76,8 @@ public class AuthService {
         user.setNgaySinh(LocalDate.parse(payload.getNgaysinh()));
         user.setSoDienThoai(payload.getSodienthoai());
         user.setVaiTro(AppConfig.USER_CUSTOMER_ROLE);
+        user.setLatitude(payload.getLatitude());
+        user.setLongitude(payload.getLongitude());
         User registeredUser = userRepository.save(user);
         LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
         loginResponseDTO.setToken(authUtil.generateToken(registeredUser));

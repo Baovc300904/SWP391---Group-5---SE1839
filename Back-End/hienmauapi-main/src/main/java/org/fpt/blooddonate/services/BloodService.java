@@ -5,8 +5,11 @@ import org.fpt.blooddonate.dtos.requests.CreateBloodRequestDTO;
 import org.fpt.blooddonate.dtos.requests.UpdateBloodRequestDTO;
 import org.fpt.blooddonate.models.Blood;
 import org.fpt.blooddonate.repositories.BloodRepository;
+import org.fpt.blooddonate.repositories.CompatibleBloodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,12 +19,19 @@ public class BloodService {
     @Autowired
     private BloodRepository repository;
 
+    @Autowired
+    private CompatibleBloodRepository compatibleBloodRepository;
+
     public List<Blood> getAll() {
-        return repository.findAll();
+        List<Blood> listBlood = repository.findAllByTrangThai(1);
+        return listBlood;
     }
 
-    public Optional<Blood> getById(Integer id) {
-        return repository.findById(id);
+    public Blood getById(Integer id) {
+        Blood blood = repository.findById(id)
+             .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not existed blood"));
+
+        return blood;
     }
 
     public Blood create(CreateBloodRequestDTO payload) {
@@ -37,6 +47,10 @@ public class BloodService {
             blood.setMota(payload.getMota());
             return repository.save(blood);
         });
+    }
+
+    public long getTotal() {
+        return repository.count();
     }
 
     public Optional<Blood> delete(Integer id) {

@@ -40,10 +40,6 @@ public class BloodReceiveRequest {
     @Column(length = 255)
     private String diaChiNhanMau;
 
-    @ManyToOne
-    @JoinColumn(name = "KhoDonViMauId")
-    private BloodUnitWareHouse khoDonViMau;
-
     private String ghiChu;
 
     @ManyToOne
@@ -54,6 +50,18 @@ public class BloodReceiveRequest {
 
     @Column(name = "TrangThai", nullable = false)
     private String trangThai = "dangcho";
+
+    @Column(name = "SucKhoeHienTai", nullable = true)
+    private String sucKhoeHienTai = "";
+
+    @Column(name = "DangMangThai", nullable = true)
+    private int dangMangThai = 0;
+
+    @Column(name = "FormKham", nullable = true)
+    private String formKham = "";
+
+    @Column(name = "MacBenhTruyenNhiem", nullable = true)
+    private int macBenhTruyenNhiem = 0;
 
     @Column(name = "NgayTao", updatable = false)
     private LocalDateTime ngayTao = LocalDateTime.now();

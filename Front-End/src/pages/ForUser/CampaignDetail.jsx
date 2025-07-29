@@ -196,19 +196,19 @@ export default function DetailCampaign() {
       });
     }
   };
-  const handleRecoveryDateChange = (date) => {
+  const handleRecoveryDateChange = () => {
     // Trigger validation cho ngày hiến máu dự kiến
     form.validateFields(["ngayHienMauDuKien"]);
   };
 
   // Hàm xử lý khi thay đổi ngày hiến máu dự kiến
-  const handleDonationDateChange = (date) => {
+  const handleDonationDateChange = () => {
     // Trigger validation cho ngày phục hồi gần nhất
     form.validateFields(["ngayPhucHoiGanNhat"]);
   };
 
   // Hàm xử lý khi thay đổi loại hiến máu
-  const handleDonationTypeChange = (type) => {
+  const handleDonationTypeChange = () => {
     // Trigger validation cho cả hai ngày khi thay đổi loại hiến máu
     form.validateFields(["ngayHienMauDuKien", "ngayPhucHoiGanNhat"]);
   };

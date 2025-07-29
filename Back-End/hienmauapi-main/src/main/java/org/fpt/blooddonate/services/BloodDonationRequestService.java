@@ -7,6 +7,7 @@ import org.fpt.blooddonate.dtos.requests.CreateBloodDonationRequestDTO;
 import org.fpt.blooddonate.dtos.requests.UpdateBloodDonationRequestDTO;
 import org.fpt.blooddonate.models.*;
 import org.fpt.blooddonate.repositories.*;
+import org.fpt.blooddonate.utils.SendEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,17 +40,21 @@ public class BloodDonationRequestService {
     private BloodRepository bloodRepository;
 
     public Page<BloodDonationRequest> getAll(int page, String status, String keyword) {
-        Pageable pageable = PageRequest.of(page - 1, 20);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         return repository.paginated(status, keyword, pageable);
     }
 
     public Page<BloodDonationRequest> getAllByUserId(int userId, int page, String status, String keyword) {
-        Pageable pageable = PageRequest.of(page - 1, 20);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         return repository.paginatedByUserId(userId, status, keyword, pageable);
     }
 
     public Optional<BloodDonationRequest> getById(Integer id) {
         return repository.findById(id);
+    }
+
+    public long getTotal() {
+        return repository.count();
     }
 
     public BloodDonationRequest create(CreateBloodDonationRequestDTO payload) throws IOException {
@@ -58,6 +63,10 @@ public class BloodDonationRequestService {
         if (payload.getHoatDongHienMau() != null) {
             BloodDonationActivity bloodDonationActivity = bloodDonationActivityRespository.findById(payload.getHoatDongHienMau())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not existed blood donation activity"));
+
+            if (bloodDonationActivity.getSoLuongNguoiToiDa() <= bloodDonationActivity.getSoLuongNguoiDangKyHienTai()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Apologies, but all slots for this blood donation event have been filled. Thank you for your interest!");
+            }
 
             bloodDonationRequest.setHoatDongHienMau(bloodDonationActivity);
             // Update total user in blood donation activity
@@ -72,6 +81,9 @@ public class BloodDonationRequestService {
         bloodDonationRequest.setGhiChu(payload.getGhiChu());
         bloodDonationRequest.setLoaiHien(payload.getLoaiHien());
         bloodDonationRequest.setSoLuong(payload.getSoLuong());
+        bloodDonationRequest.setSucKhoeHienTai(payload.getSucKhoeHienTai());
+        bloodDonationRequest.setDangMangThai(payload.getDangMangThai());
+        bloodDonationRequest.setMacBenhTruyenNhiem(payload.getMacBenhTruyenNhiem());
         bloodDonationRequest.setNgayHienMauDuKien(LocalDate.parse(payload.getNgayHienMauDuKien()));
         bloodDonationRequest.setNgayPhucHoiGanNhat(LocalDate.parse(payload.getNgayPhucHoiGanNhat()));
 
@@ -83,6 +95,9 @@ public class BloodDonationRequestService {
             bloodDonationRequest.setGhiChu(payload.getGhiChu());
             bloodDonationRequest.setLoaiHien(payload.getLoaiHien());
             bloodDonationRequest.setSoLuong(payload.getSoLuong());
+            bloodDonationRequest.setSucKhoeHienTai(payload.getSucKhoeHienTai());
+            bloodDonationRequest.setDangMangThai(payload.getDangMangThai());
+            bloodDonationRequest.setMacBenhTruyenNhiem(payload.getMacBenhTruyenNhiem());
             bloodDonationRequest.setNgayHienMauDuKien(LocalDate.parse(payload.getNgayHienMauDuKien()));
             bloodDonationRequest.setNgayPhucHoiGanNhat(LocalDate.parse(payload.getNgayPhucHoiGanNhat()));
             return repository.save(bloodDonationRequest);
@@ -97,6 +112,9 @@ public class BloodDonationRequestService {
 
             bloodDonationRequest.setTrangThai(AppConfig.BLOOD_DONATION_REQUEST_CANCEL);
             bloodDonationRequest.setGhiChu("User cancel blood donation request");
+
+            User user = this.userRepository.findById(bloodDonationRequest.getNguoiHien().getId()).orElseThrow();
+            SendEmail.changeBloodDonationRequestStatus(user.getEmail(), bloodDonationRequest.getId(), "huỷ");
             return repository.save(bloodDonationRequest);
         });
     }
@@ -113,21 +131,25 @@ public class BloodDonationRequestService {
             bloodDonationRequest.setTrangThai(AppConfig.BLOOD_DONATION_REQUEST_APPROVED);
             bloodDonationRequest.setNguoiDuyet(user);
             bloodDonationRequest.setGhiChu("Admin approved blood donation request");
+
+            User createdUser = this.userRepository.findById(bloodDonationRequest.getNguoiHien().getId()).orElseThrow();
+            SendEmail.changeBloodDonationRequestStatus(createdUser.getEmail(), bloodDonationRequest.getId(), "xác nhận");
             return repository.save(bloodDonationRequest);
         });
     }
 
     public Optional<BloodDonationRequest> reject(Integer id, ChangeStatusDonationRequestDTO payload) throws IOException {
         return repository.findById(id).map(bloodDonationRequest -> {
-            if (!bloodDonationRequest.getTrangThai().equals(AppConfig.BLOOD_DONATION_REQUEST_PENDING)) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only approve request when request is pending");
-            }
+//            if (!bloodDonationRequest.getTrangThai().equals(AppConfig.BLOOD_DONATION_REQUEST_PENDING)) {
+//                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only reject request when request is pending");
+//            }
 
             Integer userId = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = new User();
             user.setId(userId);
             bloodDonationRequest.setTrangThai(AppConfig.BLOOD_DONATION_REQUEST_REJECTED);
             bloodDonationRequest.setNguoiDuyet(user);
+            bloodDonationRequest.setFormKham(payload.getFormKham());
             bloodDonationRequest.setNgayDuyet(LocalDateTime.now());
             if (payload.getGhiChu().isEmpty() || payload.getGhiChu() == "") {
                 bloodDonationRequest.setGhiChu("Admin rejected blood donation request");
@@ -135,6 +157,8 @@ public class BloodDonationRequestService {
                 bloodDonationRequest.setGhiChu(payload.getGhiChu());
             }
 
+            User createdUser = this.userRepository.findById(bloodDonationRequest.getNguoiHien().getId()).orElseThrow();
+            SendEmail.changeBloodDonationRequestStatus(createdUser.getEmail(), bloodDonationRequest.getId(), "từ chối");
             return repository.save(bloodDonationRequest);
         });
     }
@@ -150,6 +174,7 @@ public class BloodDonationRequestService {
             user.setId(userId);
             bloodDonationRequest.setTrangThai(AppConfig.BLOOD_DONATION_REQUEST_COMPLETED);
             bloodDonationRequest.setNguoiDuyet(user);
+            bloodDonationRequest.setFormKham(payload.getFormKham());
             bloodDonationRequest.setNgayDuyet(LocalDateTime.now());
             bloodDonationRequest.setGhiChu("Admin completed blood donation request");
 
@@ -167,6 +192,9 @@ public class BloodDonationRequestService {
             bloodUnitWareHouse.setNhomMau(blood);
             bloodUnitWareHouse.setNgayLayMau(LocalDateTime.now());
             bloodUnitWareHouseRepository.save(bloodUnitWareHouse);
+
+            User createdUser = this.userRepository.findById(bloodDonationRequest.getNguoiHien().getId()).orElseThrow();
+            SendEmail.changeBloodDonationRequestStatus(createdUser.getEmail(), bloodDonationRequest.getId(), "đã hiến");
             return repository.save(bloodDonationRequest);
         });
     }

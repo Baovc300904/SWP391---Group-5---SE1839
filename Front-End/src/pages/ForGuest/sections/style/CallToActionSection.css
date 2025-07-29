@@ -1,0 +1,380 @@
+/* Call to Action Section Styles */
+.cta-section {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 50%, #e8e8e8 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background Elements */
+.cta-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floating-heart {
+  position: absolute;
+  color: rgba(156, 163, 175, 0.08);
+  font-size: 64px;
+  animation: floatCTA 10s ease-in-out infinite;
+}
+
+.floating-heart::before {
+  content: '♥';
+}
+
+.heart-1 {
+  top: 20%;
+  left: 15%;
+  animation-delay: -2s;
+}
+
+.heart-2 {
+  bottom: 30%;
+  right: 20%;
+  animation-delay: -6s;
+}
+
+.heart-3 {
+  top: 60%;
+  left: 70%;
+  animation-delay: -4s;
+}
+
+@keyframes floatCTA {
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
+  25% { transform: translateY(-30px) rotate(5deg); opacity: 0.08; }
+  50% { transform: translateY(-15px) rotate(-3deg); opacity: 0.05; }
+  75% { transform: translateY(-25px) rotate(2deg); opacity: 0.06; }
+}
+
+.cta-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* CTA Content */
+.cta-content {
+  color: #1f2937;
+}
+
+.cta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(100, 116, 139, 0.08);
+  backdrop-filter: blur(10px);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  border: 1px solid rgba(100, 116, 139, 0.15);
+  color: #64748b;
+}
+
+
+.cta-title {
+  color: #374151 !important;
+  font-size: 3rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 24px !important;
+  text-shadow: none;
+}
+
+.cta-description {
+  color: #6b7280 !important;
+  font-size: 17px !important;
+  line-height: 1.6 !important;
+  margin-bottom: 32px !important;
+  max-width: 500px;
+  opacity: 0.9;
+}
+
+/* CTA Buttons */
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.cta-primary-btn {
+  background: #64748b !important;
+  border: 2px solid #64748b !important;
+  color: white !important;
+  border-radius: 25px !important;
+  height: 50px !important;
+  padding: 0 32px !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(100, 116, 139, 0.15) !important;
+}
+
+.cta-primary-btn:hover {
+  background: #475569 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(100, 116, 139, 0.25) !important;
+}
+
+.cta-secondary-btn {
+  background: transparent !important;
+  border: 2px solid rgba(107, 114, 128, 0.5) !important;
+  color: #374151 !important;
+  border-radius: 25px !important;
+  height: 50px !important;
+  padding: 0 32px !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  transition: all 0.3s ease !important;
+  backdrop-filter: blur(10px);
+}
+
+.cta-secondary-btn:hover {
+  background: rgba(107, 114, 128, 0.1) !important;
+  border-color: #6b7280 !important;
+  color: #1f2937 !important;
+  transform: translateY(-2px) !important;
+}
+
+/* App Download Section */
+.cta-app-download {
+  background: rgba(248, 250, 252, 0.9);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(203, 213, 225, 0.3);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+}
+
+.app-title {
+  color: #1f2937 !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 24px !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.app-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.app-button {
+  background: rgba(248, 250, 252, 0.8) !important;
+  border: 1px solid rgba(203, 213, 225, 0.5) !important;
+  color: #374151 !important;
+  border-radius: 12px !important;
+  height: 60px !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding: 0 20px !important;
+  transition: all 0.3s ease !important;
+  backdrop-filter: blur(10px);
+}
+
+.app-button:hover {
+  background: rgba(241, 245, 249, 0.9) !important;
+  border-color: rgba(148, 163, 184, 0.6) !important;
+  color: #1f2937 !important;
+  transform: translateY(-2px) !important;
+}
+
+.app-button .anticon {
+  font-size: 24px !important;
+  margin-right: 12px !important;
+}
+
+.app-button-content {
+  text-align: left;
+  flex-grow: 1;
+}
+
+.app-button-text {
+  font-size: 12px;
+  opacity: 0.8;
+  line-height: 1;
+}
+
+.app-button-store {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* App Stats */
+.app-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Download Stats & Upcoming Campaigns */
+.download-stats,
+.upcoming-campaigns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.campaigns-title {
+  text-align: center !important;
+  margin-bottom: 16px !important;
+}
+
+.campaigns-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.campaign-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(249, 250, 251, 0.7);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(229, 231, 235, 0.4);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.3s ease;
+}
+
+.campaign-item:hover {
+  background: rgba(243, 244, 246, 0.8);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.campaign-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.campaign-text {
+  flex: 1;
+  color: #4b5563;
+  text-align: left;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(249, 250, 251, 0.8);
+  border-radius: 12px;
+  border: 1px solid rgba(229, 231, 235, 0.3);
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  background: rgba(243, 244, 246, 0.9);
+  transform: translateY(-1px);
+}
+
+.stat-text {
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.stat-divider {
+  opacity: 0.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cta-section {
+    padding: 80px 0;
+  }
+
+  .cta-title {
+    font-size: 2.5rem !important;
+  }
+
+  .cta-description {
+    font-size: 16px !important;
+  }
+
+  .cta-buttons {
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
+  .cta-primary-btn,
+  .cta-secondary-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .cta-app-download {
+    padding: 30px 20px;
+  }
+
+  .app-stats {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .cta-section {
+    padding: 60px 0;
+  }
+
+  .cta-container {
+    padding: 0 16px;
+  }
+
+  .cta-title {
+    font-size: 2rem !important;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .floating-heart {
+    font-size: 48px;
+  }
+
+  .app-button {
+    height: 55px !important;
+    padding: 0 16px !important;
+  }
+
+  .app-button .anticon {
+    font-size: 20px !important;
+    margin-right: 10px !important;
+  }
+}

@@ -65,12 +65,15 @@ export default function LoginCard() {
           borderRadius: 20,
           boxShadow: "0 8px 16px rgba(0,0,0,0.1)",
         }}
-        bodyStyle={{
-          padding: 32,
-          backgroundColor: "#f9fbfd",
-          borderRadius: "0 0 20px 20px",
+        styles={{
+          body: {
+            padding: 32,
+            backgroundColor: "#f9fbfd",
+            borderRadius: "0 0 20px 20px",
+          },
+          header: { padding: 0 }
         }}
-        bordered={false}
+        variant="outlined"
         title={
           <div
             style={{
@@ -87,7 +90,6 @@ export default function LoginCard() {
             ĐĂNG NHẬP
           </div>
         }
-        headStyle={{ padding: 0 }}
       >
         <Form form={form} layout="vertical" onFinish={onFinish}>
           <Form.Item

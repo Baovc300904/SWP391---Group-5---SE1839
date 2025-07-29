@@ -227,7 +227,7 @@ export default function Campaigns() {
           pageSize: 10,
           onChange: (page) => fetchData(page),
         }}
-        bordered={false}
+        variant="borderless"
         style={{ marginTop: 16 }}
         scroll={{ x: true }}
       />
@@ -243,8 +243,8 @@ export default function Campaigns() {
         footer={null}
         centered
         style={{ borderRadius: 16 }}
-        bodyStyle={{ marginTop: 16 }}
-        destroyOnClose
+        styles={{ body: { marginTop: 16 } }}
+        destroyOnHidden
       >
         <Form
           form={form}
