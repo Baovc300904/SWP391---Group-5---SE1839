@@ -9,6 +9,8 @@ import {
   message,
   Tag,
   Table,
+  Col,
+  Row,
 } from "antd";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -336,45 +338,96 @@ export default function CampaignDetail() {
           onFinish={handleUpdate}
           style={{ marginTop: 20 }}
         >
-          <Form.Item
-            label="Tên chiến dịch"
-            name="ten"
-            rules={[{ required: true }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="Địa điểm"
-            name="diaDiem"
-            rules={[{ required: true }]}
-          >
-            <Input />
-          </Form.Item>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                label="Tên chiến dịch"
+                name="ten"
+                rules={[
+                  { required: true, message: "Vui lòng nhập tên chiến dịch!" },
+                ]}
+              >
+                <Input placeholder="Ví dụ: Chiến dịch mùa hè xanh" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                label="Địa điểm"
+                name="diaDiem"
+                rules={[{ required: true, message: "Vui lòng nhập địa điểm!" }]}
+              >
+                <Input placeholder="Ví dụ: Công viên Thống Nhất" />
+              </Form.Item>
+            </Col>
+          </Row>
+
           <Form.Item label="Mô tả" name="moTa">
-            <Input.TextArea rows={3} />
+            <Input.TextArea
+              rows={4}
+              placeholder="Mô tả chi tiết về chiến dịch"
+            />
           </Form.Item>
+
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                label="Ngày bắt đầu"
+                name="ngayBatDau"
+                rules={[
+                  { required: true, message: "Vui lòng chọn ngày bắt đầu!" },
+                ]}
+              >
+                <DatePicker style={{ width: "100%" }} format="DD/MM/YYYY" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                label="Ngày kết thúc"
+                name="ngayKetThuc"
+                rules={[
+                  { required: true, message: "Vui lòng chọn ngày kết thúc!" },
+                ]}
+              >
+                <DatePicker style={{ width: "100%" }} format="DD/MM/YYYY" />
+              </Form.Item>
+            </Col>
+          </Row>
+
           <Form.Item
-            label="Ngày bắt đầu"
-            name="ngayBatDau"
-            rules={[{ required: true }]}
+            label="Số lượng người tối đa"
+            name="soLuongNguoiToiDa"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng nhập số lượng người tối đa!",
+              }, // Thêm required rule
+              {
+                validator: (_, value) => {
+                  if (!value || value >= campaign?.soLuongNguoiDangKyHienTai) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error(
+                      `Số lượng người tối đa phải lớn hơn hoặc bằng ${campaign?.soLuongNguoiDangKyHienTai} (số người đã đăng ký hiện tại).`
+                    )
+                  );
+                },
+              },
+            ]}
           >
-            <DatePicker style={{ width: "100%" }} />
+            <InputNumber
+              min={1}
+              style={{ width: "100%" }}
+              placeholder="Nhập số lượng"
+            />
           </Form.Item>
-          <Form.Item
-            label="Ngày kết thúc"
-            name="ngayKetThuc"
-            rules={[{ required: true }]}
-          >
-            <DatePicker style={{ width: "100%" }} />
-          </Form.Item>
-          <Form.Item label="Số lượng người tối đa" name="soLuongNguoiToiDa">
-            <InputNumber min={1} style={{ width: "100%" }} />
-          </Form.Item>
+
           <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
               style={{ marginRight: 12 }}
+              loading={loading} // Áp dụng trạng thái loading
             >
               Lưu thay đổi
             </Button>

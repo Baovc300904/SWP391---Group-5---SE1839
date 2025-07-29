@@ -9,6 +9,8 @@ import {
   Spin,
   Row,
   Col,
+  Modal, // Thêm
+  Select, // Thêm
 } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -18,7 +20,9 @@ import {
   getAvailableBloodUnitWarehouses,
   getUsedBloodUnits,
 } from "../../services/receiveBloodAdminService";
-import { RollbackOutlined } from "@ant-design/icons";
+import { MedicineBoxOutlined, EditOutlined } from "@ant-design/icons";
+
+const { Option } = Select;
 
 // Mapping status for blood unit
 const statusTagMap = {
@@ -28,6 +32,7 @@ const statusTagMap = {
   choxetnghiem: { text: "Chờ xét nghiệm", color: "blue" },
   dangcho: { text: "Đang chờ", color: "gold" },
   dacomau: { text: "Đã có máu", color: "green" },
+  hoanthanh: { text: "Hoàn thành", color: "blue" },
 };
 
 export default function BloodReceiveRequestDetail() {
@@ -41,27 +46,38 @@ export default function BloodReceiveRequestDetail() {
   const [actionLoading, setActionLoading] = useState(false);
   const [note, setNote] = useState("");
   const [selectedWarehouses, setSelectedWarehouses] = useState([]); // list id
-  const [status, setStatus] = useState("dangcho");
   const [error, setError] = useState("");
+
+  // State mới cho form khám
+  const [isExamModalVisible, setIsExamModalVisible] = useState(false);
+  const [examData, setExamData] = useState(null);
+  const [examForm] = Form.useForm();
 
   // Fetch details and blood units
   const fetchDetails = async () => {
     setLoading(true);
+    setExamData(null); // Reset dữ liệu khám mỗi lần fetch
     try {
       const data = await getBloodReceiveRequestDetail(id);
       setRequestDetail(data);
-      setStatus(data.trangThai);
-      // Chỉ lấy máu phù hợp khi trạng thái là "đang chờ"
+
+      // Parse dữ liệu khám nếu có
+      if (data.formKham) {
+        try {
+          setExamData(JSON.parse(data.formKham));
+        } catch (e) {
+          console.error("Lỗi parse JSON từ formKham", e);
+          message.error("Lỗi khi đọc dữ liệu khám.");
+        }
+      }
+
       if (data.trangThai === "dangcho") {
-        // LẤY KHO MÁU PHÙ HỢP THEO NHÓM MÁU YÊU CẦU (KHÔNG PHẢI nhóm máu người nhận!)
-        const available = await getAvailableBloodUnitWarehouses(
-          data?.nhomMau?.id
-        );
+        const available = await getAvailableBloodUnitWarehouses(id);
         setAvailableWarehouses(available || []);
       } else {
         setAvailableWarehouses([]);
       }
-      // Lấy máu đã sử dụng
+
       const used = await getUsedBloodUnits(id);
       setUsedBloodUnits(used || []);
       setError("");
@@ -81,7 +97,6 @@ export default function BloodReceiveRequestDetail() {
     // eslint-disable-next-line
   }, [id]);
 
-  // Chọn/unselect nhiều kho máu
   const toggleWarehouse = (warehouseId) => {
     setSelectedWarehouses((prev) =>
       prev.includes(warehouseId)
@@ -90,8 +105,8 @@ export default function BloodReceiveRequestDetail() {
     );
   };
 
-  // Chuyển trạng thái sang 'Đã có máu'
-  const handleChangeStatus = async () => {
+  // Chuyển sang "Đã có máu"
+  const handleSetAvailable = async () => {
     if (!selectedWarehouses.length) {
       message.warning("Vui lòng chọn ít nhất một đơn vị máu.");
       return;
@@ -114,11 +129,37 @@ export default function BloodReceiveRequestDetail() {
     }
   };
 
-  // Hủy yêu cầu
-  const handleCancel = async () => {
+  // Các hàm xử lý sau khi có form khám
+  const showExamModal = () => {
+    if (examData) {
+      examForm.setFieldsValue(examData);
+    } else {
+      examForm.resetFields();
+    }
+    setIsExamModalVisible(true);
+  };
+
+  const handleFinishExam = (values) => {
+    setExamData(values);
+    setIsExamModalVisible(false);
+    message.success("Đã lưu kết quả khám!");
+  };
+
+  const handleCancelAfterExam = async () => {
+    if (!note) {
+      message.error("Vui lòng nhập lý do hủy vào ô ghi chú.");
+      return;
+    }
+    if (!examData) {
+      message.error("Không tìm thấy dữ liệu khám để gửi kèm.");
+      return;
+    }
     setActionLoading(true);
     try {
-      await updateBloodReceiveRequestStatus(id, "reject", { ghiChu: note });
+      await updateBloodReceiveRequestStatus(id, "reject", {
+        ghiChu: note,
+        formKham: JSON.stringify(examData),
+      });
       message.success("Yêu cầu nhận máu đã bị hủy.");
       navigate("/employee/receive-blood-manager");
     } catch (e) {
@@ -130,11 +171,17 @@ export default function BloodReceiveRequestDetail() {
     }
   };
 
-  // Hoàn thành
-  const handleComplete = async () => {
+  const handleCompleteAfterExam = async () => {
+    if (!examData) {
+      message.error("Không tìm thấy dữ liệu khám để gửi kèm.");
+      return;
+    }
     setActionLoading(true);
     try {
-      await updateBloodReceiveRequestStatus(id, "complete", {});
+      await updateBloodReceiveRequestStatus(id, "complete", {
+        ghiChu: note,
+        formKham: JSON.stringify(examData),
+      });
       message.success("Yêu cầu nhận máu đã hoàn thành.");
       navigate("/employee/receive-blood-manager");
     } catch (e) {
@@ -163,145 +210,311 @@ export default function BloodReceiveRequestDetail() {
       </Card>
     );
 
-  return (
-    <Card
-      title={
-        <span style={{ fontWeight: 700, fontSize: 20, color: "#3f51b5" }}>
-          🩸 Chi tiết yêu cầu nhận máu
-        </span>
-      }
-      extra={
-        <Button onClick={() => navigate("/employee/receive-blood-manager")}>
-          Quay lại
+  // Render các nút chức năng chính
+  const renderActionButtons = () => {
+    const trangThai = requestDetail?.trangThai;
+
+    if (trangThai === "dangcho") {
+      return (
+        <Button
+          type="primary"
+          loading={actionLoading}
+          onClick={handleSetAvailable}
+          style={{ background: "#2196F3", borderColor: "#2196F3" }}
+        >
+          Chuyển sang "Đã có máu"
         </Button>
-      }
-    >
-      <Descriptions
-        bordered
-        size="middle"
-        style={{ backgroundColor: "white", borderRadius: 10, marginBottom: 18 }}
-        column={2}
-      >
-        <Descriptions.Item label="Người nhận">
-          {requestDetail?.nguoiNhan.ten}
-        </Descriptions.Item>
-        <Descriptions.Item label="Trạng thái">
-          <Tag color={statusTagMap[requestDetail?.trangThai]?.color}>
-            {statusTagMap[requestDetail?.trangThai]?.text || "Không rõ"}
-          </Tag>
-        </Descriptions.Item>
-        <Descriptions.Item label="Email">
-          {requestDetail?.nguoiNhan.email}
-        </Descriptions.Item>
-        <Descriptions.Item label="Số điện thoại">
-          {requestDetail?.nguoiNhan.soDienThoai}
-        </Descriptions.Item>
-        <Descriptions.Item label="Địa chỉ">
-          {requestDetail?.nguoiNhan.diaChi}
-        </Descriptions.Item>
-        <Descriptions.Item label="Nhóm máu người nhận">
-          {requestDetail?.nguoiNhan?.nhomMau?.ten}
-        </Descriptions.Item>
-        <Descriptions.Item label="Nhóm máu cần nhận">
-          <b style={{ color: "#d32f2f" }}>{requestDetail?.nhomMau?.ten}</b>
-        </Descriptions.Item>
-        <Descriptions.Item label="Lý do">
-          {requestDetail?.lyDo || "Không có"}
-        </Descriptions.Item>
-        <Descriptions.Item label="Sức khỏe hiện tại">
-          {requestDetail?.sucKhoeHienTai}
-        </Descriptions.Item>
-        <Descriptions.Item label="Đang mang thai">
-          {requestDetail?.dangMangThai === 1 ? "Có" : "Không"}
-        </Descriptions.Item>
-        <Descriptions.Item label="Mắc bệnh truyền nhiễm">
-          {requestDetail?.macBenhTruyenNhiem === 1 ? "Có" : "Không"}
-        </Descriptions.Item>
-        <Descriptions.Item label="Ngày yêu cầu">
-          {new Date(requestDetail?.ngayTao).toLocaleString("vi-VN")}
-        </Descriptions.Item>
-        <Descriptions.Item label="Ngày nhận máu dự kiến">
-          {new Date(requestDetail?.ngayNhanMauDuKien).toLocaleDateString(
-            "vi-VN"
-          )}
-        </Descriptions.Item>
-        <Descriptions.Item label="Thành phần máu cần">
-          {requestDetail?.thanhPhanMauCan === "toanphan"
-            ? "Toàn phần"
-            : requestDetail?.thanhPhanMauCan === "hongcau"
-            ? "Hồng cầu"
-            : requestDetail?.thanhPhanMauCan === "tieucau"
-            ? "Tiểu cầu"
-            : requestDetail?.thanhPhanMauCan === "huyettuong"
-            ? "Huyết tương"
-            : requestDetail?.thanhPhanMauCan}
-        </Descriptions.Item>
-        <Descriptions.Item label="Số lượng cần (ml)">
-          {requestDetail?.soLuongDonVi}
-        </Descriptions.Item>
-        <Descriptions.Item label="Địa chỉ nhận máu">
-          {requestDetail?.diaChiNhanMau}
-        </Descriptions.Item>
-        <Descriptions.Item label="Kho đơn vị máu">
-          {requestDetail?.khoDonViMau?.viTriLuuTru || <i>Chưa chọn</i>}
-        </Descriptions.Item>
-        <Descriptions.Item label="Trạng thái kho máu">
-          <Tag
-            color={statusTagMap[requestDetail?.khoDonViMau?.trangThai]?.color}
+      );
+    }
+
+    if (trangThai === "dacomau") {
+      if (!examData) {
+        return (
+          <Button
+            type="primary"
+            icon={<MedicineBoxOutlined />}
+            onClick={showExamModal}
           >
-            {statusTagMap[requestDetail?.khoDonViMau?.trangThai]?.text}
-          </Tag>
-        </Descriptions.Item>
-      </Descriptions>
+            Nhập thông tin khám
+          </Button>
+        );
+      }
+      return (
+        <>
+          <Button
+            icon={<EditOutlined />}
+            onClick={showExamModal}
+            style={{ marginRight: 8 }}
+          >
+            Chỉnh sửa kết quả
+          </Button>
+          <Button
+            danger
+            onClick={handleCancelAfterExam}
+            style={{ marginRight: 8 }}
+            loading={actionLoading}
+          >
+            Hủy
+          </Button>
+          <Button
+            type="primary"
+            onClick={handleCompleteAfterExam}
+            loading={actionLoading}
+            style={{ background: "#4CAF50" }}
+          >
+            Hoàn thành
+          </Button>
+        </>
+      );
+    }
 
-      <Form layout="vertical" style={{ marginTop: 8 }}>
-        <Form.Item label="Ghi chú">
-          <Input.TextArea
-            rows={4}
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            placeholder="Ghi chú xử lý hoặc lý do hủy..."
-          />
-        </Form.Item>
+    return null;
+  };
 
-        {/* List đơn vị máu phù hợp trong kho */}
-        {status === "dangcho" && (
-          <Form.Item label="Chọn đơn vị máu phù hợp">
-            <Row gutter={[16, 16]}>
-              {availableWarehouses.map((wh) => {
-                const checked = selectedWarehouses.includes(wh.id);
-                return (
-                  <Col
-                    key={wh.id}
-                    xs={24}
-                    sm={12}
-                    md={8}
-                    lg={6}
-                    xl={6}
-                    onClick={() => toggleWarehouse(wh.id)}
-                  >
+  return (
+    <>
+      <Card
+        title={
+          <span style={{ fontWeight: 700, fontSize: 20, color: "#3f51b5" }}>
+            🩸 Chi tiết yêu cầu nhận máu
+          </span>
+        }
+        extra={
+          <Button onClick={() => navigate("/employee/receive-blood-manager")}>
+            Quay lại
+          </Button>
+        }
+      >
+        <Descriptions
+          bordered
+          size="middle"
+          style={{
+            backgroundColor: "white",
+            borderRadius: 10,
+            marginBottom: 18,
+          }}
+          column={2}
+        >
+          {/* ... Thông tin không đổi ... */}
+          <Descriptions.Item label="Người nhận">
+            {requestDetail?.nguoiNhan.ten}
+          </Descriptions.Item>
+          <Descriptions.Item label="Trạng thái">
+            <Tag color={statusTagMap[requestDetail?.trangThai]?.color}>
+              {statusTagMap[requestDetail?.trangThai]?.text || "Không rõ"}
+            </Tag>
+          </Descriptions.Item>
+          <Descriptions.Item label="Email">
+            {requestDetail?.nguoiNhan.email}
+          </Descriptions.Item>
+          <Descriptions.Item label="Số điện thoại">
+            {requestDetail?.nguoiNhan.soDienThoai}
+          </Descriptions.Item>
+          <Descriptions.Item label="Địa chỉ">
+            {requestDetail?.nguoiNhan.diaChi}
+          </Descriptions.Item>
+          <Descriptions.Item label="Nhóm máu người nhận">
+            {requestDetail?.nguoiNhan?.nhomMau?.ten}
+          </Descriptions.Item>
+          <Descriptions.Item label="Nhóm máu cần nhận">
+            <b style={{ color: "#d32f2f" }}>{requestDetail?.nhomMau?.ten}</b>
+          </Descriptions.Item>
+          <Descriptions.Item label="Lý do">
+            {requestDetail?.lyDo || "Không có"}
+          </Descriptions.Item>
+          <Descriptions.Item label="Sức khỏe hiện tại">
+            {requestDetail?.sucKhoeHienTai}
+          </Descriptions.Item>
+          <Descriptions.Item label="Đang mang thai">
+            {requestDetail?.dangMangThai === 1 ? "Có" : "Không"}
+          </Descriptions.Item>
+          <Descriptions.Item label="Mắc bệnh truyền nhiễm">
+            {requestDetail?.macBenhTruyenNhiem === 1 ? "Có" : "Không"}
+          </Descriptions.Item>
+          <Descriptions.Item label="Ngày yêu cầu">
+            {new Date(requestDetail?.ngayTao).toLocaleString("vi-VN")}
+          </Descriptions.Item>
+          <Descriptions.Item label="Ngày nhận máu dự kiến">
+            {new Date(requestDetail?.ngayNhanMauDuKien).toLocaleDateString(
+              "vi-VN"
+            )}
+          </Descriptions.Item>
+          <Descriptions.Item label="Thành phần máu cần">
+            {requestDetail?.thanhPhanMauCan === "toanphan"
+              ? "Toàn phần"
+              : requestDetail?.thanhPhanMauCan === "hongcau"
+              ? "Hồng cầu"
+              : requestDetail?.thanhPhanMauCan === "tieucau"
+              ? "Tiểu cầu"
+              : requestDetail?.thanhPhanMauCan === "huyettuong"
+              ? "Huyết tương"
+              : requestDetail?.thanhPhanMauCan}
+          </Descriptions.Item>
+          <Descriptions.Item label="Số lượng cần (ml)">
+            {requestDetail?.soLuongDonVi}
+          </Descriptions.Item>
+          <Descriptions.Item label="Địa chỉ nhận máu" span={2}>
+            {requestDetail?.diaChiNhanMau}
+          </Descriptions.Item>
+        </Descriptions>
+
+        {/* HIỂN THỊ DỮ LIỆU KHÁM SÀNG LỌC NẾU CÓ */}
+        {examData && (
+          <Descriptions
+            title={
+              <span style={{ color: "#3f51b5", fontWeight: "bold" }}>
+                Kết quả khám sàng lọc trước nhận máu
+              </span>
+            }
+            bordered
+            size="middle"
+            style={{
+              marginTop: 24,
+              backgroundColor: "#f0f5ff",
+              borderRadius: 10,
+              padding: 16,
+            }}
+            column={2}
+          >
+            <Descriptions.Item label="Chiều cao (cm)">
+              {examData.chieuCao}
+            </Descriptions.Item>
+            <Descriptions.Item label="Cân nặng (kg)">
+              {examData.canNang}
+            </Descriptions.Item>
+            <Descriptions.Item label="Huyết áp (mmHg)">
+              {examData.huyetAp}
+            </Descriptions.Item>
+            <Descriptions.Item label="Nhiệt độ (°C)">
+              {examData.nhietDo}
+            </Descriptions.Item>
+            <Descriptions.Item label="Dấu hiệu nhiễm trùng">
+              <Tag
+                color={
+                  examData.dauHieuNhiemTrung === "Có" ? "warning" : "success"
+                }
+              >
+                {examData.dauHieuNhiemTrung}
+              </Tag>
+            </Descriptions.Item>
+            <Descriptions.Item label="Kháng thể bất thường">
+              <Tag
+                color={
+                  examData.khangTheBatThuong === "Có" ? "warning" : "success"
+                }
+              >
+                {examData.khangTheBatThuong}
+              </Tag>
+            </Descriptions.Item>
+            <Descriptions.Item label="Xét nghiệm hòa hợp" span={2}>
+              <Tag
+                color={
+                  examData.xetNghiemHoaHop === "Hòa hợp" ? "success" : "error"
+                }
+              >
+                {examData.xetNghiemHoaHop}
+              </Tag>
+            </Descriptions.Item>
+            <Descriptions.Item label="Dị ứng" span={2}>
+              {examData.diUng || "(Không có)"}
+            </Descriptions.Item>
+            <Descriptions.Item label="Bệnh lý nền" span={2}>
+              {examData.benhLyNen || "(Không có)"}
+            </Descriptions.Item>
+          </Descriptions>
+        )}
+
+        <Form layout="vertical" style={{ marginTop: 8 }}>
+          {requestDetail?.trangThai === "dacomau" && (
+            <Form.Item label="Ghi chú (Lý do hủy nếu có)">
+              <Input.TextArea
+                rows={4}
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                placeholder="Ghi chú xử lý hoặc lý do hủy..."
+              />
+            </Form.Item>
+          )}
+
+          {/* List đơn vị máu phù hợp trong kho */}
+          {requestDetail?.trangThai === "dangcho" && (
+            <Form.Item label="Chọn đơn vị máu phù hợp">
+              <Row gutter={[16, 16]}>
+                {availableWarehouses.map((wh) => {
+                  const checked = selectedWarehouses.includes(wh.id);
+                  return (
+                    <Col
+                      key={wh.id}
+                      xs={24}
+                      sm={12}
+                      md={8}
+                      lg={6}
+                      xl={6}
+                      onClick={() => toggleWarehouse(wh.id)}
+                    >
+                      <Card
+                        hoverable
+                        style={{
+                          border: checked
+                            ? "2.5px solid #43a047"
+                            : "1.5px solid #e0e0e0",
+                          boxShadow: checked
+                            ? "0 2px 12px #43a04744"
+                            : "0 1px 5px #0001",
+                          borderRadius: 18,
+                          background: checked ? "#e8f5e9" : "#fff",
+                          cursor: "pointer",
+                          transition: "all 0.2s",
+                        }}
+                        bodyStyle={{ padding: 14 }}
+                      >
+                        <span style={{ fontWeight: 700, fontSize: 15 }}>
+                          {wh.viTriLuuTru}
+                        </span>
+                        <Tag color={statusTagMap[wh.trangThai]?.color}>
+                          {statusTagMap[wh.trangThai]?.text}
+                        </Tag>
+                        <div style={{ fontSize: 13, marginTop: 4 }}>
+                          Ngày lấy:{" "}
+                          {wh.ngayLayMau
+                            ? new Date(wh.ngayLayMau).toLocaleDateString(
+                                "vi-VN"
+                              )
+                            : "-"}
+                        </div>
+                        <div style={{ fontSize: 13 }}>
+                          HSD:{" "}
+                          {wh.ngayHetHan
+                            ? new Date(wh.ngayHetHan).toLocaleDateString(
+                                "vi-VN"
+                              )
+                            : "-"}
+                        </div>
+                      </Card>
+                    </Col>
+                  );
+                })}
+              </Row>
+              {availableWarehouses.length === 0 && (
+                <i>Không có đơn vị máu phù hợp</i>
+              )}
+            </Form.Item>
+          )}
+
+          {/* List máu đã sử dụng */}
+          {usedBloodUnits.length > 0 && (
+            <Form.Item label="Đơn vị máu đã sử dụng cho yêu cầu này">
+              <Row gutter={[16, 16]}>
+                {usedBloodUnits.map((wh) => (
+                  <Col key={wh.id} xs={24} sm={12} md={8} lg={6} xl={6}>
                     <Card
-                      hoverable
+                      bordered
                       style={{
-                        border: checked
-                          ? "2.5px solid #43a047"
-                          : "1.5px solid #e0e0e0",
-                        boxShadow: checked
-                          ? "0 2px 12px #43a04744"
-                          : "0 1px 5px #0001",
+                        border: "1.5px solid #bdbdbd",
                         borderRadius: 18,
-                        background: checked ? "#e8f5e9" : "#fff",
-                        cursor: "pointer",
-                        transition: "all 0.2s",
+                        background: "#f3f8fd",
                       }}
-                      bodyStyle={{
-                        minHeight: 85,
-                        padding: 14,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "flex-start",
-                        gap: 2,
-                      }}
+                      bodyStyle={{ padding: 14 }}
                     >
                       <span style={{ fontWeight: 700, fontSize: 15 }}>
                         {wh.viTriLuuTru}
@@ -309,112 +522,159 @@ export default function BloodReceiveRequestDetail() {
                       <Tag color={statusTagMap[wh.trangThai]?.color}>
                         {statusTagMap[wh.trangThai]?.text}
                       </Tag>
-                      <span style={{ fontSize: 13 }}>
+                      <div style={{ fontSize: 13, marginTop: 4 }}>
                         Ngày lấy:{" "}
                         {wh.ngayLayMau
                           ? new Date(wh.ngayLayMau).toLocaleDateString("vi-VN")
                           : "-"}
-                      </span>
-                      <span style={{ fontSize: 13 }}>
+                      </div>
+                      <div style={{ fontSize: 13 }}>
                         HSD:{" "}
                         {wh.ngayHetHan
                           ? new Date(wh.ngayHetHan).toLocaleDateString("vi-VN")
                           : "-"}
-                      </span>
+                      </div>
                     </Card>
                   </Col>
-                );
-              })}
-            </Row>
-            {availableWarehouses.length === 0 && (
-              <i>Không có đơn vị máu phù hợp</i>
-            )}
-          </Form.Item>
-        )}
+                ))}
+              </Row>
+            </Form.Item>
+          )}
 
-        {/* List máu đã sử dụng */}
-        <Form.Item label="Đơn vị máu đã sử dụng cho yêu cầu này">
-          <Row gutter={[16, 16]}>
-            {usedBloodUnits.length === 0 && (
-              <Col>
-                <i>Chưa có đơn vị máu nào được sử dụng</i>
-              </Col>
-            )}
-            {usedBloodUnits.map((wh) => (
-              <Col key={wh.id} xs={24} sm={12} md={8} lg={6} xl={6}>
-                <Card
-                  bordered
-                  style={{
-                    border: "1.5px solid #bdbdbd",
-                    borderRadius: 18,
-                    background: "#f3f8fd",
-                  }}
-                  bodyStyle={{
-                    minHeight: 70,
-                    padding: 14,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
-                    gap: 2,
-                  }}
-                >
-                  <span style={{ fontWeight: 700, fontSize: 15 }}>
-                    {wh.viTriLuuTru}
-                  </span>
-                  <Tag color={statusTagMap[wh.trangThai]?.color}>
-                    {statusTagMap[wh.trangThai]?.text}
-                  </Tag>
-                  <span style={{ fontSize: 13 }}>
-                    Ngày lấy:{" "}
-                    {wh.ngayLayMau
-                      ? new Date(wh.ngayLayMau).toLocaleDateString("vi-VN")
-                      : "-"}
-                  </span>
-                  <span style={{ fontSize: 13 }}>
-                    HSD:{" "}
-                    {wh.ngayHetHan
-                      ? new Date(wh.ngayHetHan).toLocaleDateString("vi-VN")
-                      : "-"}
-                  </span>
-                </Card>
-              </Col>
-            ))}
+          <div style={{ textAlign: "right", marginTop: 12 }}>
+            {renderActionButtons()}
+          </div>
+        </Form>
+      </Card>
+
+      {/* MODAL FORM KHÁM */}
+      <Modal
+        title="Phiếu khám sàng lọc trước nhận máu"
+        open={isExamModalVisible}
+        onCancel={() => setIsExamModalVisible(false)}
+        footer={null}
+        destroyOnClose
+        width={800}
+      >
+        <Form
+          form={examForm}
+          layout="vertical"
+          onFinish={handleFinishExam}
+          initialValues={{
+            huyetAp: "",
+            dauHieuNhiemTrung: "Không có",
+            nhietDo: "",
+            chieuCao: "",
+            canNang: "",
+            diUng: "",
+            benhLyNen: "",
+            xetNghiemHoaHop: "Hòa hợp",
+            khangTheBatThuong: "Không có",
+          }}
+        >
+          <Row gutter={24}>
+            <Col span={12}>
+              <Form.Item
+                name="chieuCao"
+                label="Chiều cao (cm)"
+                rules={[{ required: true }]}
+              >
+                <Input type="number" placeholder="Ví dụ: 160" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="canNang"
+                label="Cân nặng (kg)"
+                rules={[{ required: true }]}
+              >
+                <Input type="number" placeholder="Ví dụ: 55" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="huyetAp"
+                label="Huyết áp (mmHg)"
+                rules={[{ required: true }]}
+              >
+                <Input placeholder="Ví dụ: 120/80" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="nhietDo"
+                label="Nhiệt độ (°C)"
+                rules={[{ required: true }]}
+              >
+                <Input type="number" step="0.1" placeholder="Ví dụ: 37" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="dauHieuNhiemTrung"
+                label="Dấu hiệu nhiễm trùng"
+                rules={[{ required: true }]}
+              >
+                <Select>
+                  <Option value="Có">Có</Option>
+                  <Option value="Không có">Không có</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="khangTheBatThuong"
+                label="Kiểm tra các kháng thể bất thường"
+                rules={[{ required: true }]}
+              >
+                <Select>
+                  <Option value="Có">Có</Option>
+                  <Option value="Không có">Không có</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <Form.Item
+                name="xetNghiemHoaHop"
+                label="Xét nghiệm hòa hợp"
+                rules={[{ required: true }]}
+              >
+                <Select>
+                  <Option value="Hòa hợp">Hòa hợp</Option>
+                  <Option value="Không hòa hợp">Không hòa hợp</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <Form.Item name="diUng" label="Dị ứng">
+                <Input.TextArea
+                  rows={3}
+                  placeholder="Liệt kê các loại dị ứng nếu có (thuốc, thức ăn...)"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <Form.Item name="benhLyNen" label="Bệnh lý nền">
+                <Input.TextArea
+                  rows={3}
+                  placeholder="Liệt kê các bệnh lý nền nếu có"
+                />
+              </Form.Item>
+            </Col>
           </Row>
-        </Form.Item>
-
-        <div style={{ textAlign: "right", marginTop: 12 }}>
-          <Button
-            type="primary"
-            loading={actionLoading}
-            onClick={handleChangeStatus}
-            disabled={status !== "dangcho"}
-            style={{
-              marginRight: 8,
-              background: "#2196F3",
-              borderColor: "#2196F3",
-              color: "#fff",
-            }}
-          >
-            Chuyển sang "Đã có máu"
-          </Button>
-          <Button
-            danger
-            loading={actionLoading}
-            onClick={handleCancel}
-            style={{ marginRight: 8 }}
-          >
-            Hủy
-          </Button>
-          <Button
-            type="default"
-            loading={actionLoading}
-            onClick={handleComplete}
-            disabled={status !== "dacomau"}
-          >
-            Hoàn thành
-          </Button>
-        </div>
-      </Form>
-    </Card>
+          <Form.Item style={{ textAlign: "right", marginTop: 16 }}>
+            <Button
+              onClick={() => setIsExamModalVisible(false)}
+              style={{ marginRight: 8 }}
+            >
+              Hủy
+            </Button>
+            <Button type="primary" htmlType="submit">
+              Lưu kết quả
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+    </>
   );
 }
