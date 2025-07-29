@@ -57,6 +57,9 @@ public class BloodReceiveRequest {
     @Column(name = "DangMangThai", nullable = true)
     private int dangMangThai = 0;
 
+    @Column(name = "FormKham", nullable = true)
+    private String formKham = "";
+
     @Column(name = "MacBenhTruyenNhiem", nullable = true)
     private int macBenhTruyenNhiem = 0;
 

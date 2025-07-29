@@ -140,15 +140,16 @@ public class BloodDonationRequestService {
 
     public Optional<BloodDonationRequest> reject(Integer id, ChangeStatusDonationRequestDTO payload) throws IOException {
         return repository.findById(id).map(bloodDonationRequest -> {
-            if (!bloodDonationRequest.getTrangThai().equals(AppConfig.BLOOD_DONATION_REQUEST_PENDING)) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only approve request when request is pending");
-            }
+//            if (!bloodDonationRequest.getTrangThai().equals(AppConfig.BLOOD_DONATION_REQUEST_PENDING)) {
+//                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only reject request when request is pending");
+//            }
 
             Integer userId = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = new User();
             user.setId(userId);
             bloodDonationRequest.setTrangThai(AppConfig.BLOOD_DONATION_REQUEST_REJECTED);
             bloodDonationRequest.setNguoiDuyet(user);
+            bloodDonationRequest.setFormKham(payload.getFormKham());
             bloodDonationRequest.setNgayDuyet(LocalDateTime.now());
             if (payload.getGhiChu().isEmpty() || payload.getGhiChu() == "") {
                 bloodDonationRequest.setGhiChu("Admin rejected blood donation request");
@@ -173,6 +174,7 @@ public class BloodDonationRequestService {
             user.setId(userId);
             bloodDonationRequest.setTrangThai(AppConfig.BLOOD_DONATION_REQUEST_COMPLETED);
             bloodDonationRequest.setNguoiDuyet(user);
+            bloodDonationRequest.setFormKham(payload.getFormKham());
             bloodDonationRequest.setNgayDuyet(LocalDateTime.now());
             bloodDonationRequest.setGhiChu("Admin completed blood donation request");
 

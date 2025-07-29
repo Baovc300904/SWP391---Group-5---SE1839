@@ -3,6 +3,8 @@ package org.fpt.blooddonate.controllers;
 import jakarta.validation.Valid;
 import org.fpt.blooddonate.dtos.requests.ChangeStatusBloodReceiveRequestToAvailable;
 import org.fpt.blooddonate.dtos.requests.ChangeStatusDonationRequestDTO;
+import org.fpt.blooddonate.dtos.requests.CompleteDonationRequestDTO;
+import org.fpt.blooddonate.dtos.requests.CompleteReceiveRequestDTO;
 import org.fpt.blooddonate.models.BloodDonationRequest;
 import org.fpt.blooddonate.models.BloodReceiveRequest;
 import org.fpt.blooddonate.models.BloodUnitWareHouse;
@@ -66,8 +68,8 @@ public class AdminBloodReceiveRequestController {
     }
 
     @PostMapping("/{id}/complete")
-    public ResponseEntity<?> complete(@PathVariable Integer id) throws IOException {
-        return bloodReceiveRequestService.complete(id)
+    public ResponseEntity<?> complete(@PathVariable Integer id, @Valid @RequestBody CompleteReceiveRequestDTO payload) throws IOException {
+        return bloodReceiveRequestService.complete(id, payload)
                 .<ResponseEntity<?>>map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(404).body("Not found activity"));
     }
