@@ -86,19 +86,25 @@ export default function DashboardUser() {
             </Paragraph>
             <Row gutter={12}>
               <Col>
-                <Button
-                  href="/"
-                  icon={<FilePdfOutlined />}
-                  style={{
-                    color: "#7b1fa2",
-                    borderColor: "#ce93d8",
-                    borderRadius: 30,
-                    fontWeight: 600,
-                  }}
-                  target="_blank"
-                >
-                  Tài liệu nhóm máu
-                </Button>
+                                  <Button
+                    icon={<FilePdfOutlined />}
+                    style={{
+                      color: "#7b1fa2",
+                      borderColor: "#ce93d8",
+                      borderRadius: 30,
+                      fontWeight: 600,
+                    }}
+                    onClick={() => {
+                      const link = document.createElement('a');
+                      link.href = '/TaiLieuNhomMau_ChuyenSau.docx';
+                      link.download = 'TaiLieuNhomMau_ChuyenSau.docx';
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    }}
+                  >
+                    Tài liệu nhóm máu
+                  </Button>
               </Col>
               <Col>
                 <Button
