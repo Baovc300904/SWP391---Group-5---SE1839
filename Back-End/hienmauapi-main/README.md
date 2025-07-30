@@ -1,27 +1,70 @@
-# hienmauapi
+# hienmaucongdongviet
 
 ## Tổng quan
-Dự án `hienmauapi` là hệ thống backend cho một ứng dụng quản lý hiến máu. Nó cung cấp các API để quản lý người dùng, các hoạt động hiến máu, yêu cầu máu, thông báo và nhiều chức năng khác. Backend này được thiết kế để hỗ trợ hoạt động của hệ thống hiến máu một cách hiệu quả và an toàn.
+Dự án `Hiến Máu Cộng Đồng Việt` là hệ thống backend cho một ứng dụng quản lý hiến máu. Nó cung cấp các API để quản lý người dùng, các hoạt động hiến máu, yêu cầu máu, thông báo và nhiều chức năng khác. Backend này được thiết kế để hỗ trợ hoạt động của hệ thống hiến máu một cách hiệu quả và an toàn.
 
 ## Chức năng
-- **Quản lý người dùng**: Xử lý đăng ký, xác thực và kiểm soát truy cập dựa trên vai trò.
-- **Hoạt động hiến máu**: Quản lý các sự kiện và hoạt động hiến máu.
-- **Yêu cầu máu**: Hỗ trợ tạo, cập nhật và quản lý các yêu cầu hiến máu và nhận máu.
-- **Thông báo**: Gửi thông báo đến người dùng về các sự kiện hiến máu và cập nhật.
-- **Hỗ trợ khách hàng**: Quản lý các yêu cầu hỗ trợ và lịch sử hỗ trợ của người dùng.
-- **Quản lý blog**: Thực hiện các thao tác CRUD cho blog và danh mục blog.
-- **Bảng điều khiển**: Cung cấp thống kê và thông tin chi tiết cho quản trị viên.
+### Quản lý người dùng
+- Xử lý đăng ký tài khoản.
+- Xác thực người dùng thông qua JWT.
+- Phân quyền truy cập dựa trên vai trò (người dùng, quản trị viên).
+
+### Hoạt động hiến máu
+- Tạo và quản lý các sự kiện hiến máu.
+- Cập nhật thông tin chi tiết về các sự kiện hiến máu.
+- Theo dõi số lượng người tham gia hiến máu.
+
+### Yêu cầu hiến máu
+- Người dùng có thể tạo yêu cầu hiến máu.
+- Quản lý trạng thái yêu cầu hiến máu (đang chờ, đã xử lý).
+- Cập nhật thông tin liên quan đến yêu cầu hiến máu.
+
+### Yêu cầu nhận máu
+- Bệnh viện hoặc cá nhân có thể tạo yêu cầu nhận máu.
+- Quản lý trạng thái yêu cầu nhận máu (đang chờ, đã xử lý).
+- Theo dõi lịch sử các yêu cầu nhận máu.
+
+### Thông báo
+- Gửi thông báo đến người dùng về các sự kiện hiến máu.
+- Cập nhật trạng thái yêu cầu hiến máu hoặc nhận máu qua thông báo.
+
+### Hỗ trợ khách hàng
+- Người dùng có thể gửi yêu cầu hỗ trợ.
+- Quản lý lịch sử các yêu cầu hỗ trợ.
+- Cung cấp phản hồi nhanh chóng cho người dùng.
+
+### Quản lý blog
+- Tạo, cập nhật, xóa và xem các bài viết blog.
+- Quản lý danh mục blog.
+
+### Bảng điều khiển
+- Cung cấp thống kê chi tiết về số lượng máu hiến, máu nhận.
+- Hiển thị thông tin tổng quan về các hoạt động hiến máu.
 
 ## Công nghệ sử dụng
-- **Java**: Ngôn ngữ lập trình chính.
-- **Spring Boot**: Framework để xây dựng ứng dụng backend.
-  - Spring Security: Xác thực và phân quyền.
-  - Spring Data JPA: Tương tác với cơ sở dữ liệu.
-  - Spring Web: Xây dựng các API RESTful.
-- **MySQL**: Cơ sở dữ liệu quan hệ để lưu trữ dữ liệu ứng dụng.
-- **Hibernate**: Framework ORM để thao tác với cơ sở dữ liệu.
-- **JWT**: Xác thực người dùng an toàn.
-- **Maven**: Công cụ quản lý build và phụ thuộc.
+- **Ngôn ngữ lập trình**: Java
+- **Framework**: Spring Boot
+  - **Spring Security**: Để xác thực và phân quyền người dùng.
+  - **Spring Data JPA**: Để tương tác với cơ sở dữ liệu thông qua ORM.
+  - **Spring Web**: Để xây dựng các API RESTful.
+- **Cơ sở dữ liệu**: MySQL
+  - **Hibernate**: Framework ORM để ánh xạ các đối tượng Java với cơ sở dữ liệu.
+- **Xác thực**: JSON Web Token (JWT) để bảo mật và xác thực người dùng.
+- **Công cụ build**: Maven để quản lý phụ thuộc và build dự án.
+- **Công cụ khác**:
+  - **Lombok**: Giảm boilerplate code trong các class Java.
+  - **ModelMapper**: Để ánh xạ giữa các DTO và entity.
+  - **JUnit**: Để viết và chạy các unit test.
+  - **Postman**: Để lưu trữ và kiểm thử API.
+
+### Chi tiết công nghệ
+- **Spring Security**: Cung cấp các cơ chế bảo mật như xác thực dựa trên JWT, phân quyền theo vai trò, và bảo vệ các endpoint API.
+- **Spring Data JPA**: Tích hợp với Hibernate để thực hiện các thao tác CRUD trên cơ sở dữ liệu một cách dễ dàng và hiệu quả.
+- **Hibernate**: Hỗ trợ ánh xạ các class Java thành các bảng trong cơ sở dữ liệu, đồng thời cung cấp các tính năng như lazy loading và caching.
+- **Lombok**: Tự động sinh mã như getter, setter, constructor, giúp giảm thiểu mã lặp.
+- **ModelMapper**: Hỗ trợ chuyển đổi dữ liệu giữa các lớp DTO và entity một cách nhanh chóng và chính xác.
+- **JUnit**: Framework kiểm thử phổ biến để đảm bảo chất lượng mã nguồn thông qua các unit test.
+- **Postman**: Công cụ phổ biến để kiểm thử API và lưu trữ các bộ sưu tập API.
 
 ## Cấu hình
 Ứng dụng sử dụng các thuộc tính cấu hình sau:
