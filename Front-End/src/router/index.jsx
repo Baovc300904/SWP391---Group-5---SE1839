@@ -10,6 +10,7 @@ import BloodReceiveRequestDetail from "../components/ReceiveBloodAdmin/ReceiveBl
 import UserDetail from "../components/User/UserDetail";
 import MainLayout from "../layout/MainLayout";
 import MainLayoutUser from "../layout/MainLayoutUser";
+import GuestLayout from "../layout/GuestLayout";
 import BlogManager from "../pages/BlogManager";
 import BloodDonationManager from "../pages/BloodDonationRequestManager";
 import BloodManager from "../pages/BloodManager";
@@ -29,6 +30,9 @@ import UserNearMe from "../pages/ForUser/NearMe";
 import ProfileDetail from "../pages/ForUser/ProfileDetail";
 import ProfileEdit from "../pages/ForUser/ProfileEdit";
 import BloodRequestPage from "../pages/ForUser/ReceiveBlood";
+import Home from "../pages/ForGuest/Home";
+import About from "../pages/ForGuest/pages/About";
+import Contact from "../pages/ForGuest/pages/Contact";
 import Login from "../pages/Login";
 import NotificationManager from "../pages/NotificationManager";
 import Register from "../pages/Register";
@@ -41,9 +45,10 @@ const ProtectedHome = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user") || "null");
 
-    if (token && user) {
+    // Chỉ redirect nếu có cả token VÀ user hợp lệ
+    if (token && user && user.vaiTro) {
       const role = user.vaiTro;
       if (role === "admin") {
         navigate("/admin");
@@ -52,16 +57,34 @@ const ProtectedHome = () => {
       } else if (role === "nhanvien") {
         navigate("/employee");
       }
+    } else {
+      // Clear invalid tokens
+      if (token && !user) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      }
     }
+    // Nếu không có token hoặc user hợp lệ, hiển thị trang Home cho guest
   }, [navigate]);
 
-  return <Login />;
+  return <Home />;
 };
 
 // =================== ROUTER CONFIG ===================
 const router = createBrowserRouter([
-  { path: "/", element: <ProtectedHome /> },
-  { path: "/login", element: <ProtectedHome /> },
+  // HOME WITH GUEST LAYOUT
+  {
+    path: "/",
+    element: <GuestLayout />,
+    children: [
+      { index: true, element: <ProtectedHome /> },
+      { path: "about", element: <About /> },
+      { path: "contact", element: <Contact /> }
+    ],
+  },
+
+  // STANDALONE PAGES (NO LAYOUT)
+  { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
 
   // ADMIN ROUTES
@@ -142,7 +165,7 @@ const router = createBrowserRouter([
     ],
   },
 
-  // NOT FOUND - REDIRECT HOME
+  // NOT FOUND - REDIRECT TO HOME
   { path: "*", element: <Navigate to="/" /> },
 ]);
 
