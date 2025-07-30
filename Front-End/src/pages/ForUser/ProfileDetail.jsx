@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Typography, Descriptions, Button, Tag } from "antd";
 import { useNavigate } from "react-router-dom";
+import "./ProfileDetail.css";
 
 const { Title } = Typography;
 
@@ -15,59 +16,46 @@ export default function ProfileDetail() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   return (
-    <Card
-      style={{
-        maxWidth: "95%",
-        margin: "40px auto",
-        borderRadius: 24,
-        boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-        background: "linear-gradient(145deg, #f0f0f0, #fafafa)",
-        padding: 24,
-      }}
-      title={
-        <Title level={3} style={{ color: "#d81b60", marginBottom: 0 }}>
-          👤 Thông tin cá nhân
-        </Title>
-      }
-      extra={
-        <div style={{ gap: 12, display: "flex" }}>
-          <Button
-            type="primary"
-            onClick={() => navigate("/user/edit-profile")}
-            style={{
-              borderRadius: 30,
-              background: "#d81b60",
-              borderColor: "#d81b60",
-              height: 40,
-              minWidth: 120,
-              fontWeight: "bold",
-            }}
-          >
-            Chỉnh sửa
-          </Button>
-          <Button
-            type="primary"
-            onClick={() => navigate("/user/change-password")}
-            style={{
-              borderRadius: 30,
-              background: "#6200ea",
-              borderColor: "#6200ea",
-              height: 40,
-              minWidth: 120,
-              fontWeight: "bold",
-            }}
-          >
-            Đổi mật khẩu
-          </Button>
-        </div>
-      }
-    >
+    <div className="profile-detail-section">
+      {/* Background Elements */}
+      <div className="profile-background">
+        <div className="floating-profile-heart profile-heart-1"></div>
+        <div className="floating-profile-heart profile-heart-2"></div>
+      </div>
+
+      <div className="profile-container">
+        <Card
+          className="profile-card"
+          title={
+            <Title level={3} className="profile-title">
+              👤 Thông tin cá nhân
+            </Title>
+          }
+          extra={
+            <div style={{ gap: 12, display: "flex" }}>
+              <Button
+                type="primary"
+                onClick={() => navigate("/user/edit-profile")}
+                className="profile-edit-button"
+              >
+                Chỉnh sửa
+              </Button>
+              <Button
+                type="primary"
+                onClick={() => navigate("/user/change-password")}
+                className="profile-password-button"
+              >
+                Đổi mật khẩu
+              </Button>
+            </div>
+          }
+        >
       <Descriptions
         bordered
         column={2}
         labelStyle={{ width: 160, fontWeight: 500 }}
         contentStyle={{ fontSize: 15 }}
-        style={{ backgroundColor: "#fff", borderRadius: 16 }}
+        className="profile-descriptions"
         size="middle"
       >
         <Descriptions.Item label="Họ tên">{user.ten}</Descriptions.Item>
@@ -82,10 +70,10 @@ export default function ProfileDetail() {
         <Descriptions.Item label="Giới tính">{user.gioiTinh}</Descriptions.Item>
         <Descriptions.Item label="Địa chỉ">{user.diaChi}</Descriptions.Item>
         <Descriptions.Item label="Nhóm máu">
-          <Tag color="red">{user.nhomMau?.ten || "-"}</Tag>
+          <Tag className="profile-blood-tag">{user.nhomMau?.ten || "-"}</Tag>
         </Descriptions.Item>
         <Descriptions.Item label="Yếu tố Rh">
-          <Tag color={user.yeuToRh === "+" ? "green" : "volcano"}>
+          <Tag className={user.yeuToRh === "+" ? "profile-rh-positive" : "profile-rh-negative"}>
             {user.yeuToRh}
           </Tag>
         </Descriptions.Item>
@@ -100,7 +88,7 @@ export default function ProfileDetail() {
         </Descriptions.Item>
         <Descriptions.Item label="Vai trò">{user.vaiTro}</Descriptions.Item>
         <Descriptions.Item label="Trạng thái">
-          <Tag color={statusMap[user.trangThai]?.color}>
+          <Tag className="profile-blood-tag">
             {statusMap[user.trangThai]?.text || "Không xác định"}
           </Tag>
         </Descriptions.Item>
@@ -111,6 +99,8 @@ export default function ProfileDetail() {
           {new Date(user.ngayCapNhat).toLocaleString("vi-VN")}
         </Descriptions.Item>
       </Descriptions>
-    </Card>
+        </Card>
+      </div>
+    </div>
   );
 }
