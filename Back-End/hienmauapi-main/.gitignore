@@ -33,3 +33,5 @@ build/
 .vscode/
 uploads/blogs/*
 !uploads/blogs/.gitkeep
+uploads/notifications/*
+!uploads/notifications/.gitkeep
