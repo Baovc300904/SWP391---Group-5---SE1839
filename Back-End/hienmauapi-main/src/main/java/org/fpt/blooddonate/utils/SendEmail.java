@@ -160,6 +160,18 @@ public class SendEmail {
                 formKham.ketLuan);
     }
 
+    private static String getLoaiHienMau(BloodDonationRequest bloodDonationRequest) {
+        if (bloodDonationRequest.getLoaiHien().equals("toanphan")) {
+            return "Toàn phần";
+        } else if (bloodDonationRequest.getLoaiHien().equals("huyettuong")) {
+            return "Huyết tương";
+        } else if (bloodDonationRequest.getLoaiHien().equals("hongcau")) {
+            return "Hồng cầu";
+        } else {
+            return "Tiểu cầu";
+        }
+    }
+
     private static String getBloodDonationRequestWhenApproved(User user, BloodDonationRequest bloodDonationRequest) {
         return String.format("""
             <!DOCTYPE html>
@@ -239,7 +251,7 @@ public class SendEmail {
               </div>
             </body>
             </html>
-            """, user.getTen(), bloodDonationRequest.getNgayHienMauDuKien(), bloodDonationRequest.getLoaiHien(), bloodDonationRequest.getSoLuong(), bloodDonationRequest.getSucKhoeHienTai(), bloodDonationRequest.getDangMangThai() == 0 ? "Không" : "Có", bloodDonationRequest.getMacBenhTruyenNhiem() == 0 ? "Không" : "Có");
+            """, user.getTen(), bloodDonationRequest.getNgayHienMauDuKien(), SendEmail.getLoaiHienMau(bloodDonationRequest), bloodDonationRequest.getSoLuong(), bloodDonationRequest.getSucKhoeHienTai(), bloodDonationRequest.getDangMangThai() == 0 ? "Không" : "Có", bloodDonationRequest.getMacBenhTruyenNhiem() == 0 ? "Không" : "Có");
     }
 
     private static String getBloodDonationRequestWhenRejected(User user, BloodDonationRequest bloodDonationRequest) {
@@ -308,7 +320,7 @@ public class SendEmail {
               </div>
             </body>
             </html>
-            """, user.getTen(), bloodDonationRequest.getNgayHienMauDuKien(), bloodDonationRequest.getLoaiHien(), bloodDonationRequest.getSoLuong(), bloodDonationRequest.getSucKhoeHienTai(), bloodDonationRequest.getDangMangThai() == 0 ? "Không" : "Có", bloodDonationRequest.getMacBenhTruyenNhiem() == 0 ? "Không" : "Có");
+            """, user.getTen(), bloodDonationRequest.getNgayHienMauDuKien(), SendEmail.getLoaiHienMau(bloodDonationRequest), bloodDonationRequest.getSoLuong(), bloodDonationRequest.getSucKhoeHienTai(), bloodDonationRequest.getDangMangThai() == 0 ? "Không" : "Có", bloodDonationRequest.getMacBenhTruyenNhiem() == 0 ? "Không" : "Có");
     }
 
     public static void changeBloodReceiveRequestStatus(User user, BloodReceiveRequest bloodReceiveRequest, String status) {
