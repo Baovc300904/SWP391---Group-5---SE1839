@@ -16,6 +16,7 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SupportModalButton from "../components/SupportModalButton";
 import NotificationBellUser from "../components/NotificationBellUser";
+import "./MainLayoutUser.css";
 
 const { Header, Content, Footer } = Layout;
 
@@ -58,16 +59,18 @@ export default function MainLayoutUser() {
         onClick: () => {
           localStorage.removeItem("token");
           localStorage.removeItem("user");
-          navigate("/login");
+          navigate("/");
         },
       },
     ],
     style: {
-      backgroundColor: "#fff",
-      borderRadius: 12,
-      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12)",
-      minWidth: 200,
-      padding: "8px 0",
+      backgroundColor: "rgba(255, 255, 255, 0.98)",
+      borderRadius: 16,
+      boxShadow: "0 12px 40px rgba(139, 69, 19, 0.3)",
+      minWidth: 220,
+      padding: "12px 0",
+      border: "2px solid rgba(139, 69, 19, 0.2)",
+      backdropFilter: "blur(20px)",
     },
   };
 
@@ -111,58 +114,20 @@ export default function MainLayoutUser() {
   return (
     <Layout style={{ minHeight: "100vh", background: "#f8fafc" }}>
       {/* Header */}
-      <Header
-        style={{
-          background: "linear-gradient(135deg, #d4a574 0%, #b08968 100%)",
-          padding: "0 24px",
-          height: "70px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          boxShadow: "0 4px 20px rgba(212, 165, 116, 0.15)",
-          position: "sticky",
-          top: 0,
-          zIndex: 1000,
-        }}
-      >
+      <Header className="main-header">
         {/* Logo */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            cursor: "pointer",
-          }}
-          onClick={() => navigate("/user")}
-        >
-          <div
-            style={{
-              background: "rgba(255, 255, 255, 0.2)",
-              borderRadius: "50%",
-              width: "40px",
-              height: "40px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+        <div className="logo-container" onClick={() => navigate("/user")}>
+          <div className="logo-icon">
             <HeartOutlined style={{ color: "#fff", fontSize: "20px" }} />
           </div>
-          <div
-            style={{
-              color: "#fff",
-              fontWeight: "700",
-              fontSize: "18px",
-              letterSpacing: "0.5px",
-            }}
-          >
+          <div className="logo-text">
             HỆ THỐNG HIẾN MÁU TÌNH NGUYỆN
           </div>
         </div>
 
         {/* Desktop Menu */}
         <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
-          <div style={{ display: { xs: "none", md: "flex" } }}>
+          <div style={{ display: "flex" }}>
             <Menu
               mode="horizontal"
               selectedKeys={[getSelectedKey()]}
@@ -188,29 +153,12 @@ export default function MainLayoutUser() {
             placement="bottomRight"
             trigger={["click"]}
           >
-            <Button
-              type="text"
-              style={{
-                color: "#fff",
-                border: "1px solid rgba(255, 255, 255, 0.3)",
-                borderRadius: "8px",
-                height: "40px",
-                padding: "0 16px",
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                background: "rgba(255, 255, 255, 0.1)",
-                backdropFilter: "blur(10px)",
-              }}
-            >
+            <Button type="text" className="user-dropdown-button">
               <Avatar
                 size="small"
                 icon={<UserOutlined />}
-                style={{ background: "rgba(255, 255, 255, 0.2)" }}
               />
-              <span style={{ fontSize: "14px", fontWeight: "500" }}>
-                Tài khoản
-              </span>
+              <span>Tài khoản</span>
             </Button>
           </Dropdown>
 
@@ -219,8 +167,8 @@ export default function MainLayoutUser() {
             type="text"
             icon={<MenuOutlined />}
             style={{
-              color: "#fff",
-              display: { xs: "block", md: "none" },
+              color: "#fcd8cd",
+              display: "none",
               fontSize: "18px",
             }}
             onClick={() => setMobileMenuVisible(true)}
@@ -232,7 +180,7 @@ export default function MainLayoutUser() {
       <Drawer
         title={
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <HeartOutlined style={{ color: "#d4a574", fontSize: "20px" }} />
+            <HeartOutlined style={{ color: "#fcd8cd", fontSize: "20px" }} />
             <span style={{ fontWeight: "600" }}>Menu</span>
           </div>
         }
@@ -240,6 +188,7 @@ export default function MainLayoutUser() {
         onClose={handleMobileMenuClose}
         open={mobileMenuVisible}
         width={280}
+        className="mobile-menu-drawer"
         styles={{
           body: { padding: "0" },
           header: { borderBottom: "1px solid #f0f0f0" },
@@ -314,7 +263,7 @@ export default function MainLayoutUser() {
               marginBottom: "24px",
             }}
           >
-            <HeartOutlined style={{ color: "#d4a574", fontSize: "24px" }} />
+            <HeartOutlined style={{ color: "#fcd8cd", fontSize: "24px" }} />
             <span
               style={{
                 fontSize: "20px",
@@ -398,12 +347,12 @@ export default function MainLayoutUser() {
       {/* Custom CSS for skin tone menu styling */}
       <style jsx="true">{`
         .skin-tone-menu .ant-menu-item-selected {
-          background-color: #d4a574 !important;
+          background-color: rgba(210, 180, 140, 0.8) !important;
           color: #fff !important;
         }
         
         .skin-tone-menu .ant-menu-item:hover {
-          background-color: rgba(212, 165, 116, 0.8) !important;
+          background-color: rgba(210, 180, 140, 0.6) !important;
           color: #fff !important;
         }
         
@@ -412,7 +361,7 @@ export default function MainLayoutUser() {
         }
         
         .skin-tone-menu .ant-menu-item-selected::after {
-          border-right-color: #b08968 !important;
+          border-right-color: #b8860b !important;
         }
       `}</style>
     </Layout>
