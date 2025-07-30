@@ -1,0 +1,53 @@
+/* Home Page Styles - Blood Donation Theme */
+.home-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fef7f7 0%, #fef2f2 50%, #fef0f0 100%);
+  overflow-x: hidden;
+}
+
+/* Global section spacing */
+.home-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar with blood donation theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fef2f2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #dc2626, #b91c1c);
+  border-radius: 10px;
+  border: 1px solid #fecaca;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #b91c1c, #991b1b);
+}
+
+/* Global color variables for blood donation theme */
+:root {
+  --primary-red: #dc2626;
+  --primary-red-light: #ef4444;
+  --primary-red-dark: #b91c1c;
+  --secondary-red: #f87171;
+  --accent-red: #fecaca;
+  --text-dark: #1f2937;
+  --text-medium: #4b5563;
+  --text-light: #6b7280;
+  --bg-light: #fef7f7;
+  --bg-white: #ffffff;
+  --border-light: #fecaca;
+  --shadow-light: rgba(220, 38, 38, 0.1);
+  --shadow-medium: rgba(220, 38, 38, 0.15);
+}
