@@ -9,4 +9,7 @@ import lombok.NoArgsConstructor;
 public class CompleteDonationRequestDTO {
     @NotBlank()
     private String viTriLuuTru;
+
+    @NotBlank()
+    private String formKham;
 }

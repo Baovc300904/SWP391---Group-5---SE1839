@@ -57,9 +57,10 @@ export default function BlogDetail() {
   };
   const handleUpdate = async (values) => {
     try {
+      console.log("values.noidung", values.noidung);
       const payload = {
         tieude: values.tieude, // lưu ý form đặt name="tieude" (khác với tieuDe) hoặc đồng nhất lại
-        noidung: values.noidung,
+        noidung: values.noidung?.level?.content || values.noidung,
         danhmuc: values.danhmuc, // tuỳ backend cần truyền id danh mục hay object
       };
       await updateBlog(id, payload);
@@ -248,10 +249,11 @@ export default function BlogDetail() {
             name="noidung"
             label="Nội dung"
             rules={[{ required: true, message: "Vui lòng nhập nội dung!" }]}
-            getValueFromEvent={(content) => content} // Đảm bảo form nhận HTML string
           >
             <Editor
-              apiKey="fx49rmdn18jd3zfrobbyfbr58yfp0ocqiwz05edcqzihm070" // Có thể đăng ký lấy key miễn phí từ Tiny hoặc để vậy
+              apiKey="fx49rmdn18jd3zfrobbyfbr58yfp0ocqiwz05edcqzihm070" // Thay bằng key của bạn
+              // Set giá trị ban đầu trực tiếp từ state 'blog'
+              initialValue={blog?.noiDung}
               init={{
                 height: 300,
                 menubar: false,
@@ -264,11 +266,10 @@ export default function BlogDetail() {
                   "undo redo | formatselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
                 content_style: "body { font-size:15px }",
               }}
-              initialValue={form.getFieldValue("noidung")}
-              value={form.getFieldValue("noidung")}
-              onEditorChange={(value) =>
-                form.setFieldsValue({ noidung: value })
-              }
+              // Chỉ cần dùng onEditorChange để cập nhật form
+              onEditorChange={(content, editor) => {
+                form.setFieldsValue({ noidung: content });
+              }}
             />
           </Form.Item>
           <Form.Item

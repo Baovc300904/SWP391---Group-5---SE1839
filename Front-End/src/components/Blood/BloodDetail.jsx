@@ -46,8 +46,8 @@ export default function BloodDetail() {
   const [form] = Form.useForm();
 
   // Dữ liệu hiến/nhận
-  const [canReceiveGroups, setCanReceiveGroups] = useState([]); // nhóm này co thể nhận từ
-  const [canDonateGroups, setCanDonateGroups] = useState([]); // nhóm này có thể hiến cho
+  const [canReceiveGroups, setCanReceiveGroups] = useState([]); // nhóm này co thể hiến cho
+  const [canDonateGroups, setCanDonateGroups] = useState([]); // nhóm này có thể nhận từ
   const [allBloodGroups, setAllBloodGroups] = useState([]); // tất cả nhóm máu
   const [compatibleReceiveRaw, setCompatibleReceiveRaw] = useState([]); // thêm state này
 
@@ -74,11 +74,11 @@ export default function BloodDetail() {
 
   const fetchCompatibleGroups = async () => {
     try {
-      const dataReceive = await getCompatibleBloodsReceive(id);
-      setCompatibleReceiveRaw(dataReceive); // lưu nguyên bản để đổi trạng thái
-      const dataDonate = await getCompatibleBloodsDonate(id);
-      setCanReceiveGroups(dataReceive.map((item) => item.nhomMauHien));
-      setCanDonateGroups(dataDonate.map((item) => item.nhomMauNhan));
+      const dataReceive = await getCompatibleBloodsReceive(id); // co the nhan tu nhom mau gui len
+      const dataDonate = await getCompatibleBloodsDonate(id); // -> co the hien cho nhom mau gui len
+      setCompatibleReceiveRaw(dataDonate); // lưu nguyên bản để đổi trạng thái
+      setCanReceiveGroups(dataReceive.map((item) => item.nhomMauNhan));
+      setCanDonateGroups(dataDonate.map((item) => item.nhomMauHien));
     } catch (e) {
       message.error(e?.message || "Lỗi get list");
     }
@@ -221,7 +221,7 @@ export default function BloodDetail() {
       <Card
         title={
           <span style={{ color: "#d32f2f", fontWeight: 600 }}>
-            Nhóm máu có thể hiến cho nhóm này
+            Những nhóm máu có thể hiến cho nhóm máu {blood?.ten || blood?.name}
           </span>
         }
         style={{
@@ -284,14 +284,14 @@ export default function BloodDetail() {
               mode="multiple"
               allowClear
               showSearch
-              placeholder="Chọn nhóm máu hiến"
+              placeholder="Chọn nhóm máu mà máu này sẽ hiến cho được"
               value={selectedGroups}
               style={{ minWidth: 210 }}
               onChange={setSelectedGroups}
               disabled={editMode}
             >
               {allBloodGroups
-                .filter((g) => !canReceiveGroups.some((c) => c.id === g.id))
+                .filter((g) => !canDonateGroups.some((c) => c.id === g.id))
                 .map((g) => (
                   <Select.Option key={g.id} value={g.id}>
                     {g.ten}
@@ -324,7 +324,7 @@ export default function BloodDetail() {
       <Card
         title={
           <span style={{ color: "#1976d2", fontWeight: 600 }}>
-            Nhóm máu này có thể hiến cho
+            Nhóm máu {blood?.ten || blood?.name} có thể hiến cho
           </span>
         }
         style={{
@@ -336,7 +336,7 @@ export default function BloodDetail() {
         bodyStyle={{ padding: 16 }}
       >
         <List
-          dataSource={canDonateGroups}
+          dataSource={canReceiveGroups}
           locale={{ emptyText: <i>Chưa có dữ liệu</i> }}
           renderItem={(item) => (
             <List.Item>

@@ -191,7 +191,7 @@ export default function DetailCampaign() {
       notification.error({
         message: "Lỗi",
         description:
-          error?.data?.message ||
+          error?.response?.data?.message ||
           "Đã xảy ra lỗi khi gửi yêu cầu. Vui lòng thử lại.",
       });
     }

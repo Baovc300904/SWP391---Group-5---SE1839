@@ -175,6 +175,7 @@ public class BloodReceiveRequestService {
             user.setId(userId);
             bloodReceiveRequest.setTrangThai(AppConfig.BLOOD_RECEIVE_REQUEST_CANCEL);
             bloodReceiveRequest.setNguoiDuyet(user);
+            bloodReceiveRequest.setFormKham(payload.getFormKham());
             bloodReceiveRequest.setNgayDuyet(LocalDateTime.now());
             if (payload.getGhiChu().isEmpty() || payload.getGhiChu() == "") {
                 bloodReceiveRequest.setGhiChu("Admin rejected blood receive request");
@@ -188,7 +189,7 @@ public class BloodReceiveRequestService {
         });
     }
 
-    public Optional<BloodReceiveRequest> complete(Integer id) throws IOException {
+    public Optional<BloodReceiveRequest> complete(Integer id, CompleteReceiveRequestDTO payload) throws IOException {
         return repository.findById(id).map(bloodReceiveRequest -> {
             if (!bloodReceiveRequest.getTrangThai().equals(AppConfig.BLOOD_RECEIVE_REQUEST_HAVE_BLOOD)) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only ready request when request is completed");
@@ -199,6 +200,7 @@ public class BloodReceiveRequestService {
             user.setId(userId);
             bloodReceiveRequest.setTrangThai(AppConfig.BLOOD_RECEIVE_REQUEST_COMPLETED);
             bloodReceiveRequest.setNguoiDuyet(user);
+            bloodReceiveRequest.setFormKham(payload.getFormKham());
             bloodReceiveRequest.setNgayDuyet(LocalDateTime.now());
             bloodReceiveRequest.setGhiChu("Admin completed blood receive request");
 
@@ -222,7 +224,7 @@ public class BloodReceiveRequestService {
         List<Integer> listBloodId = new ArrayList<>();
         for (CompatibleBlood compatibleBlood : listCompatibleBlood) {
             if (compatibleBlood.getTrangThai() == 1) {
-                listBloodId.add(compatibleBlood.getNhomMauNhan().getId());
+                listBloodId.add(compatibleBlood.getNhomMauHien().getId());
             }
         }
 

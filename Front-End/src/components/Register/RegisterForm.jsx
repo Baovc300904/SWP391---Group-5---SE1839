@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { register } from "../../services/authService";
 import { getBloods } from "../../services/bloodService";
 import "../Login/Card/LoginCard.css";
+import dayjs from "dayjs";
 
 // Sửa lại icon mặc định của Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -323,6 +324,9 @@ export default function RegisterForm() {
                     <DatePicker
                       format="YYYY-MM-DD"
                       style={{ ...inputStyle, width: "100%" }}
+                      disabledDate={(current) => {
+                        return current && current > dayjs().endOf("day");
+                      }}
                     />
                   </Form.Item>
                 </Col>
