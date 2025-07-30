@@ -112,7 +112,7 @@ public class BloodReceiveRequestService {
             bloodReceiveRequest.setTrangThai(AppConfig.BLOOD_RECEIVE_REQUEST_CANCEL);
             bloodReceiveRequest.setGhiChu("User cancel blood receive request");
             User user = this.userRepository.findById(bloodReceiveRequest.getNguoiNhan().getId()).orElseThrow();
-            SendEmail.changeBloodReceiveRequestStatus(user.getEmail(), bloodReceiveRequest.getId(), "huỷ");
+            SendEmail.changeBloodReceiveRequestStatus(user, bloodReceiveRequest, "huỷ");
             return repository.save(bloodReceiveRequest);
         });
     }
@@ -159,7 +159,7 @@ public class BloodReceiveRequestService {
             bloodReceiveRequest.setGhiChu("Admin change request status to available");
 
             User userCreated = this.userRepository.findById(bloodReceiveRequest.getNguoiNhan().getId()).orElseThrow();
-            SendEmail.changeBloodReceiveRequestStatus(userCreated.getEmail(), bloodReceiveRequest.getId(), "đã có máu");
+            SendEmail.changeBloodReceiveRequestStatus(userCreated, bloodReceiveRequest, "đã có máu");
             return repository.save(bloodReceiveRequest);
         });
     }
@@ -184,7 +184,7 @@ public class BloodReceiveRequestService {
             }
 
             User userCreated = this.userRepository.findById(bloodReceiveRequest.getNguoiNhan().getId()).orElseThrow();
-            SendEmail.changeBloodReceiveRequestStatus(userCreated.getEmail(), bloodReceiveRequest.getId(), "huỷ");
+            SendEmail.changeBloodReceiveRequestStatus(userCreated, bloodReceiveRequest, "huỷ");
             return repository.save(bloodReceiveRequest);
         });
     }
@@ -211,7 +211,7 @@ public class BloodReceiveRequestService {
             }
 
             User userCreated = this.userRepository.findById(bloodReceiveRequest.getNguoiNhan().getId()).orElseThrow();
-            SendEmail.changeBloodReceiveRequestStatus(userCreated.getEmail(), bloodReceiveRequest.getId(), "đã hoàn thành");
+            SendEmail.changeBloodReceiveRequestStatus(userCreated, bloodReceiveRequest, "đã hoàn thành");
             return repository.save(bloodReceiveRequest);
         });
     }

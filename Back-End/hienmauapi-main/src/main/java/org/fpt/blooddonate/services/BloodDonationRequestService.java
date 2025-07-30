@@ -114,7 +114,7 @@ public class BloodDonationRequestService {
             bloodDonationRequest.setGhiChu("User cancel blood donation request");
 
             User user = this.userRepository.findById(bloodDonationRequest.getNguoiHien().getId()).orElseThrow();
-            SendEmail.changeBloodDonationRequestStatus(user.getEmail(), bloodDonationRequest.getId(), "huỷ");
+            SendEmail.changeBloodDonationRequestStatus(user, bloodDonationRequest, "huỷ");
             return repository.save(bloodDonationRequest);
         });
     }
@@ -133,7 +133,7 @@ public class BloodDonationRequestService {
             bloodDonationRequest.setGhiChu("Admin approved blood donation request");
 
             User createdUser = this.userRepository.findById(bloodDonationRequest.getNguoiHien().getId()).orElseThrow();
-            SendEmail.changeBloodDonationRequestStatus(createdUser.getEmail(), bloodDonationRequest.getId(), "xác nhận");
+            SendEmail.changeBloodDonationRequestStatus(createdUser, bloodDonationRequest, "xác nhận");
             return repository.save(bloodDonationRequest);
         });
     }
@@ -158,7 +158,7 @@ public class BloodDonationRequestService {
             }
 
             User createdUser = this.userRepository.findById(bloodDonationRequest.getNguoiHien().getId()).orElseThrow();
-            SendEmail.changeBloodDonationRequestStatus(createdUser.getEmail(), bloodDonationRequest.getId(), "từ chối");
+            SendEmail.changeBloodDonationRequestStatus(createdUser, bloodDonationRequest, "từ chối");
             return repository.save(bloodDonationRequest);
         });
     }
@@ -194,7 +194,7 @@ public class BloodDonationRequestService {
             bloodUnitWareHouseRepository.save(bloodUnitWareHouse);
 
             User createdUser = this.userRepository.findById(bloodDonationRequest.getNguoiHien().getId()).orElseThrow();
-            SendEmail.changeBloodDonationRequestStatus(createdUser.getEmail(), bloodDonationRequest.getId(), "đã hiến");
+            SendEmail.changeBloodDonationRequestStatus(createdUser, bloodDonationRequest, "đã hiến");
             return repository.save(bloodDonationRequest);
         });
     }
