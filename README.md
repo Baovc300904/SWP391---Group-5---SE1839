@@ -8,11 +8,7 @@
 
 <em>Empowering Life Through Seamless Blood Donation Innovation</em>
 
-<!-- BADGES -->
-<img src="https://img.shields.io/github/license/AnhKhoaa157/SWP391---Group-5---SE1839?style=flat&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
-<img src="https://img.shields.io/github/last-commit/AnhKhoaa157/SWP391---Group-5---SE1839?style=flat&logo=git&logoColor=white&color=0080ff" alt="last-commit">
-<img src="https://img.shields.io/github/languages/top/AnhKhoaa157/SWP391---Group-5---SE1839?style=flat&color=0080ff" alt="repo-top-language">
-<img src="https://img.shields.io/github/languages/count/AnhKhoaa157/SWP391---Group-5---SE1839?style=flat&color=0080ff" alt="repo-language-count">
+
 
 <em>Built with the tools and technologies:</em>
 
