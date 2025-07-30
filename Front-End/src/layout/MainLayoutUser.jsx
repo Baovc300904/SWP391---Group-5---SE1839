@@ -7,9 +7,13 @@ import {
   PullRequestOutlined,
   SettingOutlined,
   UserOutlined,
+  HeartOutlined,
+  BellOutlined,
+  MenuOutlined,
 } from "@ant-design/icons";
-import { Dropdown, Layout, Menu } from "antd";
+import { Dropdown, Layout, Menu, Button, Avatar, Badge, Drawer } from "antd";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import SupportModalButton from "../components/SupportModalButton";
 import NotificationBellUser from "../components/NotificationBellUser";
 
@@ -18,226 +22,399 @@ const { Header, Content, Footer } = Layout;
 export default function MainLayoutUser() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
 
   const getSelectedKey = () => {
     if (location.pathname === "/user") return "dashboard";
-    if (location.pathname.startsWith("/user/list-request"))
-      return "list-request";
-    if (location.pathname.startsWith("/user/receive-blood"))
-      return "receive-blood";
+    if (location.pathname.startsWith("/user/list-request")) return "list-request";
+    if (location.pathname.startsWith("/user/receive-blood")) return "receive-blood";
     if (location.pathname.startsWith("/user/blog")) return "blog";
     if (location.pathname.startsWith("/user/near-me")) return "near-me";
 
     return "";
   };
 
-  const settingsMenu = (
-    <Menu
-      style={{
-        backgroundColor: "#fff",
-        borderRadius: 4,
-        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-        minWidth: 160,
-      }}
-    >
-      <Menu.Item
-        key="profile"
-        icon={<UserOutlined />}
-        onClick={() => navigate("/user/profile")}
-        style={{ color: "#333" }}
-      >
-        Xem hồ sơ
-      </Menu.Item>
-      <Menu.Item
-        key="change-password"
-        icon={<LockOutlined />}
-        onClick={() => navigate("/user/change-password")}
-        style={{ color: "#333" }}
-      >
-        Đổi mật khẩu
-      </Menu.Item>
-    </Menu>
-  );
-
-  const menuItemStyle = {
-    color: "#fff",
-    display: "flex",
-    alignItems: "center",
+  const settingsMenu = {
+    items: [
+      {
+        key: "profile",
+        icon: <ProfileOutlined />,
+        label: "Xem hồ sơ",
+        onClick: () => navigate("/user/profile"),
+      },
+      {
+        key: "change-password",
+        icon: <LockOutlined />,
+        label: "Đổi mật khẩu",
+        onClick: () => navigate("/user/change-password"),
+      },
+      {
+        type: "divider",
+      },
+      {
+        key: "logout",
+        icon: <LogoutOutlined />,
+        label: "Đăng xuất",
+        onClick: () => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          navigate("/login");
+        },
+      },
+    ],
+    style: {
+      backgroundColor: "#fff",
+      borderRadius: 12,
+      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12)",
+      minWidth: 200,
+      padding: "8px 0",
+    },
   };
-  const linkStyle = { color: "#fff" };
+
+  const menuItems = [
+    {
+      key: "dashboard",
+      icon: <HomeOutlined />,
+      label: "Hoạt động",
+      onClick: () => navigate("/user"),
+    },
+    {
+      key: "near-me",
+      icon: <UserOutlined />,
+      label: "Người dùng gần bạn",
+      onClick: () => navigate("/user/near-me"),
+    },
+    {
+      key: "list-request",
+      icon: <ProfileOutlined />,
+      label: "Lịch sử đăng ký",
+      onClick: () => navigate("/user/list-request"),
+    },
+    {
+      key: "receive-blood",
+      icon: <PullRequestOutlined />,
+      label: "Yêu cầu nhận máu",
+      onClick: () => navigate("/user/receive-blood"),
+    },
+    {
+      key: "blog",
+      icon: <BookOutlined />,
+      label: "Bài viết",
+      onClick: () => navigate("/user/blog"),
+    },
+  ];
+
+  const handleMobileMenuClose = () => {
+    setMobileMenuVisible(false);
+  };
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout style={{ minHeight: "100vh", background: "#f8fafc" }}>
+      {/* Header */}
       <Header
         style={{
-          background: "#f44336",
+          background: "linear-gradient(135deg, #d4a574 0%, #b08968 100%)",
+          padding: "0 24px",
+          height: "70px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "0 24px",
+          boxShadow: "0 4px 20px rgba(212, 165, 116, 0.15)",
+          position: "sticky",
+          top: 0,
+          zIndex: 1000,
         }}
       >
+        {/* Logo */}
         <div
           style={{
-            color: "#fff",
-            fontWeight: "bold",
-            fontSize: 18,
-            lineHeight: "64px",
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
             cursor: "pointer",
           }}
-          onClick={() => (window.location.href = "/user")}
+          onClick={() => navigate("/user")}
         >
-          HỆ THỐNG HIẾN MÁU TÌNH NGUYỆN
+          <div
+            style={{
+              background: "rgba(255, 255, 255, 0.2)",
+              borderRadius: "50%",
+              width: "40px",
+              height: "40px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <HeartOutlined style={{ color: "#fff", fontSize: "20px" }} />
+          </div>
+          <div
+            style={{
+              color: "#fff",
+              fontWeight: "700",
+              fontSize: "18px",
+              letterSpacing: "0.5px",
+            }}
+          >
+            HỆ THỐNG HIẾN MÁU TÌNH NGUYỆN
+          </div>
         </div>
-        <NotificationBellUser />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          selectedKeys={[getSelectedKey()]}
-          style={{
-            background: "transparent",
-            flex: 1,
-            justifyContent: "flex-end",
-            color: "#fff",
-          }}
-        >
-          <Menu.Item
-            key="near-me"
-            icon={<UserOutlined style={menuItemStyle} />}
-            style={{
-              ...menuItemStyle,
-              background:
-                getSelectedKey() === "near-me" ? "#f89595" : "transparent",
-            }}
-          >
-            <Link to="/user/near-me" style={linkStyle}>
-              Người dùng gần bạn
-            </Link>
-          </Menu.Item>
-          <Menu.Item
-            key="dashboard"
-            icon={<HomeOutlined style={menuItemStyle} />}
-            style={{
-              ...menuItemStyle,
-              background:
-                getSelectedKey() === "dashboard" ? "#f89595" : "transparent",
-            }}
-          >
-            <Link to="/user" style={linkStyle}>
-              Hoạt động
-            </Link>
-          </Menu.Item>
 
-          <Menu.Item
-            key="list-request"
-            icon={<ProfileOutlined style={menuItemStyle} />}
-            style={{
-              ...menuItemStyle,
-              background:
-                getSelectedKey() === "list-request" ? "#f89595" : "transparent",
-            }}
-          >
-            <Link to="/user/list-request" style={linkStyle}>
-              Lịch sử đăng ký
-            </Link>
-          </Menu.Item>
+        {/* Desktop Menu */}
+        <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+          <div style={{ display: { xs: "none", md: "flex" } }}>
+            <Menu
+              mode="horizontal"
+              selectedKeys={[getSelectedKey()]}
+              items={menuItems}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "#fff",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              theme="dark"
+              className="skin-tone-menu"
+            />
+          </div>
 
-          <Menu.Item
-            key="receive-blood"
-            icon={<PullRequestOutlined style={menuItemStyle} />}
-            style={{
-              ...menuItemStyle,
-              background:
-                getSelectedKey() === "receive-blood"
-                  ? "#f89595"
-                  : "transparent",
-            }}
+          {/* Notifications */}
+          <NotificationBellUser />
+
+          {/* User Menu */}
+          <Dropdown
+            menu={settingsMenu}
+            placement="bottomRight"
+            trigger={["click"]}
           >
-            <Link to="/user/receive-blood" style={linkStyle}>
-              Yêu cầu nhận máu
-            </Link>
-          </Menu.Item>
-          <Menu.Item
-            key="blog"
-            icon={<BookOutlined style={menuItemStyle} />}
-            style={{
-              ...menuItemStyle,
-              background:
-                getSelectedKey() === "blog" ? "#f89595" : "transparent",
-            }}
-          >
-            <Link to="/user/blog" style={linkStyle}>
-              Bài viết
-            </Link>
-          </Menu.Item>
-          <Menu.Item
-            key="settings"
-            icon={<SettingOutlined style={menuItemStyle} />}
-            style={{
-              ...menuItemStyle,
-              background:
-                getSelectedKey() === "settings" ? "#f89595" : "transparent",
-            }}
-          >
-            <Dropdown
-              overlay={settingsMenu}
-              placement="bottomRight"
-              trigger={["click"]}
+            <Button
+              type="text"
+              style={{
+                color: "#fff",
+                border: "1px solid rgba(255, 255, 255, 0.3)",
+                borderRadius: "8px",
+                height: "40px",
+                padding: "0 16px",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                background: "rgba(255, 255, 255, 0.1)",
+                backdropFilter: "blur(10px)",
+              }}
             >
-              <span style={linkStyle}>Cài đặt</span>
-            </Dropdown>
-          </Menu.Item>
+              <Avatar
+                size="small"
+                icon={<UserOutlined />}
+                style={{ background: "rgba(255, 255, 255, 0.2)" }}
+              />
+              <span style={{ fontSize: "14px", fontWeight: "500" }}>
+                Tài khoản
+              </span>
+            </Button>
+          </Dropdown>
 
-          <Menu.Item
-            key="logout"
-            icon={<LogoutOutlined style={menuItemStyle} />}
+          {/* Mobile Menu Button */}
+          <Button
+            type="text"
+            icon={<MenuOutlined />}
             style={{
-              ...menuItemStyle,
-              background:
-                getSelectedKey() === "logout" ? "#f89595" : "transparent",
+              color: "#fff",
+              display: { xs: "block", md: "none" },
+              fontSize: "18px",
             }}
+            onClick={() => setMobileMenuVisible(true)}
+          />
+        </div>
+      </Header>
+
+      {/* Mobile Menu Drawer */}
+      <Drawer
+        title={
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <HeartOutlined style={{ color: "#d4a574", fontSize: "20px" }} />
+            <span style={{ fontWeight: "600" }}>Menu</span>
+          </div>
+        }
+        placement="right"
+        onClose={handleMobileMenuClose}
+        open={mobileMenuVisible}
+        width={280}
+        styles={{
+          body: { padding: "0" },
+          header: { borderBottom: "1px solid #f0f0f0" },
+        }}
+      >
+        <Menu
+          mode="vertical"
+          selectedKeys={[getSelectedKey()]}
+          items={menuItems}
+          style={{
+            border: "none",
+            fontSize: "16px",
+            fontWeight: "500",
+          }}
+          onClick={handleMobileMenuClose}
+          className="skin-tone-menu"
+        />
+        <div style={{ padding: "16px", borderTop: "1px solid #f0f0f0" }}>
+          <Button
+            type="text"
+            icon={<LogoutOutlined />}
+            style={{ width: "100%", textAlign: "left", height: "48px" }}
             onClick={() => {
               localStorage.removeItem("token");
               localStorage.removeItem("user");
               navigate("/login");
+              handleMobileMenuClose();
             }}
           >
-            <span style={linkStyle}>Đăng xuất</span>
-          </Menu.Item>
-        </Menu>
-      </Header>
+            Đăng xuất
+          </Button>
+        </div>
+      </Drawer>
 
-      <Content style={{ background: "#f5f5f5" }}>
-        <Outlet />
+      {/* Content */}
+      <Content
+        style={{
+          padding: "24px",
+          minHeight: "calc(100vh - 140px)",
+          background: "#f8fafc",
+        }}
+      >
+        <div
+          style={{
+            width: "100%", // User requested this change
+            background: "#fff",
+            borderRadius: "16px",
+            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)",
+            overflow: "hidden",
+          }}
+        >
+          <Outlet />
+        </div>
       </Content>
 
-      {/* Footer Section */}
+      {/* Footer */}
       <Footer
         style={{
-          backgroundColor: "#f44336",
+          background: "linear-gradient(135deg, #1f2937 0%, #374151 100%)",
           color: "#fff",
-          padding: "20px 0",
+          padding: "40px 24px",
           textAlign: "center",
         }}
       >
-        <div>© 2025 HỆ THỐNG HIẾN MÁU TÌNH NGUYỆN</div>
-        <div style={{ marginTop: 10 }}>
-          Liên hệ:{" "}
-          <a href="mailto:support@example.com" style={{ color: "#fff" }}>
-            support@example.com
-          </a>{" "}
-          | Hotline: 1800-1234
-        </div>
-        <div style={{ marginTop: 10 }}>
-          <a href="/privacy-policy" style={{ color: "#fff", marginRight: 10 }}>
-            Chính sách bảo mật
-          </a>
-          <a href="/terms-of-service" style={{ color: "#fff" }}>
-            Điều khoản dịch vụ
-          </a>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "12px",
+              marginBottom: "24px",
+            }}
+          >
+            <HeartOutlined style={{ color: "#d4a574", fontSize: "24px" }} />
+            <span
+              style={{
+                fontSize: "20px",
+                fontWeight: "700",
+                letterSpacing: "0.5px",
+              }}
+            >
+              Hiến Máu Cộng Đồng Việt
+            </span>
+          </div>
+          
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "32px",
+              marginBottom: "24px",
+              flexWrap: "wrap",
+            }}
+          >
+            <div>
+              <div style={{ fontWeight: "600", marginBottom: "8px" }}>
+                Liên hệ
+              </div>
+              <div style={{ fontSize: "14px", color: "#d1d5db" }}>
+                support@hienmau.vn
+              </div>
+            </div>
+            <div>
+              <div style={{ fontWeight: "600", marginBottom: "8px" }}>
+                Hotline
+              </div>
+              <div style={{ fontSize: "14px", color: "#d1d5db" }}>
+                1900 1234
+              </div>
+            </div>
+            <div>
+              <div style={{ fontWeight: "600", marginBottom: "8px" }}>
+                Địa chỉ
+              </div>
+              <div style={{ fontSize: "14px", color: "#d1d5db" }}>
+                FPT University, Hà Nội
+              </div>
+            </div>
+          </div>
+
+          <div
+            style={{
+              borderTop: "1px solid #374151",
+              paddingTop: "24px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "16px",
+            }}
+          >
+            <div style={{ fontSize: "14px", color: "#9ca3af" }}>
+              © 2025 Hiến Máu Cộng Đồng Việt. Tất cả quyền được bảo lưu.
+            </div>
+            <div style={{ display: "flex", gap: "24px" }}>
+              <a
+                href="/privacy-policy"
+                style={{ color: "#d1d5db", textDecoration: "none" }}
+              >
+                Chính sách bảo mật
+              </a>
+              <a
+                href="/terms-of-service"
+                style={{ color: "#d1d5db", textDecoration: "none" }}
+              >
+                Điều khoản dịch vụ
+              </a>
+            </div>
+          </div>
         </div>
       </Footer>
+
       <SupportModalButton />
+
+      {/* Custom CSS for skin tone menu styling */}
+      <style jsx="true">{`
+        .skin-tone-menu .ant-menu-item-selected {
+          background-color: #d4a574 !important;
+          color: #fff !important;
+        }
+        
+        .skin-tone-menu .ant-menu-item:hover {
+          background-color: rgba(212, 165, 116, 0.8) !important;
+          color: #fff !important;
+        }
+        
+        .skin-tone-menu .ant-menu-item {
+          color: #fff !important;
+        }
+        
+        .skin-tone-menu .ant-menu-item-selected::after {
+          border-right-color: #b08968 !important;
+        }
+      `}</style>
     </Layout>
   );
 }

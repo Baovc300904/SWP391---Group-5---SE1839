@@ -16,14 +16,30 @@ import {
   Col,
   Table,
   Avatar,
+  Card,
+  Space,
+  Progress,
+  Divider,
 } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCampaignDetail } from "../../services/campaignService";
 import { donateBloodRequest } from "../../services/donationService";
-import { UserOutlined } from "@ant-design/icons";
+import { 
+  UserOutlined, 
+  HeartOutlined, 
+  CalendarOutlined,
+  EnvironmentOutlined,
+  ClockCircleOutlined,
+  TrophyOutlined,
+  SafetyOutlined,
+  ArrowLeftOutlined,
+  FileTextOutlined,
+  TeamOutlined,
+  CheckCircleOutlined,
+} from "@ant-design/icons";
 
-const { Title, Paragraph } = Typography;
+const { Title, Paragraph, Text } = Typography;
 const { Option } = Select;
 
 const statusColor = {
@@ -191,24 +207,24 @@ export default function DetailCampaign() {
       notification.error({
         message: "Lỗi",
         description:
-          error?.response?.data?.message ||
+          error?.data?.message ||
           "Đã xảy ra lỗi khi gửi yêu cầu. Vui lòng thử lại.",
       });
     }
   };
-  const handleRecoveryDateChange = (date) => {
+  const handleRecoveryDateChange = () => {
     // Trigger validation cho ngày hiến máu dự kiến
     form.validateFields(["ngayHienMauDuKien"]);
   };
 
   // Hàm xử lý khi thay đổi ngày hiến máu dự kiến
-  const handleDonationDateChange = (date) => {
+  const handleDonationDateChange = () => {
     // Trigger validation cho ngày phục hồi gần nhất
     form.validateFields(["ngayPhucHoiGanNhat"]);
   };
 
   // Hàm xử lý khi thay đổi loại hiến máu
-  const handleDonationTypeChange = (type) => {
+  const handleDonationTypeChange = () => {
     // Trigger validation cho cả hai ngày khi thay đổi loại hiến máu
     form.validateFields(["ngayHienMauDuKien", "ngayPhucHoiGanNhat"]);
   };
@@ -232,102 +248,468 @@ export default function DetailCampaign() {
   return (
     <div
       style={{
-        padding: "60px 20px",
-        background: "linear-gradient(to right, #ffffff, #f3e5f5)",
         minHeight: "100vh",
+        background: "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <Button
-        type="default"
-        onClick={() => navigate("/user")}
-        style={{ marginBottom: 20, borderRadius: "20px", padding: "8px 20px" }}
-      >
-        Quay lại
-      </Button>
-
-      <Title
-        level={2}
-        style={{
-          textAlign: "center",
-          color: "#4a148c",
-          marginBottom: 40,
-        }}
-      >
-        Chi tiết chiến dịch hiến máu: {campaign.ten}
-      </Title>
-
+      {/* Floating Background Elements */}
       <div
         style={{
-          background: "#ffffffcc",
-          borderRadius: 16,
-          padding: 24,
-          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.1)",
-          transition: "0.3s",
+          position: "absolute",
+          top: "10%",
+          right: "10%",
+          width: "300px",
+          height: "300px",
+          backgroundImage: "url('https://images.unsplash.com/photo-1615461065929-4cc9af3b2b6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          borderRadius: "50%",
+          opacity: 0.1,
+          animation: "float 6s ease-in-out infinite",
         }}
-      >
-        <Title level={3} style={{ color: "#6a1b9a" }}>
-          {campaign.ten}
-        </Title>
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: "20%",
+          left: "5%",
+          width: "200px",
+          height: "200px",
+          backgroundImage: "url('https://images.unsplash.com/photo-1615461065929-4cc9af3b2b6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          borderRadius: "50%",
+          opacity: 0.1,
+          animation: "float 8s ease-in-out infinite reverse",
+        }}
+      />
 
-        <Tag color="geekblue" style={{ marginBottom: 12 }}>
-          {campaign.diaDiem}
-        </Tag>
-
-        <Paragraph style={{ color: "#555", minHeight: 80 }}>
-          {campaign.moTa}
-        </Paragraph>
-
-        <div style={{ marginTop: 12, marginBottom: 12 }}>
-          <Tag color="gold">Bắt đầu: {campaign.ngayBatDau}</Tag>
-          <Tag color="volcano">Kết thúc: {campaign.ngayKetThuc}</Tag>
-          <Tag color="green">
-            {campaign.soLuongNguoiDangKyHienTai}/{campaign.soLuongNguoiToiDa}{" "}
-            người đăng ký
-          </Tag>
-        </div>
-
-        <Descriptions
-          title="Thông tin người tạo chiến dịch"
-          bordered
-          column={1}
-          style={{ marginTop: 24 }}
-        >
-          <Descriptions.Item label="Số điện thoại">
-            {campaign.nguoiTao.soDienThoai}
-          </Descriptions.Item>
-          <Descriptions.Item label="Email">
-            {campaign.nguoiTao.email}
-          </Descriptions.Item>
-          <Descriptions.Item label="Địa chỉ">
-            {campaign.nguoiTao.diaChi}
-          </Descriptions.Item>
-        </Descriptions>
-
+      <div style={{ padding: "40px 5% 80px 5%", position: "relative" }}>
+        {/* Back Button */}
         <Button
-          type="primary"
-          shape="round"
-          onClick={() => setVisible(true)}
+          type="default"
+          icon={<ArrowLeftOutlined />}
+          onClick={() => navigate("/user")}
           style={{
-            backgroundColor: "#ec407a",
-            borderColor: "#ec407a",
-            marginTop: 20,
-            borderRadius: "20px",
-            padding: "12px 20px",
+            marginBottom: "24px",
+            borderRadius: "12px",
+            padding: "8px 20px",
+            background: "rgba(255,255,255,0.9)",
+            border: "1px solid #e2e8f0",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
           }}
-          disabled={isNotYet || isEnded}
         >
-          Hiến máu
+          Quay lại
         </Button>
+
+        {/* Hero Section */}
+        <Card
+          style={{
+            background: "rgba(255,255,255,0.95)",
+            borderRadius: "24px",
+            boxShadow: "0 20px 60px rgba(0,0,0,0.1)",
+            marginBottom: "40px",
+            border: "none",
+            backdropFilter: "blur(10px)",
+            backgroundImage: "url('https://images.unsplash.com/photo-1615461065929-4cc9af3b2b6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundBlendMode: "overlay",
+          }}
+          styles={{ body: { padding: "60px 40px" } }}
+        >
+          <div style={{ textAlign: "center", marginBottom: "40px" }}>
+            <Avatar
+              size={120}
+              style={{
+                background: "linear-gradient(135deg, #d4a574 0%, #b08968 100%)",
+                marginBottom: "20px",
+                border: "4px solid #e2e8f0",
+              }}
+              icon={<HeartOutlined style={{ fontSize: "60px", color: "#fff" }} />}
+            />
+            <Title
+              level={1}
+              style={{
+                color: "#1e293b",
+                marginBottom: "16px",
+                fontSize: "48px",
+                fontWeight: "800",
+                textAlign: "center",
+              }}
+            >
+              Chi tiết chiến dịch hiến máu
+            </Title>
+            <Paragraph
+              style={{
+                fontSize: "20px",
+                color: "#666",
+                maxWidth: "600px",
+                margin: "0 auto",
+                lineHeight: "1.6",
+                textAlign: "center",
+              }}
+            >
+              {campaign.ten}
+            </Paragraph>
+          </div>
+
+          {/* Campaign Info Cards */}
+          <Row gutter={[24, 24]} justify="center">
+            <Col xs={24} md={8}>
+              <Card
+                style={{
+                  background: "rgba(255,255,255,0.9)",
+                  borderRadius: "16px",
+                  textAlign: "center",
+                  border: "none",
+                  boxShadow: "0 8px 25px rgba(0,0,0,0.1)",
+                }}
+              >
+                <EnvironmentOutlined style={{ fontSize: "32px", color: "#d4a574", marginBottom: "12px" }} />
+                <Title level={4} style={{ color: "#1e293b", marginBottom: "8px" }}>
+                  Địa điểm
+                </Title>
+                <Text style={{ color: "#64748b", fontSize: "16px" }}>
+                  {campaign.diaDiem}
+                </Text>
+              </Card>
+            </Col>
+            <Col xs={24} md={8}>
+              <Card
+                style={{
+                  background: "rgba(255,255,255,0.9)",
+                  borderRadius: "16px",
+                  textAlign: "center",
+                  border: "none",
+                  boxShadow: "0 8px 25px rgba(0,0,0,0.1)",
+                }}
+              >
+                <CalendarOutlined style={{ fontSize: "32px", color: "#d4a574", marginBottom: "12px" }} />
+                <Title level={4} style={{ color: "#1e293b", marginBottom: "8px" }}>
+                  Thời gian
+                </Title>
+                <Text style={{ color: "#64748b", fontSize: "16px" }}>
+                  {campaign.ngayBatDau} - {campaign.ngayKetThuc}
+                </Text>
+              </Card>
+            </Col>
+            <Col xs={24} md={8}>
+              <Card
+                style={{
+                  background: "rgba(255,255,255,0.9)",
+                  borderRadius: "16px",
+                  textAlign: "center",
+                  border: "none",
+                  boxShadow: "0 8px 25px rgba(0,0,0,0.1)",
+                }}
+              >
+                <TeamOutlined style={{ fontSize: "32px", color: "#d4a574", marginBottom: "12px" }} />
+                <Title level={4} style={{ color: "#1e293b", marginBottom: "8px" }}>
+                  Đăng ký
+                </Title>
+                <Text style={{ color: "#64748b", fontSize: "16px" }}>
+                  {campaign.soLuongNguoiDangKyHienTai}/{campaign.soLuongNguoiToiDa}
+                </Text>
+              </Card>
+            </Col>
+          </Row>
+        </Card>
+
+        {/* Campaign Details */}
+        <Row gutter={[32, 32]}>
+          <Col xs={24} lg={16}>
+            <Card
+              style={{
+                background: "rgba(255,255,255,0.95)",
+                borderRadius: "20px",
+                boxShadow: "0 15px 35px rgba(0,0,0,0.1)",
+                border: "none",
+                height: "100%",
+                backdropFilter: "blur(10px)",
+              }}
+              styles={{ body: { padding: "40px" } }}
+            >
+              <div style={{ marginBottom: "32px" }}>
+                <div
+                  style={{
+                    width: "64px",
+                    height: "64px",
+                    borderRadius: "50%",
+                    backgroundImage: "url('https://images.unsplash.com/photo-1615461065929-4cc9af3b2b6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    marginBottom: "16px",
+                    border: "3px solid #d4a574",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FileTextOutlined style={{ fontSize: "28px", color: "#fff", textShadow: "0 2px 4px rgba(0,0,0,0.5)" }} />
+                </div>
+                <Title level={3} style={{ color: "#1e293b", marginBottom: "16px", fontWeight: "700" }}>
+                  Thông tin chiến dịch
+                </Title>
+              </div>
+
+              <Paragraph style={{ color: "#64748b", fontSize: "16px", lineHeight: "1.6", marginBottom: "32px" }}>
+                {campaign.moTa}
+              </Paragraph>
+
+              <Divider />
+
+              <Descriptions
+                title={
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <UserOutlined style={{ color: "#d4a574" }} />
+                    <span>Thông tin người tạo chiến dịch</span>
+                  </div>
+                }
+                bordered
+                column={1}
+                style={{ marginTop: "24px" }}
+              >
+                <Descriptions.Item label="Số điện thoại">
+                  {campaign.nguoiTao.soDienThoai}
+                </Descriptions.Item>
+                <Descriptions.Item label="Email">
+                  {campaign.nguoiTao.email}
+                </Descriptions.Item>
+                <Descriptions.Item label="Địa chỉ">
+                  {campaign.nguoiTao.diaChi}
+                </Descriptions.Item>
+              </Descriptions>
+
+              <div style={{ marginTop: "32px", textAlign: "center" }}>
+                <Button
+                  type="primary"
+                  size="large"
+                  icon={<HeartOutlined />}
+                  onClick={() => setVisible(true)}
+                  style={{
+                    background: "linear-gradient(135deg, #d4a574 0%, #b08968 100%)",
+                    border: "none",
+                    borderRadius: "12px",
+                    height: "48px",
+                    padding: "0 32px",
+                    fontWeight: "600",
+                    boxShadow: "0 4px 15px rgba(212,165,116,0.3)",
+                  }}
+                  disabled={isNotYet || isEnded}
+                >
+                  {isNotYet ? "Chưa bắt đầu" : isEnded ? "Đã kết thúc" : "Đăng ký hiến máu"}
+                </Button>
+              </div>
+            </Card>
+          </Col>
+
+          <Col xs={24} lg={8}>
+            <Card
+              style={{
+                background: "rgba(255,255,255,0.95)",
+                borderRadius: "20px",
+                boxShadow: "0 15px 35px rgba(0,0,0,0.1)",
+                border: "none",
+                height: "100%",
+                backdropFilter: "blur(10px)",
+              }}
+              styles={{ body: { padding: "40px" } }}
+            >
+              <div style={{ marginBottom: "32px" }}>
+                <div
+                  style={{
+                    width: "64px",
+                    height: "64px",
+                    borderRadius: "50%",
+                    backgroundImage: "url('https://images.unsplash.com/photo-1615461065929-4cc9af3b2b6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    marginBottom: "16px",
+                    border: "3px solid #d4a574",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <TrophyOutlined style={{ fontSize: "28px", color: "#fff", textShadow: "0 2px 4px rgba(0,0,0,0.5)" }} />
+                </div>
+                <Title level={3} style={{ color: "#1e293b", marginBottom: "16px", fontWeight: "700" }}>
+                  Tiến độ đăng ký
+                </Title>
+              </div>
+
+              <div style={{
+                background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
+                padding: "24px",
+                borderRadius: "16px",
+                textAlign: "center",
+                marginBottom: "24px"
+              }}>
+                <Progress
+                  type="circle"
+                  size={120}
+                  percent={Math.round((campaign.soLuongNguoiDangKyHienTai / campaign.soLuongNguoiToiDa) * 100)}
+                  strokeColor={{
+                    '0%': '#d4a574',
+                    '100%': '#b08968',
+                  }}
+                  format={(percent) => (
+                    <div>
+                      <div style={{ fontSize: "24px", fontWeight: "700", color: "#1e293b" }}>
+                        {percent}%
+                      </div>
+                      <div style={{ fontSize: "14px", color: "#64748b" }}>
+                        Đã đăng ký
+                      </div>
+                    </div>
+                  )}
+                />
+              </div>
+
+              <div style={{ textAlign: "center" }}>
+                <div style={{ marginBottom: "16px" }}>
+                  <Text style={{ color: "#64748b", fontSize: "14px" }}>Số người đã đăng ký</Text>
+                  <div style={{ fontSize: "24px", fontWeight: "700", color: "#1e293b" }}>
+                    {campaign.soLuongNguoiDangKyHienTai}
+                  </div>
+                </div>
+                <div>
+                  <Text style={{ color: "#64748b", fontSize: "14px" }}>Tổng số người tối đa</Text>
+                  <div style={{ fontSize: "24px", fontWeight: "700", color: "#1e293b" }}>
+                    {campaign.soLuongNguoiToiDa}
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </Col>
+        </Row>
+
+        {/* Lịch sử đăng ký */}
+        {Array.isArray(campaign.danhSachYeuCauHieuMau) &&
+          campaign.danhSachYeuCauHieuMau.length > 0 && (
+            <Card
+              style={{
+                background: "rgba(255,255,255,0.95)",
+                borderRadius: "20px",
+                boxShadow: "0 15px 35px rgba(0,0,0,0.1)",
+                border: "none",
+                marginTop: "32px",
+                backdropFilter: "blur(10px)",
+              }}
+              styles={{ body: { padding: "40px" } }}
+            >
+              <div style={{ marginBottom: "32px" }}>
+                <div
+                  style={{
+                    width: "64px",
+                    height: "64px",
+                    borderRadius: "50%",
+                    backgroundImage: "url('https://images.unsplash.com/photo-1615461065929-4cc9af3b2b6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    marginBottom: "16px",
+                    border: "3px solid #d4a574",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <CheckCircleOutlined style={{ fontSize: "28px", color: "#fff", textShadow: "0 2px 4px rgba(0,0,0,0.5)" }} />
+                </div>
+                <Title level={3} style={{ color: "#1e293b", marginBottom: "16px", fontWeight: "700" }}>
+                  Lịch sử đăng ký hiến máu
+                </Title>
+                <Paragraph style={{ color: "#64748b", fontSize: "16px" }}>
+                  Danh sách những người đã đăng ký hiến máu cho chiến dịch này
+                </Paragraph>
+              </div>
+
+              <Table
+                rowKey="id"
+                dataSource={campaign.danhSachYeuCauHieuMau}
+                pagination={{ pageSize: 6 }}
+                scroll={{ x: true }}
+                columns={[
+                  {
+                    title: "Người hiến",
+                    dataIndex: "nguoiHien",
+                    key: "nguoiHien",
+                    render: () => (
+                      <div
+                        style={{ display: "flex", alignItems: "center", gap: 8 }}
+                      >
+                        <Avatar icon={<UserOutlined />} />
+                        Hide Information
+                      </div>
+                    ),
+                  },
+                  {
+                    title: "Ngày đăng ký",
+                    dataIndex: "ngayTao",
+                    render: (v) =>
+                      v ? new Date(v).toLocaleString("vi-VN") : "-",
+                  },
+                  {
+                    title: "Ngày hiến dự kiến",
+                    dataIndex: "ngayHienMauDuKien",
+                    render: (v) =>
+                      v ? new Date(v).toLocaleDateString("vi-VN") : "-",
+                  },
+                  {
+                    title: "Loại hiến",
+                    dataIndex: "loaiHien",
+                    render: (v) =>
+                      v === "toanphan"
+                        ? "Toàn phần"
+                        : v === "hongcau"
+                        ? "Hồng cầu"
+                        : v === "tieucau"
+                        ? "Tiểu cầu"
+                        : v === "huyettuong"
+                        ? "Huyết tương"
+                        : v,
+                  },
+                  {
+                    title: "Số lượng (ml)",
+                    dataIndex: "soLuong",
+                    align: "center",
+                  },
+                  {
+                    title: "Trạng thái",
+                    dataIndex: "trangThai",
+                    render: (v) => (
+                      <Tag color={statusColor[v] || "default"}>
+                        {statusText[v] || v}
+                      </Tag>
+                    ),
+                    align: "center",
+                  },
+                ]}
+              />
+            </Card>
+          )}
       </div>
 
       {/* Modal Form Đăng ký Hiến máu */}
       <Modal
-        title="Đăng ký hiến máu"
+        title={
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <HeartOutlined style={{ color: "#d4a574", fontSize: "20px" }} />
+            <span>Đăng ký hiến máu</span>
+          </div>
+        }
         open={visible}
         onCancel={() => setVisible(false)}
         footer={null}
         width={700}
         destroyOnClose
+        styles={{
+          body: { padding: "24px" },
+          header: { borderBottom: "1px solid #f0f0f0" }
+        }}
       >
         <Form
           form={form}
@@ -448,9 +830,9 @@ export default function DetailCampaign() {
             block
             style={{
               height: 48,
-              borderRadius: 30,
-              background: "#ec407a",
-              borderColor: "#ec407a",
+              borderRadius: 12,
+              background: "linear-gradient(135deg, #d4a574 0%, #b08968 100%)",
+              border: "none",
               fontSize: 16,
               fontWeight: 600,
               marginTop: 16,
@@ -461,92 +843,17 @@ export default function DetailCampaign() {
         </Form>
       </Modal>
 
-      {/* ========== LỊCH SỬ ĐĂNG KÝ HIẾN MÁU ========== */}
-      {Array.isArray(campaign.danhSachYeuCauHieuMau) &&
-        campaign.danhSachYeuCauHieuMau.length > 0 && (
-          <div
-            style={{
-              marginTop: 42,
-              background: "#fff",
-              borderRadius: 16,
-              boxShadow: "0 2px 8px #d1c4e9",
-              padding: 16,
-            }}
-          >
-            <Title
-              level={4}
-              style={{
-                marginBottom: 18,
-                color: "#6a1b9a",
-              }}
-            >
-              Lịch sử đăng ký hiến máu cho chiến dịch này
-            </Title>
-            <Table
-              rowKey="id"
-              dataSource={campaign.danhSachYeuCauHieuMau}
-              pagination={{ pageSize: 6 }}
-              scroll={{ x: true }}
-              columns={[
-                {
-                  title: "Người hiến",
-                  dataIndex: "nguoiHien",
-                  key: "nguoiHien",
-                  render: () => (
-                    <div
-                      style={{ display: "flex", alignItems: "center", gap: 8 }}
-                    >
-                      <Avatar icon={<UserOutlined />} />
-                      Hide Information
-                    </div>
-                  ),
-                },
-                {
-                  title: "Ngày đăng ký",
-                  dataIndex: "ngayTao",
-                  render: (v) =>
-                    v ? new Date(v).toLocaleString("vi-VN") : "-",
-                },
-                {
-                  title: "Ngày hiến dự kiến",
-                  dataIndex: "ngayHienMauDuKien",
-                  render: (v) =>
-                    v ? new Date(v).toLocaleDateString("vi-VN") : "-",
-                },
-
-                {
-                  title: "Loại hiến",
-                  dataIndex: "loaiHien",
-                  render: (v) =>
-                    v === "toanphan"
-                      ? "Toàn phần"
-                      : v === "hongcau"
-                      ? "Hồng cầu"
-                      : v === "tieucau"
-                      ? "Tiểu cầu"
-                      : v === "huyettuong"
-                      ? "Huyết tương"
-                      : v,
-                },
-                {
-                  title: "Số lượng (ml)",
-                  dataIndex: "soLuong",
-                  align: "center",
-                },
-                {
-                  title: "Trạng thái",
-                  dataIndex: "trangThai",
-                  render: (v) => (
-                    <Tag color={statusColor[v] || "default"}>
-                      {statusText[v] || v}
-                    </Tag>
-                  ),
-                  align: "center",
-                },
-              ]}
-            />
-          </div>
-        )}
+      {/* CSS Animation */}
+      <style jsx="true">{`
+        @keyframes float {
+          0%, 100% { 
+            transform: translateY(0px); 
+          }
+          50% { 
+            transform: translateY(-20px); 
+          }
+        }
+      `}</style>
     </div>
   );
 }
