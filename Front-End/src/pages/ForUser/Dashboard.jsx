@@ -11,6 +11,10 @@ import {
   Col,
   Divider,
   Tooltip,
+  Avatar,
+  Space,
+  Progress,
+  Statistic,
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { getUpcomingCampaigns } from "../../services/campaignService";
@@ -20,6 +24,14 @@ import {
   BookOutlined,
   InfoCircleOutlined,
   HeartTwoTone,
+  CalendarOutlined,
+  UserOutlined,
+  EnvironmentOutlined,
+  ClockCircleOutlined,
+  TrophyOutlined,
+  HeartOutlined,
+  SafetyOutlined,
+  RiseOutlined,
 } from "@ant-design/icons";
 
 const { Title, Paragraph, Text } = Typography;
@@ -53,258 +65,504 @@ export default function DashboardUser() {
     <div
       style={{
         minHeight: "100vh",
-        padding: "36px 10vw 80px 10vw",
-        background: "linear-gradient(120deg, #fce4ec 0%, #ede7f6 100%)",
+        background: "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      {/* Section Info */}
-      <Row gutter={28} style={{ marginBottom: 32 }}>
-        <Col xs={24} md={12}>
-          <Card
-            bordered={false}
-            style={{
-              borderRadius: 16,
-              boxShadow: "0 4px 24px rgba(244,67,54,0.07)",
-              background:
-                "linear-gradient(90deg,#fff 70%,rgba(252,228,236,0.34) 100%)",
-            }}
-            bodyStyle={{ padding: 30, minHeight: 240 }}
-          >
+      {/* Floating Background Elements with Images */}
+      <div
+        style={{
+          position: "absolute",
+          top: "10%",
+          right: "10%",
+          width: "300px",
+          height: "300px",
+          backgroundImage: "url('https://images.unsplash.com/photo-1615461065929-4cc9af3b2b6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          borderRadius: "50%",
+          opacity: 0.1,
+          animation: "float 6s ease-in-out infinite",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: "20%",
+          left: "5%",
+          width: "200px",
+          height: "200px",
+          backgroundImage: "url('https://images.unsplash.com/photo-1615461065929-4cc9af3b2b6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          borderRadius: "50%",
+          opacity: 0.1,
+          animation: "float 8s ease-in-out infinite reverse",
+        }}
+      />
+
+      <div style={{ padding: "40px 5% 80px 5%", position: "relative" }}>
+        {/* Hero Section */}
+        <Card
+          style={{
+            background: "rgba(255,255,255,0.95)",
+            borderRadius: "24px",
+            boxShadow: "0 20px 60px rgba(0,0,0,0.1)",
+            marginBottom: "40px",
+            border: "none",
+            backdropFilter: "blur(10px)",
+            backgroundImage: "url('https://images.unsplash.com/photo-1615461065929-4cc9af3b2b6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundBlendMode: "overlay",
+          }}
+          styles={{ body: { padding: "60px 40px" } }}
+        >
+          <div style={{ textAlign: "center", marginBottom: "40px" }}>
+            <Avatar
+              size={120}
+              style={{
+                background: "linear-gradient(135deg, #d4a574 0%, #b08968 100%)",
+                marginBottom: "20px",
+                border: "2px solid #e2e8f0",
+              }}
+              icon={<HeartTwoTone twoToneColor="#fff" style={{ fontSize: "60px" }} />}
+            />
             <Title
-              level={4}
-              style={{ color: "#c51162", marginBottom: 10, fontWeight: 800 }}
+              level={1}
+              style={{
+                color: "#1e293b",
+                marginBottom: "16px",
+                fontSize: "48px",
+                fontWeight: "800",
+                textAlign: "center",
+              }}
             >
-              <BankOutlined style={{ fontSize: 23, marginRight: 8 }} />
-              Cơ sở y tế & kiến thức về máu
+              Chào mừng đến với cộng đồng hiến máu
             </Title>
-            <Paragraph style={{ color: "#222", marginBottom: 15 }}>
-              <InfoCircleOutlined
-                style={{ color: "#f06292", marginRight: 6 }}
-              />
-              Tra cứu <b>cơ sở y tế</b> tiếp nhận hiến máu, tìm hiểu{" "}
-              <b>kiến thức nhóm máu</b>, quyền lợi người hiến & lưu ý sức khoẻ.
+            <Paragraph
+              style={{
+                fontSize: "20px",
+                color: "#666",
+                maxWidth: "600px",
+                margin: "0 auto",
+                lineHeight: "1.6",
+                textAlign: "center",
+              }}
+            >
+              Hãy cùng chung tay lan tỏa nghĩa cử cao đẹp, trao giọt máu – gửi hy vọng cho cuộc sống!
             </Paragraph>
-            <Row gutter={12}>
-              <Col>
+          </div>
+
+          {/* Stats Cards */}
+          <Row gutter={[32, 32]} justify="center">
+            
+          </Row>
+        </Card>
+
+        {/* Information Cards */}
+        <Row gutter={[32, 32]} style={{ marginBottom: "50px" }}>
+          <Col xs={24} lg={12}>
+            <Card
+              hoverable
+              style={{
+                background: "rgba(255,255,255,0.95)",
+                borderRadius: "20px",
+                boxShadow: "0 15px 35px rgba(0,0,0,0.1)",
+                border: "none",
+                height: "100%",
+                backdropFilter: "blur(10px)",
+                transition: "transform 0.3s ease",
+              }}
+              styles={{ body: { padding: "40px" } }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-8px)"}
+              onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
+            >
+              <div style={{ marginBottom: "24px" }}>
+                <div
+                  style={{
+                    width: "64px",
+                    height: "64px",
+                    borderRadius: "50%",
+                    backgroundImage: "url('https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    marginBottom: "16px",
+                    border: "3px solid #d4a574",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <BankOutlined style={{ fontSize: "28px", color: "#fff", textShadow: "0 2px 4px rgba(0,0,0,0.5)" }} />
+                </div>
+                <Title level={3} style={{ color: "#1e293b", marginBottom: "16px", fontWeight: "700" }}>
+                  Cơ sở y tế & Kiến thức
+                </Title>
+              </div>
+              <Paragraph style={{ color: "#64748b", fontSize: "16px", lineHeight: "1.6", marginBottom: "32px" }}>
+                Tra cứu <b>cơ sở y tế</b> tiếp nhận hiến máu, tìm hiểu <b>kiến thức nhóm máu</b>,
+                quyền lợi người hiến và lưu ý sức khỏe.
+              </Paragraph>
+              <Space size="middle" wrap>
                 <Button
-                  href="/"
+                  type="primary"
+                  size="large"
                   icon={<FilePdfOutlined />}
                   style={{
-                    color: "#7b1fa2",
-                    borderColor: "#ce93d8",
-                    borderRadius: 30,
-                    fontWeight: 600,
+                    background: "#1e293b",
+                    border: "none",
+                    borderRadius: "12px",
+                    height: "48px",
+                    fontWeight: "600",
+                    boxShadow: "0 4px 15px rgba(30,41,59,0.3)",
                   }}
+                  href="/"
                   target="_blank"
                 >
                   Tài liệu nhóm máu
                 </Button>
-              </Col>
-              <Col>
                 <Button
-                  href="/"
+                  size="large"
                   icon={<BookOutlined />}
                   style={{
-                    color: "#f44336",
-                    borderColor: "#ffbaba",
-                    borderRadius: 30,
-                    fontWeight: 600,
+                    borderColor: "#1e293b",
+                    color: "#1e293b",
+                    borderRadius: "12px",
+                    height: "48px",
+                    fontWeight: "600",
                   }}
+                  href="/"
                   target="_blank"
                 >
                   Cơ sở y tế
                 </Button>
-              </Col>
-            </Row>
-          </Card>
-        </Col>
-        <Col xs={24} md={12}>
-          <Card
-            bordered={false}
-            style={{
-              borderRadius: 16,
-              minHeight: 240,
-              boxShadow: "0 4px 24px rgba(74,20,140,0.07)",
-              background:
-                "linear-gradient(90deg,#fff 70%,rgba(237,231,246,0.2) 100%)",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-            bodyStyle={{ padding: 30 }}
-          >
-            <Title
-              level={4}
+              </Space>
+            </Card>
+          </Col>
+          <Col xs={24} lg={12}>
+            <Card
+              hoverable
               style={{
-                color: "#7b1fa2",
-                marginBottom: 10,
-                fontWeight: 800,
-                letterSpacing: 1,
+                background: "rgba(255,255,255,0.95)",
+                borderRadius: "20px",
+                boxShadow: "0 15px 35px rgba(0,0,0,0.1)",
+                border: "none",
+                height: "100%",
+                backdropFilter: "blur(10px)",
+                transition: "transform 0.3s ease",
+              }}
+              styles={{ body: { padding: "40px" } }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-8px)"}
+              onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
+            >
+              <div style={{ marginBottom: "24px" }}>
+                <div
+                  style={{
+                    width: "64px",
+                    height: "64px",
+                    borderRadius: "50%",
+                    backgroundImage: "url('https://th.bing.com/th/id/OIP.NBAY_o0y5lfBixoPQrViqwHaE8?w=276&h=184&c=7&r=0&o=5&pid=1.7')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    marginBottom: "16px",
+                    border: "3px solid #d4a574",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <HeartTwoTone twoToneColor="#fff" style={{ fontSize: "28px", textShadow: "0 2px 4px rgba(0,0,0,0.5)" }} />
+                </div>
+                <Title level={3} style={{ color: "#1e293b", marginBottom: "16px", fontWeight: "700" }}>
+                  Hiến máu tình nguyện
+                </Title>
+              </div>
+              <Paragraph style={{ color: "#64748b", fontSize: "16px", lineHeight: "1.6", marginBottom: "32px" }}>
+                <span style={{ color: "#d4a574", fontWeight: "600" }}>Đăng ký hiến máu ngay!</span>{" "}
+                Tham gia các chiến dịch và góp phần cứu sống cộng đồng.
+              </Paragraph>
+              <Progress
+                percent={75}
+                status="active"
+                strokeColor={{
+                  from: '#d4a574',
+                  to: '#b08968',
+                }}
+                style={{ marginBottom: "24px" }}
+              />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <RiseOutlined style={{ color: "#d4a574", marginRight: "8px" }} />
+                <Text style={{ color: "#64748b" }}>Mục tiêu hiến máu tháng này</Text>
+              </div>
+            </Card>
+          </Col>
+        </Row>
+
+        {/* Campaigns Section */}
+        <Card
+          style={{
+            background: "rgba(255,255,255,0.95)",
+            borderRadius: "20px",
+            boxShadow: "0 15px 35px rgba(0,0,0,0.1)",
+            border: "none",
+            marginBottom: "40px",
+            backdropFilter: "blur(10px)",
+          }}
+          styles={{ body: { padding: "40px" } }}
+        >
+          <div style={{ textAlign: "center", marginBottom: "40px" }}>
+            <div
+              style={{
+                width: "80px",
+                height: "80px",
+                borderRadius: "50%",
+                backgroundImage: "url('https://th.bing.com/th/id/OIP.zL2tPyi1QEsz5WOv2XTB0wHaFK?w=286&h=199&c=7&r=0&o=7&pid=1.7&rm=3')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                marginBottom: "20px",
+                margin: "0 auto 20px auto",
+                border: "3px solid #d4a574",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              <HeartTwoTone
-                twoToneColor="#f44336"
-                style={{ marginRight: 12 }}
-              />
-              Hiến máu - Giọt máu cho đi, cuộc đời ở lại!
+              <CalendarOutlined style={{ fontSize: "36px", color: "#fff", textShadow: "0 2px 4px rgba(0,0,0,0.5)" }} />
+            </div>
+            <Title
+              level={2}
+              style={{
+                color: "#1e293b",
+                marginBottom: "16px",
+                fontWeight: "700",
+              }}
+            >
+              🩸 Các hoạt động hiến máu sắp diễn ra
             </Title>
-            <Paragraph style={{ color: "#444", fontSize: 15 }}>
-              <span style={{ color: "#ec407a", fontWeight: 600 }}>
-                Đăng ký hiến máu ngay!
-              </span>{" "}
-              Tham gia các chiến dịch và góp phần cứu sống cộng đồng.
+            <Paragraph style={{ color: "#64748b", fontSize: "18px" }}>
+              Tham gia ngay để góp phần cứu sống nhiều người
             </Paragraph>
-          </Card>
-        </Col>
-      </Row>
+          </div>
 
-      {/* Banner Section */}
-      <Card
-        style={{
-          background:
-            "url('https://png.pngtree.com/background/20210711/original/pngtree-geometric-gradient-creative-blood-donation-poster-background-material-picture-image_1127152.jpg') center/cover no-repeat",
-          padding: "68px 20px 56px 20px",
-          color: "#fff",
-          borderRadius: "18px",
-          boxShadow: "0 8px 28px rgba(44,62,80,0.08)",
-          marginBottom: 42,
-          textAlign: "center",
-          border: "none",
-        }}
-        bodyStyle={{ background: "rgba(255,255,255,0.02)" }}
-      >
-        <Title
-          level={1}
-          style={{
-            fontWeight: 800,
-            letterSpacing: 2,
-            textShadow: "0 2px 10px rgba(123,31,162,0.09)",
-          }}
-        >
-          Chào mừng đến với cộng đồng hiến máu
-        </Title>
-        <Paragraph
-          style={{
-            fontSize: 19,
-            textShadow: "0 2px 10px rgba(244,67,54,0.08)",
-          }}
-        >
-          Hãy cùng chung tay lan tỏa nghĩa cử cao đẹp, trao giọt máu – gửi hy
-          vọng!
-        </Paragraph>
-      </Card>
-
-      <Divider
-        orientation="left"
-        plain
-        style={{
-          color: "#4a148c",
-          fontSize: 19,
-          fontWeight: 700,
-          margin: "38px 0 34px 0",
-        }}
-      >
-        🩸 Các hoạt động hiến máu sắp diễn ra
-      </Divider>
-
-      {loading ? (
-        <div style={{ textAlign: "center", marginTop: 100 }}>
-          <Spin size="large" />
-        </div>
-      ) : (
-        <List
-          grid={{ gutter: 32, column: 2 }}
-          dataSource={campaigns}
-          renderItem={(item) => (
-            <List.Item>
-              <Card
-                hoverable
-                style={{
-                  background: "#fff",
-                  borderRadius: 16,
-                  boxShadow: "0 4px 18px rgba(123,31,162,0.10)",
-                  transition: "box-shadow 0.2s",
-                  border: "1px solid #f3e7fa",
-                  minHeight: 260,
-                }}
-                bodyStyle={{ padding: 24 }}
-                onClick={() => navigate(`/user/campaigns-detail/${item.id}`)}
-                title={
-                  <Text
-                    strong
+          {loading ? (
+            <div style={{ textAlign: "center", padding: "60px 0" }}>
+              <Spin size="large" />
+              <div style={{ marginTop: "20px", color: "#64748b" }}>
+                Đang tải danh sách chiến dịch...
+              </div>
+            </div>
+          ) : (
+            <List
+              grid={{
+                gutter: [32, 32],
+                xs: 1,
+                sm: 1,
+                md: 2,
+                lg: 2,
+                xl: 2,
+                xxl: 3
+              }}
+              dataSource={campaigns}
+              renderItem={(item) => (
+                <List.Item>
+                  <Card
+                    hoverable
                     style={{
-                      color: "#7b1fa2",
-                      fontSize: 18,
-                      fontWeight: 700,
-                      textTransform: "capitalize",
+                      background: "#fff",
+                      borderRadius: "20px",
+                      boxShadow: "0 8px 25px rgba(0,0,0,0.08)",
+                      transition: "all 0.3s ease",
+                      border: "1px solid #f0f0f0",
+                      height: "100%",
+                      overflow: "hidden",
+                      position: "relative",
+                    }}
+                    styles={{ body: { padding: "32px" } }}
+                    onClick={() => navigate(`/user/campaigns-detail/${item.id}`)}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "translateY(-8px)";
+                      e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.15)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.boxShadow = "0 8px 25px rgba(0,0,0,0.08)";
                     }}
                   >
-                    {item.ten}
-                  </Text>
-                }
-                extra={
-                  <Tooltip title="Xem chi tiết">
-                    <Button
-                      shape="round"
-                      size="small"
+                    {/* Background Image Overlay */}
+                    <div
                       style={{
-                        background: "#ec407a",
-                        color: "#fff",
-                        border: "none",
-                        fontWeight: 600,
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: "120px",
+                        backgroundImage: "url('https://images.unsplash.com/photo-1615461065929-4cc9af3b2b6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        borderRadius: "20px 20px 0 0",
+                        opacity: 0.8,
                       }}
-                    >
-                      Xem chi tiết
-                    </Button>
-                  </Tooltip>
-                }
-              >
-                <Tag color="geekblue" style={{ marginBottom: 8 }}>
-                  {item.diaDiem}
-                </Tag>
-                <Paragraph
-                  style={{
-                    color: "#555",
-                    minHeight: 54,
-                    margin: "10px 0 16px 0",
-                  }}
-                  ellipsis={{ rows: 2, expandable: false }}
-                >
-                  {item.moTa}
-                </Paragraph>
-                <Row gutter={12}>
-                  <Col>
-                    <Tag color="gold" style={{ fontSize: 14 }}>
-                      <b>Bắt đầu:</b> {item.ngayBatDau}
-                    </Tag>
-                  </Col>
-                  <Col>
-                    <Tag color="volcano" style={{ fontSize: 14 }}>
-                      <b>Kết thúc:</b> {item.ngayKetThuc}
-                    </Tag>
-                  </Col>
-                  <Col>
-                    <Tag color="green" style={{ fontSize: 14 }}>
-                      {item.soLuongNguoiDangKyHienTai}/{item.soLuongNguoiToiDa}{" "}
-                      người đăng ký
-                    </Tag>
-                  </Col>
-                </Row>
-              </Card>
-            </List.Item>
-          )}
-        />
-      )}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: "120px",
+                        background: "linear-gradient(180deg, rgba(212,165,116,0.8) 0%, rgba(176,137,104,0.3) 100%)",
+                        borderRadius: "20px 20px 0 0",
+                      }}
+                    />
 
-      <div style={{ textAlign: "center", marginTop: 40 }}>
-        <Pagination
-          current={page}
-          total={total}
-          pageSize={20}
-          showSizeChanger={false}
-          onChange={(p) => fetchCampaigns(p)}
-        />
+                    <div style={{ marginBottom: "20px", position: "relative", zIndex: 1, paddingTop: "100px" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
+                        <Title
+                          level={4}
+                          style={{
+                            color: "#1e293b",
+                            marginBottom: "0",
+                            fontWeight: "700",
+                            fontSize: "20px",
+                            lineHeight: "1.3",
+                            flex: 1,
+                          }}
+                          ellipsis={{ rows: 2 }}
+                        >
+                          {item.ten}
+                        </Title>
+                        <Button
+                          type="primary"
+                          size="small"
+                          style={{
+                            background: "#1e293b",
+                            border: "none",
+                            borderRadius: "20px",
+                            fontWeight: "600",
+                            marginLeft: "12px",
+                            flexShrink: 0,
+                          }}
+                        >
+                          Chi tiết
+                        </Button>
+                      </div>
+
+                      <Space style={{ marginBottom: "16px" }}>
+                        <Tag
+                          icon={<EnvironmentOutlined />}
+                          color="geekblue"
+                          style={{
+                            borderRadius: "12px",
+                            padding: "4px 12px",
+                            fontSize: "14px",
+                            fontWeight: "500"
+                          }}
+                        >
+                          {item.diaDiem}
+                        </Tag>
+                      </Space>
+                    </div>
+
+                    <Paragraph
+                      style={{
+                        color: "#64748b",
+                        fontSize: "15px",
+                        lineHeight: "1.6",
+                        marginBottom: "24px",
+                        minHeight: "60px",
+                      }}
+                      ellipsis={{ rows: 3, expandable: false }}
+                    >
+                      {item.moTa}
+                    </Paragraph>
+
+                    <div style={{ marginTop: "auto" }}>
+                      <Row gutter={[8, 8]} style={{ marginBottom: "16px" }}>
+                        <Col span={24}>
+                          <div style={{ display: "flex", alignItems: "center", marginBottom: "8px" }}>
+                            <ClockCircleOutlined style={{ color: "#10b981", marginRight: "8px" }} />
+                            <Text style={{ color: "#10b981", fontWeight: "600" }}>
+                              {item.ngayBatDau}
+                            </Text>
+                            <Text style={{ color: "#64748b", margin: "0 8px" }}>đến</Text>
+                            <Text style={{ color: "#d4a574", fontWeight: "600" }}>
+                              {item.ngayKetThuc}
+                            </Text>
+                          </div>
+                        </Col>
+                      </Row>
+
+                      <div style={{
+                        background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
+                        padding: "16px",
+                        borderRadius: "12px",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center"
+                      }}>
+                        <div>
+                          <Text style={{ color: "#64748b", fontSize: "14px" }}>Đã đăng ký</Text>
+                          <div style={{ display: "flex", alignItems: "center" }}>
+                            <UserOutlined style={{ color: "#1e293b", marginRight: "6px" }} />
+                            <Text style={{ fontWeight: "700", fontSize: "18px", color: "#1e293b" }}>
+                              {item.soLuongNguoiDangKyHienTai}/{item.soLuongNguoiToiDa}
+                            </Text>
+                          </div>
+                        </div>
+                        <Progress
+                          type="circle"
+                          size={50}
+                          percent={Math.round((item.soLuongNguoiDangKyHienTai / item.soLuongNguoiToiDa) * 100)}
+                          strokeColor={{
+                            '0%': '#d4a574',
+                            '100%': '#b08968',
+                          }}
+                          format={(percent) => (
+                            <span style={{ fontSize: "12px", fontWeight: "600" }}>
+                              {percent}%
+                            </span>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  </Card>
+                </List.Item>
+              )}
+            />
+          )}
+
+          {campaigns.length > 0 && (
+            <div style={{ textAlign: "center", marginTop: "40px" }}>
+              <Pagination
+                current={page}
+                total={total}
+                pageSize={20}
+                showSizeChanger={false}
+                onChange={(p) => fetchCampaigns(p)}
+                style={{
+                  "& .ant-pagination-item-active": {
+                    background: "linear-gradient(135deg, #d4a574 0%, #b08968 100%)",
+                  }
+                }}
+              />
+            </div>
+          )}
+        </Card>
       </div>
+
+      {/* CSS Animation */}
+      <style jsx="true">{`
+        @keyframes float {
+          0%, 100% { 
+            transform: translateY(0px); 
+          }
+          50% { 
+            transform: translateY(-20px); 
+          }
+        }
+      `}</style>
     </div>
   );
 }
