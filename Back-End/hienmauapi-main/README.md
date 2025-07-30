@@ -54,7 +54,6 @@ Dự án `Hiến Máu Cộng Đồng Việt` là hệ thống backend cho một 
 - **Công cụ khác**:
   - **Lombok**: Giảm boilerplate code trong các class Java.
   - **ModelMapper**: Để ánh xạ giữa các DTO và entity.
-  - **JUnit**: Để viết và chạy các unit test.
   - **Postman**: Để lưu trữ và kiểm thử API.
 
 ### Chi tiết công nghệ
@@ -63,7 +62,6 @@ Dự án `Hiến Máu Cộng Đồng Việt` là hệ thống backend cho một 
 - **Hibernate**: Hỗ trợ ánh xạ các class Java thành các bảng trong cơ sở dữ liệu, đồng thời cung cấp các tính năng như lazy loading và caching.
 - **Lombok**: Tự động sinh mã như getter, setter, constructor, giúp giảm thiểu mã lặp.
 - **ModelMapper**: Hỗ trợ chuyển đổi dữ liệu giữa các lớp DTO và entity một cách nhanh chóng và chính xác.
-- **JUnit**: Framework kiểm thử phổ biến để đảm bảo chất lượng mã nguồn thông qua các unit test.
 - **Postman**: Công cụ phổ biến để kiểm thử API và lưu trữ các bộ sưu tập API.
 
 ## Cấu hình
