@@ -1,10 +1,10 @@
-/* Profile Detail Styles - Skin Tone Theme */
+/* Profile Detail Styles - Blue Theme */
 .profile-detail-section {
   min-height: 100vh;
-  background: linear-gradient(135deg, #fef7f7 0%, #fef2f2 50%, #fef0f0 100%);
+  background: linear-gradient(135deg, #f5f9ff 0%, #e3f2fd 50%, #bbdefb 100%);
   position: relative;
   overflow: hidden;
-  border-bottom: 2px solid rgba(210, 180, 140, 0.1);
+  border-bottom: 2px solid rgba(33, 150, 243, 0.1);
   padding: 40px 0;
 }
 
@@ -23,8 +23,8 @@
   position: absolute;
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #d2b48c, #b8860b);
-  border: 2px solid rgba(210, 180, 140, 0.2);
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  border: 2px solid rgba(33, 150, 243, 0.2);
   border-radius: 50% 50% 50% 0;
   opacity: 0.08;
   animation: floatProfile 10s ease-in-out infinite;
@@ -60,69 +60,69 @@
 .profile-card {
   background: rgba(255, 255, 255, 0.98) !important;
   border-radius: 24px !important;
-  box-shadow: 0 20px 60px rgba(210, 180, 140, 0.15) !important;
-  border: 2px solid rgba(210, 180, 140, 0.1) !important;
+  box-shadow: 0 20px 60px rgba(33, 150, 243, 0.15) !important;
+  border: 2px solid rgba(33, 150, 243, 0.1) !important;
   backdrop-filter: blur(10px);
   padding: 24px !important;
 }
 
 .profile-title {
-  color: #b8860b !important;
+  color: #1976d2 !important;
   margin-bottom: 0 !important;
   font-weight: 700 !important;
 }
 
 .profile-edit-button {
-  background: #d2b48c !important;
-  border: 2px solid #d2b48c !important;
+  background: #1976d2 !important;
+  border: 2px solid #1976d2 !important;
   color: white !important;
   border-radius: 30px !important;
   height: 40px !important;
   min-width: 120px !important;
   font-weight: bold !important;
   transition: all 0.3s ease !important;
-  box-shadow: 0 4px 12px rgba(210, 180, 140, 0.25) !important;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.25) !important;
 }
 
 .profile-edit-button:hover {
-  background: #b8860b !important;
-  border-color: #b8860b !important;
+  background: #1565c0 !important;
+  border-color: #1565c0 !important;
   color: white !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 6px 16px rgba(210, 180, 140, 0.35) !important;
+  box-shadow: 0 6px 16px rgba(33, 150, 243, 0.35) !important;
 }
 
 .profile-password-button {
-  background: #b8860b !important;
-  border: 2px solid #b8860b !important;
+  background: #1565c0 !important;
+  border: 2px solid #1565c0 !important;
   color: white !important;
   border-radius: 30px !important;
   height: 40px !important;
   min-width: 120px !important;
   font-weight: bold !important;
   transition: all 0.3s ease !important;
-  box-shadow: 0 4px 12px rgba(210, 180, 140, 0.25) !important;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.25) !important;
 }
 
 .profile-password-button:hover {
-  background: #d2b48c !important;
-  border-color: #d2b48c !important;
+  background: #1976d2 !important;
+  border-color: #1976d2 !important;
   color: white !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 6px 16px rgba(210, 180, 140, 0.35) !important;
+  box-shadow: 0 6px 16px rgba(33, 150, 243, 0.35) !important;
 }
 
 /* Descriptions */
 .profile-descriptions {
   background-color: #fff !important;
   border-radius: 16px !important;
-  border: 2px solid rgba(210, 180, 140, 0.1) !important;
+  border: 2px solid rgba(33, 150, 243, 0.1) !important;
 }
 
 .profile-descriptions .ant-descriptions-item-label {
   color: #000000 !important;
   font-weight: 600 !important;
-  background: rgba(210, 180, 140, 0.08) !important;
+  background: rgba(33, 150, 243, 0.08) !important;
 }
 
 .profile-descriptions .ant-descriptions-item-content {
@@ -132,23 +132,23 @@
 
 /* Tags */
 .profile-blood-tag {
-  background: rgba(210, 180, 140, 0.1) !important;
-  color: #b8860b !important;
-  border: 1px solid rgba(210, 180, 140, 0.2) !important;
+  background: rgba(33, 150, 243, 0.1) !important;
+  color: #1976d2 !important;
+  border: 1px solid rgba(33, 150, 243, 0.2) !important;
   border-radius: 12px !important;
 }
 
 .profile-rh-positive {
-  background: rgba(210, 180, 140, 0.1) !important;
-  color: #b8860b !important;
-  border: 1px solid rgba(210, 180, 140, 0.2) !important;
+  background: rgba(33, 150, 243, 0.1) !important;
+  color: #1976d2 !important;
+  border: 1px solid rgba(33, 150, 243, 0.2) !important;
   border-radius: 12px !important;
 }
 
 .profile-rh-negative {
-  background: rgba(210, 180, 140, 0.1) !important;
-  color: #b8860b !important;
-  border: 1px solid rgba(210, 180, 140, 0.2) !important;
+  background: rgba(33, 150, 243, 0.1) !important;
+  color: #1976d2 !important;
+  border: 1px solid rgba(33, 150, 243, 0.2) !important;
   border-radius: 12px !important;
 }
 

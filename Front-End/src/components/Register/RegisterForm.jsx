@@ -191,7 +191,7 @@ export default function RegisterForm() {
         title={
           <div
             style={{
-              background: "#e53935",
+              background: "#1976d2",
               color: "#fff",
               textAlign: "center",
               padding: 14,
@@ -531,8 +531,8 @@ export default function RegisterForm() {
               <Button
                 onClick={prev}
                 style={{
-                  background: "#e53935",
-                  borderColor: "#e53935",
+                  background: "#1976d2",
+                  borderColor: "#1976d2",
                   color: "#fff",
                   borderRadius: 30,
                   fontWeight: 600,
@@ -546,8 +546,8 @@ export default function RegisterForm() {
                 type="primary"
                 onClick={next}
                 style={{
-                  background: "#e53935",
-                  borderColor: "#e53935",
+                  background: "#1976d2",
+                  borderColor: "#1976d2",
                   borderRadius: 30,
                   fontWeight: 600,
                 }}
@@ -561,8 +561,8 @@ export default function RegisterForm() {
                 style={{
                   height: 48,
                   borderRadius: 30,
-                  background: "#e53935",
-                  borderColor: "#e53935",
+                  background: "#1976d2",
+                  borderColor: "#1976d2",
                   fontSize: 16,
                   fontWeight: 600,
                 }}

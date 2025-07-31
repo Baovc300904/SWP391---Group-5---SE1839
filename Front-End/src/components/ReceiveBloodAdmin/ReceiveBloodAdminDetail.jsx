@@ -317,7 +317,7 @@ export default function BloodReceiveRequestDetail() {
             {requestDetail?.nguoiNhan?.nhomMau?.ten}
           </Descriptions.Item>
           <Descriptions.Item label="Nhóm máu cần nhận">
-            <b style={{ color: "#d32f2f" }}>{requestDetail?.nhomMau?.ten}</b>
+                            <b style={{ color: "#1976d2" }}>{requestDetail?.nhomMau?.ten}</b>
           </Descriptions.Item>
           <Descriptions.Item label="Lý do">
             {requestDetail?.lyDo || "Không có"}

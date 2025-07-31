@@ -54,7 +54,7 @@ export default function DashboardUser() {
       style={{
         minHeight: "100vh",
         padding: "36px 10vw 80px 10vw",
-        background: "linear-gradient(120deg, #fce4ec 0%, #ede7f6 100%)",
+        background: "linear-gradient(120deg, #e3f2fd 0%, #bbdefb 100%)",
       }}
     >
       {/* Section Info */}
@@ -64,22 +64,22 @@ export default function DashboardUser() {
             bordered={false}
             style={{
               borderRadius: 16,
-              boxShadow: "0 4px 24px rgba(244,67,54,0.07)",
+              boxShadow: "0 4px 24px rgba(33,150,243,0.07)",
               background:
-                "linear-gradient(90deg,#fff 70%,rgba(252,228,236,0.34) 100%)",
+                "linear-gradient(90deg,#fff 70%,rgba(227,242,253,0.34) 100%)",
             }}
             bodyStyle={{ padding: 30, minHeight: 240 }}
           >
             <Title
               level={4}
-              style={{ color: "#c51162", marginBottom: 10, fontWeight: 800 }}
+              style={{ color: "#1976d2", marginBottom: 10, fontWeight: 800 }}
             >
               <BankOutlined style={{ fontSize: 23, marginRight: 8 }} />
               Cơ sở y tế & kiến thức về máu
             </Title>
             <Paragraph style={{ color: "#222", marginBottom: 15 }}>
               <InfoCircleOutlined
-                style={{ color: "#f06292", marginRight: 6 }}
+                style={{ color: "#2196f3", marginRight: 6 }}
               />
               Tra cứu <b>cơ sở y tế</b> tiếp nhận hiến máu, tìm hiểu{" "}
               <b>kiến thức nhóm máu</b>, quyền lợi người hiến & lưu ý sức khoẻ.
@@ -89,8 +89,8 @@ export default function DashboardUser() {
                                   <Button
                     icon={<FilePdfOutlined />}
                     style={{
-                      color: "#7b1fa2",
-                      borderColor: "#ce93d8",
+                      color: "#1976d2",
+                      borderColor: "#64b5f6",
                       borderRadius: 30,
                       fontWeight: 600,
                     }}
@@ -111,7 +111,7 @@ export default function DashboardUser() {
                   href="/"
                   icon={<BookOutlined />}
                   style={{
-                    color: "#f44336",
+                    color: "#1976d2",
                     borderColor: "#ffbaba",
                     borderRadius: 30,
                     fontWeight: 600,
@@ -142,22 +142,22 @@ export default function DashboardUser() {
             <Title
               level={4}
               style={{
-                color: "#7b1fa2",
+                                  color: "#1976d2",
                 marginBottom: 10,
                 fontWeight: 800,
                 letterSpacing: 1,
               }}
             >
               <HeartTwoTone
-                twoToneColor="#f44336"
+                twoToneColor="#1976d2"
                 style={{ marginRight: 12 }}
               />
               Hiến máu - Giọt máu cho đi, cuộc đời ở lại!
             </Title>
             <Paragraph style={{ color: "#444", fontSize: 15 }}>
-              <span style={{ color: "#ec407a", fontWeight: 600 }}>
-                Đăng ký hiến máu ngay!
-              </span>{" "}
+                              <span style={{ color: "#1976d2", fontWeight: 600 }}>
+                  Đăng ký hiến máu ngay!
+                </span>{" "}
               Tham gia các chiến dịch và góp phần cứu sống cộng đồng.
             </Paragraph>
           </Card>
@@ -204,7 +204,7 @@ export default function DashboardUser() {
         orientation="left"
         plain
         style={{
-          color: "#4a148c",
+          color: "#1976d2",
           fontSize: 19,
           fontWeight: 700,
           margin: "38px 0 34px 0",
@@ -230,7 +230,7 @@ export default function DashboardUser() {
                   borderRadius: 16,
                   boxShadow: "0 4px 18px rgba(123,31,162,0.10)",
                   transition: "box-shadow 0.2s",
-                  border: "1px solid #f3e7fa",
+                  border: "1px solid #e3f2fd",
                   minHeight: 260,
                 }}
                 bodyStyle={{ padding: 24 }}
@@ -239,7 +239,7 @@ export default function DashboardUser() {
                   <Text
                     strong
                     style={{
-                      color: "#7b1fa2",
+                      color: "#1976d2",
                       fontSize: 18,
                       fontWeight: 700,
                       textTransform: "capitalize",
@@ -254,7 +254,7 @@ export default function DashboardUser() {
                       shape="round"
                       size="small"
                       style={{
-                        background: "#ec407a",
+                        background: "#1976d2",
                         color: "#fff",
                         border: "none",
                         fontWeight: 600,

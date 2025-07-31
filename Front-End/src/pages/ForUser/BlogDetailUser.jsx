@@ -53,8 +53,8 @@ export default function BlogDetailUser() {
           icon={<ArrowLeftOutlined />}
           style={{
             borderRadius: 20,
-            background: "#f3e7fa",
-            color: "#7b1fa2",
+            background: "#e3f2fd",
+            color: "#1976d2",
             fontWeight: 600,
             border: "none",
             margin: 16,
@@ -90,7 +90,7 @@ export default function BlogDetailUser() {
           style={{
             fontWeight: 800,
             fontSize: 32,
-            color: "#7b1fa2",
+            color: "#1976d2",
             margin: "10px 0 14px",
             lineHeight: 1.2,
             wordBreak: "break-word",
@@ -105,13 +105,13 @@ export default function BlogDetailUser() {
             size={38}
             icon={<UserOutlined />}
             style={{
-              background: "#e1bee7",
-              color: "#7b1fa2",
+              background: "#bbdefb",
+              color: "#1976d2",
               fontWeight: 700,
               fontSize: 20,
             }}
           />
-          <span style={{ fontWeight: 600, color: "#7b1fa2", fontSize: 16 }}>
+          <span style={{ fontWeight: 600, color: "#1976d2", fontSize: 16 }}>
             {typeof blog.nguoiTao === "object"
               ? blog.nguoiTao?.ten || "Tác giả"
               : "Tác giả"}

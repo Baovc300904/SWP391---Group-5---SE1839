@@ -12,26 +12,8 @@ const CallToActionSection = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUpcomingCampaigns = async () => {
-      try {
-        const response = await getPublicCampaigns();
-        // Filter for active and upcoming campaigns
-        const activeCampaigns = response.data?.filter(campaign => 
-          campaign.status === 'active' || campaign.status === 'upcoming'
-        ) || [];
-        
-        setUpcomingCampaigns(activeCampaigns);
-        console.log('✅ Upcoming campaigns loaded:', activeCampaigns.length);
-      } catch (error) {
-        console.error('❌ Error loading campaigns:', error);
-        // Fallback to empty array
-        setUpcomingCampaigns([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUpcomingCampaigns();
+    // Tạm thời disable API call để test
+    setLoading(false);
   }, []);
 
   return (

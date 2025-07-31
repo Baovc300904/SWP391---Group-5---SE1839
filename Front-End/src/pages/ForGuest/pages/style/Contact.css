@@ -10,7 +10,7 @@
   background: linear-gradient(135deg, #fef7f7 0%, #fef2f2 50%, #fef0f0 100%);
   position: relative;
   overflow: hidden;
-  border-bottom: 2px solid rgba(220, 38, 38, 0.1);
+  border-bottom: 2px solid rgba(33, 150, 243, 0.1);
 }
 
 /* Background Elements */
@@ -28,8 +28,8 @@
   position: absolute;
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
-  border: 2px solid rgba(220, 38, 38, 0.2);
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+  border: 2px solid rgba(33, 150, 243, 0.2);
   border-radius: 50% 50% 50% 0;
   opacity: 0.08;
   animation: floatContact 10s ease-in-out infinite;
@@ -78,14 +78,14 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(220, 38, 38, 0.1);
-  color: #dc2626;
+  background: rgba(33, 150, 243, 0.1);
+  color: #2196f3;
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 24px;
-  border: 1px solid rgba(220, 38, 38, 0.2);
+  border: 1px solid rgba(33, 150, 243, 0.2);
 }
 
 .contact-title {
@@ -97,7 +97,7 @@
 }
 
 .contact-title span {
-  color: #dc2626;
+  color: #2196f3;
 }
 
 .contact-description {
@@ -111,11 +111,11 @@
 
 /* Contact Form */
 .contact-form-card {
-  border: 2px solid rgba(220, 38, 38, 0.1) !important;
+  border: 2px solid rgba(33, 150, 243, 0.1) !important;
   border-radius: 20px !important;
   background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.08) !important;
   height: fit-content;
 }
 
@@ -133,8 +133,8 @@
 }
 
 .submit-btn {
-  background: #dc2626 !important;
-  border: 2px solid #dc2626 !important;
+  background: #2196f3 !important;
+  border: 2px solid #2196f3 !important;
   color: white !important;
   border-radius: 25px !important;
   height: 50px !important;
@@ -142,15 +142,15 @@
   font-weight: 600 !important;
   font-size: 16px !important;
   transition: all 0.3s ease !important;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25) !important;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.25) !important;
 }
 
 .submit-btn:hover {
-  background: #b91c1c !important;
-  border-color: #b91c1c !important;
+  background: #1976d2 !important;
+  border-color: #1976d2 !important;
   color: white !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.35) !important;
+  box-shadow: 0 6px 16px rgba(33, 150, 243, 0.35) !important;
 }
 
 /* Contact Info */
@@ -161,11 +161,11 @@
 .contact-info-card,
 .working-hours-card,
 .social-card {
-  border: 2px solid rgba(220, 38, 38, 0.1) !important;
+  border: 2px solid rgba(33, 150, 243, 0.1) !important;
   border-radius: 20px !important;
   background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.08) !important;
 }
 
 .info-title,
@@ -184,7 +184,7 @@
 }
 
 .hours-title .anticon {
-  color: #dc2626;
+  color: #2196f3;
 }
 
 .info-list {
@@ -198,7 +198,7 @@
 
 .info-icon {
   font-size: 1.5rem;
-  color: #dc2626;
+  color: #2196f3;
   margin-right: 15px;
   margin-top: 5px;
 }
@@ -214,7 +214,7 @@
 }
 
 .info-value {
-  color: #dc2626 !important;
+  color: #2196f3 !important;
   font-size: 15px !important;
   font-weight: 500 !important;
 }
@@ -234,7 +234,7 @@
   display: flex;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+  border-bottom: 1px solid rgba(33, 150, 243, 0.1);
 }
 
 .hours-item:last-child {
@@ -246,7 +246,7 @@
 }
 
 .hours-time {
-  color: #dc2626 !important;
+  color: #2196f3 !important;
 }
 
 /* Social Media */
@@ -271,11 +271,11 @@
 
 /* FAQ Section */
 .faq-card {
-  border: 2px solid rgba(220, 38, 38, 0.1) !important;
+  border: 2px solid rgba(33, 150, 243, 0.1) !important;
   border-radius: 20px !important;
   background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.08) !important;
   margin-top: 40px;
 }
 
@@ -288,7 +288,7 @@
 }
 
 .faq-title span {
-  color: #dc2626;
+  color: #2196f3;
 }
 
 .faq-item {
@@ -318,7 +318,7 @@
 
 .contact-form-card .ant-input,
 .contact-form-card .ant-input-textarea {
-  border: 2px solid rgba(220, 38, 38, 0.1) !important;
+  border: 2px solid rgba(33, 150, 243, 0.1) !important;
   border-radius: 8px !important;
   transition: all 0.3s ease !important;
 }
@@ -327,8 +327,8 @@
 .contact-form-card .ant-input-textarea:focus,
 .contact-form-card .ant-input:hover,
 .contact-form-card .ant-input-textarea:hover {
-  border-color: #dc2626 !important;
-  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1) !important;
+  border-color: #2196f3 !important;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1) !important;
 }
 
 .contact-form-card .ant-input::placeholder,

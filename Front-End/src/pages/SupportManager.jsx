@@ -196,7 +196,7 @@ export default function SupportTicketManager() {
       }
       style={{
         borderRadius: 20,
-        boxShadow: "0 4px 18px #e1bee780",
+        boxShadow: "0 4px 18px rgba(33, 150, 243, 0.15)",
       }}
     >
       <Table

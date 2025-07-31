@@ -106,7 +106,7 @@ export default function BlogCategoryTab() {
       title="📚 Danh mục Blog"
       style={{
         borderRadius: 20,
-        boxShadow: "0 4px 18px rgba(123,31,162,0.12)",
+        boxShadow: "0 4px 18px rgba(33,150,243,0.12)",
         overflow: "hidden",
       }}
       extra={
@@ -117,8 +117,8 @@ export default function BlogCategoryTab() {
           style={{
             borderRadius: 8,
             fontWeight: 600,
-            background: "#7b1fa2",
-            borderColor: "#7b1fa2",
+            background: "#1976d2",
+            borderColor: "#1976d2",
           }}
         >
           Thêm danh mục
@@ -139,7 +139,7 @@ export default function BlogCategoryTab() {
       {/* Modal Thêm mới */}
       <Modal
         title={
-          <span style={{ fontWeight: 600, fontSize: 19, color: "#7b1fa2" }}>
+          <span style={{ fontWeight: 600, fontSize: 19, color: "#1976d2" }}>
             Thêm danh mục blog mới
           </span>
         }
@@ -151,8 +151,8 @@ export default function BlogCategoryTab() {
         okButtonProps={{
           style: {
             borderRadius: 30,
-            background: "#7b1fa2",
-            borderColor: "#7b1fa2",
+            background: "#1976d2",
+            borderColor: "#1976d2",
           },
         }}
         cancelButtonProps={{ style: { borderRadius: 30 } }}
@@ -164,7 +164,7 @@ export default function BlogCategoryTab() {
         <Form layout="vertical" form={form} onFinish={onFinish}>
           <Form.Item
             name="tieude"
-            label={<span style={{ color: "#7b1fa2" }}>Tiêu đề</span>}
+            label={<span style={{ color: "#1976d2" }}>Tiêu đề</span>}
             rules={[{ required: true, message: "Nhập tiêu đề!" }]}
           >
             <Input
@@ -174,13 +174,13 @@ export default function BlogCategoryTab() {
                 height: 40,
                 paddingLeft: 14,
                 backgroundColor: "#fefefe",
-                border: "1px solid #e1bee7",
+                border: "1px solid #bbdefb",
               }}
             />
           </Form.Item>
           <Form.Item
             name="noidung"
-            label={<span style={{ color: "#7b1fa2" }}>Nội dung</span>}
+            label={<span style={{ color: "#1976d2" }}>Nội dung</span>}
           >
             <Input.TextArea
               rows={3}
@@ -188,7 +188,7 @@ export default function BlogCategoryTab() {
                 borderRadius: 18,
                 padding: 10,
                 backgroundColor: "#fefefe",
-                border: "1px solid #e1bee7",
+                border: "1px solid #bbdefb",
               }}
               placeholder="Mô tả về danh mục blog (nếu có)"
               autoSize={{ minRows: 3, maxRows: 5 }}

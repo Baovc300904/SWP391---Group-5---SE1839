@@ -5,7 +5,7 @@ import BlogTab from "../components/Blog/BlogTab";
 
 export default function BlogManager() {
   return (
-    <Card title="Quản lý Blog" style={{ borderRadius: 12 }}>
+    <Card title="Quản lý Blog" style={{ borderRadius: 12, borderColor: "#bbdefb" }}>
       <Tabs defaultActiveKey="category">
         <Tabs.TabPane tab="Danh mục blog" key="category">
           <BlogCategoryTab />

@@ -1,10 +1,10 @@
-/* Blood Types Section Styles - Blood Donation Theme */
+/* Blood Types Section Styles - Blue Theme */
 .blood-types-section {
   padding: 80px 20px;
-  background: linear-gradient(135deg, #fef7f7 0%, #fef2f2 50%, #fef0f0 100%);
+  background: linear-gradient(135deg, #f5f9ff 0%, #e3f2fd 50%, #bbdefb 100%);
   position: relative;
   overflow: hidden;
-  border-bottom: 2px solid rgba(220, 38, 38, 0.1);
+  border-bottom: 2px solid rgba(33, 150, 243, 0.1);
 }
 
 .blood-types-background {
@@ -20,8 +20,8 @@
   position: absolute;
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
-  border: 2px solid rgba(220, 38, 38, 0.2);
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+  border: 2px solid rgba(33, 150, 243, 0.2);
   border-radius: 50% 50% 50% 0;
   opacity: 0.08;
   animation: float 6s ease-in-out infinite;
@@ -65,7 +65,7 @@
 }
 
 .blood-types-title span {
-  color: #dc2626;
+  color: #2196f3;
 }
 
 .blood-types-description {
@@ -79,19 +79,19 @@
 
 .blood-type-card {
   height: 100%;
-  border: 2px solid rgba(220, 38, 38, 0.1);
+  border: 2px solid rgba(33, 150, 243, 0.1);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.08);
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.08);
   transition: all 0.3s ease;
   overflow: hidden;
 }
 
 .blood-type-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(220, 38, 38, 0.15);
-  border-color: rgba(220, 38, 38, 0.2);
+  box-shadow: 0 8px 25px rgba(33, 150, 243, 0.15);
+  border-color: rgba(33, 150, 243, 0.2);
 }
 
 .blood-type-header {
@@ -103,7 +103,7 @@
 .blood-type-icon {
   font-size: 32px;
   margin-right: 12px;
-  filter: drop-shadow(2px 2px 4px rgba(220, 38, 38, 0.2));
+  filter: drop-shadow(2px 2px 4px rgba(33, 150, 243, 0.2));
 }
 
 .blood-type-info {

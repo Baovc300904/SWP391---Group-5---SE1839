@@ -74,7 +74,7 @@ export default function ProfileEdit() {
     height: 42,
     paddingLeft: 16,
     backgroundColor: "#fefefe",
-    border: "1px solid #f1cfd5",
+                    border: "1px solid #bbdefb",
   };
 
   return (
@@ -88,9 +88,9 @@ export default function ProfileEdit() {
         padding: 24,
       }}
     >
-      <Title level={3} style={{ color: "#d81b60", marginBottom: 24 }}>
-        ✏️ Chỉnh sửa hồ sơ cá nhân
-      </Title>
+              <Title level={3} style={{ color: "#1976d2", marginBottom: 24 }}>
+          ✏️ Chỉnh sửa hồ sơ cá nhân
+        </Title>
 
       <Form layout="vertical" onFinish={onFinish} initialValues={initialValues}>
         <Row gutter={24}>
@@ -216,8 +216,8 @@ export default function ProfileEdit() {
               borderRadius: 30,
               height: 42,
               minWidth: 160,
-              background: "#d81b60",
-              borderColor: "#d81b60",
+              background: "#1976d2",
+              borderColor: "#1976d2",
               fontWeight: "bold",
             }}
           >

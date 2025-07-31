@@ -20,7 +20,7 @@ const About = () => {
       icon: <HeartOutlined />,
       title: 'Nhân Ái',
       description: 'Đặt tình người lên hàng đầu, lan tỏa tinh thần chia sẻ và yêu thương trong cộng đồng.',
-      color: '#dc2626'
+                      color: '#2196f3'
     },
     {
       icon: <SafetyOutlined />,

@@ -21,8 +21,7 @@ const statusMap = {
   dahoanthanh: { text: "Đã hoàn thành", color: "green" }, // Green
   huy: { text: "Hủy", color: "gray" }, // Gray
 };
-
-export default function BloodReceiveRequestManager() {
+function BloodReceiveRequestManager() {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1); // Manage pagination
@@ -133,7 +132,7 @@ export default function BloodReceiveRequestManager() {
   ];
 
   return (
-    <Card title="🩸 Quản lý yêu cầu nhận máu">
+    <Card title="🩸 Quản lý yêu cầu nhận máu" style={{ borderColor: "#bbdefb" }}>
       <div style={{ marginBottom: 16 }}>
         <Dropdown overlay={filterMenu}>
           <Button>
@@ -159,3 +158,4 @@ export default function BloodReceiveRequestManager() {
     </Card>
   );
 }
+export default BloodReceiveRequestManager;

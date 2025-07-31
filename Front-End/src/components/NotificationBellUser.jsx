@@ -88,7 +88,7 @@ export default function NotificationBellUser() {
           fontWeight: 700,
           fontSize: 18,
           marginBottom: 12,
-          color: "#c2185b",
+          color: "#1976d2",
         }}
       >
         Thông báo mới
@@ -126,7 +126,7 @@ export default function NotificationBellUser() {
                         background: "#f8bbd0",
                         fontWeight: 700,
                         fontSize: 22,
-                        color: "#c2185b",
+                        color: "#1976d2",
                       }}
                     >
                       <BellOutlined />
@@ -134,7 +134,7 @@ export default function NotificationBellUser() {
                   )
                 }
                 title={
-                  <div style={{ fontWeight: 600, color: "#c2185b" }}>
+                  <div style={{ fontWeight: 600, color: "#1976d2" }}>
                     {item.tieuDe}
                     {item.trangThai === 1 && (
                       <Tag color="green" style={{ marginLeft: 8 }}>
@@ -181,7 +181,7 @@ export default function NotificationBellUser() {
       <Modal
         open={detailModal}
         title={
-          <span style={{ color: "#c2185b", fontWeight: 600, fontSize: 20 }}>
+          <span style={{ color: "#1976d2", fontWeight: 600, fontSize: 20 }}>
             Chi tiết thông báo
           </span>
         }
@@ -248,7 +248,7 @@ export default function NotificationBellUser() {
                 <div style={{ marginTop: 18 }}>
                   <div
                     style={{
-                      color: "#c2185b",
+                      color: "#1976d2",
                       fontWeight: 600,
                       marginBottom: 10,
                     }}

@@ -24,7 +24,7 @@ import { getUsersNearMe } from "../../services/userService";
 
 const genderMap = {
   nam: { icon: <ManOutlined />, label: "Nam", color: "#2196f3" },
-  nu: { icon: <WomanOutlined />, label: "Nữ", color: "#e91e63" },
+  nu: { icon: <WomanOutlined />, label: "Nữ", color: "#1976d2" },
   khac: { icon: <InfoCircleOutlined />, label: "Khác", color: "#757575" },
 };
 
@@ -95,7 +95,7 @@ export default function UserNearMe() {
                       size={56}
                       icon={<UserOutlined />}
                       style={{
-                        background: "#E1BEE7",
+                        background: "#bbdefb",
                         color: "#6A1B9A",
                         marginRight: 6,
                       }}

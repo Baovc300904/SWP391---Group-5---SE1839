@@ -270,7 +270,7 @@ export default function BloodUnitWarehouseList() {
         >
           {/* Cancel Note */}
           <Form.Item
-            label={<span style={{ color: "#6200ea" }}>Ghi chú</span>}
+            label={<span style={{ color: "#1976d2" }}>Ghi chú</span>}
             name="ghiChu"
             rules={[
               {
@@ -285,7 +285,7 @@ export default function BloodUnitWarehouseList() {
 
           {/* Test Result */}
           <Form.Item
-            label={<span style={{ color: "#6200ea" }}>Kết quả xét nghiệm</span>}
+            label={<span style={{ color: "#1976d2" }}>Kết quả xét nghiệm</span>}
             name="ketQuaXetNghiem"
             rules={[
               {
@@ -300,7 +300,7 @@ export default function BloodUnitWarehouseList() {
 
           {/* Test Date */}
           <Form.Item
-            label={<span style={{ color: "#6200ea" }}>Ngày hết hạn</span>}
+            label={<span style={{ color: "#1976d2" }}>Ngày hết hạn</span>}
             name="ngayHetHan"
             rules={[
               {
@@ -316,7 +316,7 @@ export default function BloodUnitWarehouseList() {
                 width: "100%",
                 borderRadius: 30,
                 padding: "10px",
-                border: "1px solid #f1cfd5",
+                border: "1px solid #bbdefb",
               }}
             />
           </Form.Item>
@@ -328,8 +328,8 @@ export default function BloodUnitWarehouseList() {
               block
               style={{
                 borderRadius: 30,
-                backgroundColor: "#6200ea",
-                borderColor: "#6200ea",
+                backgroundColor: "#1976d2",
+                borderColor: "#1976d2",
                 height: "40px",
                 fontWeight: "bold",
                 color: "#fff",

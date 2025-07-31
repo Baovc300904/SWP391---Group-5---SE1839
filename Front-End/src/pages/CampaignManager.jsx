@@ -206,8 +206,8 @@ export default function Campaigns() {
             onClick={() => setAddModal(true)}
             style={{
               borderRadius: 8,
-              background: "#c2185b",
-              borderColor: "#c2185b",
+              background: "#1976d2",
+              borderColor: "#1976d2",
               fontWeight: 600,
             }}
           >
@@ -234,7 +234,7 @@ export default function Campaigns() {
 
       <Modal
         title={
-          <span style={{ fontWeight: 600, fontSize: 20, color: "#c2185b" }}>
+          <span style={{ fontWeight: 600, fontSize: 20, color: "#1976d2" }}>
             Thêm chiến dịch hiến máu mới
           </span>
         }
@@ -253,7 +253,7 @@ export default function Campaigns() {
           preserve={false}
         >
           <Form.Item
-            label={<span style={{ color: "#c2185b" }}>Tên chiến dịch</span>}
+            label={<span style={{ color: "#1976d2" }}>Tên chiến dịch</span>}
             name="ten"
             rules={[
               { required: true, message: "Vui lòng nhập tên chiến dịch" },
@@ -270,7 +270,7 @@ export default function Campaigns() {
             />
           </Form.Item>
           <Form.Item
-            label={<span style={{ color: "#c2185b" }}>Địa điểm</span>}
+            label={<span style={{ color: "#1976d2" }}>Địa điểm</span>}
             name="diaDiem"
             rules={[{ required: true, message: "Vui lòng nhập địa điểm" }]}
           >
@@ -285,7 +285,7 @@ export default function Campaigns() {
             />
           </Form.Item>
           <Form.Item
-            label={<span style={{ color: "#c2185b" }}>Mô tả</span>}
+            label={<span style={{ color: "#1976d2" }}>Mô tả</span>}
             name="moTa"
           >
             <Input.TextArea
@@ -300,14 +300,14 @@ export default function Campaigns() {
             />
           </Form.Item>
           <Form.Item
-            label={<span style={{ color: "#c2185b" }}>Ngày bắt đầu</span>}
+            label={<span style={{ color: "#1976d2" }}>Ngày bắt đầu</span>}
             name="ngayBatDau"
             rules={[{ required: true, message: "Chọn ngày bắt đầu" }]}
           >
             <DatePicker style={{ width: "100%", borderRadius: 18 }} />
           </Form.Item>
           <Form.Item
-            label={<span style={{ color: "#c2185b" }}>Ngày kết thúc</span>}
+            label={<span style={{ color: "#1976d2" }}>Ngày kết thúc</span>}
             name="ngayKetThuc"
             rules={[{ required: true, message: "Chọn ngày kết thúc" }]}
           >
@@ -315,7 +315,7 @@ export default function Campaigns() {
           </Form.Item>
           <Form.Item
             label={
-              <span style={{ color: "#c2185b" }}>Số lượng người tối đa</span>
+              <span style={{ color: "#1976d2" }}>Số lượng người tối đa</span>
             }
             name="soLuongNguoiToiDa"
             rules={[{ required: true, message: "Nhập số lượng người tối đa" }]}
@@ -339,8 +339,8 @@ export default function Campaigns() {
               loading={addLoading}
               style={{
                 width: "100%",
-                background: "#c2185b",
-                borderColor: "#c2185b",
+                background: "#1976d2",
+                borderColor: "#1976d2",
                 borderRadius: 30,
                 height: 48,
                 fontWeight: "bold",
