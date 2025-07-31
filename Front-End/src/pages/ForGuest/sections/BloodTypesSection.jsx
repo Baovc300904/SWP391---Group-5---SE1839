@@ -10,36 +10,37 @@ import {
   MedicineBoxOutlined,
   SafetyOutlined
 } from '@ant-design/icons';
+import { getBloods } from '../../../services/bloodService';
 import './style/BloodTypesSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
 const BloodTypesSection = () => {
-  const [bloodTypes, setBloodTypes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  console.log('BloodTypesSection - Component rendering');
+  
+  const [bloodTypes, setBloodTypes] = useState([
+    { id: 1, ten: 'A+', moTa: 'Nhóm máu A+ phổ biến' },
+    { id: 2, ten: 'A-', moTa: 'Nhóm máu A- hiếm' },
+    { id: 3, ten: 'B+', moTa: 'Nhóm máu B+ phổ biến' },
+    { id: 4, ten: 'B-', moTa: 'Nhóm máu B- hiếm' },
+    { id: 5, ten: 'AB+', moTa: 'Nhóm máu AB+ phổ biến' },
+    { id: 6, ten: 'AB-', moTa: 'Nhóm máu AB- rất hiếm' },
+    { id: 7, ten: 'O+', moTa: 'Nhóm máu O+ phổ biến' },
+    { id: 8, ten: 'O-', moTa: 'Nhóm máu O- hiếm' }
+  ]);
+  const [loading, setLoading] = useState(false); // Set to false immediately
   const [selectedBloodType, setSelectedBloodType] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    const fetchBloodTypes = async () => {
-      try {
-        const response = await getPublicBloodTypes();
-        setBloodTypes(response.data || []);
-        console.log('Blood types data loaded:', response.data?.length);
-      } catch (error) {
-        console.error('Error loading blood types:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBloodTypes();
+    // Tạm thời disable API call để test với dữ liệu cố định
+    setLoading(false);
   }, []);
 
   const getBloodTypeStatus = (bloodType) => {
     // Define rare blood types
     const rareBloodTypes = ['AB-', 'B-', 'A-', 'O-'];
-    const isRare = rareBloodTypes.includes(bloodType.name);
+    const isRare = rareBloodTypes.includes(bloodType.ten);
     
     return {
       status: isRare ? 'hiếm' : 'bình thường',
@@ -116,13 +117,13 @@ const BloodTypesSection = () => {
       }
     };
 
-    return details[bloodType.name] || {
+    return details[bloodType.ten] || {
       frequency: 'Không xác định',
       canDonateTo: [],
       canReceiveFrom: [],
       characteristics: 'Thông tin chi tiết chưa có',
       compatibility: 'Chưa có thông tin',
-      description: bloodType.description || 'Thông tin chi tiết về nhóm máu này.'
+      description: bloodType.moTa || 'Thông tin chi tiết về nhóm máu này.'
     };
   };
 
@@ -154,6 +155,7 @@ const BloodTypesSection = () => {
           </Paragraph>
         </div>
 
+        {console.log('BloodTypesSection - bloodTypes:', bloodTypes, 'loading:', loading)}
         {loading ? (
           <div style={{ textAlign: 'center', padding: '60px' }}>
             <Spin size="large" />
@@ -177,10 +179,10 @@ const BloodTypesSection = () => {
                       </div>
                       <div className="blood-type-info">
                         <Title level={3} className="blood-type-name">
-                          {bloodType.name}
+                          {bloodType.ten}
                         </Title>
                         <Paragraph className="blood-type-full-name">
-                          {bloodType.fullName}
+                          {bloodType.moTa}
                         </Paragraph>
                       </div>
                     </div>
@@ -197,7 +199,7 @@ const BloodTypesSection = () => {
 
                     <div className="blood-type-description">
                       <Paragraph style={{ fontSize: '12px', color: '#666', margin: 0 }}>
-                        {bloodType.description}
+                        {bloodType.moTa}
                       </Paragraph>
                     </div>
 
@@ -225,7 +227,7 @@ const BloodTypesSection = () => {
         title={
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <span style={{ fontSize: '24px' }}>🩸</span>
-            <span>Chi tiết nhóm máu {selectedBloodType?.name}</span>
+            <span>Chi tiết nhóm máu {selectedBloodType?.ten}</span>
           </div>
         }
         open={modalVisible}
@@ -239,7 +241,7 @@ const BloodTypesSection = () => {
             <div style={{ marginBottom: '24px' }}>
               <Space align="center" style={{ marginBottom: '16px' }}>
                 <Title level={3} style={{ margin: 0 }}>
-                  {selectedBloodType.name} - {selectedBloodType.fullName}
+                  {selectedBloodType.ten} - {selectedBloodType.moTa}
                 </Title>
                 <Tag 
                   color={getBloodTypeStatus(selectedBloodType).color}
@@ -249,7 +251,7 @@ const BloodTypesSection = () => {
                 </Tag>
               </Space>
               <Paragraph style={{ fontSize: '16px', color: '#666' }}>
-                {getBloodTypeDetails(selectedBloodType).description}
+                {selectedBloodType.moTa}
               </Paragraph>
             </div>
 

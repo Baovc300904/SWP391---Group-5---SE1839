@@ -1,10 +1,10 @@
-/* Benefits Section Styles - Blood Donation Theme */
+/* Benefits Section Styles - Blue Theme */
 .benefits-section {
   padding: 100px 0;
-  background: linear-gradient(135deg, #fef7f7 0%, #fef2f2 50%, #fef0f0 100%);
+  background: linear-gradient(135deg, #f5f9ff 0%, #e3f2fd 50%, #bbdefb 100%);
   position: relative;
   overflow: hidden;
-  border-bottom: 2px solid rgba(220, 38, 38, 0.1);
+  border-bottom: 2px solid rgba(33, 150, 243, 0.1);
 }
 
 /* Background Elements */
@@ -20,7 +20,7 @@
 
 .floating-heart {
   position: absolute;
-  color: rgba(220, 38, 38, 0.15);
+  color: rgba(33, 150, 243, 0.15);
   font-size: 24px;
   animation: floatHeart 8s ease-in-out infinite;
 }
@@ -82,7 +82,7 @@
 }
 
 .benefits-title span {
-  color: #dc2626;
+  color: #2196f3;
 }
 
 .benefits-description {
@@ -96,7 +96,7 @@
 
 /* Benefit Cards */
 .benefit-card {
-  border: 2px solid rgba(220, 38, 38, 0.1) !important;
+  border: 2px solid rgba(33, 150, 243, 0.1) !important;
   border-radius: 20px !important;
   height: 100%;
   background: rgba(255, 255, 255, 0.95) !important;

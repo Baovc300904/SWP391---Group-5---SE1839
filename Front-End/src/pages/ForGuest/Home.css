@@ -1,7 +1,7 @@
-/* Home Page Styles - Blood Donation Theme */
+/* Home Page Styles - Blue Theme */
 .home-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #fef7f7 0%, #fef2f2 50%, #fef0f0 100%);
+  background: linear-gradient(135deg, #f5f9ff 0%, #e3f2fd 50%, #bbdefb 100%);
   overflow-x: hidden;
 }
 

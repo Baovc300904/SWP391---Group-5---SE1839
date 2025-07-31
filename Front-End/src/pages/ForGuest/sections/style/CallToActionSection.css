@@ -1,10 +1,10 @@
-/* Call to Action Section Styles - Blood Donation Theme */
+/* Call to Action Section Styles - Blue Theme */
 .cta-section {
   padding: 100px 0;
-  background: linear-gradient(135deg, #fef7f7 0%, #fef2f2 50%, #fef0f0 100%);
+  background: linear-gradient(135deg, #f5f9ff 0%, #e3f2fd 50%, #bbdefb 100%);
   position: relative;
   overflow: hidden;
-  border-bottom: 2px solid rgba(220, 38, 38, 0.1);
+  border-bottom: 2px solid rgba(33, 150, 243, 0.1);
 }
 
 /* Background Elements */
@@ -22,8 +22,8 @@
   position: absolute;
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
-  border: 2px solid rgba(220, 38, 38, 0.2);
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+  border: 2px solid rgba(33, 150, 243, 0.2);
   border-radius: 50% 50% 50% 0;
   opacity: 0.08;
   animation: floatCTA 10s ease-in-out infinite;
@@ -70,9 +70,9 @@
 
 .cta-icon {
   font-size: 64px;
-  color: #dc2626;
+  color: #2196f3;
   margin-bottom: 24px;
-  filter: drop-shadow(0 4px 8px rgba(220, 38, 38, 0.3));
+  filter: drop-shadow(0 4px 8px rgba(33, 150, 243, 0.3));
 }
 
 .cta-title {
@@ -85,7 +85,7 @@
 }
 
 .cta-title span {
-  color: #dc2626;
+  color: #2196f3;
 }
 
 .cta-description {
