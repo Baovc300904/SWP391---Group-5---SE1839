@@ -24,49 +24,49 @@ const statMeta = [
     key: "totalBloodReceiveRequest",
     title: "YÊU CẦU NHẬN MÁU",
     icon: <ProjectOutlined />,
-    color: "#ff9800",
+    color: "#2196f3",
   },
   {
     key: "totalBloodDonationRequest",
     title: "YÊU CẦU HIẾN MÁU",
     icon: <UserOutlined />,
-    color: "#e91e63",
+    color: "#1976d2",
   },
   {
     key: "totalBloodUnitWareHouse",
     title: "ĐƠN VỊ MÁU TỒN",
     icon: <MessageOutlined />,
-    color: "#00bcd4",
+    color: "#42a5f5",
   },
   {
     key: "totalBlood",
     title: "TỔNG SỐ LƯỢNG MÁU",
     icon: <TeamOutlined />,
-    color: "#8bc34a",
+    color: "#64b5f6",
   },
   {
     key: "totalEmployee",
     title: "NHÂN VIÊN",
     icon: <UserOutlined />,
-    color: "#4caf50",
+    color: "#1976d2",
   },
   {
     key: "totalCustomer",
     title: "KHÁCH HÀNG",
     icon: <TeamOutlined />,
-    color: "#9c27b0",
+    color: "#2196f3",
   },
   {
     key: "totalBloodDonationActivity",
     title: "HOẠT ĐỘNG HIẾN MÁU",
     icon: <ProjectOutlined />,
-    color: "#03a9f4",
+    color: "#42a5f5",
   },
   {
     key: "totalBlog",
     title: "BÀI VIẾT",
     icon: <MessageOutlined />,
-    color: "#ffb300",
+    color: "#1976d2",
   },
 ];
 
@@ -146,7 +146,7 @@ export default function Dashboard() {
             <Legend />
             <Bar
               dataKey="value"
-              fill="#e91e63"
+              fill="#1976d2"
               radius={[16, 16, 0, 0]}
               // Nếu muốn mỗi cột một màu:
               // label={{ position: 'top' }}

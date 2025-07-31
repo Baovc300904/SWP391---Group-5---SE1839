@@ -121,7 +121,7 @@ export default function BloodDonationManager() {
   ];
 
   return (
-    <Card title="🩸 Quản lý yêu cầu hiến máu">
+    <Card title="🩸 Quản lý yêu cầu hiến máu" style={{ borderColor: "#bbdefb" }}>
       <div style={{ marginBottom: 16 }}>
         <Dropdown overlay={filterMenu}>
           <Button>

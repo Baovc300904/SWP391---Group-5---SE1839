@@ -1,6 +1,6 @@
 .custom-header {
   width: 100vw;
-  background: #e53935;
+  background: #1976d2;
   color: #fff;
   display: flex;
   align-items: center;
@@ -35,5 +35,5 @@
   transition: color 0.15s;
 }
 .header-nav span:hover {
-  color: #f9a825;
+  color: #64b5f6;
 }

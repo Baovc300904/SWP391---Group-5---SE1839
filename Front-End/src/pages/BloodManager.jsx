@@ -157,8 +157,8 @@ export default function BloodManager() {
             style={{
               marginLeft: 10,
               borderRadius: 8,
-              background: "#6200ea",
-              borderColor: "#6200ea",
+              background: "#1976d2",
+              borderColor: "#1976d2",
             }}
           >
             Thêm nhóm máu
@@ -181,7 +181,7 @@ export default function BloodManager() {
       {/* Modal for adding new blood group */}
       <Modal
         title={
-          <span style={{ fontWeight: 600, fontSize: 20, color: "#6200ea" }}>
+          <span style={{ fontWeight: 600, fontSize: 20, color: "#1976d2" }}>
             Thêm nhóm máu mới
           </span>
         }
@@ -200,7 +200,7 @@ export default function BloodManager() {
           preserve={false}
         >
           <Form.Item
-            label={<span style={{ color: "#6200ea" }}>Tên nhóm máu</span>}
+            label={<span style={{ color: "#1976d2" }}>Tên nhóm máu</span>}
             name="ten"
             rules={[{ required: true, message: "Nhập tên nhóm máu!" }]}
           >
@@ -211,13 +211,13 @@ export default function BloodManager() {
                 height: 42,
                 paddingLeft: 20,
                 backgroundColor: "#fefefe",
-                border: "1px solid #f1cfd5",
+                border: "1px solid #bbdefb",
               }}
             />
           </Form.Item>
 
           <Form.Item
-            label={<span style={{ color: "#6200ea" }}>Mô tả</span>}
+            label={<span style={{ color: "#1976d2" }}>Mô tả</span>}
             name="mota"
           >
             <Input.TextArea
@@ -226,7 +226,7 @@ export default function BloodManager() {
                 borderRadius: 20,
                 padding: 12,
                 backgroundColor: "#fefefe",
-                border: "1px solid #f1cfd5",
+                border: "1px solid #bbdefb",
               }}
               autoSize={{ minRows: 3, maxRows: 5 }}
             />
@@ -239,8 +239,8 @@ export default function BloodManager() {
               loading={addLoading}
               style={{
                 width: "100%",
-                background: "#6200ea",
-                borderColor: "#6200ea",
+                background: "#1976d2",
+                borderColor: "#1976d2",
                 borderRadius: 30,
                 height: 42,
                 fontWeight: "bold",

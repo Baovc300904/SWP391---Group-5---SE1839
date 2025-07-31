@@ -4,7 +4,7 @@
   background: linear-gradient(135deg, #fef7f7 0%, #fef2f2 50%, #fef0f0 100%);
   position: relative;
   overflow: hidden;
-  border-bottom: 2px solid rgba(220, 38, 38, 0.1);
+  border-bottom: 2px solid rgba(33, 150, 243, 0.1);
 }
 
 /* Background Elements */
@@ -20,7 +20,7 @@
 
 .floating-heart {
   position: absolute;
-  color: rgba(220, 38, 38, 0.15);
+  color: rgba(33, 150, 243, 0.15);
   font-size: 24px;
   animation: floatHeart 8s ease-in-out infinite;
 }
@@ -74,14 +74,14 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(220, 38, 38, 0.1);
-  color: #dc2626;
+  background: rgba(33, 150, 243, 0.1);
+  color: #2196f3;
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 24px;
-  border: 1px solid rgba(220, 38, 38, 0.2);
+  border: 1px solid rgba(33, 150, 243, 0.2);
 }
 
 .about-title {
@@ -93,7 +93,7 @@
 }
 
 .about-title span {
-  color: #dc2626;
+  color: #2196f3;
 }
 
 .about-description {
@@ -112,19 +112,19 @@
 
 .stat-card {
   text-align: center;
-  border: 2px solid rgba(220, 38, 38, 0.1) !important;
+  border: 2px solid rgba(33, 150, 243, 0.1) !important;
   border-radius: 16px !important;
   background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.08) !important;
   transition: all 0.3s ease !important;
   height: 100%;
 }
 
 .stat-card:hover {
   transform: translateY(-5px) !important;
-  box-shadow: 0 8px 25px rgba(220, 38, 38, 0.15) !important;
-  border-color: rgba(220, 38, 38, 0.2) !important;
+  box-shadow: 0 8px 25px rgba(33, 150, 243, 0.15) !important;
+  border-color: rgba(33, 150, 243, 0.2) !important;
 }
 
 .stat-card .ant-card-body {
@@ -152,19 +152,19 @@
 .mission-card,
 .vision-card {
   height: 100%;
-  border: 2px solid rgba(220, 38, 38, 0.1) !important;
+  border: 2px solid rgba(33, 150, 243, 0.1) !important;
   border-radius: 20px !important;
   background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.08) !important;
   transition: all 0.3s ease !important;
 }
 
 .mission-card:hover,
 .vision-card:hover {
   transform: translateY(-5px) !important;
-  box-shadow: 0 8px 25px rgba(220, 38, 38, 0.15) !important;
-  border-color: rgba(220, 38, 38, 0.2) !important;
+  box-shadow: 0 8px 25px rgba(33, 150, 243, 0.15) !important;
+  border-color: rgba(33, 150, 243, 0.2) !important;
 }
 
 .card-content {
@@ -174,9 +174,9 @@
 
 .card-icon {
   font-size: 3rem;
-  color: #dc2626;
+  color: #2196f3;
   margin-bottom: 20px;
-  filter: drop-shadow(0 2px 4px rgba(220, 38, 38, 0.2));
+  filter: drop-shadow(0 2px 4px rgba(33, 150, 243, 0.2));
 }
 
 .card-title {
@@ -195,11 +195,11 @@
 
 /* Timeline */
 .timeline-card {
-  border: 2px solid rgba(220, 38, 38, 0.1) !important;
+  border: 2px solid rgba(33, 150, 243, 0.1) !important;
   border-radius: 20px !important;
   background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.08) !important;
   margin-bottom: 60px;
 }
 
@@ -212,7 +212,7 @@
 }
 
 .section-title span {
-  color: #dc2626;
+  color: #2196f3;
 }
 
 .timeline {
@@ -220,21 +220,21 @@
 }
 
 .timeline .ant-timeline-item-head {
-  background-color: #dc2626 !important;
-  border-color: #dc2626 !important;
+  background-color: #2196f3 !important;
+  border-color: #2196f3 !important;
 }
 
 .timeline .ant-timeline-item-tail {
-  border-color: rgba(220, 38, 38, 0.2) !important;
+  border-color: rgba(33, 150, 243, 0.2) !important;
 }
 
 /* Values */
 .values-card {
-  border: 2px solid rgba(220, 38, 38, 0.1) !important;
+  border: 2px solid rgba(33, 150, 243, 0.1) !important;
   border-radius: 20px !important;
   background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.08) !important;
   margin-bottom: 60px;
 }
 
@@ -266,11 +266,11 @@
 
 /* CTA Section */
 .cta-card {
-  border: 2px solid rgba(220, 38, 38, 0.1) !important;
+  border: 2px solid rgba(33, 150, 243, 0.1) !important;
   border-radius: 20px !important;
   background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.08) !important;
 }
 
 .cta-content {
@@ -286,7 +286,7 @@
 }
 
 .cta-title span {
-  color: #dc2626;
+  color: #2196f3;
 }
 
 .cta-description {
@@ -308,8 +308,8 @@
 }
 
 .cta-primary-btn {
-  background: #dc2626 !important;
-  border: 2px solid #dc2626 !important;
+  background: #2196f3 !important;
+  border: 2px solid #2196f3 !important;
   color: white !important;
   border-radius: 25px !important;
   height: 50px !important;
@@ -317,21 +317,21 @@
   font-weight: 600 !important;
   font-size: 16px !important;
   transition: all 0.3s ease !important;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25) !important;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.25) !important;
 }
 
 .cta-primary-btn:hover {
-  background: #b91c1c !important;
-  border-color: #b91c1c !important;
+  background: #1976d2 !important;
+  border-color: #1976d2 !important;
   color: white !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.35) !important;
+  box-shadow: 0 6px 16px rgba(33, 150, 243, 0.35) !important;
 }
 
 .cta-secondary-btn {
   background: transparent !important;
-  border: 2px solid #dc2626 !important;
-  color: #dc2626 !important;
+  border: 2px solid #2196f3 !important;
+  color: #2196f3 !important;
   border-radius: 25px !important;
   height: 50px !important;
   padding: 0 32px !important;
@@ -341,11 +341,11 @@
 }
 
 .cta-secondary-btn:hover {
-  background: #dc2626 !important;
-  border-color: #dc2626 !important;
+  background: #2196f3 !important;
+  border-color: #2196f3 !important;
   color: white !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25) !important;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.25) !important;
 }
 
 /* Responsive Design */

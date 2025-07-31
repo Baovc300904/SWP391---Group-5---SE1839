@@ -233,7 +233,7 @@ export default function DetailCampaign() {
     <div
       style={{
         padding: "60px 20px",
-        background: "linear-gradient(to right, #ffffff, #f3e5f5)",
+        background: "linear-gradient(to right, #ffffff, #e3f2fd)",
         minHeight: "100vh",
       }}
     >
@@ -249,7 +249,7 @@ export default function DetailCampaign() {
         level={2}
         style={{
           textAlign: "center",
-          color: "#4a148c",
+          color: "#1976d2",
           marginBottom: 40,
         }}
       >
@@ -308,8 +308,8 @@ export default function DetailCampaign() {
           shape="round"
           onClick={() => setVisible(true)}
           style={{
-            backgroundColor: "#ec407a",
-            borderColor: "#ec407a",
+            backgroundColor: "#1976d2",
+            borderColor: "#1976d2",
             marginTop: 20,
             borderRadius: "20px",
             padding: "12px 20px",
@@ -449,8 +449,8 @@ export default function DetailCampaign() {
             style={{
               height: 48,
               borderRadius: 30,
-              background: "#ec407a",
-              borderColor: "#ec407a",
+                          background: "#1976d2",
+            borderColor: "#1976d2",
               fontSize: 16,
               fontWeight: 600,
               marginTop: 16,

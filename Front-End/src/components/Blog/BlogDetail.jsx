@@ -96,7 +96,7 @@ export default function BlogDetail() {
   return (
     <Card
       title={
-        <span style={{ fontWeight: 600, color: "#7b1fa2" }}>
+        <span style={{ fontWeight: 600, color: "#1976d2" }}>
           Chi tiết bài viết: {blog.tieuDe}
         </span>
       }
@@ -106,9 +106,9 @@ export default function BlogDetail() {
           icon={<ArrowLeftOutlined />}
           style={{
             borderRadius: 24,
-            borderColor: "#e1bee7",
-            background: "#f3e7fa",
-            color: "#7b1fa2",
+            borderColor: "#bbdefb",
+            background: "#e3f2fd",
+            color: "#1976d2",
             fontWeight: 600,
           }}
         >
@@ -117,7 +117,7 @@ export default function BlogDetail() {
       }
       style={{
         borderRadius: 18,
-        boxShadow: "0 4px 18px rgba(123,31,162,0.10)",
+        boxShadow: "0 4px 18px rgba(33,150,243,0.10)",
         overflow: "hidden",
       }}
     >
@@ -210,8 +210,8 @@ export default function BlogDetail() {
               style={{
                 borderRadius: 24,
                 fontWeight: 600,
-                background: "#7b1fa2",
-                borderColor: "#7b1fa2",
+                background: "#1976d2",
+                borderColor: "#1976d2",
                 padding: "0 32px",
                 height: 40,
               }}
@@ -241,7 +241,7 @@ export default function BlogDetail() {
               style={{
                 borderRadius: 18,
                 height: 38,
-                border: "1px solid #e1bee7",
+                border: "1px solid #bbdefb",
               }}
             />
           </Form.Item>
@@ -297,8 +297,8 @@ export default function BlogDetail() {
                 icon={<SaveOutlined />}
                 style={{
                   borderRadius: 24,
-                  background: "#7b1fa2",
-                  borderColor: "#7b1fa2",
+                  background: "#1976d2",
+                  borderColor: "#1976d2",
                   fontWeight: 600,
                   minWidth: 100,
                   height: 38,
@@ -312,8 +312,8 @@ export default function BlogDetail() {
                 style={{
                   borderRadius: 24,
                   background: "#fff",
-                  color: "#7b1fa2",
-                  borderColor: "#e1bee7",
+                  color: "#1976d2",
+                  borderColor: "#bbdefb",
                   fontWeight: 600,
                   minWidth: 100,
                   height: 38,

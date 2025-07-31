@@ -188,8 +188,8 @@ export default function BlogTab() {
           style={{
             borderRadius: 8,
             fontWeight: 600,
-            background: "#7b1fa2",
-            borderColor: "#7b1fa2",
+            background: "#1976d2",
+            borderColor: "#1976d2",
           }}
         >
           Thêm blog
@@ -219,8 +219,8 @@ export default function BlogTab() {
         okButtonProps={{
           style: {
             borderRadius: 30,
-            background: "#7b1fa2",
-            borderColor: "#7b1fa2",
+            background: "#1976d2",
+            borderColor: "#1976d2",
           },
         }}
         cancelButtonProps={{ style: { borderRadius: 30 } }}
@@ -246,7 +246,7 @@ export default function BlogTab() {
                 height: 40,
                 paddingLeft: 14,
                 backgroundColor: "#fefefe",
-                border: "1px solid #e1bee7",
+                border: "1px solid #bbdefb",
               }}
             />
           </Form.Item>

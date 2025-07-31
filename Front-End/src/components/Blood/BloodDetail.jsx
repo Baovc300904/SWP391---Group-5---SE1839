@@ -220,7 +220,7 @@ export default function BloodDetail() {
       {/* Hiển thị nhóm máu có thể hiến cho */}
       <Card
         title={
-          <span style={{ color: "#d32f2f", fontWeight: 600 }}>
+          <span style={{ color: "#1976d2", fontWeight: 600 }}>
             Những nhóm máu có thể hiến cho nhóm máu {blood?.ten || blood?.name}
           </span>
         }
@@ -341,7 +341,7 @@ export default function BloodDetail() {
           renderItem={(item) => (
             <List.Item>
               <Tag
-                color="#d32f2f"
+                color="#1976d2"
                 style={{ fontSize: 16, padding: "6px 18px", minWidth: 100 }}
               >
                 {item.ten}

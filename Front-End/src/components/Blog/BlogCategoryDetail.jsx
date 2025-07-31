@@ -63,7 +63,7 @@ export default function BlogCategoryDetail() {
   return (
     <Card
       title={
-        <span style={{ fontWeight: 600, color: "#7b1fa2" }}>
+        <span style={{ fontWeight: 600, color: "#1976d2" }}>
           Chi tiết danh mục: {category.tieuDe}
         </span>
       }
@@ -73,9 +73,9 @@ export default function BlogCategoryDetail() {
           icon={<ArrowLeftOutlined />}
           style={{
             borderRadius: 24,
-            borderColor: "#e1bee7",
-            background: "#f3e7fa",
-            color: "#7b1fa2",
+            borderColor: "#bbdefb",
+            background: "#e3f2fd",
+            color: "#1976d2",
             fontWeight: 600,
           }}
         >
@@ -84,7 +84,7 @@ export default function BlogCategoryDetail() {
       }
       style={{
         borderRadius: 18,
-        boxShadow: "0 4px 18px rgba(123,31,162,0.10)",
+        boxShadow: "0 4px 18px rgba(33,150,243,0.10)",
         overflow: "hidden",
       }}
     >
@@ -121,8 +121,8 @@ export default function BlogCategoryDetail() {
               style={{
                 borderRadius: 24,
                 fontWeight: 600,
-                background: "#7b1fa2",
-                borderColor: "#7b1fa2",
+                background: "#1976d2",
+                borderColor: "#1976d2",
                 padding: "0 32px",
                 height: 40,
               }}
@@ -145,17 +145,17 @@ export default function BlogCategoryDetail() {
         >
           <Form.Item name="tieuDe" label="Tiêu đề" rules={[{ required: true }]}>
             <Input
-              style={{
-                borderRadius: 18,
-                height: 38,
-                border: "1px solid #e1bee7",
-              }}
+                              style={{
+                  borderRadius: 18,
+                  height: 38,
+                  border: "1px solid #bbdefb",
+                }}
             />
           </Form.Item>
           <Form.Item name="noidung" label="Nội dung">
             <Input.TextArea
               rows={4}
-              style={{ borderRadius: 18, border: "1px solid #e1bee7" }}
+              style={{ borderRadius: 18, border: "1px solid #bbdefb" }}
             />
           </Form.Item>
           <Form.Item>
@@ -168,8 +168,8 @@ export default function BlogCategoryDetail() {
                 icon={<SaveOutlined />}
                 style={{
                   borderRadius: 24,
-                  background: "#7b1fa2",
-                  borderColor: "#7b1fa2",
+                  background: "#1976d2",
+                  borderColor: "#1976d2",
                   fontWeight: 600,
                   minWidth: 100,
                   height: 38,
@@ -183,8 +183,8 @@ export default function BlogCategoryDetail() {
                 style={{
                   borderRadius: 24,
                   background: "#fff",
-                  color: "#7b1fa2",
-                  borderColor: "#e1bee7",
+                  color: "#1976d2",
+                  borderColor: "#bbdefb",
                   fontWeight: 600,
                   minWidth: 100,
                   height: 38,

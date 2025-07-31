@@ -161,7 +161,7 @@ export default function BloodDonationRequests() {
     <div
       style={{
         padding: "60px 20px",
-        background: "linear-gradient(to right, #ffffff, #f3e5f5)",
+        background: "linear-gradient(to right, #ffffff, #e3f2fd)",
         minHeight: "100vh",
       }}
     >
@@ -169,7 +169,7 @@ export default function BloodDonationRequests() {
         level={2}
         style={{
           textAlign: "center",
-          color: "#4a148c",
+          color: "#1976d2",
           marginBottom: 40,
         }}
       >
@@ -443,8 +443,8 @@ export default function BloodDonationRequests() {
             style={{
               height: 48,
               borderRadius: 30,
-              background: "#ec407a",
-              borderColor: "#ec407a",
+              background: "#2196f3",
+              borderColor: "#2196f3",
               fontSize: 16,
               fontWeight: 600,
               marginTop: 16,

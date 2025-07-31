@@ -74,7 +74,7 @@ export default function LoginCard() {
         title={
           <div
             style={{
-              background: "#e53935",
+              background: "#1976d2",
               color: "#fff",
               textAlign: "center",
               padding: 14,
@@ -114,8 +114,8 @@ export default function LoginCard() {
               style={{
                 height: 48,
                 borderRadius: 30,
-                background: "#e53935",
-                borderColor: "#e53935",
+                background: "#1976d2",
+                borderColor: "#1976d2",
                 fontSize: 16,
                 fontWeight: 600,
               }}

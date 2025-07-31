@@ -404,7 +404,7 @@ const BloodRequestPage = () => {
         footer={null}
         width={780}
       >
-        <Title level={3} style={{ color: "#d81b60", textAlign: "center" }}>
+        <Title level={3} style={{ color: "#1976d2", textAlign: "center" }}>
           {editingRequest ? "Chỉnh sửa yêu cầu nhận máu" : "Yêu cầu nhận máu"}
         </Title>
         <Form
@@ -417,7 +417,7 @@ const BloodRequestPage = () => {
             <Col span={12}>
               <Form.Item
                 label={
-                  <span style={{ color: "#6200ea" }}>Thành phần máu cần</span>
+                  <span style={{ color: "#1976d2" }}>Thành phần máu cần</span>
                 }
                 name="thanhPhanMauCan"
                 rules={[
@@ -431,7 +431,7 @@ const BloodRequestPage = () => {
               </Form.Item>
               <Form.Item
                 label={
-                  <span style={{ color: "#6200ea" }}>
+                  <span style={{ color: "#1976d2" }}>
                     Ngày nhận máu dự kiến
                   </span>
                 }
@@ -443,14 +443,14 @@ const BloodRequestPage = () => {
                 <DatePicker style={{ width: "100%" }} />
               </Form.Item>
               <Form.Item
-                label={<span style={{ color: "#6200ea" }}>Nhóm máu</span>}
+                label={<span style={{ color: "#1976d2" }}>Nhóm máu</span>}
                 name="nhomMau"
                 rules={[{ required: true, message: "Vui lòng chọn nhóm máu!" }]}
               >
                 <Select options={bloodOptions} style={{ width: "100%" }} />
               </Form.Item>
               <Form.Item
-                label={<span style={{ color: "#6200ea" }}>Đang mang thai</span>}
+                label={<span style={{ color: "#1976d2" }}>Đang mang thai</span>}
                 name="dangMangThai"
                 rules={[{ required: true, message: "Vui lòng chọn!" }]}
               >
@@ -461,7 +461,7 @@ const BloodRequestPage = () => {
               </Form.Item>
               <Form.Item
                 label={
-                  <span style={{ color: "#6200ea" }}>
+                  <span style={{ color: "#1976d2" }}>
                     Mắc bệnh truyền nhiễm
                   </span>
                 }
@@ -477,7 +477,7 @@ const BloodRequestPage = () => {
             <Col span={12}>
               <Form.Item
                 label={
-                  <span style={{ color: "#6200ea" }}>Số lượng đơn vị máu</span>
+                  <span style={{ color: "#1976d2" }}>Số lượng đơn vị máu</span>
                 }
                 name="soLuongDonVi"
                 rules={[
@@ -494,13 +494,13 @@ const BloodRequestPage = () => {
                     height: 42,
                     paddingLeft: 20,
                     backgroundColor: "#fefefe",
-                    border: "1px solid #f1cfd5",
+                    border: "1px solid #bbdefb",
                   }}
                 />
               </Form.Item>
               <Form.Item
                 label={
-                  <span style={{ color: "#6200ea" }}>Địa chỉ nhận máu</span>
+                  <span style={{ color: "#1976d2" }}>Địa chỉ nhận máu</span>
                 }
                 name="diaChiNhanMau"
                 rules={[
@@ -517,12 +517,12 @@ const BloodRequestPage = () => {
                     height: 42,
                     paddingLeft: 20,
                     backgroundColor: "#fefefe",
-                    border: "1px solid #f1cfd5",
+                    border: "1px solid #bbdefb",
                   }}
                 />
               </Form.Item>
               <Form.Item
-                label={<span style={{ color: "#6200ea" }}>Lý do</span>}
+                label={<span style={{ color: "#1976d2" }}>Lý do</span>}
                 name="lyDo"
                 rules={[{ required: true, message: "Vui lòng nhập lý do!" }]}
               >
@@ -533,13 +533,13 @@ const BloodRequestPage = () => {
                     height: 42,
                     paddingLeft: 20,
                     backgroundColor: "#fefefe",
-                    border: "1px solid #f1cfd5",
+                    border: "1px solid #bbdefb",
                   }}
                 />
               </Form.Item>
               <Form.Item
                 label={
-                  <span style={{ color: "#6200ea" }}>Sức khỏe hiện tại</span>
+                  <span style={{ color: "#1976d2" }}>Sức khỏe hiện tại</span>
                 }
                 name="sucKhoeHienTai"
                 rules={[
@@ -556,7 +556,7 @@ const BloodRequestPage = () => {
                     height: 42,
                     paddingLeft: 20,
                     backgroundColor: "#fefefe",
-                    border: "1px solid #f1cfd5",
+                    border: "1px solid #bbdefb",
                   }}
                 />
               </Form.Item>
@@ -571,8 +571,8 @@ const BloodRequestPage = () => {
                 borderRadius: 30,
                 height: 42,
                 minWidth: 160,
-                background: "#d81b60",
-                borderColor: "#d81b60",
+                background: "#1976d2",
+                borderColor: "#1976d2",
                 fontWeight: "bold",
               }}
             >

@@ -119,7 +119,7 @@ export default function BloodWarehouse() {
   return (
     <Card
       title="🧪 Danh sách đơn vị máu chờ xét nghiệm"
-      style={{ maxWidth: 1200, margin: "auto", borderRadius: 16 }}
+      style={{ maxWidth: 1200, margin: "auto", borderRadius: 16, borderColor: "#bbdefb" }}
     >
       <div style={{ marginBottom: 16, display: "flex", gap: 12 }}>
         <Input

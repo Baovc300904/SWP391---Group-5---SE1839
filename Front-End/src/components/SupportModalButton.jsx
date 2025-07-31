@@ -36,9 +36,9 @@ export default function SupportModalButton() {
           right: 36,
           bottom: 130,
           zIndex: 2001,
-          boxShadow: "0 4px 12px rgba(244,67,54,0.24)",
-          background: "#f44336",
-          borderColor: "#f44336",
+          boxShadow: "0 4px 12px rgba(25,118,210,0.24)",
+          background: "#1976d2",
+          borderColor: "#1976d2",
           width: 70,
           height: 70,
         }}
@@ -102,8 +102,8 @@ export default function SupportModalButton() {
               block
               loading={loading}
               style={{
-                background: "#f44336",
-                borderColor: "#f44336",
+                background: "#1976d2",
+                borderColor: "#1976d2",
                 fontWeight: 600,
                 borderRadius: 8,
                 marginTop: 8,

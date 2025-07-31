@@ -347,12 +347,12 @@ export default function MainLayoutUser() {
       {/* Custom CSS for skin tone menu styling */}
       <style jsx="true">{`
         .skin-tone-menu .ant-menu-item-selected {
-          background-color: rgba(210, 180, 140, 0.8) !important;
+          background-color: rgba(33, 150, 243, 0.8) !important;
           color: #fff !important;
         }
         
         .skin-tone-menu .ant-menu-item:hover {
-          background-color: rgba(210, 180, 140, 0.6) !important;
+          background-color: rgba(33, 150, 243, 0.6) !important;
           color: #fff !important;
         }
         
@@ -361,7 +361,7 @@ export default function MainLayoutUser() {
         }
         
         .skin-tone-menu .ant-menu-item-selected::after {
-          border-right-color: #b8860b !important;
+                          border-right-color: #1976d2 !important;
         }
       `}</style>
     </Layout>

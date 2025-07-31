@@ -45,7 +45,7 @@ export default function BlogTabUser() {
           alignItems: "center",
         }}
       >
-        <span style={{ fontWeight: 700, fontSize: 24, color: "#7b1fa2" }}>
+        <span style={{ fontWeight: 700, fontSize: 24, color: "#1976d2" }}>
           📝 Bài viết - Chia sẻ kiến thức
         </span>
         <Input.Search
@@ -75,7 +75,7 @@ export default function BlogTabUser() {
                   hoverable
                   style={{
                     borderRadius: 18,
-                    boxShadow: "0 4px 14px rgba(123,31,162,0.09)",
+                    boxShadow: "0 4px 14px rgba(33,150,243,0.09)",
                     minHeight: 320,
                     display: "flex",
                     flexDirection: "column",
@@ -102,7 +102,7 @@ export default function BlogTabUser() {
                           height: 160,
                           borderTopLeftRadius: 18,
                           borderTopRightRadius: 18,
-                          background: "#f3e7fa",
+                          background: "#e3f2fd",
                         }}
                       />
                     )
@@ -112,7 +112,7 @@ export default function BlogTabUser() {
                       type="link"
                       icon={<EyeOutlined />}
                       onClick={() => navigate(`/user/blogs/${blog.id}`)}
-                      style={{ color: "#7b1fa2", fontWeight: 600 }}
+                      style={{ color: "#1976d2", fontWeight: 600 }}
                     >
                       Xem chi tiết
                     </Button>,
@@ -120,7 +120,7 @@ export default function BlogTabUser() {
                 >
                   <Card.Meta
                     title={
-                      <span style={{ fontWeight: 700, color: "#7b1fa2" }}>
+                      <span style={{ fontWeight: 700, color: "#1976d2" }}>
                         {blog.tieuDe}
                       </span>
                     }

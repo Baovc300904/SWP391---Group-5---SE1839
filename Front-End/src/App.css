@@ -62,13 +62,13 @@
   height: 42px;
   padding-left: 20px;
   background-color: #fefefe;
-  border: 1px solid #f1cfd5;
+  border: 1px solid #bbdefb;
 }
 .rounded-textarea {
   border-radius: 20px !important;
   padding: 12px;
   background-color: #fefefe;
-  border: 1px solid #f1cfd5;
+  border: 1px solid #bbdefb;
 }
 
 .ant-message {

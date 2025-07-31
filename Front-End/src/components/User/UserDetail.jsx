@@ -108,7 +108,7 @@ export default function UserDetail() {
       dataIndex: "soLuongDonVi",
       align: "center",
       width: 110,
-      render: (v) => <b style={{ color: "#e91e63" }}>{v}</b>,
+                      render: (v) => <b style={{ color: "#1976d2" }}>{v}</b>,
     },
 
     {
@@ -227,7 +227,7 @@ export default function UserDetail() {
       dataIndex: "soLuong",
       align: "center",
       width: 110,
-      render: (v) => <b style={{ color: "#c2185b" }}>{v}</b>,
+                      render: (v) => <b style={{ color: "#1976d2" }}>{v}</b>,
     },
     {
       title: "Trạng thái",
@@ -285,7 +285,7 @@ export default function UserDetail() {
   return (
     <Card
       title={
-        <span style={{ fontWeight: 700, fontSize: 20, color: "#e91e63" }}>
+        <span style={{ fontWeight: 700, fontSize: 20, color: "#1976d2" }}>
           👤 Chi tiết người dùng: {user.ten}
         </span>
       }
@@ -429,8 +429,8 @@ export default function UserDetail() {
                   style={{
                     marginTop: 20,
                     borderRadius: 22,
-                    background: "#fce4ec",
-                    color: "#c2185b",
+                    background: "#e3f2fd",
+                    color: "#1976d2",
                     border: 0,
                     fontWeight: 600,
                   }}
@@ -473,8 +473,8 @@ export default function UserDetail() {
                   style={{
                     marginTop: 20,
                     borderRadius: 22,
-                    background: "#fce4ec",
-                    color: "#c2185b",
+                    background: "#e3f2fd",
+                    color: "#1976d2",
                     border: 0,
                     fontWeight: 600,
                   }}

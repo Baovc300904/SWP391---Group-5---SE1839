@@ -23,11 +23,11 @@ const HeroSection = () => {
           <Col xs={24} lg={16}>
             <div className="hero-text">
               <div className="hero-badge">
-                <HeartOutlined /> Hiến Máu Cộng Đồng Việt
+                <HeartOutlined /> Hệ Thống Hiến Máu Tình Nguyện
               </div>
               
               <Title level={1} className="hero-title">
-                Hiến Máu Cộng Đồng Việt - <span>Kết nối sự sống</span>
+              Hệ Thống Hiến Máu Tình Nguyện - <span>Kết nối sự sống</span>
               </Title>
               
               <Paragraph className="hero-description">

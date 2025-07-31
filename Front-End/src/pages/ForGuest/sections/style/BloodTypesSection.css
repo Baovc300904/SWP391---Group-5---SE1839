@@ -103,7 +103,7 @@
 .blood-type-icon {
   font-size: 32px;
   margin-right: 12px;
-  filter: drop-shadow(2px 2px 4px rgba(220, 38, 38, 0.2));
+  filter: drop-shadow(2px 2px 4px rgba(33, 150, 243, 0.2));
 }
 
 .blood-type-info {

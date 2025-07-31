@@ -103,14 +103,14 @@
   backdrop-filter: blur(10px);
   transition: all 0.3s ease !important;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.08);
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.08);
 }
 
 .benefit-card:hover {
   transform: translateY(-5px) !important;
   background: rgba(255, 255, 255, 0.98) !important;
-  box-shadow: 0 8px 25px rgba(220, 38, 38, 0.15) !important;
-  border-color: rgba(220, 38, 38, 0.2) !important;
+  box-shadow: 0 8px 25px rgba(33, 150, 243, 0.15) !important;
+  border-color: rgba(33, 150, 243, 0.2) !important;
 }
 
 .benefit-card .ant-card-body {
@@ -133,12 +133,12 @@
   font-size: 48px;
   margin-bottom: 24px;
   transition: all 0.3s ease;
-  filter: drop-shadow(0 2px 4px rgba(220, 38, 38, 0.2));
+  filter: drop-shadow(0 2px 4px rgba(33, 150, 243, 0.2));
 }
 
 .benefit-card:hover .benefit-icon {
   transform: scale(1.05);
-  filter: drop-shadow(0 3px 6px rgba(220, 38, 38, 0.3));
+  filter: drop-shadow(0 3px 6px rgba(33, 150, 243, 0.3));
 }
 
 .benefit-title {

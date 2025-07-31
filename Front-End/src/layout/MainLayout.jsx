@@ -150,7 +150,7 @@ export default function MainLayout() {
             padding: 20,
             fontWeight: "bold",
             fontSize: 16,
-            background: "linear-gradient(135deg, #FF5722 60%, #E91E63 100%)",
+            background: "linear-gradient(135deg, #1976d2 60%, #2196f3 100%)",
             marginBottom: 8,
             borderRadius: 8,
             margin: 8,
@@ -175,7 +175,7 @@ export default function MainLayout() {
       <Layout>
         <Header
           style={{
-            background: "#F44336",
+            background: "#1976d2",
             color: "#fff",
             fontWeight: "bold",
             fontSize: 18,
@@ -190,7 +190,7 @@ export default function MainLayout() {
         <Footer
           style={{
             textAlign: "center",
-            background: "#F44336",
+            background: "#1976d2",
             color: "#fff",
             padding: "16px 0",
           }}

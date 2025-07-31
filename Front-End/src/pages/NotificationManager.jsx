@@ -240,7 +240,7 @@ export default function NotificationManager() {
       title: "Tiêu đề",
       dataIndex: "tieuDe",
       render: (text) => (
-        <span style={{ fontWeight: 600, color: "#c2185b" }}>{text}</span>
+                  <span style={{ fontWeight: 600, color: "#1976d2" }}>{text}</span>
       ),
       ellipsis: true,
     },
@@ -324,7 +324,7 @@ export default function NotificationManager() {
   return (
     <Card
       title={
-        <span style={{ fontWeight: 600, fontSize: 22, color: "#c2185b" }}>
+        <span style={{ fontWeight: 600, fontSize: 22, color: "#1976d2" }}>
           🔔 Quản lý thông báo
         </span>
       }
@@ -348,8 +348,8 @@ export default function NotificationManager() {
             onClick={() => showEdit(null)}
             style={{
               borderRadius: 10,
-              background: "#c2185b",
-              borderColor: "#c2185b",
+                        background: "#1976d2",
+          borderColor: "#1976d2",
               fontWeight: 600,
             }}
           >
@@ -384,7 +384,7 @@ export default function NotificationManager() {
       <Modal
         open={detailModal}
         title={
-          <span style={{ color: "#c2185b", fontWeight: 600, fontSize: 20 }}>
+          <span style={{ color: "#1976d2", fontWeight: 600, fontSize: 20 }}>
             Chi tiết thông báo
           </span>
         }
@@ -448,7 +448,7 @@ export default function NotificationManager() {
               <Card
                 size="small"
                 title={
-                  <span style={{ color: "#c2185b" }}>
+                  <span style={{ color: "#1976d2" }}>
                     👤 Thông tin người tạo
                   </span>
                 }
@@ -496,7 +496,7 @@ export default function NotificationManager() {
       <Modal
         open={editModal}
         title={
-          <span style={{ fontWeight: 600, color: "#c2185b", fontSize: 20 }}>
+          <span style={{ fontWeight: 600, color: "#1976d2", fontSize: 20 }}>
             {editId ? "Cập nhật thông báo" : "Thêm mới thông báo"}
           </span>
         }
@@ -511,7 +511,7 @@ export default function NotificationManager() {
         <Form form={form} layout="vertical">
           <Form.Item
             name="tieuDe"
-            label={<span style={{ color: "#c2185b" }}>Tiêu đề</span>}
+            label={<span style={{ color: "#1976d2" }}>Tiêu đề</span>}
             rules={[{ required: true, message: "Nhập tiêu đề" }]}
           >
             <Input
@@ -526,7 +526,7 @@ export default function NotificationManager() {
           </Form.Item>
           <Form.Item
             name="noiDung"
-            label={<span style={{ color: "#c2185b" }}>Nội dung</span>}
+            label={<span style={{ color: "#1976d2" }}>Nội dung</span>}
             rules={[{ required: true, message: "Nhập nội dung" }]}
           >
             <Input.TextArea
@@ -542,7 +542,7 @@ export default function NotificationManager() {
           </Form.Item>
           <Form.Item
             name="dateRange"
-            label={<span style={{ color: "#c2185b" }}>Thời gian áp dụng</span>}
+            label={<span style={{ color: "#1976d2" }}>Thời gian áp dụng</span>}
             rules={[
               { required: true, message: "Chọn ngày bắt đầu và kết thúc" },
             ]}
@@ -556,7 +556,7 @@ export default function NotificationManager() {
           <Form.Item
             name="anh"
             label={
-              <span style={{ color: "#c2185b" }}>
+              <span style={{ color: "#1976d2" }}>
                 Ảnh {`${editId ? "(Không sửa)" : ""}`}
               </span>
             }

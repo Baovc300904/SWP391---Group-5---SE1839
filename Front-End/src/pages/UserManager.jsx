@@ -156,7 +156,7 @@ export default function UserManager() {
       align: "center",
       render: (_, record) =>
         record.nhomMau?.ten ? (
-          <Tag color="#d32f2f" style={{ borderRadius: 10 }}>
+          <Tag color="#1976d2" style={{ borderRadius: 10 }}>
             {record.nhomMau.ten}
           </Tag>
         ) : (
