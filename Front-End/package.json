@@ -14,7 +14,7 @@
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@react-leaflet/core": "^3.0.0",
     "@tinymce/tinymce-react": "^6.2.1",
-    "antd": "^5.26.3",
+    "antd": "^5.26.4",
     "axios": "^1.10.0",
     "dayjs": "^1.11.13",
     "leaflet": "^1.9.4",
